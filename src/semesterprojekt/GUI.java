@@ -650,15 +650,32 @@ public class GUI extends javax.swing.JFrame {
 
         ArrayList<Kunde> kl = controller.getAllCostumers();
         for (int i = 0; i < kl.size(); i++) {
-            jComboBox1.addItem(kl.get(i));
+            Kunde kunde = kl.get(i);
+            for (int j = 0; j < kl.size(); j++) {
+                if (kl.get(i).getNavn().compareTo((kl.get(j).getNavn())) < 0) {
+                    Kunde temp = kl.get(j);
+                    kl.set(i, temp);
+                    kl.set(j, kunde);
+                }
+            }
+        }
+        for (int i = 0; i < kl.size(); i++) {
+            jComboBox1.addItem(kl.get(i).getNavn());
         }
 
         ArrayList<Vare> vl = controller.getAllRessources();
         for (int i = 0; i < vl.size(); i++) {
-            list1.addElement(vl.get(i));
+            Vare vare = vl.get(i);
+            for (int j = 0; j < vl.size(); j++) {
+                if (vl.get(i).getVnavn().compareTo((vl.get(j).getVnavn())) < 0) {
+                    Vare temp = vl.get(j);
+                    vl.set(i, temp);
+                    vl.set(j, vare);
+                }
+            }
         }
-        for (int i = 0; i < list2.size(); i++) {
-            
+        for (int i = 0; i < vl.size(); i++) {
+            list1.addElement(vl.get(i));
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
