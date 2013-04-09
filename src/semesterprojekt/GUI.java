@@ -677,68 +677,74 @@ public class GUI extends javax.swing.JFrame
         });
     }
 
-    public void update()
-    {
+    public void update(){
         list1.clear();
         list3.clear();
         jComboBox1.removeAllItems();
         jComboBox1.addItem("Kunder");
 
         ArrayList<Ordre> ol = controller.getAllOrdres();
-        for (int i = 0; i < ol.size(); i++)
-        {
+        for (int i = 0; i < ol.size(); i++) {
             Ordre ordre = ol.get(i);
-            for (int j = 0; j < ol.size(); j++)
-            {
-                if (ol.get(i).getOnummer() > (ol.get(j).getOnummer()))
-                {
+            for (int j = 0; j < ol.size(); j++) {
+                if (ol.get(i).getOnummer() < ol.get(j).getOnummer()) {
                     Ordre temp = ol.get(j);
-                    ol.set(i, temp);
-                    ol.set(j, ordre);
+                    ol.set(j, temp);
+                    ol.set(i, ordre);
                 }
             }
         }
-        for (int i = 0; i < ol.size(); i++)
-        {
+        for (int i = 0; i < ol.size(); i++) {
             list3.addElement(ol.get(i));
         }
 
         ArrayList<Kunde> kl = controller.getAllCostumers();
-        for (int i = 0; i < kl.size(); i++)
-        {
+        for (int i = 0; i < kl.size(); i++) {
             Kunde kunde = kl.get(i);
-            for (int j = 0; j < kl.size(); j++)
-            {
-                if (kl.get(i).getNavn().compareTo((kl.get(j).getNavn())) < 0)
-                {
+            for (int j = 0; j < kl.size(); j++) {
+                if (kl.get(i).getNavn().compareTo((kl.get(j).getNavn())) < 0) {
                     Kunde temp = kl.get(j);
-                    kl.set(i, temp);
                     kl.set(j, kunde);
+                    kl.set(i, temp);
                 }
             }
         }
-        for (int i = 0; i < kl.size(); i++)
-        {
+        for (int i = 0; i < kl.size(); i++) {
             jComboBox1.addItem(kl.get(i).getNavn());
         }
 
         ArrayList<Vare> vl = controller.getAllRessources();
-        for (int i = 0; i < vl.size(); i++)
-        {
+        for (int i = 0; i < vl.size(); i++) {
             Vare vare = vl.get(i);
-            for (int j = 0; j < vl.size(); j++)
-            {
-                if (vl.get(i).getVnavn().compareTo((vl.get(j).getVnavn())) < 0)
-                {
+            for (int j = 0; j < vl.size(); j++) {
+                if (vl.get(i).getVnavn().compareTo((vl.get(j).getVnavn())) < 0) {
                     Vare temp = vl.get(j);
-                    vl.set(i, temp);
                     vl.set(j, vare);
+                    vl.set(i, temp);
                 }
             }
         }
-        for (int i = 0; i < vl.size(); i++)
-        {
+        for (int i = 0; i < vl.size(); i++) {
             list1.addElement(vl.get(i));
+        }
+        
+        ArrayList<Vare> vl2 = new ArrayList<>();
+        for (int i = 0; i < list2.size(); i++) {
+            vl2.add((Vare)list2.get(i));
+        }
+        list2.clear();
+        for (int i = 0; i < vl2.size(); i++) {
+            Vare vare = vl2.get(i);
+            for (int j = 0; j < vl2.size(); j++) {
+                if (vl2.get(i).getVnavn().compareTo((vl2.get(j).getVnavn())) < 0) {
+                    Vare temp = vl2.get(j);
+                    vl2.set(i, temp);
+                    vl2.set(j, vare);
+                }
+            }
+        }
+        for (int i = 0; i < vl2.size(); i++) {
+            list2.addElement(vl2.get(i));
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
