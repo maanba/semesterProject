@@ -430,8 +430,10 @@ public class GUI extends javax.swing.JFrame {
         if (jComboBox1.getSelectedItem() != "Kunder") {
 
             if (list2.isEmpty() == false) {
-
-                odetaljer.add(1,);
+                for (int i = 0; i < list2.size(); i++) {
+                    odetaljer.add(1, list2.getElementAt(i));
+                }
+                
                 for (int i = 0; i < list2.size(); i++) {
                     vareIn.add((Vare) list2.getElementAt(i));
                 }
