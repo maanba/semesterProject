@@ -635,6 +635,16 @@ public class GUI extends javax.swing.JFrame {
 
         ArrayList<Ordre> ol = controller.getAllOrdres();
         for (int i = 0; i < ol.size(); i++) {
+            Ordre ordre = ol.get(i);
+            for (int j = 0; j < ol.size(); j++) {
+                if (ol.get(i).getOnummer() > (ol.get(j).getOnummer())) {
+                    Ordre temp = ol.get(j);
+                    ol.set(i, temp);
+                    ol.set(j, ordre);
+                }
+            }
+        }
+        for (int i = 0; i < ol.size(); i++) {
             list3.addElement(ol.get(i));
         }
 
