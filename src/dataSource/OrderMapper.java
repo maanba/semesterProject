@@ -375,7 +375,7 @@ public class OrderMapper {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Fail in OrderMapper - getOrder");
+            System.out.println("Fail in OrderMapper - getAllOrders");
             System.out.println(e.getMessage());
         }
         if (testRun) {
@@ -420,7 +420,7 @@ public class OrderMapper {
                 kl.add(k);
             }
         } catch (Exception e) {
-            System.out.println("Fail in OrderMapper - getOrder");
+            System.out.println("Fail in OrderMapper - getAllCostumers");
             System.out.println(e.getMessage());
         }
         if (testRun) {
@@ -464,7 +464,7 @@ public class OrderMapper {
                 vl.add(v);
             }
         } catch (Exception e) {
-            System.out.println("Fail in OrderMapper - getOrder");
+            System.out.println("Fail in OrderMapper - getAllRessources");
             System.out.println(e.getMessage());
         }
         if (testRun) {
@@ -502,7 +502,7 @@ public class OrderMapper {
                 nextOno = rs.getInt(1);
             }
         } catch (Exception e) {
-            System.out.println("Fail in OrderMapper - getNextOrderNo");
+            System.out.println("Fail in OrderMapper - getNextVnummer");
             System.out.println(e.getMessage());
         }
         return nextOno;
@@ -519,7 +519,7 @@ public class OrderMapper {
                 nextOno = rs.getInt(1);
             }
         } catch (Exception e) {
-            System.out.println("Fail in OrderMapper - getNextOrderNo");
+            System.out.println("Fail in OrderMapper - getNextKnummer");
             System.out.println(e.getMessage());
         }
         return nextOno;

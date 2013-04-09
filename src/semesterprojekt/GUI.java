@@ -18,36 +18,7 @@ public class GUI extends javax.swing.JFrame {
 
     public GUI() {
         initComponents();
-        jList1.setCellRenderer(new DefaultListCellRenderer() { // Setting the DefaultListCellRenderer
-            @Override
-            public Component getListCellRendererComponent(JList list, Object value, int index,
-                    boolean isSelected, boolean cellHasFocus) {
-                Vare vare = (Vare) value;  // Using value we are getting the object in JList
-                JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                label.setText(vare.toString());  // Setting the text
-                return label;
-            }
-        });
-        jList2.setCellRenderer(new DefaultListCellRenderer() { // Setting the DefaultListCellRenderer
-            @Override
-            public Component getListCellRendererComponent(JList list, Object value, int index,
-                    boolean isSelected, boolean cellHasFocus) {
-                Vare vare = (Vare) value;  // Using value we are getting the object in JList
-                JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                label.setText(vare.toString());  // Setting the text
-                return label;
-            }
-        });
-        jList3.setCellRenderer(new DefaultListCellRenderer() { // Setting the DefaultListCellRenderer
-            @Override
-            public Component getListCellRendererComponent(JList list, Object value, int index,
-                    boolean isSelected, boolean cellHasFocus) {
-                Ordre ordre = (Ordre) value;  // Using value we are getting the object in JList
-                JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                label.setText("" + ordre.getOnummer());  // Setting the text
-                return label;
-            }
-        });
+        cellRenderer();
 
         update();
 
@@ -491,10 +462,11 @@ public class GUI extends javax.swing.JFrame {
     private void jButtonTilføjActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonTilføjActionPerformed
     {//GEN-HEADEREND:event_jButtonTilføjActionPerformed
         Vare selected = (Vare)jList1.getSelectedValue();
+        selected.setQty(Integer.parseInt(jTextFieldAntal.getText()));
         if (selected != null && controller.checkQty(selected.getVnummer(), Integer.parseInt(jTextFieldAntal.getText()))) {
             controller.setQty(selected.getVnummer(), Integer.parseInt(jTextFieldAntal.getText()));
 
-            list2.addElement(selected + jTextFieldAntal.getText());
+            list2.addElement(selected);
         } else {
             jLabelError.setText("FEJL!");
         }
@@ -623,9 +595,40 @@ public class GUI extends javax.swing.JFrame {
         });
     }
 
+    public void cellRenderer(){
+        jList1.setCellRenderer(new DefaultListCellRenderer() { // Setting the DefaultListCellRenderer
+            @Override
+            public Component getListCellRendererComponent(JList list, Object value, int index,
+                    boolean isSelected, boolean cellHasFocus) {
+                Vare vare = (Vare) value;  // Using value we are getting the object in JList
+                JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                label.setText(vare.toString());  // Setting the text
+                return label;
+            }
+        });
+        jList2.setCellRenderer(new DefaultListCellRenderer() { // Setting the DefaultListCellRenderer
+            @Override
+            public Component getListCellRendererComponent(JList list, Object value, int index,
+                    boolean isSelected, boolean cellHasFocus) {
+                Vare vare = (Vare) value;  // Using value we are getting the object in JList
+                JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                label.setText(vare.toString());  // Setting the text
+                return label;
+            }
+        });
+        jList3.setCellRenderer(new DefaultListCellRenderer() { // Setting the DefaultListCellRenderer
+            @Override
+            public Component getListCellRendererComponent(JList list, Object value, int index,
+                    boolean isSelected, boolean cellHasFocus) {
+                Ordre ordre = (Ordre) value;  // Using value we are getting the object in JList
+                JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                label.setText("" + ordre.getOnummer());  // Setting the text
+                return label;
+            }
+        });
+    }
     public void update() {
         list1.clear();
-        list2.clear();
         list3.clear();
         jComboBox1.removeAllItems();
         jComboBox1.addItem("Kunder");
