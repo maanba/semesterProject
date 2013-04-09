@@ -460,7 +460,6 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButtonTilføjActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonTilføjActionPerformed
     {//GEN-HEADEREND:event_jButtonTilføjActionPerformed
-
         boolean check = false;
         Vare selected = (Vare) jList1.getSelectedValue();
         selected.setQty(Integer.parseInt(jTextFieldAntal.getText()));
