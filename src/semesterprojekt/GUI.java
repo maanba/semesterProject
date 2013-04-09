@@ -6,7 +6,6 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JScrollPane;
 
 public class GUI extends javax.swing.JFrame {
 
@@ -461,7 +460,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButtonTilføjActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonTilføjActionPerformed
     {//GEN-HEADEREND:event_jButtonTilføjActionPerformed
-        Vare selected = (Vare)jList1.getSelectedValue();
+        Vare selected = (Vare) jList1.getSelectedValue();
         selected.setQty(Integer.parseInt(jTextFieldAntal.getText()));
         if (selected != null && controller.checkQty(selected.getVnummer(), Integer.parseInt(jTextFieldAntal.getText()))) {
             controller.setQty(selected.getVnummer(), Integer.parseInt(jTextFieldAntal.getText()));
@@ -477,42 +476,29 @@ public class GUI extends javax.swing.JFrame {
     {//GEN-HEADEREND:event_jButtonGennemførOrdreActionPerformed
         ArrayList<Vare> vareIn = new ArrayList<>();
         ArrayList<Odetaljer> odetaljer = new ArrayList<>();
+        String afhentning;
+        if (jRadioButtonAfhentning.isSelected()) {
+            afhentning = "Levering af Hellebaek Festudlejning";
+        } else {
+            afhentning = "Afhentning af kunden";
+        }
 
         if (jComboBox1.getSelectedItem() != "Kunder") {
 
             if (list2.isEmpty() == false) {
                 for (int i = 0; i < list2.size(); i++) {
-                    odetaljer.add((Odetaljer)list2.getElementAt(i));
+                    odetaljer.add((Odetaljer) list2.getElementAt(i));
                 }
-                
+
                 for (int i = 0; i < list2.size(); i++) {
                     vareIn.add((Vare) list2.getElementAt(i));
                 }
                 if (jRadioButtonAfhentning.isSelected()) {
-//                    controller.createNewOrder(Integer.parseInt(jComboBox1.getSelectedItem() +
-//                            ""),
-//                            
-//                            Integer.parseInt(jTextFieldDagUd.getText()) +
-//                            "-" + Integer.parseInt(jTextFieldMånedUd.getText()) +
-//                            "-" + Integer.parseInt(jTextFieldÅrUd.getText()), 
-//                            Integer.parseInt(jTextFieldDagInd.getText()) +
-//                            "-" + Integer.parseInt(jTextFieldMånedInd.getText()) +
-//                            "-" + Integer.parseInt(jTextFieldÅrInd.getText()),
-//                            
-//                            odetaljer);
-                    list2.clear();
-                    list3.clear();
-                    for (int i = 0; i < vareIn.size(); i++) {
-                        list3.addElement(vareIn.get(i));
-                    }
-                    jLabelError.setText("");
-                }
-                if (jRadioButtonLevering.isSelected()) {
-//                    controller.createNewOrder(Integer.parseInt(jComboBox1.getSelectedItem() + ""), Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText()
-//                    ),
-//                            Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText()
-//                    ), "Levering af HellebÃ¦k Festudlejning", vareIn
-//                    );
+                    controller.createNewOrder(Integer.parseInt(jComboBox1.getSelectedItem() + ""), +
+                            Double.parseDouble(jTextFieldTotalPris.getText()), afhentning, "igangsat", +
+                            Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText()),
+                            Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText()),
+                            odetaljer);
                     list2.clear();
                     list3.clear();
                     for (int i = 0; i < vareIn.size(); i++) {
@@ -595,7 +581,7 @@ public class GUI extends javax.swing.JFrame {
         });
     }
 
-    public void cellRenderer(){
+    public void cellRenderer() {
         jList1.setCellRenderer(new DefaultListCellRenderer() { // Setting the DefaultListCellRenderer
             @Override
             public Component getListCellRendererComponent(JList list, Object value, int index,
@@ -627,6 +613,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
     }
+
     public void update() {
         list1.clear();
         list3.clear();

@@ -17,7 +17,7 @@ public class OrderMapper {
     // returns true if all elements were inserted successfully
     public boolean insertOrders(ArrayList<Ordre> ol, Connection conn) throws SQLException {
         int rowsInserted = 0;
-        String SQLString = "insert into ordrer values (?,?,?,?,?,?)";
+        String SQLString = "insert into ordrer values (?,?,?,?,?,?,?,?)";
         PreparedStatement statement = null;
         statement = conn.prepareStatement(SQLString);
 
@@ -25,11 +25,13 @@ public class OrderMapper {
             Ordre o = ol.get(i);
             statement.setInt(1, o.getOnummer());
             statement.setInt(2, o.getKnummer());
-            statement.setString(3, o.getAfhentning());
-            statement.setString(4, o.getStatus());
-            statement.setString(5, o.getLevering());
-            statement.setString(6, o.getReturnering());
-            statement.setInt(7, o.getVer());
+            statement.setDouble(3, o.getPris());
+            statement.setString(4, o.getAfhentning());
+            statement.setString(5, o.getStatus());
+            statement.setString(6, o.getModtaget());
+            statement.setString(7, o.getLevering());
+            statement.setString(8, o.getReturnering());
+            statement.setInt(9, o.getVer());
             rowsInserted += statement.executeUpdate();
         }
         if (testRun) {
@@ -85,7 +87,7 @@ public class OrderMapper {
     public boolean updateOrders(ArrayList<Ordre> ol, Connection conn) throws SQLException {
         int rowsUpdated = 0;
         String SQLString = "update ordrer "
-                + "set knummer = ?, afhentning = ?, modtaget = ?, sendt = ?, ver = ? "
+                + "set knummer = ?, pris = ?, afhentning = ?, status = ?, modtaget = ?, levering = ?, returnering = ?, ver = ? "
                 + "where onummer = ? and ver = ?";
         PreparedStatement statement = null;
 
@@ -93,12 +95,15 @@ public class OrderMapper {
         for (int i = 0; i < ol.size(); i++) {
             Ordre o = ol.get(i);
             statement.setInt(1, o.getKnummer());
-            statement.setString(2, o.getAfhentning());
-            statement.setString(3, o.getLevering().substring(0, 10));
-            statement.setString(4, o.getReturnering().substring(0, 10));
-            statement.setInt(5, o.getVer() + 1); // next version number
-            statement.setInt(6, o.getOnummer());
-            statement.setInt(7, o.getVer());   // old version number
+            statement.setDouble(2, o.getPris());
+            statement.setString(3, o.getAfhentning());
+            statement.setString(4, o.getStatus());
+            statement.setString(5, o.getModtaget());
+            statement.setString(6, o.getLevering().substring(0, 10));
+            statement.setString(7, o.getReturnering().substring(0, 10));
+            statement.setInt(8, o.getVer() + 1); // next version number
+            statement.setInt(9, o.getOnummer());
+            statement.setInt(10, o.getVer());   // old version number
             int tupleUpdated = statement.executeUpdate();
             if (tupleUpdated == 1) {
                 o.nuVer();                       // increment version in current OrderObject
@@ -296,7 +301,8 @@ public class OrderMapper {
                         rs.getString(5),
                         rs.getString(6),
                         rs.getString(7),
-                        rs.getInt(8));
+                        rs.getString(8),
+                        rs.getInt(9));
 
 
                 //=== get order details
@@ -358,7 +364,8 @@ public class OrderMapper {
                             rs.getString(5),
                             rs.getString(6),
                             rs.getString(7),
-                            rs.getInt(8));
+                            rs.getString(8),
+                            rs.getInt(9));
 
 
                     //=== get order details
