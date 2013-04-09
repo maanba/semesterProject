@@ -461,16 +461,29 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButtonTilføjActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonTilføjActionPerformed
     {//GEN-HEADEREND:event_jButtonTilføjActionPerformed
-        Vare selected = (Vare)jList1.getSelectedValue();
+        boolean check = false;
+        Vare selected = (Vare) jList1.getSelectedValue();
         selected.setQty(Integer.parseInt(jTextFieldAntal.getText()));
         if (selected != null && controller.checkQty(selected.getVnummer(), Integer.parseInt(jTextFieldAntal.getText()))) {
             controller.setQty(selected.getVnummer(), Integer.parseInt(jTextFieldAntal.getText()));
-
-            list2.addElement(selected);
+            for (int i = 0; i < list2.size(); i++) {
+                Vare vare = (Vare) list2.getElementAt(i);
+                if (vare.getVnummer() == selected.getVnummer()) {
+                    vare.setQty(vare.getQty() + Integer.parseInt(jTextFieldAntal.getText()));
+                    list2.addElement(vare);
+                    list2.removeElementAt(i);
+                    check = true;
+                    break;
+                }
+            }
+            if (check == false) {
+                list2.addElement(selected);
+            }
         } else {
             jLabelError.setText("FEJL!");
         }
         update();
+        
     }//GEN-LAST:event_jButtonTilføjActionPerformed
 
     private void jButtonGennemførOrdreActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonGennemførOrdreActionPerformed
@@ -482,9 +495,9 @@ public class GUI extends javax.swing.JFrame {
 
             if (list2.isEmpty() == false) {
                 for (int i = 0; i < list2.size(); i++) {
-                    odetaljer.add((Odetaljer)list2.getElementAt(i));
+                    odetaljer.add((Odetaljer) list2.getElementAt(i));
                 }
-                
+
                 for (int i = 0; i < list2.size(); i++) {
                     vareIn.add((Vare) list2.getElementAt(i));
                 }
@@ -595,7 +608,7 @@ public class GUI extends javax.swing.JFrame {
         });
     }
 
-    public void cellRenderer(){
+    public void cellRenderer() {
         jList1.setCellRenderer(new DefaultListCellRenderer() { // Setting the DefaultListCellRenderer
             @Override
             public Component getListCellRendererComponent(JList list, Object value, int index,
@@ -627,6 +640,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
     }
+
     public void update() {
         list1.clear();
         list3.clear();
@@ -646,6 +660,9 @@ public class GUI extends javax.swing.JFrame {
         ArrayList<Vare> vl = controller.getAllRessources();
         for (int i = 0; i < vl.size(); i++) {
             list1.addElement(vl.get(i));
+        }
+        for (int i = 0; i < list2.size(); i++) {
+            
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
