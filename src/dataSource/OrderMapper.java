@@ -27,8 +27,8 @@ public class OrderMapper {
             statement.setInt(2, o.getKnummer());
             statement.setString(3, o.getAfhentning());
             statement.setString(4, o.getStatus());
-            statement.setString(5, o.getModtaget());
-            statement.setString(6, o.getSendt());
+            statement.setString(5, o.getLevering());
+            statement.setString(6, o.getReturnering());
             statement.setInt(7, o.getVer());
             rowsInserted += statement.executeUpdate();
         }
@@ -94,8 +94,8 @@ public class OrderMapper {
             Ordre o = ol.get(i);
             statement.setInt(1, o.getKnummer());
             statement.setString(2, o.getAfhentning());
-            statement.setString(3, o.getModtaget().substring(0, 10));
-            statement.setString(4, o.getSendt().substring(0, 10));
+            statement.setString(3, o.getLevering().substring(0, 10));
+            statement.setString(4, o.getReturnering().substring(0, 10));
             statement.setInt(5, o.getVer() + 1); // next version number
             statement.setInt(6, o.getOnummer());
             statement.setInt(7, o.getVer());   // old version number

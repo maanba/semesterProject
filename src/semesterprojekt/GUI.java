@@ -97,6 +97,8 @@ public class GUI extends javax.swing.JFrame {
         jLabelError = new javax.swing.JLabel();
         jTextFieldAntal = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
+        jTextFieldTotalPris = new javax.swing.JTextField();
+        jLabel27 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane10 = new javax.swing.JScrollPane();
         jList9 = new javax.swing.JList();
@@ -283,6 +285,10 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel17.setText("Antal:");
         jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, -1, -1));
+        jPanel1.add(jTextFieldTotalPris, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 50, 60, -1));
+
+        jLabel27.setText("Total pris:");
+        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 50, -1, -1));
 
         jTabbedPane1.addTab("Ordre", jPanel1);
 
@@ -484,25 +490,13 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButtonTilføjActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonTilføjActionPerformed
     {//GEN-HEADEREND:event_jButtonTilføjActionPerformed
-        int selected = jList1.getSelectedIndex();
-        ArrayList<Vare> vl = controller.getAllRessources();
-        if (selected >= 0 && controller.checkQty(vl.get(selected).getVnummer(), Integer.parseInt(jTextFieldAntal.getText()))) {
-            controller.setQty(vl.get(selected).getVnummer(), Integer.parseInt(jTextFieldAntal.getText()));
+        Vare selected = (Vare)jList1.getSelectedValue();
+        if (selected != null && controller.checkQty(selected.getVnummer(), Integer.parseInt(jTextFieldAntal.getText()))) {
+            controller.setQty(selected.getVnummer(), Integer.parseInt(jTextFieldAntal.getText()));
 
-            String navn = vl.get(selected).getVnavn();
-            int længde = 0;
-
-            if (navn.length() >= 30) {
-                navn = navn.substring(0, 29);
-            } else {
-                længde = 30 - navn.length();
-                for (int p = 0; p <= længde; p++) {
-                    navn += " ";
-                }
-            }
-            list2.addElement(navn + jTextFieldAntal.getText());
+            list2.addElement(selected + jTextFieldAntal.getText());
         } else {
-            jLabelError.setText("Der opstod en fejl, tjek venligst dine indtastninger fÃ¸r du prÃ¸ver igen!");
+            jLabelError.setText("FEJL!");
         }
         update();
     }//GEN-LAST:event_jButtonTilføjActionPerformed
@@ -516,18 +510,24 @@ public class GUI extends javax.swing.JFrame {
 
             if (list2.isEmpty() == false) {
                 for (int i = 0; i < list2.size(); i++) {
-                    odetaljer.add(1, list2.getElementAt(i));
+                    odetaljer.add((Odetaljer)list2.getElementAt(i));
                 }
                 
                 for (int i = 0; i < list2.size(); i++) {
                     vareIn.add((Vare) list2.getElementAt(i));
                 }
                 if (jRadioButtonAfhentning.isSelected()) {
-                    controller.createNewOrder(Integer.parseInt(jComboBox1.getSelectedItem() + ""), Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText()
-                    ),
-                            Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText()
-                    ), "Afhentning Af Kunden", vareIn
-                    );
+//                    controller.createNewOrder(Integer.parseInt(jComboBox1.getSelectedItem() +
+//                            ""),
+//                            
+//                            Integer.parseInt(jTextFieldDagUd.getText()) +
+//                            "-" + Integer.parseInt(jTextFieldMånedUd.getText()) +
+//                            "-" + Integer.parseInt(jTextFieldÅrUd.getText()), 
+//                            Integer.parseInt(jTextFieldDagInd.getText()) +
+//                            "-" + Integer.parseInt(jTextFieldMånedInd.getText()) +
+//                            "-" + Integer.parseInt(jTextFieldÅrInd.getText()),
+//                            
+//                            odetaljer);
                     list2.clear();
                     list3.clear();
                     for (int i = 0; i < vareIn.size(); i++) {
@@ -536,11 +536,11 @@ public class GUI extends javax.swing.JFrame {
                     jLabelError.setText("");
                 }
                 if (jRadioButtonLevering.isSelected()) {
-                    controller.createNewOrder(Integer.parseInt(jComboBox1.getSelectedItem() + ""), Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText()
-                    ),
-                            Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText()
-                    ), "Levering af HellebÃ¦k Festudlejning", vareIn
-                    );
+//                    controller.createNewOrder(Integer.parseInt(jComboBox1.getSelectedItem() + ""), Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText()
+//                    ),
+//                            Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText()
+//                    ), "Levering af HellebÃ¦k Festudlejning", vareIn
+//                    );
                     list2.clear();
                     list3.clear();
                     for (int i = 0; i < vareIn.size(); i++) {
@@ -550,7 +550,7 @@ public class GUI extends javax.swing.JFrame {
                 }
             }
         } else {
-            jLabelError.setText("Du skal vÃ¦lge en kunde fra listen!");
+            jLabelError.setText("FEJL!");
         }
     }//GEN-LAST:event_jButtonGennemførOrdreActionPerformed
 
@@ -683,6 +683,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -733,6 +734,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldDagUd;
     private javax.swing.JTextField jTextFieldMånedInd;
     private javax.swing.JTextField jTextFieldMånedUd;
+    private javax.swing.JTextField jTextFieldTotalPris;
     private javax.swing.JTextField jTextFieldÅrInd;
     private javax.swing.JTextField jTextFieldÅrUd;
     // End of variables declaration//GEN-END:variables
