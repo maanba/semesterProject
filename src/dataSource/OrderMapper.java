@@ -58,7 +58,7 @@ public class OrderMapper {
         }
         return (rowsInserted == kl.size());
     }
-    
+
     public boolean insertRessources(ArrayList<Vare> vl, Connection conn) throws SQLException {
         int rowsInserted = 0;
         String SQLString = "insert into varer values (?,?,?,?)";
@@ -134,7 +134,7 @@ public class OrderMapper {
         }
         return (rowsUpdated == kl.size());    // false if any conflict in version number             
     }
-    
+
     public boolean updateRessources(ArrayList<Vare> vl, Connection conn) throws SQLException {
         int rowsUpdated = 0;
         String SQLString = "update varer "
@@ -253,7 +253,7 @@ public class OrderMapper {
         }
         return (ordersDeleted == ol.size());
     }
-    
+
     public boolean deleteRessources(ArrayList<Vare> vl, Connection conn) throws SQLException {
         int ordersDeleted = 0;
         String SQLString = "delete from varer "
@@ -291,11 +291,12 @@ public class OrderMapper {
             if (rs.next()) {
                 o = new Ordre(ono,
                         rs.getInt(2),
-                        rs.getString(3),
+                        rs.getDouble(3),
                         rs.getString(4),
                         rs.getString(5),
                         rs.getString(6),
-                        rs.getInt(7));
+                        rs.getString(7),
+                        rs.getInt(8));
 
 
                 //=== get order details
@@ -352,11 +353,12 @@ public class OrderMapper {
                 if (rs.next()) {
                     o = new Ordre(rs.getInt(1),
                             rs.getInt(2),
-                            rs.getString(3),
+                            rs.getDouble(3),
                             rs.getString(4),
                             rs.getString(5),
                             rs.getString(6),
-                            rs.getInt(7));
+                            rs.getString(7),
+                            rs.getInt(8));
 
 
                     //=== get order details
@@ -426,7 +428,7 @@ public class OrderMapper {
         }
         return kl;
     }
-    
+
     public ArrayList<Vare> getAllRessources(Connection conn) {
         Vare v = null;
         ArrayList<Vare> vl = new ArrayList();
