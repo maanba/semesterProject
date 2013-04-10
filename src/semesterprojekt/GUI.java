@@ -468,6 +468,14 @@ public class GUI extends javax.swing.JFrame {
                 vare.setQty(od.get(i).getMaengde());
                 list2.addElement(vare);
             }
+            
+            Kunde kunde = controller.getKunde(selected.getKnummer());
+            
+            for (int i = 0; i < jComboBox1.getItemCount(); i++) {
+                if(jComboBox1.getItemAt(i) == kunde.getNavn()){
+                    jComboBox1.setSelectedIndex(i);
+                }
+            }
             list3.removeElementAt(selectedIndex);
         }
         update();
