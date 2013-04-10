@@ -62,6 +62,17 @@ public class DBFacade {
         }
         return k;
     }
+    public Postnummer getPostnummer(int postnr) {
+        Connection con = null;
+        Postnummer p = null;
+        try {
+            con = getConnection();
+            p = new OrderMapper().getPostnummer(con, postnr);
+        } finally {
+            releaseConnection(con);
+        }
+        return p;
+    }
     
     public ArrayList<Ordre> getAllOrdres(){
         Connection con = null;

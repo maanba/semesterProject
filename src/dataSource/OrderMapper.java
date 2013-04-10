@@ -524,6 +524,23 @@ public class OrderMapper {
         }
         return kunde;
     }
+    public Postnummer getPostnummer(Connection conn, int postnr) {
+        String SQLString = "select * from postnummer where postnummer = ?";
+        PreparedStatement statement = null;
+        Postnummer postnummer = null;
+        try {
+            statement = conn.prepareStatement(SQLString);
+            statement.setInt(1, postnr);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                postnummer = new Postnummer(rs.getInt(1),
+                                        rs.getString(2));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return postnummer;
+    }
     // Retrieves the next unique order number from DB
 
     public int getNextOrderNo(Connection conn) {
