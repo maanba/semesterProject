@@ -202,10 +202,16 @@ public class DBFacade {
         return status;
     }
     
-    public boolean deleteOdetail(Odetaljer od) {
-        boolean status = false;
-        if (uow != null) {
-            status = uow.registerDeletedOdetail(od);
+    public boolean deleteOdetail(int ono) {
+        boolean status = true;
+        Connection con = null;
+        try {
+            con = getConnection();
+            status = new OrderMapper().deleteOrderDetials(ono, con);
+        } catch (SQLException ex) {
+            
+        }finally {
+            releaseConnection(con);
         }
         return status;
     }

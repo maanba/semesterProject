@@ -11,6 +11,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import dataSource.DBFacade;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -87,6 +88,10 @@ public class Controller {
         currentOrder.setReturnering(returnering);
         currentOrder.setOd(odetaljer);
         dbFacade.startNewBusinessTransaction();
+        for (int i = 0; i < odetaljer.size(); i++) {
+            odetaljer.get(i).setOnummer(currentOrder.getOnummer());
+        }
+        dbFacade.deleteOdetail(currentOrder.getOnummer());
         dbFacade.registerDirtyOrder(currentOrder);
         for (int i = 0; i < odetaljer.size(); i++) {
             dbFacade.registerNewOrderDetail(odetaljer.get(i));
@@ -287,11 +292,7 @@ public class Controller {
     }
 
     public Vare getVare(int vnummer) {
-        if (processingOrder) {
-            return null;
-        }
         dbFacade.startNewBusinessTransaction();
-        processingOrder = true;
         currentVare = dbFacade.getVare(vnummer);
         return currentVare;
     }
