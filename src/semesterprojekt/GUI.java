@@ -71,7 +71,7 @@ public class GUI extends javax.swing.JFrame {
         jLabelError = new javax.swing.JLabel();
         jTextFieldAntal = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
-        jTextFieldTotalPris = new javax.swing.JTextField();
+        jTextFieldPris = new javax.swing.JTextField();
         jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
@@ -260,7 +260,7 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel17.setText("Antal:");
         jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, -1, -1));
-        jPanel1.add(jTextFieldTotalPris, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 50, 60, -1));
+        jPanel1.add(jTextFieldPris, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 50, 60, -1));
 
         jLabel27.setText("Total pris:");
         jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 50, -1, -1));
@@ -480,9 +480,25 @@ public class GUI extends javax.swing.JFrame {
                     jComboBox1.setSelectedIndex(i);
                 }
             }
+            jTextFieldDagUd.setText(selected.getLevering().substring(0, 2));
+            jTextFieldMånedUd.setText(selected.getLevering().substring(3, 5));
+            jTextFieldÅrUd.setText(selected.getLevering().substring(6, 10));
+            jTextFieldDagInd.setText(selected.getReturnering().substring(0, 2));
+            jTextFieldMånedInd.setText(selected.getReturnering().substring(3, 5));
+            jTextFieldÅrInd.setText(selected.getReturnering().substring(6, 10));
+            
+            if(selected.getAfhentning() == "Levering af Hellebaek Festudlejning"){
+                jRadioButtonLevering.setSelected(rootPaneCheckingEnabled);
+            }
+            else {
+                jRadioButtonAfhentning.setSelected(rootPaneCheckingEnabled);
+            }
+            
+            jTextFieldPris.setText(selected.getPris() + "");
             list3.removeElementAt(selectedIndex);
         }
         update();
+        
     }//GEN-LAST:event_jButtonOrdreRedigerActionPerformed
 
     private void jButtonTilføjActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonTilføjActionPerformed
@@ -539,7 +555,7 @@ public class GUI extends javax.swing.JFrame {
                     }
                     String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                     String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
-                    controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), afhentning, "igangsat", levering, returnering, odetaljer);
+                    controller.createNewOrder(kno, Double.parseDouble(jTextFieldPris.getText()), afhentning, "igangsat", levering, returnering, odetaljer);
                     list2.clear();
                     list3.clear();
                     jLabelError.setText("");
@@ -817,7 +833,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldDagUd;
     private javax.swing.JTextField jTextFieldMånedInd;
     private javax.swing.JTextField jTextFieldMånedUd;
-    private javax.swing.JTextField jTextFieldTotalPris;
+    private javax.swing.JTextField jTextFieldPris;
     private javax.swing.JTextField jTextFieldÅrInd;
     private javax.swing.JTextField jTextFieldÅrUd;
     // End of variables declaration//GEN-END:variables
