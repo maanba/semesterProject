@@ -11,7 +11,6 @@ package semesterprojekt;
 public class Odetaljer {
 
     private int onummer, vnummer, maengde;
-    private Vare vare = new Vare(1001, "Telt", 3, 100.00);
     
     public Odetaljer(int onummer, int vnummer, int maengde) {
         this.onummer = onummer;
@@ -41,6 +40,21 @@ public class Odetaljer {
 
     public void setMaengde(int maengde) {
         this.maengde = maengde;
+    }
+    @Override
+    public String toString() {
+        String navn = vnummer + "";
+        int længde = 0;
+
+        if (navn.length() >= 15) {
+            navn = navn.substring(0, 14);
+        } else {
+            længde = 15 - navn.length();
+            for (int p = 0; p <= længde; p++) {
+                navn += " ";
+            }
+        }
+        return navn + maengde;
     }
 }
 
