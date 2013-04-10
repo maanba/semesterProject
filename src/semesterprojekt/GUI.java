@@ -152,7 +152,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonTilføjActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonTilføj, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, 90, -1));
+        jPanel1.add(jButtonTilføj, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, 80, -1));
 
         jButtonFjern.setText("< Fjern");
         jButtonFjern.addActionListener(new java.awt.event.ActionListener() {
@@ -160,7 +160,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonFjernActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonFjern, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, 91, -1));
+        jPanel1.add(jButtonFjern, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, 80, -1));
 
         jScrollPane2.setViewportView(jList1);
 
@@ -249,7 +249,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 0, 150, -1));
-        jPanel1.add(jLabelError, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 500, 50, 20));
+        jPanel1.add(jLabelError, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 500, 750, 20));
 
         jTextFieldAntal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -487,7 +487,7 @@ public class GUI extends javax.swing.JFrame {
             jTextFieldMånedInd.setText(selected.getReturnering().substring(3, 5));
             jTextFieldÅrInd.setText(selected.getReturnering().substring(6, 10));
             
-            if(selected.getAfhentning() == "Levering af Hellebaek Festudlejning"){
+            if(selected.getAfhentning().equals("Levering af Hellebaek Festudlejning")){
                 jRadioButtonLevering.setSelected(rootPaneCheckingEnabled);
             }
             else {
