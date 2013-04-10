@@ -53,14 +53,6 @@ public class Controller  {
         this.currentOrder = currentOrder;
     }
 
-    public Ordre getCurrentOrder() {
-        return currentOrder;
-    }
-
-    public void setCurrentOrder(Ordre currentOrder) {
-        this.currentOrder = currentOrder;
-    }
-
     public Ordre createNewOrder(int knummer, double pris, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
         if (processingOrder) {
             return null;
@@ -372,42 +364,20 @@ public class Controller  {
         
         
         // chunks:
-        String oppeHøjreHjørne = "Ordrenummer: " + onummer
-               + "Kundenummer: " + knummer
+        String oppeHøjreHjørne = "Ordrenummer: " + onummer + "\n"
+               + "Kundenummer: " + knummer + "\n"
                + "Status: " + status;
         
-        String midtVenstre = "Varer: " + vareListe
+        String midtVenstre = "Varer: " + vareListe + "\n"
                + "Pris : " + pris;
         
-        String nedeVenstreHjørne = "Afhentning/levering: " + afhentning
-               + "Fra dato: " + levering 
+        String nedeVenstreHjørne = "Afhentning af kunde: " + afhentning + "\n"
+               + "Fra dato: " + levering + "\n"
                + "Til dato: " + returnering;
         
-        Document document = new Document();
-
-        String onummer = selectedOrdre.getOnummer() + "";
-        String knummer = selectedOrdre.getKnummer() + "";
-        String pris = selectedOrdre.getPris() + " kroner";
-        String afhentning = selectedOrdre.getAfhentning() + "";
-        String status = selectedOrdre.getStatus() + "";
-        String modtaget = selectedOrdre.getModtaget() + "";
-        String levering = selectedOrdre.getLevering() + "";
-        String returnering = selectedOrdre.getReturnering() + "";
-        String ver = selectedOrdre.getVer() + "";
-
-        String result = "Ordre nummer: " + onummer + "\n"
-                + "Kunde nummer: " + "\t" + knummer + "\n"
-                + "Pris: " + pris + "\n"
-                + "Afhentning: " + afhentning + "\n"
-                + "Status: " + status + "\n"
-                + "Modtaget: " + modtaget + "\n"
-                + "Levering: " + levering + "\n"
-                + "Returnering: " + returnering + "\n"
-                + "Vareliste: " + vareListe;
-
         Document document = new Document() {
         };
-        PdfWriter.getInstance(document, new FileOutputStream(selectedOrdre.getOnummer() + ".pdf"));
+        PdfWriter.getInstance(document, new FileOutputStream("C:\\" + currentOrder.getOnummer() + ".pdf"));
         document.open();
         // Creates a check for the paragraphs contents
             Chunk oppeHøjreHjørneChunk = new Chunk(oppeHøjreHjørne);
@@ -420,17 +390,17 @@ public class Controller  {
             // and Paragraph.ALIGN_RIGHT 
             //
             Paragraph para1 = new Paragraph(oppeHøjreHjørneChunk);
-            para1.setAlignment(Paragraph.ALIGN_LEFT);
-            para1.setSpacingAfter(-1);
+            para1.setAlignment(Paragraph.ALIGN_RIGHT);
+            para1.setSpacingAfter(50);
             document.add(para1);
 
             Paragraph para2 = new Paragraph(vareMidtChunk);
-            para2.setAlignment(Paragraph.ALIGN_RIGHT);
-            para2.setSpacingAfter(-1);
+            para2.setAlignment(Paragraph.ALIGN_LEFT);
+            para2.setSpacingAfter(50);
             document.add(para2);
 
             Paragraph para3 = new Paragraph(nedeVenstreHjørneChunk);
-            para3.setAlignment(Paragraph.ALIGN_RIGHT);
+            para3.setAlignment(Paragraph.ALIGN_LEFT);
             document.add(para3);
         document.close();
         openPDF();

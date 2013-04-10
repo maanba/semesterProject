@@ -11,12 +11,12 @@ package semesterprojekt;
 public class Kunde {
 
     private int knummer, postnummer, telefonnummer;
-    private String addresse, navn;
+    private String adresse, navn;
 
-    public Kunde(int knummer, int postnummer, String addresse, String navn, int telefonnummer) {
+    public Kunde(int knummer, String navn, String adresse, int postnummer, int telefonnummer) {
         this.knummer = knummer;
         this.postnummer = postnummer;
-        this.addresse = addresse;
+        this.adresse = adresse;
         this.navn = navn;
         this.telefonnummer = telefonnummer;
     }
@@ -45,12 +45,12 @@ public class Kunde {
         this.telefonnummer = telefonnummer;
     }
 
-    public String getAddresse() {
-        return addresse;
+    public String getAdresse() {
+        return adresse;
     }
 
-    public void setAddresse(String addresse) {
-        this.addresse = addresse;
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
     }
 
     public String getNavn() {
