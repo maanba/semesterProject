@@ -11,7 +11,6 @@ package semesterprojekt;
 public class Odetaljer {
 
     private int onummer, vnummer, maengde;
-    private Vare vare = new Vare(1001, "Telt", 3, 100.00);
     
     public Odetaljer(int onummer, int vnummer, int maengde) {
         this.onummer = onummer;

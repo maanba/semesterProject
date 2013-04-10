@@ -213,19 +213,16 @@ public class OrderMapper {
         return (rowsUpdated == odl.size());
     }
 
-    public boolean deleteOrderDetials(ArrayList<Odetaljer> odl, Connection conn) throws SQLException {
+    public boolean deleteOrderDetials(int ono, Connection conn) throws SQLException {
         int ordersDeleted = 0;
         String SQLString = "delete from odetaljer "
-                + "where onummer = ? and vnummer = ? ";
+                + "where onummer = ?";
 
         PreparedStatement statement = conn.prepareStatement(SQLString);
-        for (int i = 0; i < odl.size(); i++) {
-            Odetaljer od = odl.get(i);
-            statement.setInt(1, od.getOnummer());
-            statement.setInt(2, od.getVnummer());
+            statement.setInt(1, ono);
             statement.executeUpdate();
-        }
-        return (ordersDeleted == odl.size());
+        
+        return (ordersDeleted == 1);
     }
 
     public boolean deleteCustomers(ArrayList<Kunde> kl, Connection conn) throws SQLException {
