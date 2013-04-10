@@ -56,7 +56,7 @@ public class OrderMapper {
             Kunde o = kl.get(i);
             statement.setInt(1, o.getKnummer());
             statement.setInt(2, o.getPostnummer());
-            statement.setString(3, o.getAddresse());
+            statement.setString(3, o.getAdresse());
             statement.setString(4, o.getNavn());
             statement.setInt(5, o.getTelefonnummer());
             rowsInserted += statement.executeUpdate();
@@ -133,7 +133,7 @@ public class OrderMapper {
         for (int i = 0; i < kl.size(); i++) {
             Kunde k = kl.get(i);
             statement.setInt(1, k.getPostnummer());
-            statement.setString(2, k.getAddresse());
+            statement.setString(2, k.getAdresse());
             statement.setString(3, k.getNavn());
             statement.setInt(4, k.getTelefonnummer());
             statement.setInt(5, k.getKnummer());
@@ -426,9 +426,9 @@ public class OrderMapper {
                 rs = statement.executeQuery();
                 if (rs.next()) {
                     k = new Kunde(rs.getInt(1),
-                            rs.getInt(2),
+                            rs.getString(2),
                             rs.getString(3),
-                            rs.getString(4),
+                            rs.getInt(4),
                             rs.getInt(5));
                 }
                 kl.add(k);
@@ -517,9 +517,9 @@ public class OrderMapper {
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
                 kunde = new Kunde(rs.getInt(1),
-                        rs.getInt(2),
+                        rs.getString(2),
                         rs.getString(3),
-                        rs.getString(4),
+                        rs.getInt(4),
                         rs.getInt(5));
             }
         } catch (Exception e) {
