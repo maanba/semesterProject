@@ -13,12 +13,10 @@ import javax.swing.JList;
 
 public class GUI extends javax.swing.JFrame {
 
-    private DefaultListModel model = new DefaultListModel<>();
     private DefaultListModel list1 = new DefaultListModel();
     private DefaultListModel list2 = new DefaultListModel();
     private DefaultListModel list3 = new DefaultListModel();
     private Controller controller = new Controller();
-    private boolean update = false;
 
     public GUI() {
         initComponents();
@@ -486,19 +484,19 @@ public class GUI extends javax.swing.JFrame {
             jTextFieldDagInd.setText(selected.getReturnering().substring(0, 2));
             jTextFieldMånedInd.setText(selected.getReturnering().substring(3, 5));
             jTextFieldÅrInd.setText(selected.getReturnering().substring(6, 10));
-            
-            if(selected.getAfhentning() == "Levering af Hellebaek Festudlejning"){
+
+            if (selected.getAfhentning() == "Levering af Hellebaek Festudlejning") {
                 jRadioButtonLevering.setSelected(rootPaneCheckingEnabled);
-            }
-            else {
+            } else {
                 jRadioButtonAfhentning.setSelected(rootPaneCheckingEnabled);
             }
-            
+
             jTextFieldPris.setText(selected.getPris() + "");
             list3.removeElementAt(selectedIndex);
+            controller.setCurrentOrder(selected);
         }
         update();
-        
+
     }//GEN-LAST:event_jButtonOrdreRedigerActionPerformed
 
     private void jButtonTilføjActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonTilføjActionPerformed
@@ -543,11 +541,29 @@ public class GUI extends javax.swing.JFrame {
         if (jComboBox1.getSelectedItem() != "Kunder") {
 
             if (list2.isEmpty() == false) {
-                for (int i = 0; i < list2.size(); i++) {
-                    Vare vare = (Vare) list2.getElementAt(i);
-                    odetaljer.add(new Odetaljer(0, vare.getVnummer(), vare.getQty()));
-                }
-                if (jRadioButtonAfhentning.isSelected()) {
+                if (controller.getCurrentOrder() == null) {
+                    for (int i = 0; i < list2.size(); i++) {
+                        Vare vare = (Vare) list2.getElementAt(i);
+                        odetaljer.add(new Odetaljer(0, vare.getVnummer(), vare.getQty()));
+                    }
+                    if (jRadioButtonAfhentning.isSelected()) {
+                        for (int i = 0; i < kunder.size(); i++) {
+                            if (jComboBox1.getSelectedItem().equals(kunder.get(i).getNavn())) {
+                                kno = kunder.get(i).getKnummer();
+                            }
+                        }
+                        String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
+                        String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
+                        controller.createNewOrder(kno, Double.parseDouble(jTextFieldPris.getText()), afhentning, "igangsat", levering, returnering, odetaljer);
+                        list2.clear();
+                        list3.clear();
+                        jLabelError.setText("");
+                    }
+                } else if (controller.getCurrentOrder() != null) {
+                    for (int i = 0; i < list2.size(); i++) {
+                        Vare vare = (Vare) list2.getElementAt(i);
+                        odetaljer.add(new Odetaljer(0, vare.getVnummer(), vare.getQty()));
+                    }
                     for (int i = 0; i < kunder.size(); i++) {
                         if (jComboBox1.getSelectedItem().equals(kunder.get(i).getNavn())) {
                             kno = kunder.get(i).getKnummer();
@@ -555,7 +571,7 @@ public class GUI extends javax.swing.JFrame {
                     }
                     String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                     String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
-                    controller.createNewOrder(kno, Double.parseDouble(jTextFieldPris.getText()), afhentning, "igangsat", levering, returnering, odetaljer);
+                    controller.updateOrder(kno, Double.parseDouble(jTextFieldPris.getText()), afhentning, "igangsat", levering, returnering, odetaljer);
                     list2.clear();
                     list3.clear();
                     jLabelError.setText("");
@@ -579,7 +595,7 @@ public class GUI extends javax.swing.JFrame {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonVisIPDFActionPerformed
-    
+
     private void jButtonFjernActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonFjernActionPerformed
     {//GEN-HEADEREND:event_jButtonFjernActionPerformed
         Vare selected = (Vare) jList2.getSelectedValue();
