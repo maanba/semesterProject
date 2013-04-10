@@ -43,6 +43,14 @@ public class Controller {
         return currentOrder;
     }
 
+    public Ordre getCurrentOrder() {
+        return currentOrder;
+    }
+
+    public void setCurrentOrder(Ordre currentOrder) {
+        this.currentOrder = currentOrder;
+    }
+
     public Ordre createNewOrder(int knummer, double pris, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
         if (processingOrder) {
             return null;
@@ -71,6 +79,22 @@ public class Controller {
         return currentOrder;
     }
 
+    public void updateOrder(int knummer, double pris, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
+        currentOrder.setAfhentning(afhentning);
+        currentOrder.setKnummer(knummer);
+        currentOrder.setLevering(levering);
+        currentOrder.setPris(pris);
+        currentOrder.setReturnering(returnering);
+        currentOrder.setOd(odetaljer);
+        dbFacade.startNewBusinessTransaction();
+        dbFacade.registerDirtyOrder(currentOrder);
+        for (int i = 0; i < odetaljer.size(); i++) {
+            dbFacade.registerNewOrderDetail(odetaljer.get(i));
+        }
+        dbFacade.commitBusinessTransaction();
+        currentOrder = null;
+    }
+
     public Ordre changeCnoForOrder(int knummer) {
         if (processingOrder) {
             currentOrder.setKnummer(knummer);
@@ -90,13 +114,6 @@ public class Controller {
         return status;
     }
 
-//    public String getOrderDetailsToString() {
-//        if (processingOrder) {
-//            return currentOrder.ordredetaljertoString();
-//        } else {
-//            return null;
-//        }
-//    }
     public boolean saveOrder() {
         boolean status = false;
         if (processingOrder) {
@@ -113,16 +130,6 @@ public class Controller {
         processingOrder = false;
         currentOrder = null;
     }
-//    public int getQty(int vnummer, int qty){
-//        ArrayList<Vare> vl = dbFacade.getAllRessources();
-//        
-//        for (int i = 0; i < vl.size(); i++){
-//            if(vl.get(i).getVnummer() == vnummer){
-//                return vl.get(i).getQty();
-//            }
-//        }
-//        return 
-//    }
 
     public void setQty(int vnummer, int qty) {
         ArrayList<Vare> vl = dbFacade.getAllRessources();
@@ -344,7 +351,8 @@ public class Controller {
                 + "Returnering: " + returnering + "\n"
                 + "Vareliste: " + vareListe;
 
-        Document document = new Document() {};
+        Document document = new Document() {
+        };
         PdfWriter.getInstance(document, new FileOutputStream(selectedOrdre.getOnummer() + ".pdf"));
         document.open();
         document.add(new Paragraph(result));

@@ -375,7 +375,6 @@ public class OrderMapper {
                             dateFormat.format(rs.getDate(6)),
                             rs.getInt(9));
 
-
                     //=== get order details
                     statement = conn.prepareStatement(SQLString2);
                     statement.setInt(1, o.getOnummer());
