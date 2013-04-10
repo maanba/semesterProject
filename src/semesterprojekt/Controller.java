@@ -4,7 +4,13 @@
  */
 package semesterprojekt;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import dataSource.DBFacade;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,6 +27,7 @@ public class Controller {
     private Vare currentVare;
     private Kunde currentKunde;
     private DBFacade dbFacade;
+    private Ordre selectedOrdre;
 
     public Controller() {
         dbFacade = DBFacade.getInstance();
@@ -233,6 +240,7 @@ public class Controller {
         }
         return array;
     }
+
     private int partitionOrdre(Ordre[] array, int left, int right, int pivotIndex) {
 
         Ordre pivotValue = array[pivotIndex];
@@ -270,6 +278,7 @@ public class Controller {
         }
         return array;
     }
+
     public Vare getVare(int vnummer) {
         if (processingOrder) {
             return null;
@@ -279,7 +288,7 @@ public class Controller {
         currentVare = dbFacade.getVare(vnummer);
         return currentVare;
     }
-    
+
     public Kunde getKunde(int knummer) {
         dbFacade.startNewBusinessTransaction();
         processingOrder = true;
@@ -300,5 +309,45 @@ public class Controller {
     public ArrayList<Vare> getAllRessources() {
         ArrayList<Vare> vl = dbFacade.getAllRessources();
         return vl;
+    }
+
+    public void setSelectedOrdre(Ordre ordre) {
+        this.selectedOrdre = ordre;
+    }
+
+    public void PDF() throws DocumentException, FileNotFoundException {
+        ArrayList<Odetaljer> vareListeArray = selectedOrdre.getOd();
+
+        String vareListe = "";
+        for (int i = 0; i < vareListeArray.size(); i++) {
+            vareListe += "Varenummer: " + vareListeArray.get(i).getVnummer() + " " + "Mængde: " + vareListeArray.get(i).getMaengde() + "\n";
+            System.out.println(vareListe);
+        }
+
+        String onummer = selectedOrdre.getOnummer() + "";
+        String knummer = selectedOrdre.getKnummer() + "";
+        String pris = selectedOrdre.getPris() + " kroner";
+        String afhentning = selectedOrdre.getAfhentning() + "";
+        String status = selectedOrdre.getStatus() + "";
+        String modtaget = selectedOrdre.getModtaget() + "";
+        String levering = selectedOrdre.getLevering() + "";
+        String returnering = selectedOrdre.getReturnering() + "";
+        String ver = selectedOrdre.getVer() + "";
+
+        String result = "Ordre nummer: " + onummer + "\n"
+                + "Kunde nummer: " + "\t" + knummer + "\n"
+                + "Pris: " + pris + "\n"
+                + "Afhentning: " + afhentning + "\n"
+                + "Status: " + status + "\n"
+                + "Modtaget: " + modtaget + "\n"
+                + "Levering: " + levering + "\n"
+                + "Returnering: " + returnering + "\n"
+                + "Vareliste: " + vareListe;
+
+        Document document = new Document() {};
+        PdfWriter.getInstance(document, new FileOutputStream(selectedOrdre.getOnummer() + ".pdf"));
+        document.open();
+        document.add(new Paragraph(result));
+        document.close();
     }
 }
