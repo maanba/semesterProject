@@ -69,6 +69,7 @@ public class GUI extends javax.swing.JFrame
         jLabel17 = new javax.swing.JLabel();
         jTextFieldTotalPris = new javax.swing.JTextField();
         jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane10 = new javax.swing.JScrollPane();
         jList9 = new javax.swing.JList();
@@ -134,12 +135,12 @@ public class GUI extends javax.swing.JFrame
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Ressourcer");
+        jLabel2.setText("Ressourcer:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 18, 160, 20));
 
         jScrollPane1.setViewportView(jList2);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(283, 46, 163, 260));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 50, 163, 260));
 
         jButtonTilføj.setText("Tilføj >");
         jButtonTilføj.addActionListener(new java.awt.event.ActionListener() {
@@ -147,7 +148,7 @@ public class GUI extends javax.swing.JFrame
                 jButtonTilføjActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonTilføj, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, 90, -1));
+        jPanel1.add(jButtonTilføj, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, 90, -1));
 
         jButtonFjern.setText("< Fjern");
         jButtonFjern.addActionListener(new java.awt.event.ActionListener() {
@@ -155,7 +156,7 @@ public class GUI extends javax.swing.JFrame
                 jButtonFjernActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonFjern, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, 91, -1));
+        jPanel1.add(jButtonFjern, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, 91, -1));
 
         jScrollPane2.setViewportView(jList1);
 
@@ -191,7 +192,7 @@ public class GUI extends javax.swing.JFrame
                 jButtonGennemførOrdreActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonGennemførOrdre, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 90, -1, -1));
+        jPanel1.add(jButtonGennemførOrdre, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 90, -1, -1));
 
         buttonGroup1.add(jRadioButtonAfhentning);
         jRadioButtonAfhentning.setText("Afhentning");
@@ -206,23 +207,23 @@ public class GUI extends javax.swing.JFrame
         });
         jPanel1.add(jRadioButtonLevering, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 450, -1, -1));
 
-        jButtonOrdreRediger.setText("< Rediger");
+        jButtonOrdreRediger.setText("< Redigér");
         jButtonOrdreRediger.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonOrdreRedigerActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonOrdreRediger, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 120, 120, -1));
+        jPanel1.add(jButtonOrdreRediger, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 120, 120, -1));
 
         jScrollPane3.setViewportView(jList3);
 
-        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 40, 160, 270));
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 50, 160, 260));
 
         jButtonDepositum.setText("Depositum");
-        jPanel1.add(jButtonDepositum, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 310, -1, -1));
+        jPanel1.add(jButtonDepositum, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 310, -1, -1));
 
         jButtonFaktura.setText("Faktura");
-        jPanel1.add(jButtonFaktura, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 310, -1, -1));
+        jPanel1.add(jButtonFaktura, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 310, -1, -1));
 
         jButtonVisIPDF.setText("Vis i PDF");
         jButtonVisIPDF.addActionListener(new java.awt.event.ActionListener() {
@@ -230,12 +231,12 @@ public class GUI extends javax.swing.JFrame
                 jButtonVisIPDFActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonVisIPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 340, -1, -1));
+        jPanel1.add(jButtonVisIPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 340, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Ordre");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, 170, 20));
+        jLabel6.setText("Aktive Ordrer:");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 20, 160, 20));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Kunder" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -259,6 +260,11 @@ public class GUI extends javax.swing.JFrame
 
         jLabel27.setText("Total pris:");
         jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 50, -1, -1));
+
+        jLabel28.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel28.setText("Ordre:");
+        jPanel1.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, 170, 20));
 
         jTabbedPane1.addTab("Ordre", jPanel1);
 
@@ -773,6 +779,7 @@ public class GUI extends javax.swing.JFrame
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
