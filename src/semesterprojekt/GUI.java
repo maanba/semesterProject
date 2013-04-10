@@ -502,40 +502,41 @@ public class GUI extends javax.swing.JFrame {
     
     private void jButtonGennemførOrdreActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonGennemførOrdreActionPerformed
     {//GEN-HEADEREND:event_jButtonGennemførOrdreActionPerformed
-        ArrayList<Vare> vareIn = new ArrayList<>();
         ArrayList<Odetaljer> odetaljer = new ArrayList<>();
+        ArrayList<Kunde> kunder = controller.getAllCostumers();
         String afhentning;
+        int kno = 0;
         if (jRadioButtonAfhentning.isSelected()) {
             afhentning = "Levering af Hellebaek Festudlejning";
         } else {
             afhentning = "Afhentning af kunden";
         }
-        
+
         if (jComboBox1.getSelectedItem() != "Kunder") {
-            
+
             if (list2.isEmpty() == false) {
                 for (int i = 0; i < list2.size(); i++) {
-                    odetaljer.add((Odetaljer) list2.getElementAt(i));
-                }
-                
-                for (int i = 0; i < list2.size(); i++) {
-                    vareIn.add((Vare) list2.getElementAt(i));
+                    Vare vare = (Vare) list2.getElementAt(i);
+                    odetaljer.add(new Odetaljer(0, vare.getVnummer(), vare.getQty()));
                 }
                 if (jRadioButtonAfhentning.isSelected()) {
-                    controller.createNewOrder(Integer.parseInt(jComboBox1.getSelectedItem() + ""), +Double.parseDouble(jTextFieldTotalPris.getText()), afhentning, "igangsat", +Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText()),
-                            Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText()),
-                            odetaljer);
+                    for (int i = 0; i < kunder.size(); i++) {
+                        if (jComboBox1.getSelectedItem().equals(kunder.get(i).getNavn())){
+                            kno = kunder.get(i).getKnummer();
+                        }
+                    }
+                    String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
+                    String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
+                    controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), afhentning, "igangsat", levering, returnering, odetaljer);
                     list2.clear();
                     list3.clear();
-                    for (int i = 0; i < vareIn.size(); i++) {
-                        list3.addElement(vareIn.get(i));
-                    }
                     jLabelError.setText("");
                 }
             }
         } else {
             jLabelError.setText("FEJL!");
         }
+        update();
     }//GEN-LAST:event_jButtonGennemførOrdreActionPerformed
     
     private void jButtonVisIPDFActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonVisIPDFActionPerformed

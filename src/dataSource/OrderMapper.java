@@ -17,7 +17,11 @@ public class OrderMapper {
     // returns true if all elements were inserted successfully
     public boolean insertOrders(ArrayList<Ordre> ol, Connection conn) throws SQLException {
         int rowsInserted = 0;
-        String SQLString = "insert into ordrer values (?,?,?,?,?,?,?,?)";
+        String SQLString = "insert into ordrer values (?,?,?,?,?,"
+                + "to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'),"
+                + "to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'),"
+                + "to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'),"
+                + "?)";
         PreparedStatement statement = null;
         statement = conn.prepareStatement(SQLString);
 
@@ -87,7 +91,7 @@ public class OrderMapper {
     public boolean updateOrders(ArrayList<Ordre> ol, Connection conn) throws SQLException {
         int rowsUpdated = 0;
         String SQLString = "update ordrer "
-                + "set knummer = ?, pris = ?, afhentning = ?, status = ?, modtaget = ?, levering = ?, returnering = ?, ver = ? "
+                + "set knummer = ?, pris = ?, afhentning = ?, status = ?, modtaget = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), levering = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), returnering = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), ver = ? "
                 + "where onummer = ? and ver = ?";
         PreparedStatement statement = null;
 
@@ -99,8 +103,8 @@ public class OrderMapper {
             statement.setString(3, o.getAfhentning());
             statement.setString(4, o.getStatus());
             statement.setString(5, o.getModtaget());
-            statement.setString(6, o.getLevering().substring(0, 10));
-            statement.setString(7, o.getReturnering().substring(0, 10));
+            statement.setString(6, o.getLevering());
+            statement.setString(7, o.getReturnering());
             statement.setInt(8, o.getVer() + 1); // next version number
             statement.setInt(9, o.getOnummer());
             statement.setInt(10, o.getVer());   // old version number
