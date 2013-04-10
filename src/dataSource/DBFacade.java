@@ -40,6 +40,18 @@ public class DBFacade {
         return o;
     }
     
+    public Vare getVare(int vnummer) {
+        Connection con = null;
+        Vare v = null;
+        try {
+            con = getConnection();
+            v = new OrderMapper().getVare(con, vnummer);
+        } finally {
+            releaseConnection(con);
+        }
+        return v;
+    }
+    
     public ArrayList<Ordre> getAllOrdres(){
         Connection con = null;
         ArrayList<Ordre> o = null;

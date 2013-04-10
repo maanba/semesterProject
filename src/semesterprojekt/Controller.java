@@ -18,6 +18,7 @@ public class Controller {
 
     private boolean processingOrder;	// state of business transaction
     private Ordre currentOrder;       	// Order in focus
+    private Vare currentVare;
     private DBFacade dbFacade;
 
     public Controller() {
@@ -265,6 +266,15 @@ public class Controller {
             quickSortOrdre(array, pivotNewIndex + 1, right);
         }
         return array;
+    }
+    public Vare getVare(int vnummer) {
+        if (processingOrder) {
+            return null;
+        }
+        dbFacade.startNewBusinessTransaction();
+        processingOrder = true;
+        currentVare = dbFacade.getVare(vnummer);
+        return currentVare;
     }
 
     public ArrayList<Ordre> getAllOrdres() {

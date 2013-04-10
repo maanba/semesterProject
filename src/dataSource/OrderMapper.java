@@ -479,6 +479,26 @@ public class OrderMapper {
         }
         return vl;
     }
+    public Vare getVare(Connection conn, int vnummer){
+        String SQLString = "select * from varer where vnummer = ?";
+        PreparedStatement statement = null;
+        Vare vare = null;
+        try {
+            statement = conn.prepareStatement(SQLString);
+            statement.setInt(1, vnummer);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()){
+                vare = new Vare(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getDouble(4));
+            }
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return vare;
+    }
     // Retrieves the next unique order number from DB
 
     public int getNextOrderNo(Connection conn) {
