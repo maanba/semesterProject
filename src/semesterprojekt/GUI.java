@@ -458,7 +458,6 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButtonOrdreRedigerActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonOrdreRedigerActionPerformed
     {//GEN-HEADEREND:event_jButtonOrdreRedigerActionPerformed
-
         Ordre selected = (Ordre) jList3.getSelectedValue();
         int selectedIndex = jList3.getSelectedIndex();
         if (list2.isEmpty() == false) {
