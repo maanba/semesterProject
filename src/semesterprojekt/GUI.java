@@ -13,11 +13,12 @@ import javax.swing.JList;
 
 public class GUI extends javax.swing.JFrame {
 
-    DefaultListModel model = new DefaultListModel<>();
+    private DefaultListModel model = new DefaultListModel<>();
     private DefaultListModel list1 = new DefaultListModel();
     private DefaultListModel list2 = new DefaultListModel();
     private DefaultListModel list3 = new DefaultListModel();
     private Controller controller = new Controller();
+    private boolean update = false;
 
     public GUI() {
         initComponents();
@@ -458,7 +459,6 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButtonOrdreRedigerActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonOrdreRedigerActionPerformed
     {//GEN-HEADEREND:event_jButtonOrdreRedigerActionPerformed
-
         Ordre selected = (Ordre) jList3.getSelectedValue();
         int selectedIndex = jList3.getSelectedIndex();
         if (list2.isEmpty() == false) {
