@@ -1,6 +1,8 @@
 package dataSource;
 
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import semesterprojekt.*;
 
@@ -282,6 +284,7 @@ public class OrderMapper {
     // Returns the Order-object
     public Ordre getOrder(int ono, Connection conn) {
         Ordre o = null;
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
         String SQLString1 = // get order
                 "select * "
                 + "from ordrer "
@@ -303,9 +306,9 @@ public class OrderMapper {
                         rs.getDouble(3),
                         rs.getString(4),
                         rs.getString(5),
-                        rs.getString(6),
-                        rs.getString(7),
-                        rs.getString(8),
+                        dateFormat.format(rs.getDate(6)),
+                        dateFormat.format(rs.getDate(6)),
+                        dateFormat.format(rs.getDate(6)),
                         rs.getInt(9));
 
 
@@ -332,6 +335,7 @@ public class OrderMapper {
 
     public ArrayList<Ordre> getAllOrders(Connection conn) {
         Ordre o = null;
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
         ArrayList<Ordre> ol = new ArrayList();
         ArrayList ono = new ArrayList();
         String SQLString1 = // get order
@@ -366,9 +370,9 @@ public class OrderMapper {
                             rs.getDouble(3),
                             rs.getString(4),
                             rs.getString(5),
-                            rs.getString(6),
-                            rs.getString(7),
-                            rs.getString(8),
+                            dateFormat.format(rs.getDate(6)),
+                            dateFormat.format(rs.getDate(6)),
+                            dateFormat.format(rs.getDate(6)),
                             rs.getInt(9));
 
 
@@ -483,7 +487,8 @@ public class OrderMapper {
         }
         return vl;
     }
-    public Vare getVare(Connection conn, int vnummer){
+
+    public Vare getVare(Connection conn, int vnummer) {
         String SQLString = "select * from varer where vnummer = ?";
         PreparedStatement statement = null;
         Vare vare = null;
@@ -491,19 +496,19 @@ public class OrderMapper {
             statement = conn.prepareStatement(SQLString);
             statement.setInt(1, vnummer);
             ResultSet rs = statement.executeQuery();
-            if (rs.next()){
+            if (rs.next()) {
                 vare = new Vare(rs.getInt(1),
                         rs.getString(2),
                         rs.getInt(3),
                         rs.getDouble(4));
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return vare;
     }
-    public Kunde getKunde(Connection conn, int knummer){
+
+    public Kunde getKunde(Connection conn, int knummer) {
         String SQLString = "select * from kunder where knummer = ?";
         PreparedStatement statement = null;
         Kunde kunde = null;
@@ -511,15 +516,14 @@ public class OrderMapper {
             statement = conn.prepareStatement(SQLString);
             statement.setInt(1, knummer);
             ResultSet rs = statement.executeQuery();
-            if (rs.next()){
+            if (rs.next()) {
                 kunde = new Kunde(rs.getInt(1),
                         rs.getInt(2),
                         rs.getString(3),
                         rs.getString(4),
                         rs.getInt(5));
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return kunde;
