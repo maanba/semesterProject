@@ -40,8 +40,9 @@ public class Controller {
         if (processingOrder) {
             return null;
         }
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-YY");
+        dbFacade.startNewBusinessTransaction();
         Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
         String modtaget = dateFormat.format(date);
         dbFacade.startNewBusinessTransaction();
         int newOrderNo = dbFacade.getNextOrderNo();// DB-generated unique ID
@@ -55,6 +56,7 @@ public class Controller {
             for (int i = 0; i < odetaljer.size(); i++) {
                 dbFacade.registerNewOrderDetail(odetaljer.get(i));
             }
+            dbFacade.commitBusinessTransaction();
         } else {
             processingOrder = false;
             currentOrder = null;
