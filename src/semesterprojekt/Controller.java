@@ -53,6 +53,14 @@ public class Controller  {
         this.currentOrder = currentOrder;
     }
 
+    public Ordre getCurrentOrder() {
+        return currentOrder;
+    }
+
+    public void setCurrentOrder(Ordre currentOrder) {
+        this.currentOrder = currentOrder;
+    }
+
     public Ordre createNewOrder(int knummer, double pris, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
         if (processingOrder) {
             return null;
