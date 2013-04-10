@@ -499,6 +499,27 @@ public class OrderMapper {
         }
         return vare;
     }
+    public Kunde getKunde(Connection conn, int knummer){
+        String SQLString = "select * from kunder where knummer = ?";
+        PreparedStatement statement = null;
+        Kunde kunde = null;
+        try {
+            statement = conn.prepareStatement(SQLString);
+            statement.setInt(1, knummer);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()){
+                kunde = new Kunde(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5));
+            }
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return kunde;
+    }
     // Retrieves the next unique order number from DB
 
     public int getNextOrderNo(Connection conn) {
