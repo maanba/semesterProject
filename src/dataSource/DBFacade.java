@@ -51,6 +51,17 @@ public class DBFacade {
         }
         return v;
     }
+    public Kunde getKunde(int knummer) {
+        Connection con = null;
+        Kunde k = null;
+        try {
+            con = getConnection();
+            k = new OrderMapper().getKunde(con, knummer);
+        } finally {
+            releaseConnection(con);
+        }
+        return k;
+    }
     
     public ArrayList<Ordre> getAllOrdres(){
         Connection con = null;
