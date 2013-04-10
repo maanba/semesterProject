@@ -19,6 +19,7 @@ public class Controller {
     private boolean processingOrder;	// state of business transaction
     private Ordre currentOrder;       	// Order in focus
     private Vare currentVare;
+    private Kunde currentKunde;
     private DBFacade dbFacade;
 
     public Controller() {
@@ -275,6 +276,13 @@ public class Controller {
         processingOrder = true;
         currentVare = dbFacade.getVare(vnummer);
         return currentVare;
+    }
+    
+    public Kunde getKunde(int knummer) {
+        dbFacade.startNewBusinessTransaction();
+        processingOrder = true;
+        currentKunde = dbFacade.getKunde(knummer);
+        return currentKunde;
     }
 
     public ArrayList<Ordre> getAllOrdres() {
