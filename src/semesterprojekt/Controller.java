@@ -416,18 +416,12 @@ public class Controller  {
             table1.addCell(new Phrase(postnr + " " + by, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
             table1.addCell(new Phrase("            Status:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
             table1.addCell(new Phrase(status, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+            table1.addCell(new Phrase(telefonnummer, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
             
-            table1.addCell(" ");
             table1.addCell(new Phrase("            Dato:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
             DateFormat dateFormat = new SimpleDateFormat("dd/MM-yyyy");
             Date date = new Date();
             table1.addCell(new Phrase(dateFormat.format(date), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
-            
-            table1.addCell(" ");
-            table1.addCell(" ");
-            table1.addCell(" ");
-            
-            table1.addCell("Daniel Knudsen");
             
             
             PdfPTable table2 = new PdfPTable(5);
@@ -448,13 +442,27 @@ public class Controller  {
             table2.addCell(" ");
             table2.addCell(" ");
             table2.addCell(" ");
+            double sum = 0;
             for (int i = 0; i < vareArray.size(); i++) {
+                
                 table2.addCell(new Phrase(vareArray.get(i).getVnummer() + "", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table2.addCell(new Phrase(vareArray.get(i).getVnavn(), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table2.addCell(new Phrase(vareArray.get(i).getPris() + "", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table2.addCell(new Phrase(odetaljeArray.get(i).getMaengde() + "", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table2.addCell(new Phrase("   " + odetaljeArray.get(i).getMaengde() * vareArray.get(i).getPris(), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                sum = sum + odetaljeArray.get(i).getMaengde() * vareArray.get(i).getPris();
             }
+            table2.addCell(" ");
+            table2.addCell(" ");
+            table2.addCell(" ");
+            table2.addCell(" ");
+            table2.addCell(" ");
+            
+            table2.addCell(" ");
+            table2.addCell(new Phrase("Sum:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+            table2.addCell(" ");
+            table2.addCell(" ");
+            table2.addCell(new Phrase("   " + sum, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
 
             PdfPTable table3 = new PdfPTable(3);
             table3.setTotalWidth(500);
