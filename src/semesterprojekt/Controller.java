@@ -8,6 +8,9 @@ import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import dataSource.DBFacade;
 import java.io.File;
@@ -351,7 +354,7 @@ public class Controller  {
         for (int i = 0; i < odetaljeArray.size(); i++) {
             Vare vare = getVare(odetaljeArray.get(i).getVnummer());
             vare.setQty(odetaljeArray.get(i).getMaengde());
-            vareListe += vare;
+            vareListe += vare + "\n";
         }
         
         // nedeVenstreHjørne:
@@ -368,10 +371,11 @@ public class Controller  {
                + "Kundenummer: " + knummer + "\n"
                + "Status: " + status;
         
-        String midtVenstre = "Varer: " + vareListe + "\n"
-               + "Pris : " + pris;
+        String midtVenstre = "Vare:_____Antal:_________________________________________________________Pris:" + "\n" +
+                vareListe + "\n"
+                + "_______________________________________________________________________" + pris;
         
-        String nedeVenstreHjørne = "Afhentning af kunde: " + afhentning + "\n"
+        String nedeVenstreHjørne = "Afhentning/levering: " + afhentning + "\n"
                + "Fra dato: " + levering + "\n"
                + "Til dato: " + returnering;
         
@@ -383,7 +387,12 @@ public class Controller  {
             Chunk oppeHøjreHjørneChunk = new Chunk(oppeHøjreHjørne);
             Chunk vareMidtChunk = new Chunk(midtVenstre);
             Chunk nedeVenstreHjørneChunk = new Chunk(nedeVenstreHjørne);
-            
+//            PdfPTable my_first_table = new PdfPTable(3);
+//            my_first_table.addCell("0,0 First Cell Data");
+//            PdfPCell table_cell; // Create a PDFPCell Object
+//            table_cell = new PdfPCell(new Phrase("A Cell with Colspan of 2")); // Create a Phrase data for Colspan 2 First Row
+//            table_cell.setColspan(2); //Define the colspan for Cell object
+//            my_first_table.addCell(table_cell);//push the cell to the table
             //
             // Creates paragraphs and set the alignment of the paragraph.
             // We use the Paragraph.ALIGN_LEFT, Paragraph.ALIGN_CENTER
