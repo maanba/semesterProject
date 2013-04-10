@@ -142,7 +142,6 @@ public class UnitOfWorkProcessOrder {
             status = status && om.insertRessources(newRessources, conn);
             status = status && om.updateRessources(dirtyRessources, conn);
             status = status && om.deleteOrders(deletedOrders, conn);
-            status = status && om.deleteOrderDetials(deletedOdetails, conn);
             status = status && om.deleteCustomers(deletedCustomers, conn);
             status = status && om.deleteRessources(deletedRessources, conn);
             if (!status) {

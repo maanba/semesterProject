@@ -45,6 +45,10 @@ public class Ordre {
         this.afhentning = afhentning;
     }
 
+    public void setOd(ArrayList<Odetaljer> od) {
+        this.od = od;
+    }
+
     public ArrayList<Odetaljer> getOd() {
         return od;
     }

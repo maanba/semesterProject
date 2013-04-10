@@ -13,6 +13,7 @@ import dataSource.DBFacade;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,6 +45,14 @@ public class Controller  {
         return currentOrder;
     }
 
+    public Ordre getCurrentOrder() {
+        return currentOrder;
+    }
+
+    public void setCurrentOrder(Ordre currentOrder) {
+        this.currentOrder = currentOrder;
+    }
+
     public Ordre createNewOrder(int knummer, double pris, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
         if (processingOrder) {
             return null;
@@ -72,6 +81,26 @@ public class Controller  {
         return currentOrder;
     }
 
+    public void updateOrder(int knummer, double pris, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
+        currentOrder.setAfhentning(afhentning);
+        currentOrder.setKnummer(knummer);
+        currentOrder.setLevering(levering);
+        currentOrder.setPris(pris);
+        currentOrder.setReturnering(returnering);
+        currentOrder.setOd(odetaljer);
+        dbFacade.startNewBusinessTransaction();
+        for (int i = 0; i < odetaljer.size(); i++) {
+            odetaljer.get(i).setOnummer(currentOrder.getOnummer());
+        }
+        dbFacade.deleteOdetail(currentOrder.getOnummer());
+        dbFacade.registerDirtyOrder(currentOrder);
+        for (int i = 0; i < odetaljer.size(); i++) {
+            dbFacade.registerNewOrderDetail(odetaljer.get(i));
+        }
+        dbFacade.commitBusinessTransaction();
+        currentOrder = null;
+    }
+
     public Ordre changeCnoForOrder(int knummer) {
         if (processingOrder) {
             currentOrder.setKnummer(knummer);
@@ -90,14 +119,20 @@ public class Controller  {
         }
         return status;
     }
-
-//    public String getOrderDetailsToString() {
-//        if (processingOrder) {
-//            return currentOrder.ordredetaljertoString();
-//        } else {
-//            return null;
-//        }
-//    }
+    
+    
+    ArrayList<Kunde> kundeArr = new ArrayList<>();
+    public void addKunde(int knummer, String navn, String adresse, int postnummer, int telefonnummer)
+    {
+        Kunde kunde = new Kunde(knummer, navn, adresse, postnummer, telefonnummer);
+        kundeArr.add(kunde);
+        dbFacade.startNewBusinessTransaction();
+        dbFacade.registerNewKunde(kunde);
+        dbFacade.commitBusinessTransaction();
+        
+        System.out.println(dbFacade.getAllCustumers());
+    }
+    
     public boolean saveOrder() {
         boolean status = false;
         if (processingOrder) {
@@ -114,16 +149,6 @@ public class Controller  {
         processingOrder = false;
         currentOrder = null;
     }
-//    public int getQty(int vnummer, int qty){
-//        ArrayList<Vare> vl = dbFacade.getAllRessources();
-//        
-//        for (int i = 0; i < vl.size(); i++){
-//            if(vl.get(i).getVnummer() == vnummer){
-//                return vl.get(i).getQty();
-//            }
-//        }
-//        return 
-//    }
 
     public void setQty(int vnummer, int qty) {
         ArrayList<Vare> vl = dbFacade.getAllRessources();
@@ -281,11 +306,7 @@ public class Controller  {
     }
 
     public Vare getVare(int vnummer) {
-        if (processingOrder) {
-            return null;
-        }
         dbFacade.startNewBusinessTransaction();
-        processingOrder = true;
         currentVare = dbFacade.getVare(vnummer);
         return currentVare;
     }
@@ -356,8 +377,29 @@ public class Controller  {
         
         Document document = new Document();
 
-        PdfWriter.getInstance(document,
-                new FileOutputStream("C:\\" + currentOrder.getOnummer() + ".pdf"));
+        String onummer = selectedOrdre.getOnummer() + "";
+        String knummer = selectedOrdre.getKnummer() + "";
+        String pris = selectedOrdre.getPris() + " kroner";
+        String afhentning = selectedOrdre.getAfhentning() + "";
+        String status = selectedOrdre.getStatus() + "";
+        String modtaget = selectedOrdre.getModtaget() + "";
+        String levering = selectedOrdre.getLevering() + "";
+        String returnering = selectedOrdre.getReturnering() + "";
+        String ver = selectedOrdre.getVer() + "";
+
+        String result = "Ordre nummer: " + onummer + "\n"
+                + "Kunde nummer: " + "\t" + knummer + "\n"
+                + "Pris: " + pris + "\n"
+                + "Afhentning: " + afhentning + "\n"
+                + "Status: " + status + "\n"
+                + "Modtaget: " + modtaget + "\n"
+                + "Levering: " + levering + "\n"
+                + "Returnering: " + returnering + "\n"
+                + "Vareliste: " + vareListe;
+
+        Document document = new Document() {
+        };
+        PdfWriter.getInstance(document, new FileOutputStream(selectedOrdre.getOnummer() + ".pdf"));
         document.open();
         // Creates a check for the paragraphs contents
             Chunk oppeHøjreHjørneChunk = new Chunk(oppeHøjreHjørne);
