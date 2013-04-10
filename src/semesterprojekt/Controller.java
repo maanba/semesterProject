@@ -4,11 +4,13 @@
  */
 package semesterprojekt;
 
+import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import dataSource.DBFacade;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.text.DateFormat;
@@ -20,14 +22,13 @@ import java.util.Date;
  *
  * @author Daniel Krarup Knudsen
  */
-public class Controller {
+public class Controller  {
 
     private boolean processingOrder;	// state of business transaction
     private Ordre currentOrder;       	// Order in focus
     private Vare currentVare;
     private Kunde currentKunde;
     private DBFacade dbFacade;
-    private Ordre selectedOrdre;
 
     public Controller() {
         dbFacade = DBFacade.getInstance();
@@ -312,42 +313,92 @@ public class Controller {
     }
 
     public void setSelectedOrdre(Ordre ordre) {
-        this.selectedOrdre = ordre;
+        this.currentOrder = ordre;
     }
 
     public void PDF() throws DocumentException, FileNotFoundException {
-        ArrayList<Odetaljer> vareListeArray = selectedOrdre.getOd();
-
+        ArrayList<Odetaljer> odetaljeArray = currentOrder.getOd();
+        
+        // oppeHøjreHjørne:
+        String onummer = currentOrder.getOnummer() + "";
+        String knummer = currentOrder.getKnummer() + "";
+        String status = currentOrder.getStatus() + "";
+        
+        // vareMidt:
+        String pris = currentOrder.getPris() + ",-";
         String vareListe = "";
-        for (int i = 0; i < vareListeArray.size(); i++) {
-            vareListe += "Varenummer: " + vareListeArray.get(i).getVnummer() + " " + "Mængde: " + vareListeArray.get(i).getMaengde() + "\n";
-            System.out.println(vareListe);
+        for (int i = 0; i < odetaljeArray.size(); i++) {
+            Vare vare = getVare(odetaljeArray.get(i).getVnummer());
+            vare.setQty(odetaljeArray.get(i).getMaengde());
+            vareListe += vare;
         }
+        
+        // nedeVenstreHjørne:
+        String afhentning = currentOrder.getAfhentning() + "";
+        String levering = currentOrder.getLevering() + "";
+        String returnering = currentOrder.getReturnering() + "";
+        
+        // rest:
+        String modtaget = currentOrder.getModtaget() + "";
+        
+        
+        // chunks:
+        String oppeHøjreHjørne = "Ordrenummer: " + onummer
+               + "Kundenummer: " + knummer
+               + "Status: " + status;
+        
+        String midtVenstre = "Varer: " + vareListe
+               + "Pris : " + pris;
+        
+        String nedeVenstreHjørne = "Afhentning/levering: " + afhentning
+               + "Fra dato: " + levering 
+               + "Til dato: " + returnering;
+        
+        Document document = new Document();
 
-        String onummer = selectedOrdre.getOnummer() + "";
-        String knummer = selectedOrdre.getKnummer() + "";
-        String pris = selectedOrdre.getPris() + " kroner";
-        String afhentning = selectedOrdre.getAfhentning() + "";
-        String status = selectedOrdre.getStatus() + "";
-        String modtaget = selectedOrdre.getModtaget() + "";
-        String levering = selectedOrdre.getLevering() + "";
-        String returnering = selectedOrdre.getReturnering() + "";
-        String ver = selectedOrdre.getVer() + "";
-
-        String result = "Ordre nummer: " + onummer + "\n"
-                + "Kunde nummer: " + "\t" + knummer + "\n"
-                + "Pris: " + pris + "\n"
-                + "Afhentning: " + afhentning + "\n"
-                + "Status: " + status + "\n"
-                + "Modtaget: " + modtaget + "\n"
-                + "Levering: " + levering + "\n"
-                + "Returnering: " + returnering + "\n"
-                + "Vareliste: " + vareListe;
-
-        Document document = new Document() {};
-        PdfWriter.getInstance(document, new FileOutputStream(selectedOrdre.getOnummer() + ".pdf"));
+        PdfWriter.getInstance(document,
+                new FileOutputStream("C:\\" + currentOrder.getOnummer() + ".pdf"));
         document.open();
-        document.add(new Paragraph(result));
+        // Creates a check for the paragraphs contents
+            Chunk oppeHøjreHjørneChunk = new Chunk(oppeHøjreHjørne);
+            Chunk vareMidtChunk = new Chunk(midtVenstre);
+            Chunk nedeVenstreHjørneChunk = new Chunk(nedeVenstreHjørne);
+            
+            //
+            // Creates paragraphs and set the alignment of the paragraph.
+            // We use the Paragraph.ALIGN_LEFT, Paragraph.ALIGN_CENTER
+            // and Paragraph.ALIGN_RIGHT 
+            //
+            Paragraph para1 = new Paragraph(oppeHøjreHjørneChunk);
+            para1.setAlignment(Paragraph.ALIGN_LEFT);
+            para1.setSpacingAfter(-1);
+            document.add(para1);
+
+            Paragraph para2 = new Paragraph(vareMidtChunk);
+            para2.setAlignment(Paragraph.ALIGN_RIGHT);
+            para2.setSpacingAfter(-1);
+            document.add(para2);
+
+            Paragraph para3 = new Paragraph(nedeVenstreHjørneChunk);
+            para3.setAlignment(Paragraph.ALIGN_RIGHT);
+            document.add(para3);
         document.close();
+        openPDF();
+    }
+
+    public void openPDF() {
+        try {
+            if ((new File("C:\\" + currentOrder.getOnummer() + ".pdf")).exists()) {
+                Process p = Runtime
+                        .getRuntime()
+                        .exec("rundll32 url.dll,FileProtocolHandler C:\\" + currentOrder.getOnummer() + ".pdf");
+                p.waitFor();
+            } else {
+                System.out.println("File is not exists");
+            }
+            System.out.println("Done");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }
