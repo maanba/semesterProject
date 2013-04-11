@@ -1,10 +1,6 @@
 package semesterprojekt;
-import com.itextpdf.text.DocumentException;
 import java.awt.Component;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
@@ -183,6 +179,7 @@ public class GUI extends javax.swing.JFrame
         jScrollPane9 = new javax.swing.JScrollPane();
         jListHistorik = new javax.swing.JList();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -682,7 +679,7 @@ public class GUI extends javax.swing.JFrame
 
         jPanel9.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 330, 290));
 
-        jButton2.setText("jButton2");
+        jButton2.setText("Afslut");
         jButton2.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -690,7 +687,10 @@ public class GUI extends javax.swing.JFrame
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel9.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 100, -1, -1));
+        jPanel9.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 90, -1, -1));
+
+        jButton3.setText("Påbegynd");
+        jPanel9.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, -1, -1));
 
         jTabbedPane1.addTab("Historik", jPanel9);
 
@@ -940,13 +940,13 @@ public class GUI extends javax.swing.JFrame
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
         Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
-        System.out.println(      selected.getStatus());
+        System.out.println(selected.getStatus());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
     {//GEN-HEADEREND:event_jButton2ActionPerformed
-          Ordre selected = (Ordre) jListHistorik.getSelectedValue();
-        System.out.println(      selected.getStatus());
+        Ordre selected = (Ordre) jListHistorik.getSelectedValue();
+        System.out.println(selected.getStatus());
     }//GEN-LAST:event_jButton2ActionPerformed
 
     public static void main(String args[])
@@ -1124,6 +1124,7 @@ public class GUI extends javax.swing.JFrame
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButtonAfslutOrdre;
     private javax.swing.JButton jButtonDepositum;
     private javax.swing.JButton jButtonFaktura;
