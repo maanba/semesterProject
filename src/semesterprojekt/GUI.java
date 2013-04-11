@@ -129,6 +129,44 @@ public class GUI extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
         jButton14 = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField12 = new javax.swing.JTextField();
+        jTextField13 = new javax.swing.JTextField();
+        jTextField14 = new javax.swing.JTextField();
+        jTextField15 = new javax.swing.JTextField();
+        jTextField16 = new javax.swing.JTextField();
+        jTextField17 = new javax.swing.JTextField();
+        jTextField18 = new javax.swing.JTextField();
+        jTextField19 = new javax.swing.JTextField();
+        jTextField20 = new javax.swing.JTextField();
+        jTextField21 = new javax.swing.JTextField();
+        jTextField22 = new javax.swing.JTextField();
+        jTextField23 = new javax.swing.JTextField();
+        jTextField24 = new javax.swing.JTextField();
+        jTextField25 = new javax.swing.JTextField();
+        jTextField26 = new javax.swing.JTextField();
+        jTextField27 = new javax.swing.JTextField();
+        jTextField28 = new javax.swing.JTextField();
+        jTextField29 = new javax.swing.JTextField();
+        jTextField30 = new javax.swing.JTextField();
+        jTextField31 = new javax.swing.JTextField();
+        jTextField32 = new javax.swing.JTextField();
+        jTextField33 = new javax.swing.JTextField();
+        jTextField34 = new javax.swing.JTextField();
+        jTextField35 = new javax.swing.JTextField();
+        jTextField36 = new javax.swing.JTextField();
+        jTextField37 = new javax.swing.JTextField();
+        jTextField38 = new javax.swing.JTextField();
+        jTextField39 = new javax.swing.JTextField();
+        jTextField40 = new javax.swing.JTextField();
+        jTextField41 = new javax.swing.JTextField();
+        jTextField42 = new javax.swing.JTextField();
+        jTextField43 = new javax.swing.JTextField();
+        jTextField44 = new javax.swing.JTextField();
+        jTextField45 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -138,12 +176,12 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Ressourcer:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 18, 160, 20));
+        jLabel2.setText("Varer:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 160, 20));
 
         jScrollPane1.setViewportView(jList2);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, 163, 260));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, 163, 230));
 
         jButtonTilføj.setText("Tilføj >");
         jButtonTilføj.addActionListener(new java.awt.event.ActionListener() {
@@ -151,7 +189,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonTilføjActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonTilføj, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, 80, -1));
+        jPanel1.add(jButtonTilføj, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, 80, -1));
 
         jButtonFjern.setText("< Fjern");
         jButtonFjern.addActionListener(new java.awt.event.ActionListener() {
@@ -159,35 +197,35 @@ public class GUI extends javax.swing.JFrame {
                 jButtonFjernActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonFjern, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, 80, -1));
+        jPanel1.add(jButtonFjern, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 190, 80, -1));
 
         jScrollPane2.setViewportView(jList1);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 44, 163, 260));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 163, 260));
 
         jLabel3.setText("Dato for afhentning/levering");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 320, -1, -1));
-        jPanel1.add(jTextFieldMånedInd, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 390, 30, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, -1, -1));
+        jPanel1.add(jTextFieldMånedInd, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, 30, -1));
 
         jTextFieldDagUd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldDagUdActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextFieldDagUd, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 340, 30, -1));
+        jPanel1.add(jTextFieldDagUd, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 30, -1));
 
         jTextFieldMånedUd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldMånedUdActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextFieldMånedUd, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 340, 30, -1));
-        jPanel1.add(jTextFieldÅrInd, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 390, 40, -1));
+        jPanel1.add(jTextFieldMånedUd, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 30, -1));
+        jPanel1.add(jTextFieldÅrInd, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, 40, -1));
 
         jLabel4.setText("Dato for returnering");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 370, -1, 20));
-        jPanel1.add(jTextFieldDagInd, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 390, 30, -1));
-        jPanel1.add(jTextFieldÅrUd, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 340, 40, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, -1, 20));
+        jPanel1.add(jTextFieldDagInd, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, 30, -1));
+        jPanel1.add(jTextFieldÅrUd, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 40, -1));
 
         jButtonGennemførOrdre.setText("Gennemfør ordre >");
         jButtonGennemførOrdre.addActionListener(new java.awt.event.ActionListener() {
@@ -195,11 +233,11 @@ public class GUI extends javax.swing.JFrame {
                 jButtonGennemførOrdreActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonGennemførOrdre, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 90, -1, -1));
+        jPanel1.add(jButtonGennemførOrdre, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 150, -1, -1));
 
         buttonGroup1.add(jRadioButtonAfhentning);
         jRadioButtonAfhentning.setText("Afhentning");
-        jPanel1.add(jRadioButtonAfhentning, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 420, -1, -1));
+        jPanel1.add(jRadioButtonAfhentning, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 40, -1, -1));
 
         buttonGroup1.add(jRadioButtonLevering);
         jRadioButtonLevering.setText("Levering");
@@ -208,7 +246,7 @@ public class GUI extends javax.swing.JFrame {
                 jRadioButtonLeveringActionPerformed(evt);
             }
         });
-        jPanel1.add(jRadioButtonLevering, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 450, -1, -1));
+        jPanel1.add(jRadioButtonLevering, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 40, -1, -1));
 
         jButtonOrdreRediger.setText("< Redigér");
         jButtonOrdreRediger.addActionListener(new java.awt.event.ActionListener() {
@@ -216,17 +254,17 @@ public class GUI extends javax.swing.JFrame {
                 jButtonOrdreRedigerActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonOrdreRediger, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 120, 120, -1));
+        jPanel1.add(jButtonOrdreRediger, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 180, 120, -1));
 
         jScrollPane3.setViewportView(jList3);
 
-        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 50, 160, 260));
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 110, 160, 260));
 
         jButtonDepositum.setText("Depositum");
-        jPanel1.add(jButtonDepositum, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 310, -1, -1));
+        jPanel1.add(jButtonDepositum, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 370, -1, -1));
 
         jButtonFaktura.setText("Faktura");
-        jPanel1.add(jButtonFaktura, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 310, -1, -1));
+        jPanel1.add(jButtonFaktura, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 370, -1, -1));
 
         jButtonVisIPDF.setText("Vis i PDF");
         jButtonVisIPDF.addActionListener(new java.awt.event.ActionListener() {
@@ -234,12 +272,12 @@ public class GUI extends javax.swing.JFrame {
                 jButtonVisIPDFActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonVisIPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 340, -1, -1));
+        jPanel1.add(jButtonVisIPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 400, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Aktive Ordrer:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 20, 160, 20));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 80, 160, 20));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Kunder" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -247,27 +285,27 @@ public class GUI extends javax.swing.JFrame {
                 jComboBox1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 0, 150, -1));
-        jPanel1.add(jLabelError, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 500, 750, 20));
+        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 110, 160, -1));
+        jPanel1.add(jLabelError, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 810, 20));
 
         jTextFieldAntal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldAntalActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextFieldAntal, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 50, 40, -1));
+        jPanel1.add(jTextFieldAntal, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, 40, -1));
 
         jLabel17.setText("Antal:");
-        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, -1, -1));
-        jPanel1.add(jTextFieldPris, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 50, 60, -1));
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, -1, -1));
+        jPanel1.add(jTextFieldPris, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 110, 60, -1));
 
         jLabel27.setText("Total pris:");
-        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 50, -1, -1));
+        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 110, -1, -1));
 
         jLabel28.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel28.setText("Ordre:");
-        jPanel1.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, 160, 20));
+        jPanel1.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 80, 160, 20));
 
         jTabbedPane1.addTab("Ordre", jPanel1);
 
@@ -295,12 +333,12 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel18.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel18.setText("Opret kunde");
-        jPanel6.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 160, 20));
+        jLabel18.setText("Opret kunde:");
+        jPanel6.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, 250, 20));
 
         jLabel19.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel19.setText("Kundeliste");
+        jLabel19.setText("Kundeliste:");
         jPanel6.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 18, 160, 20));
 
         jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -340,17 +378,17 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Ressourcer");
+        jLabel5.setText("Vareliste:");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 170, 20));
 
         jButtonLagerGem.setText("< Gem");
         jButtonLagerGem.setMaximumSize(new java.awt.Dimension(105, 29));
         jButtonLagerGem.setMinimumSize(new java.awt.Dimension(105, 29));
         jButtonLagerGem.setPreferredSize(new java.awt.Dimension(105, 29));
-        jPanel2.add(jButtonLagerGem, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 110, -1, -1));
+        jPanel2.add(jButtonLagerGem, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 90, -1));
 
         jButtonLagerRediger.setText("Rediger >");
-        jPanel2.add(jButtonLagerRediger, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 80, -1, -1));
+        jPanel2.add(jButtonLagerRediger, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, 90, 30));
 
         jScrollPane5.setViewportView(jList5);
 
@@ -381,7 +419,7 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Opret vare");
+        jLabel7.setText("Opret vare:");
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 50, 240, -1));
 
         jTabbedPane1.addTab("Lager", jPanel2);
@@ -404,12 +442,12 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel13.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setText("Varer");
+        jLabel13.setText("Varer:");
         jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 30, 170, -1));
 
         jLabel14.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setText("Ordrer");
+        jLabel14.setText("Ordrer:");
         jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 170, -1));
 
         jButtonAfslutOrdre.setText("Afslut ordre");
@@ -435,19 +473,134 @@ public class GUI extends javax.swing.JFrame {
         jTextArea1.setText("\nKære kunde... ");
         jScrollPane8.setViewportView(jTextArea1);
 
-        jPanel4.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 60, -1, 410));
+        jPanel4.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(406, 60, 210, 410));
 
         jButton14.setText("PDF");
-        jPanel4.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 60, -1, -1));
+        jPanel4.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 60, -1, -1));
 
         jLabel16.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setText("Varer");
-        jPanel4.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 220, -1));
+        jLabel16.setText("Kommentar:");
+        jPanel4.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, 200, -1));
+
+        jLabel29.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel29.setText("Varer:");
+        jPanel4.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 200, -1));
 
         jTabbedPane1.addTab("Tilbud", jPanel4);
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 570));
+        jTextField1.setText("jTextField1");
+        jPanel8.add(jTextField1);
+
+        jTextField2.setText("jTextField1");
+        jPanel8.add(jTextField2);
+
+        jTextField12.setText("jTextField1");
+        jPanel8.add(jTextField12);
+
+        jTextField13.setText("jTextField1");
+        jPanel8.add(jTextField13);
+
+        jTextField14.setText("jTextField1");
+        jPanel8.add(jTextField14);
+
+        jTextField15.setText("jTextField1");
+        jPanel8.add(jTextField15);
+
+        jTextField16.setText("jTextField1");
+        jPanel8.add(jTextField16);
+
+        jTextField17.setText("jTextField1");
+        jPanel8.add(jTextField17);
+
+        jTextField18.setText("jTextField1");
+        jPanel8.add(jTextField18);
+
+        jTextField19.setText("jTextField1");
+        jPanel8.add(jTextField19);
+
+        jTextField20.setText("jTextField1");
+        jPanel8.add(jTextField20);
+
+        jTextField21.setText("jTextField1");
+        jPanel8.add(jTextField21);
+
+        jTextField22.setText("jTextField1");
+        jPanel8.add(jTextField22);
+
+        jTextField23.setText("jTextField1");
+        jPanel8.add(jTextField23);
+
+        jTextField24.setText("jTextField1");
+        jPanel8.add(jTextField24);
+
+        jTextField25.setText("jTextField1");
+        jPanel8.add(jTextField25);
+
+        jTextField26.setText("jTextField1");
+        jPanel8.add(jTextField26);
+
+        jTextField27.setText("jTextField1");
+        jPanel8.add(jTextField27);
+
+        jTextField28.setText("jTextField1");
+        jPanel8.add(jTextField28);
+
+        jTextField29.setText("jTextField1");
+        jPanel8.add(jTextField29);
+
+        jTextField30.setText("jTextField1");
+        jPanel8.add(jTextField30);
+
+        jTextField31.setText("jTextField1");
+        jPanel8.add(jTextField31);
+
+        jTextField32.setText("jTextField1");
+        jPanel8.add(jTextField32);
+
+        jTextField33.setText("jTextField1");
+        jPanel8.add(jTextField33);
+
+        jTextField34.setText("jTextField1");
+        jPanel8.add(jTextField34);
+
+        jTextField35.setText("jTextField1");
+        jPanel8.add(jTextField35);
+
+        jTextField36.setText("jTextField1");
+        jPanel8.add(jTextField36);
+
+        jTextField37.setText("jTextField1");
+        jPanel8.add(jTextField37);
+
+        jTextField38.setText("jTextField1");
+        jPanel8.add(jTextField38);
+
+        jTextField39.setText("jTextField1");
+        jPanel8.add(jTextField39);
+
+        jTextField40.setText("jTextField1");
+        jPanel8.add(jTextField40);
+
+        jTextField41.setText("jTextField1");
+        jPanel8.add(jTextField41);
+
+        jTextField42.setText("jTextField1");
+        jPanel8.add(jTextField42);
+
+        jTextField43.setText("jTextField1");
+        jPanel8.add(jTextField43);
+
+        jTextField44.setText("jTextField1");
+        jPanel8.add(jTextField44);
+
+        jTextField45.setText("jTextField1");
+        jPanel8.add(jTextField45);
+
+        jTabbedPane1.addTab("Kalender", jPanel8);
+
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 910, 570));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -587,13 +740,7 @@ public class GUI extends javax.swing.JFrame {
     {//GEN-HEADEREND:event_jButtonVisIPDFActionPerformed
         Ordre selected = (Ordre) jList3.getSelectedValue();
         controller.setSelectedOrdre(selected);
-        try {
-            controller.PDF();
-        } catch (DocumentException ex) {
-            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            controller.pdf();
     }//GEN-LAST:event_jButtonVisIPDFActionPerformed
 
     private void jButtonFjernActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonFjernActionPerformed
@@ -799,6 +946,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -822,6 +970,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JRadioButton jRadioButtonAfhentning;
     private javax.swing.JRadioButton jRadioButtonLevering;
     private javax.swing.JScrollPane jScrollPane1;
@@ -835,10 +984,46 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
+    private javax.swing.JTextField jTextField12;
+    private javax.swing.JTextField jTextField13;
+    private javax.swing.JTextField jTextField14;
+    private javax.swing.JTextField jTextField15;
+    private javax.swing.JTextField jTextField16;
+    private javax.swing.JTextField jTextField17;
+    private javax.swing.JTextField jTextField18;
+    private javax.swing.JTextField jTextField19;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField20;
+    private javax.swing.JTextField jTextField21;
+    private javax.swing.JTextField jTextField22;
+    private javax.swing.JTextField jTextField23;
+    private javax.swing.JTextField jTextField24;
+    private javax.swing.JTextField jTextField25;
+    private javax.swing.JTextField jTextField26;
+    private javax.swing.JTextField jTextField27;
+    private javax.swing.JTextField jTextField28;
+    private javax.swing.JTextField jTextField29;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField30;
+    private javax.swing.JTextField jTextField31;
+    private javax.swing.JTextField jTextField32;
+    private javax.swing.JTextField jTextField33;
+    private javax.swing.JTextField jTextField34;
+    private javax.swing.JTextField jTextField35;
+    private javax.swing.JTextField jTextField36;
+    private javax.swing.JTextField jTextField37;
+    private javax.swing.JTextField jTextField38;
+    private javax.swing.JTextField jTextField39;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField40;
+    private javax.swing.JTextField jTextField41;
+    private javax.swing.JTextField jTextField42;
+    private javax.swing.JTextField jTextField43;
+    private javax.swing.JTextField jTextField44;
+    private javax.swing.JTextField jTextField45;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
