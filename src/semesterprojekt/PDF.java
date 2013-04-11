@@ -133,6 +133,12 @@ public class PDF {
             table2.addCell(new Phrase("   " + sum, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
             
             table2.addCell(" ");
+            table2.addCell(new Phrase("Rabat:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+            table2.addCell(" ");
+            table2.addCell(" ");
+            table2.addCell(new Phrase("   " + (pris - sum), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+            
+            table2.addCell(" ");
             table2.addCell(new Phrase("Efter rabat:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
             table2.addCell(" ");
             table2.addCell(" ");
