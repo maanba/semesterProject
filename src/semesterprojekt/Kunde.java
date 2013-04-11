@@ -15,10 +15,10 @@ public class Kunde
     public Kunde(int knummer, String firma, String navn, String adresse, int postnummer, int telefonnummer)
     {
         this.knummer = knummer;
-        this.postnummer = postnummer;
-        this.adresse = adresse;
-        this.navn = navn;
         this.firma = firma;
+        this.navn = navn;
+        this.adresse = adresse;
+        this.postnummer = postnummer;
         this.telefonnummer = telefonnummer;
     }
 
