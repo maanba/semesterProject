@@ -55,7 +55,7 @@ public class PDF {
         
         try {
             Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream(currentOrder.getOnummer() + ".pdf"));
+            PdfWriter.getInstance(document, new FileOutputStream("C:\\ " + currentOrder.getOnummer() + ".pdf"));
             document.open();
             
             PdfPTable top = new PdfPTable(1);
