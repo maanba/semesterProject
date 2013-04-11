@@ -129,8 +129,8 @@ public class Controller {
     }
     ArrayList<Kunde> kundeArr = new ArrayList<>();
 
-    public void addKunde(int knummer, String navn, String adresse, int postnummer, int telefonnummer) {
-        Kunde kunde = new Kunde(knummer, navn, adresse, postnummer, telefonnummer);
+    public void addKunde(int knummer, String firma, String navn, String adresse, int postnummer, int telefonnummer) {
+        Kunde kunde = new Kunde(knummer, firma, navn, adresse, postnummer, telefonnummer);
         kundeArr.add(kunde);
         dbFacade.startNewBusinessTransaction();
         dbFacade.registerNewKunde(kunde);

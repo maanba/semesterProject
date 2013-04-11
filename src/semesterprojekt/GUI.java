@@ -263,10 +263,10 @@ public class GUI extends javax.swing.JFrame {
         jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 110, 160, 260));
 
         jButtonDepositum.setText("Registrer depositum");
-        jPanel1.add(jButtonDepositum, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 140, -1, -1));
+        jPanel1.add(jButtonDepositum, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 380, 160, -1));
 
         jButtonFaktura.setText("Faktura");
-        jPanel1.add(jButtonFaktura, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 170, -1, -1));
+        jPanel1.add(jButtonFaktura, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 410, 70, -1));
 
         jButtonVisIPDF.setText("Vis i PDF");
         jButtonVisIPDF.addActionListener(new java.awt.event.ActionListener() {
@@ -274,7 +274,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonVisIPDFActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonVisIPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 200, -1, -1));
+        jPanel1.add(jButtonVisIPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 410, 80, -1));
 
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
