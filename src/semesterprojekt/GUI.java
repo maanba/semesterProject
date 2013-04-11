@@ -91,15 +91,15 @@ public class GUI extends javax.swing.JFrame
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        jTextFieldAdresse = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        jTextFieldFirmaNavn = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
+        jTextFieldFuldeNavn = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
-        jTextField11 = new javax.swing.JTextField();
+        jTextFieldPostnummer = new javax.swing.JTextField();
+        jTextFieldTelefonnummer = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jButtonLagerGem = new javax.swing.JButton();
@@ -399,25 +399,25 @@ public class GUI extends javax.swing.JFrame
         jLabel21.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jPanel7.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 120, 20));
 
-        jLabel22.setText("Fulde navn");
+        jLabel22.setText("Firmanavn");
         jPanel7.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 80, 20));
-        jPanel7.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 120, -1));
+        jPanel7.add(jTextFieldAdresse, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 120, -1));
 
         jLabel23.setText("Adresse");
         jPanel7.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 60, -1));
-        jPanel7.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 120, -1));
+        jPanel7.add(jTextFieldFirmaNavn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 120, -1));
 
-        jLabel24.setText("Efternavn");
+        jLabel24.setText("Fulde navn");
         jPanel7.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 90, -1));
-        jPanel7.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 120, -1));
+        jPanel7.add(jTextFieldFuldeNavn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 120, -1));
 
         jLabel25.setText("Telefonnummer");
         jPanel7.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 100, -1));
 
         jLabel26.setText("Postnummer");
         jPanel7.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
-        jPanel7.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, 120, -1));
-        jPanel7.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, 120, -1));
+        jPanel7.add(jTextFieldPostnummer, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, 120, -1));
+        jPanel7.add(jTextFieldTelefonnummer, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, 120, -1));
 
         jPanel6.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 50, 250, 270));
 
@@ -916,7 +916,7 @@ public class GUI extends javax.swing.JFrame
     }//GEN-LAST:event_jButtonTilføj1ActionPerformed
 
     private void jButtonTilføj2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilføj2ActionPerformed
-        // TODO add your handling code here:
+     //   controller.addKunde(,jTextFieldFirmaNavn, jTextFieldFuldeNavn, jTextFieldAdresse, jTextFieldPostnummer, jTextFieldTelefonnummer);
     }//GEN-LAST:event_jButtonTilføj2ActionPerformed
 
     private void jButtonDepositumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDepositumActionPerformed
@@ -1203,7 +1203,6 @@ public class GUI extends javax.swing.JFrame
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField12;
     private javax.swing.JTextField jTextField13;
     private javax.swing.JTextField jTextField14;
@@ -1241,17 +1240,18 @@ public class GUI extends javax.swing.JFrame
     private javax.swing.JTextField jTextField43;
     private javax.swing.JTextField jTextField44;
     private javax.swing.JTextField jTextField45;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField jTextFieldAdresse;
     private javax.swing.JTextField jTextFieldAntal;
     private javax.swing.JTextField jTextFieldDagInd;
     private javax.swing.JTextField jTextFieldDagUd;
+    private javax.swing.JTextField jTextFieldFirmaNavn;
+    private javax.swing.JTextField jTextFieldFuldeNavn;
     private javax.swing.JTextField jTextFieldMånedInd;
     private javax.swing.JTextField jTextFieldMånedUd;
+    private javax.swing.JTextField jTextFieldPostnummer;
     private javax.swing.JTextField jTextFieldPris;
+    private javax.swing.JTextField jTextFieldTelefonnummer;
     private javax.swing.JTextField jTextFieldTotalPris;
     private javax.swing.JTextField jTextFieldÅrInd;
     private javax.swing.JTextField jTextFieldÅrUd;
