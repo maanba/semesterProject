@@ -89,11 +89,12 @@ public class Controller {
         return currentOrder;
     }
 
-    public void updateOrder(int knummer, double pris, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
+    public void updateOrder(int knummer, double pris, double depositum, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
         currentOrder.setAfhentning(afhentning);
         currentOrder.setKnummer(knummer);
         currentOrder.setLevering(levering);
         currentOrder.setPris(pris);
+        currentOrder.setDepositum(depositum);
         currentOrder.setReturnering(returnering);
         currentOrder.setOd(odetaljer);
         dbFacade.startNewBusinessTransaction();
@@ -196,6 +197,7 @@ public class Controller {
         return false;
 
     }
+    
 
     private int partitionVare(Vare[] array, int left, int right, int pivotIndex) {
 

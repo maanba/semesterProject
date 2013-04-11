@@ -843,7 +843,7 @@ public class GUI extends javax.swing.JFrame
                     }
                     String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                     String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
-                    controller.updateOrder(kno, Double.parseDouble(jTextFieldPris.getText()), afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                    controller.updateOrder(kno, Double.parseDouble(jTextFieldPris.getText()), Double.parseDouble("0.00"), afhentning, "Påbegyndt", levering, returnering, odetaljer);
                     list2.clear();
                     list3.clear();
                     jLabelError.setText("");
@@ -910,8 +910,7 @@ public class GUI extends javax.swing.JFrame
     }//GEN-LAST:event_jButtonTilføj2ActionPerformed
 
     private void jButtonDepositumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDepositumActionPerformed
-        // selected.setQty(Integer.parseInt(jTextFieldAntal.getText()));
-
+   
         Ordre selected = (Ordre) jList3.getSelectedValue();
         selected.setDepositum(Double.parseDouble(JOptionPane.showInputDialog("Her kan Erling indtaste depositum: ")));
 
