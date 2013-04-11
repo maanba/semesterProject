@@ -546,7 +546,7 @@ public class GUI extends javax.swing.JFrame {
                         Vare vare = (Vare) list2.getElementAt(i);
                         odetaljer.add(new Odetaljer(0, vare.getVnummer(), vare.getQty()));
                     }
-                    if (jRadioButtonAfhentning.isSelected()) {
+                    if (jRadioButtonAfhentning.isSelected() || jRadioButtonLevering.isSelected()) {
                         for (int i = 0; i < kunder.size(); i++) {
                             if (jComboBox1.getSelectedItem().equals(kunder.get(i).getNavn())) {
                                 kno = kunder.get(i).getKnummer();
