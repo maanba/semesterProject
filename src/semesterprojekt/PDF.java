@@ -55,7 +55,7 @@ public class PDF {
         
         try {
             Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream("C:\\" + currentOrder.getOnummer() + ".pdf"));
+            PdfWriter.getInstance(document, new FileOutputStream(currentOrder.getOnummer() + ".pdf"));
             document.open();
             
             PdfPTable top = new PdfPTable(1);
@@ -168,14 +168,14 @@ public class PDF {
         } catch (Exception i) {
             System.out.println(i);
         }
-        openPDF(currentOrder);
+//        openPDF(currentOrder);
     }
     public void openPDF(Ordre currentOrder) {
         try {
-            if ((new File("C:\\" + currentOrder.getOnummer() + ".pdf")).exists()) {
+            if ((new File(currentOrder.getOnummer() + ".pdf")).exists()) {
                 Process p = Runtime
                         .getRuntime()
-                        .exec("rundll32 url.dll,FileProtocolHandler C:\\" + currentOrder.getOnummer() + ".pdf");
+                        .exec("rundll32 url.dll,FileProtocolHandler " + currentOrder.getOnummer() + ".pdf");
                 p.waitFor();
             } else {
                 System.out.println("File is not exists");

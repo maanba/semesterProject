@@ -10,6 +10,7 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 
 public class GUI extends javax.swing.JFrame {
 
@@ -263,6 +264,11 @@ public class GUI extends javax.swing.JFrame {
         jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 110, 160, 260));
 
         jButtonDepositum.setText("Registrer depositum");
+        jButtonDepositum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDepositumActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButtonDepositum, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 380, 160, -1));
 
         jButtonFaktura.setText("Faktura");
@@ -723,7 +729,7 @@ public class GUI extends javax.swing.JFrame {
                         }
                         String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                         String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
-                        controller.createNewOrder(kno, Double.parseDouble(jTextFieldPris.getText()), afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                        controller.createNewOrder(kno, Double.parseDouble(jTextFieldPris.getText()), Double.parseDouble("0.00"), afhentning, "Påbegyndt", levering, returnering, odetaljer);
                         list2.clear();
                         list3.clear();
                         jLabelError.setText("");
@@ -799,6 +805,14 @@ public class GUI extends javax.swing.JFrame {
     private void jButtonTilføj2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilføj2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonTilføj2ActionPerformed
+
+    private void jButtonDepositumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDepositumActionPerformed
+        // selected.setQty(Integer.parseInt(jTextFieldAntal.getText()));
+        
+        Ordre selected = (Ordre) jList3.getSelectedValue();
+        selected.setDepositum(Double.parseDouble(JOptionPane.showInputDialog("Her kan Erling indtaste depositum: ")));
+        
+    }//GEN-LAST:event_jButtonDepositumActionPerformed
 
     public static void main(String args[]) {
 
