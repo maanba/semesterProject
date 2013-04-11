@@ -683,10 +683,10 @@ public class GUI extends javax.swing.JFrame {
         } else {
             jLabelError.setText("FEJL!");
         }
-        if (list2.isEmpty() == false){
+        if (list2.isEmpty() == false) {
             double totalpris = 0;
             for (int i = 0; i < list2.size(); i++) {
-                Vare vare = (Vare)list2.getElementAt(i);
+                Vare vare = (Vare) list2.getElementAt(i);
                 totalpris += vare.getPris() * vare.getQty();
             }
             jTextFieldTotalPris.setText(totalpris + "");
@@ -756,7 +756,7 @@ public class GUI extends javax.swing.JFrame {
     {//GEN-HEADEREND:event_jButtonVisIPDFActionPerformed
         Ordre selected = (Ordre) jList3.getSelectedValue();
         controller.setSelectedOrdre(selected);
-            controller.pdf();
+        controller.pdf();
     }//GEN-LAST:event_jButtonVisIPDFActionPerformed
 
     private void jButtonFjernActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonFjernActionPerformed
@@ -893,10 +893,33 @@ public class GUI extends javax.swing.JFrame {
         }
 
         // list1:
+        int levYear = Integer.parseInt(jTextFieldÅrUd.getText());
+        int levMonth = Integer.parseInt(jTextFieldMånedUd.getText());
+        int levDay = Integer.parseInt(jTextFieldDagUd.getText());
+        int retYear = Integer.parseInt(jTextFieldÅrInd.getText());
+        int retMonth = Integer.parseInt(jTextFieldMånedInd.getText());
+        int retDay = Integer.parseInt(jTextFieldDagInd.getText());
         ArrayList<Vare> vl = controller.getAllRessources();
         Vare[] va = new Vare[vl.size()];
         for (int i = 0; i < vl.size(); i++) {
+            for (int j = 0; j < list3.size(); j++) {
+                Ordre o = (Ordre) list3.getElementAt(i);
+                int oLevYear = Integer.parseInt(o.getLevering().substring(6, 10));
+                int oLevMonth = Integer.parseInt(o.getLevering().substring(3, 5));
+                int oLevDay = Integer.parseInt(o.getLevering().substring(0, 2));
+                int oRetYear = Integer.parseInt(o.getReturnering().substring(6, 10));
+                int oRetMonth = Integer.parseInt(o.getReturnering().substring(3, 5));
+                int oRetDay = Integer.parseInt(o.getReturnering().substring(0, 2));
+                if (oLevDay > levDay) {
+                    if (oLevMonth > levMonth) {
+                        if (oLevYear > levYear) {
+                            
+                        }
+                    }
+                }
+            }
             va[i] = vl.get(i);
+
         }
         controller.quickSortVare(va, 0, va.length - 1);
 
