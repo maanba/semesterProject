@@ -27,12 +27,18 @@ public class PDF {
     
     public void PDF(Ordre currentOrder, Kunde kunde, ArrayList<Odetaljer> odetaljeArray, ArrayList<Vare> vareArray, Postnummer postnummer) throws DocumentException, FileNotFoundException {
         
-        
-        
-        
         int postnr = kunde.getPostnummer();
         String adresse = kunde.getAdresse();
-        String navn = kunde.getNavn();
+        String navn = "";
+        String kontaktperson = "";
+        if(kunde.getFirma() == null){
+        navn = kunde.getNavn();
+        }
+        else {
+            navn = kunde.getFirma();
+            kontaktperson = kunde.getNavn();
+        }
+        
         String temp = kunde.getTelefonnummer() + "";
         String telefonnummer = temp.substring(0, 2) + " ";
         telefonnummer += temp.substring(2, 4) + " ";
@@ -45,7 +51,7 @@ public class PDF {
         String status = currentOrder.getStatus() + "";
         
         double pris = currentOrder.getPris();
-        
+        double depositum = currentOrder.getDepositum();
 
         String afhentning = currentOrder.getAfhentning() + "";
         String levering = currentOrder.getLevering() + "";
@@ -91,6 +97,10 @@ public class PDF {
             Date date = new Date();
             table1.addCell(new Phrase(dateFormat.format(date), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
             
+            table1.addCell(new Phrase(kontaktperson, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+            table1.addCell(new Phrase(" ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+            table1.addCell(new Phrase(" ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+            table1.addCell(new Phrase(" ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
             
             PdfPTable table2 = new PdfPTable(5);
             table2.setTotalWidth(500);
@@ -120,6 +130,13 @@ public class PDF {
                 table2.addCell(new Phrase("   " + odetaljeArray.get(i).getMaengde() * vareArray.get(i).getPris(), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 sum = sum + odetaljeArray.get(i).getMaengde() * vareArray.get(i).getPris();
             }
+            
+            table2.addCell(" ");
+            table2.addCell(new Phrase("Depositum:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+            table2.addCell(" ");
+            table2.addCell(" ");
+            table2.addCell(new Phrase("   " + depositum, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+            
             table2.addCell(" ");
             table2.addCell(" ");
             table2.addCell(" ");

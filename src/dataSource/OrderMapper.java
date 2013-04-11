@@ -192,7 +192,25 @@ public class OrderMapper {
         }
         return rowsInserted == odl.size();
     }
+    public boolean insertVareDel(ArrayList<Del> delListe, Connection conn) throws SQLException {
+        String SQLString = "insert into odetaljer values (?,?,?)";
+        PreparedStatement statement = null;
 
+        int rowsInserted = 0;
+        if (0 < delListe.size()) {
+            statement = conn.prepareStatement(SQLString);
+            for (int i = 0; i < delListe.size(); i++) {
+                statement.setInt(1, delListe.get(i).getVnummer());
+                statement.setString(2, delListe.get(i).getTitel());
+                statement.setInt(3, delListe.get(i).getAntal());
+                rowsInserted += statement.executeUpdate();
+            }
+        }
+        if (testRun) {
+            System.out.println("insertVareDel:" + (rowsInserted == delListe.size())); // for test
+        }
+        return rowsInserted == delListe.size();
+    }
     public boolean updateOrderDetails(ArrayList<Odetaljer> odl, Connection conn) throws SQLException {
         int rowsUpdated = 0;
         String SQLString = "update odetaljer "
@@ -214,7 +232,27 @@ public class OrderMapper {
         }
         return (rowsUpdated == odl.size());
     }
+    public boolean updateVareDel(ArrayList<Del> delListe, Connection conn) throws SQLException {
+        int rowsUpdated = 0;
+        String SQLString = "update del "
+                + "set antal = ? "
+                + "where vnummer = ?";
+        PreparedStatement statement = null;
 
+        statement = conn.prepareStatement(SQLString);
+        for (int i = 0; i < delListe.size(); i++) {
+            Del od = delListe.get(i);
+            statement.setInt(1, od.getVnummer());
+            statement.setString(2, od.getTitel());
+            statement.setInt(3, od.getAntal());
+            int tupleUpdated = statement.executeUpdate();
+            rowsUpdated += tupleUpdated;
+        }
+        if (testRun) {
+            System.out.println("updateDel: " + (rowsUpdated == delListe.size())); // for test
+        }
+        return (rowsUpdated == delListe.size());
+    }
     public boolean deleteOrderDetials(int ono, Connection conn) throws SQLException {
         int ordersDeleted = 0;
         String SQLString = "delete from odetaljer "
@@ -225,6 +263,18 @@ public class OrderMapper {
             statement.executeUpdate();
         
         return (ordersDeleted == 1);
+    }
+    
+    public boolean deleteVareDel(int vnummer, Connection conn) throws SQLException {
+        int delDeleted = 0;
+        String SQLString = "delete from del "
+                + "where vnummer = ?";
+
+        PreparedStatement statement = conn.prepareStatement(SQLString);
+            statement.setInt(1, vnummer);
+            statement.executeUpdate();
+        
+        return (delDeleted == 1);
     }
 
     public boolean deleteCustomers(ArrayList<Kunde> kl, Connection conn) throws SQLException {
@@ -310,7 +360,6 @@ public class OrderMapper {
                         dateFormat.format(rs.getDate(8)),
                         dateFormat.format(rs.getDate(9)),
                         rs.getInt(10));
-
 
                 //=== get order details
                 statement = conn.prepareStatement(SQLString2);
@@ -493,6 +542,11 @@ public class OrderMapper {
         String SQLString = "select * from varer where vnummer = ?";
         PreparedStatement statement = null;
         Vare vare = null;
+        
+        String SQLString2 = // get del
+                "select * "
+                + "from del "
+                + "where onummer = ? ";
         try {
             statement = conn.prepareStatement(SQLString);
             statement.setInt(1, vnummer);
@@ -503,8 +557,20 @@ public class OrderMapper {
                         rs.getInt(3),
                         rs.getDouble(4));
             }
+            statement = conn.prepareStatement(SQLString2);
+                statement.setInt(1, vnummer);
+                rs = statement.executeQuery();
+                while (rs.next()) {
+                    vare.addDel(new Del(
+                            vnummer,
+                            rs.getString(2),
+                            rs.getInt(3)));
+                }
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+        if (testRun) {
+            System.out.println("Retrieved Varer: " + vare);
         }
         return vare;
     }
