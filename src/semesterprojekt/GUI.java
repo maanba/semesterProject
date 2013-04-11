@@ -25,7 +25,7 @@ public class GUI extends javax.swing.JFrame
         initComponents();
         cellRenderer();
 
-        
+
 
         setTitle("Semesterprojekt");
 
@@ -36,15 +36,7 @@ public class GUI extends javax.swing.JFrame
         jListOrdrer.setModel(listOrdrer);
 
 
-        ArrayList<Ordre> ol = controller.getAllOrdres();
-        for (int i = 0; i < ol.size(); i++)
-        {
-            if ("Afsluttet".equals(ol.get(i).getStatus()))
-            {
-                listHistorik.addElement(ol.get(i));
-            }
 
-        }
         jLabelError.setText(null);
         update();
     }
@@ -910,7 +902,7 @@ public class GUI extends javax.swing.JFrame
     }//GEN-LAST:event_jButtonTilføj2ActionPerformed
 
     private void jButtonDepositumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDepositumActionPerformed
-   
+
         Ordre selected = (Ordre) jList3.getSelectedValue();
         selected.setDepositum(Double.parseDouble(JOptionPane.showInputDialog("Her kan Erling indtaste depositum: ")));
 
@@ -1008,11 +1000,11 @@ public class GUI extends javax.swing.JFrame
         });
     }
 
-public void update()
+    public void update()
     {
         list1.clear();
         list3.clear();
-        
+
         listHistorik.clear();
         listOrdrer.clear();
         jComboBox1.removeAllItems();
@@ -1025,7 +1017,7 @@ public void update()
         {
             oa[i] = ol.get(i);
         }
-        controller.quickSortOrdre(oa, 0, oa.length - 1);
+        // controller.quickSortOrdre(oa, 0, oa.length - 1);
         for (int i = 0; i < oa.length; i++)
         {
             if (!"Afsluttet".equals(ol.get(i).getStatus()))
@@ -1033,6 +1025,13 @@ public void update()
                 list3.addElement(oa[i]);
                 listHistorik.addElement(oa[i]);
                 listOrdrer.addElement(oa[i]);
+            }
+        }
+        for (int i = 0; i < oa.length; i++)
+        {
+            if ("Afsluttet".equals(ol.get(i).getStatus()))
+            {
+                listHistorik.addElement(oa[i]);
             }
         }
 
