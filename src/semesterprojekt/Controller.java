@@ -202,7 +202,7 @@ public class Controller
         }
     }
 
-    public void changeStatus(int knummer)
+    public void ordreAfslut(int knummer)
     {
         ArrayList<Ordre> ol = dbFacade.getAllOrdres();
         for (int i = 0; i < ol.size(); i++)
@@ -210,6 +210,22 @@ public class Controller
             if (knummer == ol.get(i).getKnummer())
             {
                 ol.get(i).setStatus("Afsluttet");
+                dbFacade.startNewBusinessTransaction();
+                dbFacade.registerDirtyOrder(ol.get(i));
+                dbFacade.commitBusinessTransaction();
+                break;
+            }
+        }
+    }
+    
+        public void ordrePaabegynd(int knummer)
+    {
+        ArrayList<Ordre> ol = dbFacade.getAllOrdres();
+        for (int i = 0; i < ol.size(); i++)
+        {
+            if (knummer == ol.get(i).getKnummer())
+            {
+                ol.get(i).setStatus("Påbegyndt");
                 dbFacade.startNewBusinessTransaction();
                 dbFacade.registerDirtyOrder(ol.get(i));
                 dbFacade.commitBusinessTransaction();

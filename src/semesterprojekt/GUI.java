@@ -127,7 +127,6 @@ public class GUI extends javax.swing.JFrame
         jLabel14 = new javax.swing.JLabel();
         jButtonAfslutOrdre = new javax.swing.JButton();
         jButtonOK = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         jList7 = new javax.swing.JList();
@@ -178,8 +177,8 @@ public class GUI extends javax.swing.JFrame
         jPanel9 = new javax.swing.JPanel();
         jScrollPane9 = new javax.swing.JScrollPane();
         jListHistorik = new javax.swing.JList();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButtonAfslut = new javax.swing.JButton();
+        jButtonPaabegynd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -513,16 +512,6 @@ public class GUI extends javax.swing.JFrame
         jButtonOK.setText("OK");
         jPanel3.add(jButtonOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 60, 50, -1));
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 120, -1, -1));
-
         jTabbedPane1.addTab("Retur", jPanel3);
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -679,18 +668,25 @@ public class GUI extends javax.swing.JFrame
 
         jPanel9.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 330, 290));
 
-        jButton2.setText("Afslut");
-        jButton2.addActionListener(new java.awt.event.ActionListener()
+        jButtonAfslut.setText("Afslut");
+        jButtonAfslut.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                jButton2ActionPerformed(evt);
+                jButtonAfslutActionPerformed(evt);
             }
         });
-        jPanel9.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 90, -1, -1));
+        jPanel9.add(jButtonAfslut, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, -1, -1));
 
-        jButton3.setText("Påbegynd");
-        jPanel9.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, -1, -1));
+        jButtonPaabegynd.setText("Påbegynd");
+        jButtonPaabegynd.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButtonPaabegyndActionPerformed(evt);
+            }
+        });
+        jPanel9.add(jButtonPaabegynd, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, -1, -1));
 
         jTabbedPane1.addTab("Historik", jPanel9);
 
@@ -933,21 +929,23 @@ public class GUI extends javax.swing.JFrame
     private void jButtonAfslutOrdreActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonAfslutOrdreActionPerformed
     {//GEN-HEADEREND:event_jButtonAfslutOrdreActionPerformed
         Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
-        controller.changeStatus(selected.getKnummer());
+        controller.ordreAfslut(selected.getKnummer());
         update();
     }//GEN-LAST:event_jButtonAfslutOrdreActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
-    {//GEN-HEADEREND:event_jButton1ActionPerformed
-        Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
-        System.out.println(selected.getStatus());
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
-    {//GEN-HEADEREND:event_jButton2ActionPerformed
+    private void jButtonAfslutActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonAfslutActionPerformed
+    {//GEN-HEADEREND:event_jButtonAfslutActionPerformed
         Ordre selected = (Ordre) jListHistorik.getSelectedValue();
-        System.out.println(selected.getStatus());
-    }//GEN-LAST:event_jButton2ActionPerformed
+        controller.ordreAfslut(selected.getKnummer());
+        update();
+    }//GEN-LAST:event_jButtonAfslutActionPerformed
+
+    private void jButtonPaabegyndActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonPaabegyndActionPerformed
+    {//GEN-HEADEREND:event_jButtonPaabegyndActionPerformed
+        Ordre selected = (Ordre) jListHistorik.getSelectedValue();
+        controller.ordrePaabegynd(selected.getKnummer());
+        update();       
+    }//GEN-LAST:event_jButtonPaabegyndActionPerformed
 
     public static void main(String args[])
     {
@@ -1121,10 +1119,8 @@ public class GUI extends javax.swing.JFrame
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButtonAfslut;
     private javax.swing.JButton jButtonAfslutOrdre;
     private javax.swing.JButton jButtonDepositum;
     private javax.swing.JButton jButtonFaktura;
@@ -1135,6 +1131,7 @@ public class GUI extends javax.swing.JFrame
     private javax.swing.JButton jButtonLever;
     private javax.swing.JButton jButtonOK;
     private javax.swing.JButton jButtonOrdreRediger;
+    private javax.swing.JButton jButtonPaabegynd;
     private javax.swing.JButton jButtonReturGem;
     private javax.swing.JButton jButtonTilføj;
     private javax.swing.JButton jButtonTilføj1;
