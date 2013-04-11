@@ -161,7 +161,7 @@ public class UnitOfWorkProcessOrder {
 
     //====== Methods to read from DB ===================================================
     public Ordre getOrder(int ono, Connection con) {
-        Ordre o = null;;
+        Ordre o = null;
         try {
             o = new OrderMapper().getOrder(ono, con);
         } catch (Exception e) {
