@@ -146,6 +146,8 @@ public class Controller
 
         System.out.println(dbFacade.getAllCustumers());
     }
+    
+    //       dbFacade.getNextkundeNr
 
     public boolean saveOrder()
     {
@@ -218,7 +220,9 @@ public class Controller
         }
     }
     
-        public void ordrePaabegynd(int knummer)
+
+
+    public void ordrePaabegynd(int knummer)
     {
         ArrayList<Ordre> ol = dbFacade.getAllOrdres();
         for (int i = 0; i < ol.size(); i++)
@@ -451,4 +455,6 @@ public class Controller
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+   
 }
