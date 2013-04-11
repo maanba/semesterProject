@@ -121,6 +121,18 @@ public class DBFacade {
         }
         return nextOno;
     }
+    
+     public int getNextFNo() {
+        Connection con = null;
+        int nextFnummer = 0;
+        try {
+            con = getConnection();
+            nextFnummer = new OrderMapper().getNextFnummer(con);
+        } finally {
+            releaseConnection(con);
+        }
+        return nextFnummer;
+    }
 
     //=====	Methods to register changes	in UnitOfWork  
     public void registerNewOrder(Ordre o) {
@@ -134,6 +146,8 @@ public class DBFacade {
             uow.registerNewCustomer(k);
         }
     }
+    
+    
 
     public void registerDirtyOrder(Ordre o) {
         if (uow != null) {

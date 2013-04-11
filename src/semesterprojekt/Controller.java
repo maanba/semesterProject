@@ -65,6 +65,7 @@ public class Controller
         String modtaget = dateFormat.format(date);
         dbFacade.startNewBusinessTransaction();
         int newOrderNo = dbFacade.getNextOrderNo();// DB-generated unique ID
+        int newFakturaNo = dbFacade.getNextFNo();
         if (newOrderNo != 0)
         {
             processingOrder = true;
@@ -72,7 +73,7 @@ public class Controller
             {
                 odetaljer.get(i).setOnummer(newOrderNo);
             }
-            currentOrder = new Ordre(newOrderNo, knummer, pris, depositum, afhentning, status, modtaget, levering, returnering, 0);
+            currentOrder = new Ordre(newOrderNo, newFakturaNo, knummer, pris, depositum, afhentning, status, modtaget, levering, returnering, 0);
             dbFacade.registerNewOrder(currentOrder);
             for (int i = 0; i < odetaljer.size(); i++)
             {
@@ -148,6 +149,19 @@ public class Controller
     }
     
     //       dbFacade.getNextkundeNr
+
+    ArrayList<Vare> vareArr = new ArrayList<>();
+    
+    public void addRessource(int vnummer, String vnavn, int qty, double pris) {
+        Vare ressource = new Vare(vnummer, vnavn, qty, pris);
+        vareArr.add(ressource);
+        dbFacade.startNewBusinessTransaction();
+        dbFacade.registerNewRessource(ressource);
+        dbFacade.commitBusinessTransaction();
+
+        System.out.println(dbFacade.getAllCustumers());
+    }
+
 
     public boolean saveOrder()
     {

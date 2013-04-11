@@ -11,14 +11,15 @@ import java.util.ArrayList;
  */
 public class Ordre
 {
-    private int onummer, knummer, ver;
+    private int onummer, fnummer, knummer, ver;
     private String status, modtaget, levering, returnering, afhentning;
     private double pris, depositum;
     private ArrayList<Odetaljer> od = new ArrayList();
 
-    public Ordre(int onummer, int knummer, double pris, double depositum, String afhentning, String status, String modtaget, String levering, String returnering, int ver)
+    public Ordre(int onummer, int fnummer, int knummer, double pris, double depositum, String afhentning, String status, String modtaget, String levering, String returnering, int ver)
     {
         this.onummer = onummer;
+        this.fnummer = fnummer;
         this.knummer = knummer;
         this.pris = pris;
         this.depositum = depositum;
@@ -28,6 +29,14 @@ public class Ordre
         this.modtaget = modtaget;
         this.levering = levering;
         this.returnering = returnering;
+    }
+
+    public int getFnummer() {
+        return fnummer;
+    }
+
+    public void setFnummer(int fnummer) {
+        this.fnummer = fnummer;
     }
 
     public String getModtaget()
