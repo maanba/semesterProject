@@ -4,18 +4,27 @@
  */
 package semesterprojekt;
 
+import com.itextpdf.text.*;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import dataSource.DBFacade;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -27,8 +36,8 @@ public class Controller {
     private Ordre currentOrder;       	// Order in focus
     private Vare currentVare;
     private Kunde currentKunde;
+    private Postnummer currentPostnummer;
     private DBFacade dbFacade;
-    private Ordre selectedOrdre;
 
     public Controller() {
         dbFacade = DBFacade.getInstance();
@@ -117,6 +126,17 @@ public class Controller {
             status = true;
         }
         return status;
+    }
+    ArrayList<Kunde> kundeArr = new ArrayList<>();
+
+    public void addKunde(int knummer, String navn, String adresse, int postnummer, int telefonnummer) {
+        Kunde kunde = new Kunde(knummer, navn, adresse, postnummer, telefonnummer);
+        kundeArr.add(kunde);
+        dbFacade.startNewBusinessTransaction();
+        dbFacade.registerNewKunde(kunde);
+        dbFacade.commitBusinessTransaction();
+
+        System.out.println(dbFacade.getAllCustumers());
     }
 
     public boolean saveOrder() {
@@ -304,6 +324,13 @@ public class Controller {
         return currentKunde;
     }
 
+    public Postnummer getPostnummer(int postnr) {
+        dbFacade.startNewBusinessTransaction();
+        processingOrder = true;
+        currentPostnummer = dbFacade.getPostnummer(postnr);
+        return currentPostnummer;
+    }
+
     public ArrayList<Ordre> getAllOrdres() {
         ArrayList<Ordre> ol = dbFacade.getAllOrdres();
         return ol;
@@ -320,43 +347,27 @@ public class Controller {
     }
 
     public void setSelectedOrdre(Ordre ordre) {
-        this.selectedOrdre = ordre;
+        this.currentOrder = ordre;
     }
 
-    public void PDF() throws DocumentException, FileNotFoundException {
-        ArrayList<Odetaljer> vareListeArray = selectedOrdre.getOd();
-
-        String vareListe = "";
-        for (int i = 0; i < vareListeArray.size(); i++) {
-            vareListe += "Varenummer: " + vareListeArray.get(i).getVnummer() + " " + "Mængde: " + vareListeArray.get(i).getMaengde() + "\n";
-            System.out.println(vareListe);
+    public void pdf() {
+        ArrayList<Odetaljer> odetaljeArray = currentOrder.getOd();
+        ArrayList<Vare> vareArray = new ArrayList<>();
+        for (int i = 0; i < odetaljeArray.size(); i++) {
+            Vare vare = getVare(odetaljeArray.get(i).getVnummer());
+            vare.setQty(odetaljeArray.get(i).getMaengde());
+            vareArray.add(vare);
         }
-
-        String onummer = selectedOrdre.getOnummer() + "";
-        String knummer = selectedOrdre.getKnummer() + "";
-        String pris = selectedOrdre.getPris() + " kroner";
-        String afhentning = selectedOrdre.getAfhentning() + "";
-        String status = selectedOrdre.getStatus() + "";
-        String modtaget = selectedOrdre.getModtaget() + "";
-        String levering = selectedOrdre.getLevering() + "";
-        String returnering = selectedOrdre.getReturnering() + "";
-        String ver = selectedOrdre.getVer() + "";
-
-        String result = "Ordre nummer: " + onummer + "\n"
-                + "Kunde nummer: " + "\t" + knummer + "\n"
-                + "Pris: " + pris + "\n"
-                + "Afhentning: " + afhentning + "\n"
-                + "Status: " + status + "\n"
-                + "Modtaget: " + modtaget + "\n"
-                + "Levering: " + levering + "\n"
-                + "Returnering: " + returnering + "\n"
-                + "Vareliste: " + vareListe;
-
-        Document document = new Document() {
-        };
-        PdfWriter.getInstance(document, new FileOutputStream(selectedOrdre.getOnummer() + ".pdf"));
-        document.open();
-        document.add(new Paragraph(result));
-        document.close();
+        Kunde kunde = getKunde(currentOrder.getKnummer());
+        Postnummer postnummer = getPostnummer(currentKunde.getPostnummer());
+        
+        PDF pdf = new PDF();
+        try {
+            pdf.PDF(currentOrder, kunde, odetaljeArray, vareArray, postnummer);
+        } catch (DocumentException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
