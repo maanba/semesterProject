@@ -3,17 +3,17 @@
  * and open the template in the editor.
  */
 package semesterprojekt;
-
 /**
- *
- * @author Daniel Krarup Knudsen
- */
-public class Kunde {
 
+ @author Daniel Krarup Knudsen
+ */
+public class Kunde
+{
     private int knummer, postnummer, telefonnummer;
     private String firma, navn, adresse;
 
-    public Kunde(int knummer, String firma, String navn, String adresse, int postnummer, int telefonnummer) {
+    public Kunde(int knummer, String firma, String navn, String adresse, int postnummer, int telefonnummer)
+    {
         this.knummer = knummer;
         this.postnummer = postnummer;
         this.adresse = adresse;
@@ -22,51 +22,68 @@ public class Kunde {
         this.telefonnummer = telefonnummer;
     }
 
-    public String getFirma() {
+    public String getFirma()
+    {
         return firma;
     }
 
-    public void setFirma(String firma) {
+    public void setFirma(String firma)
+    {
         this.firma = firma;
     }
 
-    public int getKnummer() {
+    public int getKnummer()
+    {
         return knummer;
     }
 
-    public void setKnummer(int knummer) {
+    public void setKnummer(int knummer)
+    {
         this.knummer = knummer;
     }
 
-    public int getPostnummer() {
+    public int getPostnummer()
+    {
         return postnummer;
     }
 
-    public void setPostnummer(int postnummer) {
+    public void setPostnummer(int postnummer)
+    {
         this.postnummer = postnummer;
     }
 
-    public int getTelefonnummer() {
+    public int getTelefonnummer()
+    {
         return telefonnummer;
     }
 
-    public void setTelefonnummer(int telefonnummer) {
+    public void setTelefonnummer(int telefonnummer)
+    {
         this.telefonnummer = telefonnummer;
     }
 
-    public String getAdresse() {
+    public String getAdresse()
+    {
         return adresse;
     }
 
-    public void setAdresse(String adresse) {
+    public void setAdresse(String adresse)
+    {
         this.adresse = adresse;
     }
 
-    public String getNavn() {
+    public String getNavn()
+    {
         return navn;
     }
 
-    public void setNavn(String navn) {
+    public void setNavn(String navn)
+    {
         this.navn = navn;
+    }
+
+    public String toString()
+    {
+        return "" + knummer;
     }
 }

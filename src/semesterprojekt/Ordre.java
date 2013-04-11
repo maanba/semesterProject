@@ -128,7 +128,7 @@ public class Ordre {
 
     @Override
     public String toString() {
-        return "Ordre{" + "onummer=" + onummer + ", knummer=" + knummer + ", ver=" + ver + ", status=" + status + ", modtaget=" + levering + ", sendt=" + returnering + ", afhentning=" + afhentning + ", pris=" + pris + ", od=" + od + '}';
+        return ""+knummer;
     }
 
     
