@@ -61,7 +61,7 @@ public class Controller {
         this.currentOrder = currentOrder;
     }
 
-    public Ordre createNewOrder(int knummer, double pris, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
+    public Ordre createNewOrder(int knummer, double pris, double depositum, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
         if (processingOrder) {
             return null;
         }
@@ -76,7 +76,7 @@ public class Controller {
             for (int i = 0; i < odetaljer.size(); i++) {
                 odetaljer.get(i).setOnummer(newOrderNo);
             }
-            currentOrder = new Ordre(newOrderNo, knummer, pris, afhentning, status, modtaget, levering, returnering, 0);
+            currentOrder = new Ordre(newOrderNo, knummer, pris, depositum, afhentning, status, modtaget, levering, returnering, 0);
             dbFacade.registerNewOrder(currentOrder);
             for (int i = 0; i < odetaljer.size(); i++) {
                 dbFacade.registerNewOrderDetail(odetaljer.get(i));
@@ -129,8 +129,8 @@ public class Controller {
     }
     ArrayList<Kunde> kundeArr = new ArrayList<>();
 
-    public void addKunde(int knummer, String navn, String adresse, int postnummer, int telefonnummer) {
-        Kunde kunde = new Kunde(knummer, navn, adresse, postnummer, telefonnummer);
+    public void addKunde(int knummer, String firma, String navn, String adresse, int postnummer, int telefonnummer) {
+        Kunde kunde = new Kunde(knummer, firma, navn, adresse, postnummer, telefonnummer);
         kundeArr.add(kunde);
         dbFacade.startNewBusinessTransaction();
         dbFacade.registerNewKunde(kunde);

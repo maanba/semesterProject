@@ -14,13 +14,14 @@ public class Ordre {
 
     private int onummer, knummer, ver;
     private String status, modtaget, levering, returnering, afhentning;
-    private double pris;
+    private double pris, depositum;
     private ArrayList<Odetaljer> od = new ArrayList();
 
-    public Ordre(int onummer, int knummer, double pris, String afhentning, String status, String modtaget, String levering, String returnering, int ver) {
+    public Ordre(int onummer, int knummer, double pris, double depositum, String afhentning, String status, String modtaget, String levering, String returnering, int ver) {
         this.onummer = onummer;
         this.knummer = knummer;
         this.pris = pris;
+        this.depositum = depositum;
         this.afhentning = afhentning;
         this.ver = ver;
         this.status = status;
@@ -115,6 +116,14 @@ public class Ordre {
 
     public void setPris(double pris) {
         this.pris = pris;
+    }
+    
+    public double getDepositum() {
+        return depositum;
+    }
+
+    public void setDepositum(double pris) {
+        this.pris = depositum;
     }
 
     @Override

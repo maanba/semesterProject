@@ -425,8 +425,9 @@ public class OrderMapper {
                     k = new Kunde(rs.getInt(1),
                             rs.getString(2),
                             rs.getString(3),
-                            rs.getInt(4),
-                            rs.getInt(5));
+                            rs.getString(4),
+                            rs.getInt(5),
+                            rs.getInt(6));
                 }
                 kl.add(k);
             }
@@ -516,8 +517,9 @@ public class OrderMapper {
                 kunde = new Kunde(rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
-                        rs.getInt(4),
-                        rs.getInt(5));
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getInt(6));
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
