@@ -146,6 +146,18 @@ public class Controller
 
         System.out.println(dbFacade.getAllCustumers());
     }
+    
+    ArrayList<Vare> vareArr = new ArrayList<>();
+    
+    public void addRessource(int vnummer, String vnavn, int qty, double pris) {
+        Vare ressource = new Vare(vnummer, vnavn, qty, pris);
+        vareArr.add(ressource);
+        dbFacade.startNewBusinessTransaction();
+        dbFacade.registerNewRessource(ressource);
+        dbFacade.commitBusinessTransaction();
+
+        System.out.println(dbFacade.getAllCustumers());
+    }
 
     public boolean saveOrder()
     {

@@ -39,8 +39,7 @@ public class GUI extends javax.swing.JFrame
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
@@ -196,20 +195,16 @@ public class GUI extends javax.swing.JFrame
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, 163, 230));
 
         jButtonTilføj.setText("Tilføj >");
-        jButtonTilføj.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonTilføj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonTilføjActionPerformed(evt);
             }
         });
         jPanel1.add(jButtonTilføj, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 210, 80, -1));
 
         jButtonFjern.setText("< Fjern");
-        jButtonFjern.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonFjern.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonFjernActionPerformed(evt);
             }
         });
@@ -223,19 +218,15 @@ public class GUI extends javax.swing.JFrame
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, -1, -1));
         jPanel1.add(jTextFieldMånedInd, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, 30, -1));
 
-        jTextFieldDagUd.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jTextFieldDagUd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldDagUdActionPerformed(evt);
             }
         });
         jPanel1.add(jTextFieldDagUd, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 30, -1));
 
-        jTextFieldMånedUd.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jTextFieldMånedUd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldMånedUdActionPerformed(evt);
             }
         });
@@ -248,10 +239,8 @@ public class GUI extends javax.swing.JFrame
         jPanel1.add(jTextFieldÅrUd, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 40, -1));
 
         jButtonGennemførOrdre.setText("Gennemfør ordre >");
-        jButtonGennemførOrdre.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonGennemførOrdre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonGennemførOrdreActionPerformed(evt);
             }
         });
@@ -263,20 +252,16 @@ public class GUI extends javax.swing.JFrame
 
         buttonGroup1.add(jRadioButtonLevering);
         jRadioButtonLevering.setText("Levering");
-        jRadioButtonLevering.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jRadioButtonLevering.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButtonLeveringActionPerformed(evt);
             }
         });
         jPanel1.add(jRadioButtonLevering, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 40, -1, -1));
 
         jButtonOrdreRediger.setText("< Redigér");
-        jButtonOrdreRediger.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonOrdreRediger.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonOrdreRedigerActionPerformed(evt);
             }
         });
@@ -287,10 +272,8 @@ public class GUI extends javax.swing.JFrame
         jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 110, 160, 260));
 
         jButtonDepositum.setText("Registrer depositum");
-        jButtonDepositum.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonDepositum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDepositumActionPerformed(evt);
             }
         });
@@ -300,10 +283,8 @@ public class GUI extends javax.swing.JFrame
         jPanel1.add(jButtonFaktura, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 410, 70, -1));
 
         jButtonVisIPDF.setText("Vis i PDF");
-        jButtonVisIPDF.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonVisIPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonVisIPDFActionPerformed(evt);
             }
         });
@@ -315,20 +296,16 @@ public class GUI extends javax.swing.JFrame
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 80, 160, 20));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Kunder" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
             }
         });
         jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 110, 160, -1));
         jPanel1.add(jLabelError, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 810, 20));
 
-        jTextFieldAntal.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jTextFieldAntal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldAntalActionPerformed(evt);
             }
         });
@@ -361,20 +338,16 @@ public class GUI extends javax.swing.JFrame
         jPanel6.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 44, 163, 270));
 
         jButtonTilføj1.setText("Rediger >");
-        jButtonTilføj1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonTilføj1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonTilføj1ActionPerformed(evt);
             }
         });
         jPanel6.add(jButtonTilføj1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 70, 90, -1));
 
         jButtonTilføj2.setText("< Gem");
-        jButtonTilføj2.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonTilføj2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonTilføj2ActionPerformed(evt);
             }
         });
@@ -434,6 +407,11 @@ public class GUI extends javax.swing.JFrame
         jButtonLagerGem.setMaximumSize(new java.awt.Dimension(105, 29));
         jButtonLagerGem.setMinimumSize(new java.awt.Dimension(105, 29));
         jButtonLagerGem.setPreferredSize(new java.awt.Dimension(105, 29));
+        jButtonLagerGem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLagerGemActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButtonLagerGem, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 90, -1));
 
         jButtonLagerRediger.setText("Rediger >");
@@ -500,10 +478,8 @@ public class GUI extends javax.swing.JFrame
         jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 170, -1));
 
         jButtonAfslutOrdre.setText("Afslut ordre");
-        jButtonAfslutOrdre.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonAfslutOrdre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAfslutOrdreActionPerformed(evt);
             }
         });
@@ -658,8 +634,7 @@ public class GUI extends javax.swing.JFrame
 
         jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jListHistorik.setModel(new javax.swing.AbstractListModel()
-        {
+        jListHistorik.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -669,20 +644,16 @@ public class GUI extends javax.swing.JFrame
         jPanel9.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 330, 290));
 
         jButtonAfslut.setText("Afslut");
-        jButtonAfslut.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonAfslut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAfslutActionPerformed(evt);
             }
         });
         jPanel9.add(jButtonAfslut, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, -1, -1));
 
         jButtonPaabegynd.setText("Påbegynd");
-        jButtonPaabegynd.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonPaabegynd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPaabegyndActionPerformed(evt);
             }
         });
@@ -946,6 +917,15 @@ public class GUI extends javax.swing.JFrame
         controller.ordrePaabegynd(selected.getKnummer());
         update();       
     }//GEN-LAST:event_jButtonPaabegyndActionPerformed
+
+    private void jButtonLagerGemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLagerGemActionPerformed
+        int  vnummer = Integer.parseInt(jLabelRedigerVare.getText());
+        String vnavn = jTextFieldNavn.getText();
+        int  pris = Integer.parseInt(jTextFieldVarePris.getText());
+        int  qty = Integer.parseInt(jTextFieldVareQty.getText());
+        
+        Vare vare = new Vare (vnummer, vnavn, qty, pris);
+    }//GEN-LAST:event_jButtonLagerGemActionPerformed
 
     public static void main(String args[])
     {

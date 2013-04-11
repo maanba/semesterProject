@@ -134,6 +134,8 @@ public class DBFacade {
             uow.registerNewCustomer(k);
         }
     }
+    
+    
 
     public void registerDirtyOrder(Ordre o) {
         if (uow != null) {
