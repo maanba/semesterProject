@@ -154,9 +154,9 @@ public class Ordre
         return depositum;
     }
 
-    public void setDepositum(double pris)
+    public void setDepositum(double depositum)
     {
-        this.pris = depositum;
+        this.depositum = depositum;
     }
 
     @Override

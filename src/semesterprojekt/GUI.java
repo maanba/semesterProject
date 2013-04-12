@@ -777,7 +777,7 @@ public class GUI extends javax.swing.JFrame
         int kno = 0;
         if (jRadioButtonAfhentning.isSelected())
         {
-            afhentning = "Leveres af Hellebaek Festudlejning";
+            afhentning = "Leveres af os";
         }
         else
         {
@@ -847,7 +847,7 @@ public class GUI extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jButtonVisIPDFActionPerformed
         Ordre selected = (Ordre) jList3.getSelectedValue();
         controller.setSelectedOrdre(selected);
-        controller.pdf();
+        controller.pdfOrdre();
     }//GEN-LAST:event_jButtonVisIPDFActionPerformed
 
     private void jButtonFjernActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonFjernActionPerformed
@@ -896,10 +896,12 @@ public class GUI extends javax.swing.JFrame
     }//GEN-LAST:event_jButtonTilføj2ActionPerformed
 
     private void jButtonDepositumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDepositumActionPerformed
-
         Ordre selected = (Ordre) jList3.getSelectedValue();
-        selected.setDepositum(Double.parseDouble(JOptionPane.showInputDialog("Her kan Erling indtaste depositum: ")));
-
+        double depositum = Double.parseDouble(JOptionPane.showInputDialog("Her kan Erling indtaste depositum: "));
+        selected.setDepositum(depositum);
+        System.out.println("Depositum: " + selected.getDepositum());
+        controller.setCurrentOrder(selected);
+        controller.updateOrder(selected.getKnummer(), selected.getPris(), selected.getDepositum(), selected.getAfhentning(), selected.getStatus(), selected.getLevering(), selected.getReturnering(), selected.getOd());
     }//GEN-LAST:event_jButtonDepositumActionPerformed
 
     private void jButtonAfslutOrdreActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonAfslutOrdreActionPerformed
@@ -939,7 +941,7 @@ public class GUI extends javax.swing.JFrame
         controller.addOrderFakturaNummer(selected.getKnummer(), selected.getPris(), selected.getDepositum(), selected.getAfhentning(), selected.getStatus(), selected.getLevering(), selected.getReturnering(), selected.getOd());
         }
         controller.setSelectedOrdre(selected);
-        controller.pdf();
+        controller.pdfFaktura();
     }//GEN-LAST:event_jButtonFakturaActionPerformed
 
     public static void main(String args[])
