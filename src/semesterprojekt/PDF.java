@@ -144,7 +144,7 @@ public class PDF {
             table2.addCell(" ");
             
             table2.addCell(" ");
-            table2.addCell(new Phrase("Sum:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+            table2.addCell(new Phrase("Sum eksl. moms:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
             table2.addCell(" ");
             table2.addCell(" ");
             sum = sum + depositum;
@@ -157,10 +157,10 @@ public class PDF {
             table2.addCell(new Phrase("   " + (pris - sum), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
             
             table2.addCell(" ");
-            table2.addCell(new Phrase("Efter rabat:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+            table2.addCell(new Phrase("At betale:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
             table2.addCell(" ");
             table2.addCell(" ");
-            table2.addCell(new Phrase("   " + pris, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+            table2.addCell(new Phrase("   " + (pris + ((pris/100) * 25)), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
             
             PdfPTable table3 = new PdfPTable(3);
             table3.setTotalWidth(500);
@@ -308,7 +308,7 @@ public class PDF {
             table2.addCell(" ");
             
             table2.addCell(" ");
-            table2.addCell(new Phrase("Sum:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+            table2.addCell(new Phrase("Sum eksl. moms:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
             table2.addCell(" ");
             table2.addCell(" ");
             sum = sum + depositum;
@@ -321,10 +321,10 @@ public class PDF {
             table2.addCell(new Phrase("   " + (pris - sum), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
             
             table2.addCell(" ");
-            table2.addCell(new Phrase("Efter rabat:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+            table2.addCell(new Phrase("At betale:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
             table2.addCell(" ");
             table2.addCell(" ");
-            table2.addCell(new Phrase("   " + pris, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+            table2.addCell(new Phrase("   " + (pris + ((pris/100) * 25)), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
             
             PdfPTable table3 = new PdfPTable(3);
             table3.setTotalWidth(500);
