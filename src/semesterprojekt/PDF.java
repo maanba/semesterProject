@@ -46,8 +46,19 @@ public class PDF {
         telefonnummer += temp.substring(6, 8);
         String by = postnummer.getBy();
         
-        String onummer = currentOrder.getOnummer() + "";
-        String knummer = currentOrder.getKnummer() + "";
+        
+        int fnummer = currentOrder.getFnummer();
+        int nummer;
+        String fakturaOrdre = "";
+        if(fnummer == 0){
+            nummer = currentOrder.getOnummer();
+            fakturaOrdre = "            Ordrenr:";
+        }else{
+            nummer = fnummer;
+            fakturaOrdre = "            Fakturanr:";
+        }
+        System.out.println(fnummer);
+        int knummer = currentOrder.getKnummer();
         String status = currentOrder.getStatus() + "";
         
         double pris = currentOrder.getPris();
@@ -80,12 +91,12 @@ public class PDF {
             table1.setSpacingAfter(50);
             
             table1.addCell(new Phrase(navn, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
-            table1.addCell(new Phrase("            Ordrenr:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
-            table1.addCell(new Phrase(onummer, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+            table1.addCell(new Phrase(fakturaOrdre, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+            table1.addCell(new Phrase(nummer + "", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
             
             table1.addCell(new Phrase(adresse, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
             table1.addCell(new Phrase("            Kundenr:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
-            table1.addCell(new Phrase(knummer, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+            table1.addCell(new Phrase(knummer + "", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
             
             table1.addCell(new Phrase(postnr + " " + by, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
             table1.addCell(new Phrase("            Status:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
