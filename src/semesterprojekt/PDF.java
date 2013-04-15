@@ -23,7 +23,7 @@ import java.util.Date;
  * @author Daniel Krarup Knudsen
  */
 public class PDF {
-    
+    Browser browser = new Browser();
     
     public void PdfOrdre(Ordre currentOrder, Kunde kunde, ArrayList<Odetaljer> odetaljeArray, ArrayList<Vare> vareArray, Postnummer postnummer) throws DocumentException, FileNotFoundException {
         
@@ -61,7 +61,8 @@ public class PDF {
         
         try {
             Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream("C:\\" + currentOrder.getOnummer() + ".pdf"));
+            browser.browser();
+            PdfWriter.getInstance(document, new FileOutputStream(browser.getFileName()));
             document.open();
             
             PdfPTable top = new PdfPTable(2);
@@ -230,7 +231,8 @@ public class PDF {
         
         try {
             Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream("C:\\" + currentOrder.getFnummer() + ".pdf"));
+            browser.browser();
+            PdfWriter.getInstance(document, new FileOutputStream(browser.getFileName()));
             document.open();
             
             PdfPTable top = new PdfPTable(2);
