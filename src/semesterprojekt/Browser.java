@@ -19,12 +19,12 @@ public class Browser {
     private String fileName;
     private boolean bool;
 
-    public void browser(int fno) {
+    public void browser(int nummer) {
         JFileChooser chooser = new JFileChooser();
         FileFilter filter = new Browser.ExtensionFileFilter(".pdf", new String[]{"PDF"});
         chooser.setFileFilter(filter);
         FileSystemView fw = chooser.getFileSystemView();
-        chooser.setSelectedFile(new File(""+fno));
+        chooser.setSelectedFile(new File(""+nummer));
         int result = chooser.showSaveDialog(null);
         switch (result) {
             case JFileChooser.APPROVE_OPTION:
@@ -33,7 +33,7 @@ public class Browser {
                 if (!fileName.endsWith("pdf")){
                     fileName = fileName + ".pdf";
                 }
-                if ("person.txt".equals(file.getName())) {
+                if ((nummer + ".pdf").equals(file.getName())) {
                     bool = true;
                 } else {
                     bool = false;

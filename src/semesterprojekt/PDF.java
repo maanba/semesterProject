@@ -60,8 +60,9 @@ public class PDF {
         String modtaget = currentOrder.getModtaget() + "";
         
         try {
+            if (!browser.getFileName().isEmpty()){
             Document document = new Document();
-            browser.browser(currentOrder.getFnummer());
+            browser.browser(currentOrder.getOnummer());
             PdfWriter.getInstance(document, new FileOutputStream(browser.getFileName()));
             document.open();
             
@@ -189,6 +190,10 @@ public class PDF {
             document.add(table2);
             document.add(table3);
             document.close();
+            }
+            else {
+                System.out.println("Det blev ikke gemt");
+            }
         } catch (Exception i) {
             System.out.println(i);
         }
@@ -230,6 +235,7 @@ public class PDF {
         String modtaget = currentOrder.getModtaget() + "";
         
         try {
+            if(!browser.getFileName().isEmpty()){
             Document document = new Document();
             browser.browser(currentOrder.getFnummer());
             PdfWriter.getInstance(document, new FileOutputStream(browser.getFileName()));
@@ -359,6 +365,7 @@ public class PDF {
             document.add(table2);
             document.add(table3);
             document.close();
+            }
         } catch (Exception i) {
             System.out.println(i);
         }
