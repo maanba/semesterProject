@@ -108,9 +108,10 @@ public class Controller {
         currentOrder = null;
     }
     
-    public void addOrderFakturaNummer(Ordre o, ArrayList<Odetaljer> odetaljer)
+    public void addOrderFakturaNummer(Ordre o)
     {
         setCurrentOrder(o);
+        ArrayList<Odetaljer> odetaljer = o.getOd();
         currentOrder.setFnummer(dbFacade.getNextFNo());
         
         dbFacade.startNewBusinessTransaction();

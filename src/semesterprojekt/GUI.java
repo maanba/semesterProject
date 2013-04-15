@@ -941,7 +941,7 @@ public class GUI extends javax.swing.JFrame {
         Ordre selected = (Ordre) jList3.getSelectedValue();
         controller.setSelectedOrdre(selected);
         if (selected.getFnummer() == 0) {
-            //controller.addOrderFakturaNummer(selected.getKnummer(), selected.getPris(), selected.getDepositum(), selected.getAfhentning(), selected.getStatus(), selected.getLevering(), selected.getReturnering(), selected.getOd());
+            controller.addOrderFakturaNummer(selected);
         }
         controller.setCurrentOrder(selected);
         controller.pdfFaktura();
