@@ -132,7 +132,7 @@ public class UnitOfWorkProcessOrder {
             //=== system transaction - start
             conn.setAutoCommit(false);
             OrderMapper om = new OrderMapper();
-
+            
             status = status && om.insertOrders(newOrders, conn);
             status = status && om.updateOrders(dirtyOrders, conn);
             status = status && om.insertCustomer(newCustomer, conn);

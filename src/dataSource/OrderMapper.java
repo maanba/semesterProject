@@ -19,7 +19,7 @@ public class OrderMapper {
     // returns true if all elements were inserted successfully
     public boolean insertOrders(ArrayList<Ordre> ol, Connection conn) throws SQLException {
         int rowsInserted = 0;
-        String SQLString = "insert into ordrer values (?,?,?,?,?,?,"
+        String SQLString = "insert into ordrer values (?,?,?,?,?,?,?,"
                 + "to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'),"
                 + "to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'),"
                 + "to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'),"
@@ -30,15 +30,16 @@ public class OrderMapper {
         for (int i = 0; i < ol.size(); i++) {
             Ordre o = ol.get(i);
             statement.setInt(1, o.getOnummer());
-            statement.setInt(2, o.getKnummer());
-            statement.setDouble(3, o.getPris());
-            statement.setDouble(4, o.getDepositum());
-            statement.setString(5, o.getAfhentning());
-            statement.setString(6, o.getStatus());
-            statement.setString(7, o.getModtaget());
-            statement.setString(8, o.getLevering());
-            statement.setString(9, o.getReturnering());
-            statement.setInt(10, o.getVer());
+            statement.setInt(2, o.getFnummer());
+            statement.setInt(3, o.getKnummer());
+            statement.setDouble(4, o.getPris());
+            statement.setDouble(5, o.getDepositum());
+            statement.setString(6, o.getAfhentning());
+            statement.setString(7, o.getStatus());
+            statement.setString(8, o.getModtaget());
+            statement.setString(9, o.getLevering());
+            statement.setString(10, o.getReturnering());
+            statement.setInt(11, o.getVer());
             rowsInserted += statement.executeUpdate();
         }
         if (testRun) {
@@ -94,24 +95,25 @@ public class OrderMapper {
     public boolean updateOrders(ArrayList<Ordre> ol, Connection conn) throws SQLException {
         int rowsUpdated = 0;
         String SQLString = "update ordrer "
-                + "set knummer = ?, pris = ?, depositum = ?, afhentning = ?, status = ?, modtaget = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), levering = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), returnering = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), ver = ? "
+                + "set fnummer = ?, knummer = ?, pris = ?, depositum = ?, afhentning = ?, status = ?, modtaget = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), levering = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), returnering = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), ver = ? "
                 + "where onummer = ? and ver = ?";
         PreparedStatement statement = null;
 
         statement = conn.prepareStatement(SQLString);
         for (int i = 0; i < ol.size(); i++) {
             Ordre o = ol.get(i);
-            statement.setInt(1, o.getKnummer());
-            statement.setDouble(2, o.getPris());
-            statement.setDouble(3, o.getDepositum());
-            statement.setString(4, o.getAfhentning());
-            statement.setString(5, o.getStatus());
-            statement.setString(6, o.getModtaget());
-            statement.setString(7, o.getLevering());
-            statement.setString(8, o.getReturnering());
-            statement.setInt(9, o.getVer() + 1); // next version number
-            statement.setInt(10, o.getOnummer());
-            statement.setInt(11, o.getVer());   // old version number
+            statement.setInt(1, o.getFnummer());
+            statement.setInt(2, o.getKnummer());
+            statement.setDouble(3, o.getPris());
+            statement.setDouble(4, o.getDepositum());
+            statement.setString(5, o.getAfhentning());
+            statement.setString(6, o.getStatus());
+            statement.setString(7, o.getModtaget());
+            statement.setString(8, o.getLevering());
+            statement.setString(9, o.getReturnering());
+            statement.setInt(10, o.getVer() + 1); // next version number
+            statement.setInt(11, o.getOnummer());
+            statement.setInt(12, o.getVer());   // old version number
             int tupleUpdated = statement.executeUpdate();
             if (tupleUpdated == 1) {
                 o.nuVer();                       // increment version in current OrderObject
@@ -192,7 +194,25 @@ public class OrderMapper {
         }
         return rowsInserted == odl.size();
     }
+    public boolean insertVareDel(ArrayList<Del> delListe, Connection conn) throws SQLException {
+        String SQLString = "insert into odetaljer values (?,?,?)";
+        PreparedStatement statement = null;
 
+        int rowsInserted = 0;
+        if (0 < delListe.size()) {
+            statement = conn.prepareStatement(SQLString);
+            for (int i = 0; i < delListe.size(); i++) {
+                statement.setInt(1, delListe.get(i).getVnummer());
+                statement.setString(2, delListe.get(i).getTitel());
+                statement.setInt(3, delListe.get(i).getAntal());
+                rowsInserted += statement.executeUpdate();
+            }
+        }
+        if (testRun) {
+            System.out.println("insertVareDel:" + (rowsInserted == delListe.size())); // for test
+        }
+        return rowsInserted == delListe.size();
+    }
     public boolean updateOrderDetails(ArrayList<Odetaljer> odl, Connection conn) throws SQLException {
         int rowsUpdated = 0;
         String SQLString = "update odetaljer "
@@ -214,8 +234,28 @@ public class OrderMapper {
         }
         return (rowsUpdated == odl.size());
     }
+    public boolean updateVareDel(ArrayList<Del> delListe, Connection conn) throws SQLException {
+        int rowsUpdated = 0;
+        String SQLString = "update del "
+                + "set antal = ? "
+                + "where vnummer = ?";
+        PreparedStatement statement = null;
 
-    public boolean deleteOrderDetials(int ono, Connection conn) throws SQLException {
+        statement = conn.prepareStatement(SQLString);
+        for (int i = 0; i < delListe.size(); i++) {
+            Del od = delListe.get(i);
+            statement.setInt(1, od.getVnummer());
+            statement.setString(2, od.getTitel());
+            statement.setInt(3, od.getAntal());
+            int tupleUpdated = statement.executeUpdate();
+            rowsUpdated += tupleUpdated;
+        }
+        if (testRun) {
+            System.out.println("updateDel: " + (rowsUpdated == delListe.size())); // for test
+        }
+        return (rowsUpdated == delListe.size());
+    }
+    public boolean deleteOrderDetails(int ono, Connection conn) throws SQLException {
         int ordersDeleted = 0;
         String SQLString = "delete from odetaljer "
                 + "where onummer = ?";
@@ -225,6 +265,18 @@ public class OrderMapper {
             statement.executeUpdate();
         
         return (ordersDeleted == 1);
+    }
+    
+    public boolean deleteVareDel(int vnummer, Connection conn) throws SQLException {
+        int delDeleted = 0;
+        String SQLString = "delete from del "
+                + "where vnummer = ?";
+
+        PreparedStatement statement = conn.prepareStatement(SQLString);
+            statement.setInt(1, vnummer);
+            statement.executeUpdate();
+        
+        return (delDeleted == 1);
     }
 
     public boolean deleteCustomers(ArrayList<Kunde> kl, Connection conn) throws SQLException {
@@ -302,15 +354,15 @@ public class OrderMapper {
             if (rs.next()) {
                 o = new Ordre(ono,
                         rs.getInt(2),
-                        rs.getDouble(3),
+                        rs.getInt(3),
                         rs.getDouble(4),
-                        rs.getString(5),
+                        rs.getDouble(5),
                         rs.getString(6),
-                        dateFormat.format(rs.getDate(7)),
+                        rs.getString(7),
                         dateFormat.format(rs.getDate(8)),
                         dateFormat.format(rs.getDate(9)),
-                        rs.getInt(10));
-
+                        dateFormat.format(rs.getDate(10)),
+                        rs.getInt(11));
 
                 //=== get order details
                 statement = conn.prepareStatement(SQLString2);
@@ -367,14 +419,15 @@ public class OrderMapper {
                 if (rs.next()) {
                     o = new Ordre(rs.getInt(1),
                             rs.getInt(2),
-                            rs.getDouble(3),
+                            rs.getInt(3),
                             rs.getDouble(4),
-                            rs.getString(5),
+                            rs.getDouble(5),
                             rs.getString(6),
-                            dateFormat.format(rs.getDate(7)),
+                            rs.getString(7),
                             dateFormat.format(rs.getDate(8)),
                             dateFormat.format(rs.getDate(9)),
-                            rs.getInt(10));
+                            dateFormat.format(rs.getDate(10)),
+                            rs.getInt(11));
 
                     //=== get order details
                     statement = conn.prepareStatement(SQLString2);
@@ -493,6 +546,11 @@ public class OrderMapper {
         String SQLString = "select * from varer where vnummer = ?";
         PreparedStatement statement = null;
         Vare vare = null;
+        
+        String SQLString2 = // get del
+                "select * "
+                + "from del "
+                + "where onummer = ? ";
         try {
             statement = conn.prepareStatement(SQLString);
             statement.setInt(1, vnummer);
@@ -503,8 +561,20 @@ public class OrderMapper {
                         rs.getInt(3),
                         rs.getDouble(4));
             }
+            statement = conn.prepareStatement(SQLString2);
+                statement.setInt(1, vnummer);
+                rs = statement.executeQuery();
+                while (rs.next()) {
+                    vare.addDel(new Del(
+                            vnummer,
+                            rs.getString(2),
+                            rs.getInt(3)));
+                }
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+        if (testRun) {
+            System.out.println("Retrieved Varer: " + vare);
         }
         return vare;
     }
@@ -581,6 +651,22 @@ public class OrderMapper {
             System.out.println(e.getMessage());
         }
         return nextVno;
+    }
+    public int getNextFnummer(Connection conn) {
+        int nextFnummer = 0;
+        String SQLString = "select fakturaseq.nextval  " + "from dual";
+        PreparedStatement statement = null;
+        try {
+            statement = conn.prepareStatement(SQLString);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                nextFnummer = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            System.out.println("Fail in OrderMapper - getNextFnummer");
+            System.out.println(e.getMessage());
+        }
+        return nextFnummer;
     }
 
     public int getNextKnummer(Connection conn) {
