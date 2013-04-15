@@ -1000,6 +1000,7 @@ public class GUI extends javax.swing.JFrame {
         }
         
     }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton14;
