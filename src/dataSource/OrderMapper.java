@@ -562,8 +562,8 @@ public class OrderMapper {
         
         String SQLString2 = // get del
                 "select * "
-                + "from del "
-                + "where onummer = ? ";
+                + "from dele "
+                + "where vnummer = ? ";
         try {
             statement = conn.prepareStatement(SQLString);
             statement.setInt(1, vnummer);
