@@ -64,13 +64,18 @@ public class PDF {
             PdfWriter.getInstance(document, new FileOutputStream("C:\\" + currentOrder.getOnummer() + ".pdf"));
             document.open();
             
-            PdfPTable top = new PdfPTable(1);
+            PdfPTable top = new PdfPTable(2);
             top.setTotalWidth(500);
+            top.setWidths(new float[]{5, 3});
             top.setLockedWidth(true);
             top.getDefaultCell().setBorder(0);
-            top.setSpacingAfter(25);
             
-            top.addCell("");
+            top.addCell(" ");
+            top.addCell(" ");
+            top.addCell(" ");
+            top.addCell(new Phrase("  Ordre-kort", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+            top.addCell(" ");
+            top.addCell(" ");
             
             PdfPTable table1 = new PdfPTable(3);
             table1.setTotalWidth(500);
@@ -186,7 +191,7 @@ public class PDF {
         } catch (Exception i) {
             System.out.println(i);
         }
-        openPDF(currentOrder);
+        openOrdrePDF(currentOrder);
     }
     
     public void PdfFaktura(Ordre currentOrder, Kunde kunde, ArrayList<Odetaljer> odetaljeArray, ArrayList<Vare> vareArray, Postnummer postnummer) throws DocumentException, FileNotFoundException {
@@ -225,16 +230,21 @@ public class PDF {
         
         try {
             Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream("C:\\" + currentOrder.getOnummer() + ".pdf"));
+            PdfWriter.getInstance(document, new FileOutputStream("C:\\" + currentOrder.getFnummer() + ".pdf"));
             document.open();
             
-            PdfPTable top = new PdfPTable(1);
+            PdfPTable top = new PdfPTable(2);
             top.setTotalWidth(500);
+            top.setWidths(new float[]{5, 3});
             top.setLockedWidth(true);
             top.getDefaultCell().setBorder(0);
-            top.setSpacingAfter(25);
             
-            top.addCell("");
+            top.addCell(" ");
+            top.addCell(" ");
+            top.addCell(" ");
+            top.addCell(new Phrase("  Faktura", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+            top.addCell(" ");
+            top.addCell(" ");
             
             PdfPTable table1 = new PdfPTable(3);
             table1.setTotalWidth(500);
@@ -350,10 +360,10 @@ public class PDF {
         } catch (Exception i) {
             System.out.println(i);
         }
-        openPDF(currentOrder);
+        openFakturaPDF(currentOrder);
     }
     
-    public void openPDF(Ordre currentOrder) {
+    public void openOrdrePDF(Ordre currentOrder) {
         try {
             if ((new File("C:\\" + currentOrder.getOnummer() + ".pdf")).exists()) {
                 Process p = Runtime
@@ -361,7 +371,22 @@ public class PDF {
                         .exec("rundll32 url.dll,FileProtocolHandler C:\\" + currentOrder.getOnummer() + ".pdf");
                 p.waitFor();
             } else {
-                System.out.println("File is not exists");
+                System.out.println("File does not exists");
+            }
+            System.out.println("Done");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    public void openFakturaPDF(Ordre currentOrder) {
+        try {
+            if ((new File("C:\\" + currentOrder.getFnummer() + ".pdf")).exists()) {
+                Process p = Runtime
+                        .getRuntime()
+                        .exec("rundll32 url.dll,FileProtocolHandler C:\\" + currentOrder.getOnummer() + ".pdf");
+                p.waitFor();
+            } else {
+                System.out.println("File does not exists");
             }
             System.out.println("Done");
         } catch (Exception ex) {
