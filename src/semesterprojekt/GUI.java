@@ -968,6 +968,10 @@ public class GUI extends javax.swing.JFrame {
         update();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButtonLeverActionPerformed(java.awt.event.ActionEvent evt) {                                               
+        // TODO add your handling code here:
+    } 
+    
     public static void main(String args[]) {
 
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
