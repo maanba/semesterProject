@@ -13,6 +13,8 @@ public class GUI extends javax.swing.JFrame {
     private DefaultListModel list1 = new DefaultListModel();
     private DefaultListModel list2 = new DefaultListModel();
     private DefaultListModel list3 = new DefaultListModel();
+    private DefaultListModel list5 = new DefaultListModel();
+    private DefaultListModel list9 = new DefaultListModel();
     private DefaultListModel listHistorik = new DefaultListModel();
     private DefaultListModel listOrdrer = new DefaultListModel();
     private Controller controller = new Controller();
@@ -28,6 +30,8 @@ public class GUI extends javax.swing.JFrame {
         jList1.setModel(list1);
         jList2.setModel(list2);
         jList3.setModel(list3);
+        jList5.setModel(list5);
+        jList9.setModel(list9);
         jListHistorik.setModel(listHistorik);
         jListOrdrer.setModel(listOrdrer);
 
@@ -92,7 +96,7 @@ public class GUI extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
+        jLabelRedigerKunde = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jTextFieldAdresse = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
@@ -109,7 +113,7 @@ public class GUI extends javax.swing.JFrame {
         jList5 = new javax.swing.JList();
         jPanel5 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        jLabelRedigerIVare = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jTextFieldVareQty = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
@@ -336,7 +340,7 @@ public class GUI extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 50, -1, -1));
 
         jTabbedPane1.addTab("Ordre", jPanel1);
 
@@ -378,8 +382,8 @@ public class GUI extends javax.swing.JFrame {
         jLabel20.setText("Redigerer i:");
         jPanel7.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 21, 80, 30));
 
-        jLabel21.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jPanel7.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 120, 20));
+        jLabelRedigerKunde.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jPanel7.add(jLabelRedigerKunde, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 120, 20));
 
         jLabel22.setText("Firmanavn");
         jPanel7.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 80, 20));
@@ -422,8 +426,8 @@ public class GUI extends javax.swing.JFrame {
         jLabel8.setText("Redigerer i:");
         jPanel5.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 21, 80, 30));
 
-        jLabel9.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jPanel5.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 120, 20));
+        jLabelRedigerIVare.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jPanel5.add(jLabelRedigerIVare, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 120, 20));
 
         jLabel10.setText("Navn");
         jPanel5.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 40, 20));
@@ -445,6 +449,11 @@ public class GUI extends javax.swing.JFrame {
         jPanel2.add(jLabelRedigerVare, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, 240, -1));
 
         jButtonLagerRediger.setText("Rediger >");
+        jButtonLagerRediger.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLagerRedigerActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButtonLagerRediger, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, 90, -1));
 
         jButtonLagerGem.setText("< Gem");
@@ -744,7 +753,21 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButtonLeveringActionPerformed
 
     private void jButtonTilføj1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilføj1ActionPerformed
-        // TODO add your handling code here:
+        Kunde selected = (Kunde) jList9.getSelectedValue();
+        jLabelRedigerKunde.setText("Redigerer i kunde:");
+        jTextFieldFirmaNavn.setText(selected.getFirma() + "");
+        jTextFieldFuldeNavn.setText(selected.getNavn());
+        jTextFieldAdresse.setText(selected.getAdresse() + "");
+        jTextFieldPostnummer.setText(selected.getPostnummer() + "");
+        jTextFieldTelefonnummer.setText(selected.getTelefonnummer() + "");
+        
+        if (selected != null) {
+            for (int i = 0; i < list9.size(); i++) {
+                Vare vare = (Vare) list9.getElementAt(i);      
+            }  
+        } else {
+            jLabelError.setText("FEJL!");
+        }
     }//GEN-LAST:event_jButtonTilføj1ActionPerformed
 
     private void jButtonTilføj2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilføj2ActionPerformed
@@ -782,12 +805,16 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonPaabegyndActionPerformed
 
     private void jButtonLagerGemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLagerGemActionPerformed
-        int vnummer = Integer.parseInt(jLabelRedigerVare.getText());
+        int vnummer = Integer.parseInt(jLabelRedigerIVare.getText());
         String vnavn = jTextFieldNavn.getText();
-        int pris = Integer.parseInt(jTextFieldVarePris.getText());
+        double pris = Double.parseDouble(jTextFieldVarePris.getText());
         int qty = Integer.parseInt(jTextFieldVareQty.getText());
 
         Vare vare = new Vare(vnummer, vnavn, qty, pris);
+
+        controller.redigerVare(vare);
+
+        update();
     }//GEN-LAST:event_jButtonLagerGemActionPerformed
 
     private void jButtonFakturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFakturaActionPerformed
@@ -820,6 +847,23 @@ public class GUI extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         update();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButtonLagerRedigerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLagerRedigerActionPerformed
+        Vare selected = (Vare) jList5.getSelectedValue();
+        jLabelRedigerVare.setText("Redigerer i vare:");
+        jLabelRedigerIVare.setText(selected.getVnummer() + "");
+        jTextFieldNavn.setText(selected.getVnavn());
+        jTextFieldVarePris.setText(selected.getPris() + "");
+        jTextFieldVareQty.setText(selected.getQty() + "");
+        
+        if (selected != null) {
+            for (int i = 0; i < list5.size(); i++) {
+                Vare vare = (Vare) list5.getElementAt(i);      
+            }  
+        } else {
+            jLabelError.setText("FEJL!");
+        }
+    }//GEN-LAST:event_jButtonLagerRedigerActionPerformed
 
     private void jButtonLeverActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
@@ -1004,6 +1048,38 @@ public class GUI extends javax.swing.JFrame {
                 list1.addElement(va[i]);
             }
         }
+        
+        // list5 
+         ArrayList<Vare> vl5 = controller.getAllRessources();
+            Vare[] va5 = new Vare[vl5.size()];
+            for (int i = 0; i < vl5.size(); i++) {
+                    va5[i] = vl5.get(i);
+                }
+            for (int i = 0; i < vl5.size(); i++) {
+                
+                controller.quickSortVare(va5, 0, va5.length-1);
+                list5.clear();
+                for (int j = 0; j < va5.length; j++) {
+                    list5.addElement(va5[j]);
+                }
+                
+            }
+        
+        // list9 
+         ArrayList<Kunde> kl9 = controller.getAllCostumers();
+            Kunde[] ka9 = new Kunde[kl9.size()];
+            for (int i = 0; i < kl9.size(); i++) {
+                    ka9[i] = kl9.get(i);
+                }
+            for (int i = 0; i < kl9.size(); i++) {
+                
+                controller.quickSortKunde(ka9, 0, ka9.length-1);
+                list9.clear();
+                for (int j = 0; j < ka9.length; j++) {
+                    list9.addElement(ka9[j]);
+                }
+                
+            }
 
 
     }
@@ -1045,7 +1121,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
@@ -1060,8 +1135,9 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelError;
+    private javax.swing.JLabel jLabelRedigerIVare;
+    private javax.swing.JLabel jLabelRedigerKunde;
     private javax.swing.JLabel jLabelRedigerVare;
     private javax.swing.JList jList1;
     private javax.swing.JList jList2;

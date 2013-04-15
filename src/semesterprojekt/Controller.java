@@ -292,6 +292,12 @@ public class Controller {
         }
         return array;
     }
+    
+    public void redigerVare (Vare vare){
+        dbFacade.startNewBusinessTransaction();
+        dbFacade.registerDirtyRessource(vare);
+        dbFacade.commitBusinessTransaction();
+    }
 
     private int partitionKunde(Kunde[] array, int left, int right, int pivotIndex) {
 
