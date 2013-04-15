@@ -146,42 +146,6 @@ public class GUI extends javax.swing.JFrame {
         jButtonAfslut = new javax.swing.JButton();
         jButtonPaabegynd = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField12 = new javax.swing.JTextField();
-        jTextField13 = new javax.swing.JTextField();
-        jTextField14 = new javax.swing.JTextField();
-        jTextField15 = new javax.swing.JTextField();
-        jTextField16 = new javax.swing.JTextField();
-        jTextField17 = new javax.swing.JTextField();
-        jTextField18 = new javax.swing.JTextField();
-        jTextField19 = new javax.swing.JTextField();
-        jTextField20 = new javax.swing.JTextField();
-        jTextField21 = new javax.swing.JTextField();
-        jTextField22 = new javax.swing.JTextField();
-        jTextField23 = new javax.swing.JTextField();
-        jTextField24 = new javax.swing.JTextField();
-        jTextField25 = new javax.swing.JTextField();
-        jTextField26 = new javax.swing.JTextField();
-        jTextField27 = new javax.swing.JTextField();
-        jTextField28 = new javax.swing.JTextField();
-        jTextField29 = new javax.swing.JTextField();
-        jTextField30 = new javax.swing.JTextField();
-        jTextField31 = new javax.swing.JTextField();
-        jTextField32 = new javax.swing.JTextField();
-        jTextField33 = new javax.swing.JTextField();
-        jTextField34 = new javax.swing.JTextField();
-        jTextField35 = new javax.swing.JTextField();
-        jTextField36 = new javax.swing.JTextField();
-        jTextField37 = new javax.swing.JTextField();
-        jTextField38 = new javax.swing.JTextField();
-        jTextField39 = new javax.swing.JTextField();
-        jTextField40 = new javax.swing.JTextField();
-        jTextField41 = new javax.swing.JTextField();
-        jTextField42 = new javax.swing.JTextField();
-        jTextField43 = new javax.swing.JTextField();
-        jTextField44 = new javax.swing.JTextField();
-        jTextField45 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -252,7 +216,7 @@ public class GUI extends javax.swing.JFrame {
 
         buttonGroup1.add(jRadioButtonAfhentning);
         jRadioButtonAfhentning.setText("Afhentning");
-        jPanel1.add(jRadioButtonAfhentning, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 60, -1, -1));
+        jPanel1.add(jRadioButtonAfhentning, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, -1, -1));
 
         buttonGroup1.add(jRadioButtonLevering);
         jRadioButtonLevering.setText("Levering");
@@ -261,7 +225,7 @@ public class GUI extends javax.swing.JFrame {
                 jRadioButtonLeveringActionPerformed(evt);
             }
         });
-        jPanel1.add(jRadioButtonLevering, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 60, -1, -1));
+        jPanel1.add(jRadioButtonLevering, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 50, -1, -1));
 
         jButtonOrdreRediger.setText("< Rediger");
         jButtonOrdreRediger.setToolTipText("");
@@ -367,7 +331,7 @@ public class GUI extends javax.swing.JFrame {
         jPanel1.add(jButtonStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 270, 100, -1));
 
         jButton2.setText("Check Dato");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 50, -1, -1));
 
         jTabbedPane1.addTab("Ordre", jPanel1);
 
@@ -595,115 +559,6 @@ public class GUI extends javax.swing.JFrame {
         jPanel9.add(jButtonPaabegynd, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, -1, -1));
 
         jTabbedPane1.addTab("Historik", jPanel9);
-
-        jTextField1.setText("jTextField1");
-        jPanel8.add(jTextField1);
-
-        jTextField2.setText("jTextField1");
-        jPanel8.add(jTextField2);
-
-        jTextField12.setText("jTextField1");
-        jPanel8.add(jTextField12);
-
-        jTextField13.setText("jTextField1");
-        jPanel8.add(jTextField13);
-
-        jTextField14.setText("jTextField1");
-        jPanel8.add(jTextField14);
-
-        jTextField15.setText("jTextField1");
-        jPanel8.add(jTextField15);
-
-        jTextField16.setText("jTextField1");
-        jPanel8.add(jTextField16);
-
-        jTextField17.setText("jTextField1");
-        jPanel8.add(jTextField17);
-
-        jTextField18.setText("jTextField1");
-        jPanel8.add(jTextField18);
-
-        jTextField19.setText("jTextField1");
-        jPanel8.add(jTextField19);
-
-        jTextField20.setText("jTextField1");
-        jPanel8.add(jTextField20);
-
-        jTextField21.setText("jTextField1");
-        jPanel8.add(jTextField21);
-
-        jTextField22.setText("jTextField1");
-        jPanel8.add(jTextField22);
-
-        jTextField23.setText("jTextField1");
-        jPanel8.add(jTextField23);
-
-        jTextField24.setText("jTextField1");
-        jPanel8.add(jTextField24);
-
-        jTextField25.setText("jTextField1");
-        jPanel8.add(jTextField25);
-
-        jTextField26.setText("jTextField1");
-        jPanel8.add(jTextField26);
-
-        jTextField27.setText("jTextField1");
-        jPanel8.add(jTextField27);
-
-        jTextField28.setText("jTextField1");
-        jPanel8.add(jTextField28);
-
-        jTextField29.setText("jTextField1");
-        jPanel8.add(jTextField29);
-
-        jTextField30.setText("jTextField1");
-        jPanel8.add(jTextField30);
-
-        jTextField31.setText("jTextField1");
-        jPanel8.add(jTextField31);
-
-        jTextField32.setText("jTextField1");
-        jPanel8.add(jTextField32);
-
-        jTextField33.setText("jTextField1");
-        jPanel8.add(jTextField33);
-
-        jTextField34.setText("jTextField1");
-        jPanel8.add(jTextField34);
-
-        jTextField35.setText("jTextField1");
-        jPanel8.add(jTextField35);
-
-        jTextField36.setText("jTextField1");
-        jPanel8.add(jTextField36);
-
-        jTextField37.setText("jTextField1");
-        jPanel8.add(jTextField37);
-
-        jTextField38.setText("jTextField1");
-        jPanel8.add(jTextField38);
-
-        jTextField39.setText("jTextField1");
-        jPanel8.add(jTextField39);
-
-        jTextField40.setText("jTextField1");
-        jPanel8.add(jTextField40);
-
-        jTextField41.setText("jTextField1");
-        jPanel8.add(jTextField41);
-
-        jTextField42.setText("jTextField1");
-        jPanel8.add(jTextField42);
-
-        jTextField43.setText("jTextField1");
-        jPanel8.add(jTextField43);
-
-        jTextField44.setText("jTextField1");
-        jPanel8.add(jTextField44);
-
-        jTextField45.setText("jTextField1");
-        jPanel8.add(jTextField45);
-
         jTabbedPane1.addTab("Kalender", jPanel8);
 
         getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 570));
@@ -780,14 +635,7 @@ public class GUI extends javax.swing.JFrame {
             }
         } else {
             jLabelError.setText("FEJL!");
-        }
-        if (list2.isEmpty() == false) {
-            double totalpris = 0;
-            for (int i = 0; i < list2.size(); i++) {
-                Vare vare = (Vare) list2.getElementAt(i);
-                totalpris += vare.getPris() * vare.getQty();
-            }
-            jTextFieldTotalPris.setText(totalpris + "");
+        
         }
         update();
 
@@ -1090,6 +938,13 @@ public class GUI extends javax.swing.JFrame {
             for (int i = 0; i < va1.length; i++) {
                 list2.addElement(va1[i]);
             }
+            if (list2.isEmpty() == false) {
+            double totalpris = 0;
+            for (int i = 0; i < list2.size(); i++) {
+                Vare vare = (Vare) list2.getElementAt(i);
+                totalpris += vare.getPris() * vare.getQty();
+            }
+            jTextFieldTotalPris.setText(totalpris + "");
         }
 
         // list1:
@@ -1233,43 +1088,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField15;
-    private javax.swing.JTextField jTextField16;
-    private javax.swing.JTextField jTextField17;
-    private javax.swing.JTextField jTextField18;
-    private javax.swing.JTextField jTextField19;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField20;
-    private javax.swing.JTextField jTextField21;
-    private javax.swing.JTextField jTextField22;
-    private javax.swing.JTextField jTextField23;
-    private javax.swing.JTextField jTextField24;
-    private javax.swing.JTextField jTextField25;
-    private javax.swing.JTextField jTextField26;
-    private javax.swing.JTextField jTextField27;
-    private javax.swing.JTextField jTextField28;
-    private javax.swing.JTextField jTextField29;
-    private javax.swing.JTextField jTextField30;
-    private javax.swing.JTextField jTextField31;
-    private javax.swing.JTextField jTextField32;
-    private javax.swing.JTextField jTextField33;
-    private javax.swing.JTextField jTextField34;
-    private javax.swing.JTextField jTextField35;
-    private javax.swing.JTextField jTextField36;
-    private javax.swing.JTextField jTextField37;
-    private javax.swing.JTextField jTextField38;
-    private javax.swing.JTextField jTextField39;
-    private javax.swing.JTextField jTextField40;
-    private javax.swing.JTextField jTextField41;
-    private javax.swing.JTextField jTextField42;
-    private javax.swing.JTextField jTextField43;
-    private javax.swing.JTextField jTextField44;
-    private javax.swing.JTextField jTextField45;
     private javax.swing.JTextField jTextFieldAdresse;
     private javax.swing.JTextField jTextFieldAntal;
     private javax.swing.JTextField jTextFieldDagInd;
