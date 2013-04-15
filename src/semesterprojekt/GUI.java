@@ -82,6 +82,8 @@ public class GUI extends javax.swing.JFrame {
         jButtonLastbil = new javax.swing.JButton();
         jButtonMontoer = new javax.swing.JButton();
         jButtonStatus = new javax.swing.JButton();
+        jLabel31 = new javax.swing.JLabel();
+        jTextFieldTotalPris1 = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane10 = new javax.swing.JScrollPane();
         jList9 = new javax.swing.JList();
@@ -321,14 +323,14 @@ public class GUI extends javax.swing.JFrame {
                 jTextFieldAntalActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextFieldAntal, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 140, 40, -1));
+        jPanel1.add(jTextFieldAntal, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, 40, -1));
 
         jLabel17.setText("Antal:");
-        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 140, -1, -1));
-        jPanel1.add(jTextFieldPris, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 170, 60, -1));
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, -1, -1));
+        jPanel1.add(jTextFieldPris, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 150, 60, -1));
 
         jLabel27.setText(" Tilbud:");
-        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 170, -1, -1));
+        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 150, -1, -1));
 
         jLabel28.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -336,10 +338,10 @@ public class GUI extends javax.swing.JFrame {
         jPanel1.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, 160, 20));
 
         jTextFieldTotalPris.setEditable(false);
-        jPanel1.add(jTextFieldTotalPris, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 140, 60, -1));
+        jPanel1.add(jTextFieldTotalPris, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 120, 60, -1));
 
         jLabel30.setText(" Total pris:");
-        jPanel1.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 140, -1, -1));
+        jPanel1.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 120, -1, -1));
 
         jButtonLastbil.setText("Tilføj Lastbil");
         jButtonLastbil.addActionListener(new java.awt.event.ActionListener() {
@@ -364,6 +366,12 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButtonStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 270, 100, -1));
+
+        jLabel31.setText(" Efter rabat:");
+        jPanel1.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 180, -1, -1));
+
+        jTextFieldTotalPris1.setEditable(false);
+        jPanel1.add(jTextFieldTotalPris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 180, 60, -1));
 
         jTabbedPane1.addTab("Ordre", jPanel1);
 
@@ -1139,6 +1147,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1228,6 +1237,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldPris;
     private javax.swing.JTextField jTextFieldTelefonnummer;
     private javax.swing.JTextField jTextFieldTotalPris;
+    private javax.swing.JTextField jTextFieldTotalPris1;
     private javax.swing.JTextField jTextFieldVarePris;
     private javax.swing.JTextField jTextFieldVareQty;
     private javax.swing.JTextField jTextFieldÅrInd;
