@@ -943,7 +943,7 @@ public class GUI extends javax.swing.JFrame {
         if (selected.getFnummer() == 0) {
             //controller.addOrderFakturaNummer(selected.getKnummer(), selected.getPris(), selected.getDepositum(), selected.getAfhentning(), selected.getStatus(), selected.getLevering(), selected.getReturnering(), selected.getOd());
         }
-        controller.setSelectedOrdre(selected);
+        controller.setCurrentOrder(selected);
         controller.pdfFaktura();
     }//GEN-LAST:event_jButtonFakturaActionPerformed
 

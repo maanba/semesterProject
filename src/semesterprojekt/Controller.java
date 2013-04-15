@@ -100,7 +100,28 @@ public class Controller {
         }
         dbFacade.deleteOdetail(currentOrder.getOnummer());
         dbFacade.registerDirtyOrder(currentOrder);
-        for (int i = 0; i < odetaljer.size(); i++) {
+        for (int i = 0; i < odetaljer.size(); i++)
+        {
+            dbFacade.registerNewOrderDetail(odetaljer.get(i));
+        }
+        dbFacade.commitBusinessTransaction();
+        currentOrder = null;
+    }
+    
+    public void addOrderFakturaNummer(Ordre o, ArrayList<Odetaljer> odetaljer)
+    {
+        setCurrentOrder(o);
+        currentOrder.setFnummer(dbFacade.getNextFNo());
+        
+        dbFacade.startNewBusinessTransaction();
+        for (int i = 0; i < odetaljer.size(); i++)
+        {
+            odetaljer.get(i).setOnummer(currentOrder.getOnummer());
+        }
+        dbFacade.deleteOdetail(currentOrder.getOnummer());
+        dbFacade.registerDirtyOrder(currentOrder);
+        for (int i = 0; i < odetaljer.size(); i++)
+        {
             dbFacade.registerNewOrderDetail(odetaljer.get(i));
         }
         dbFacade.commitBusinessTransaction();
