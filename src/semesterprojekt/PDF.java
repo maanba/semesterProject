@@ -61,7 +61,7 @@ public class PDF {
         
         try {
             Document document = new Document();
-            browser.browser();
+            browser.browser(currentOrder.getFnummer());
             PdfWriter.getInstance(document, new FileOutputStream(browser.getFileName()));
             document.open();
             
@@ -231,7 +231,7 @@ public class PDF {
         
         try {
             Document document = new Document();
-            browser.browser();
+            browser.browser(currentOrder.getFnummer());
             PdfWriter.getInstance(document, new FileOutputStream(browser.getFileName()));
             document.open();
             

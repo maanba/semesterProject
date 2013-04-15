@@ -5,10 +5,9 @@
 package semesterprojekt;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileSystemView;
 
 /**
  *
@@ -20,11 +19,12 @@ public class Browser {
     private String fileName;
     private boolean bool;
 
-    public void browser() {
+    public void browser(int fno) {
         JFileChooser chooser = new JFileChooser();
         FileFilter filter = new Browser.ExtensionFileFilter(".pdf", new String[]{"PDF"});
         chooser.setFileFilter(filter);
-        chooser.setName("vuf");
+        FileSystemView fw = chooser.getFileSystemView();
+        chooser.setSelectedFile(new File(""+fno));
         int result = chooser.showSaveDialog(null);
         switch (result) {
             case JFileChooser.APPROVE_OPTION:
