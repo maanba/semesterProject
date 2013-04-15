@@ -23,8 +23,6 @@ public class GUI extends javax.swing.JFrame {
         initComponents();
         cellRenderer();
 
-
-
         setTitle("Semesterprojekt");
 
         jList1.setModel(list1);
@@ -296,8 +294,8 @@ public class GUI extends javax.swing.JFrame {
         jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 140, -1, -1));
         jPanel1.add(jTextFieldPris, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 170, 60, -1));
 
-        jLabel27.setText(" Tilbud:");
-        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 170, -1, -1));
+        jLabel27.setText(" Rabat:");
+        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, -1, -1));
 
         jLabel28.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -307,8 +305,8 @@ public class GUI extends javax.swing.JFrame {
         jTextFieldTotalPris.setEditable(false);
         jPanel1.add(jTextFieldTotalPris, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 140, 60, -1));
 
-        jLabel30.setText(" Total pris:");
-        jPanel1.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 140, -1, -1));
+        jLabel30.setText(" Pris før rabat:");
+        jPanel1.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 140, -1, -1));
 
         jButtonLastbil.setText("Tilføj Lastbil");
         jButtonLastbil.addActionListener(new java.awt.event.ActionListener() {
@@ -619,12 +617,12 @@ public class GUI extends javax.swing.JFrame {
                 jRadioButtonAfhentning.setSelected(rootPaneCheckingEnabled);
             }
 
-            jTextFieldPris.setText(selected.getPris() + "");
+            jTextFieldTotalPris.setText(selected.getPris() + "");
             list3.removeElementAt(selectedIndex);
             controller.setCurrentOrder(selected);
         }
         update();
-
+        jTextFieldPris.setText(Double.parseDouble(jTextFieldTotalPris.getText())-selected.getPris() + "");
     }//GEN-LAST:event_jButtonOrdreRedigerActionPerformed
 
     private void jButtonTilføjActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonTilføjActionPerformed
@@ -652,7 +650,6 @@ public class GUI extends javax.swing.JFrame {
 
         }
         update();
-
     }//GEN-LAST:event_jButtonTilføjActionPerformed
 
     private void jButtonGennemførOrdreActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonGennemførOrdreActionPerformed
@@ -683,7 +680,7 @@ public class GUI extends javax.swing.JFrame {
                         }
                         String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                         String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
-                        controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText())-Double.parseDouble(jTextFieldPris.getText()), Double.parseDouble("0.00"), afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                        controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText())-Double.parseDouble(jTextFieldPris.getText()), controller.getCurrentOrder().getDepositum(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
                         list2.clear();
                         list3.clear();
                         jLabelError.setText("");
@@ -700,7 +697,7 @@ public class GUI extends javax.swing.JFrame {
                     }
                     String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                     String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
-                    controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText())-Double.parseDouble(jTextFieldPris.getText()), Double.parseDouble("0.00"), afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                    controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText())-Double.parseDouble(jTextFieldPris.getText()), controller.getCurrentOrder().getDepositum(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
                     list2.clear();
                     list3.clear();
                     jLabelError.setText("");
