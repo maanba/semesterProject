@@ -690,9 +690,8 @@ public class GUI extends javax.swing.JFrame {
                         String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                         String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
                         controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText())-Double.parseDouble(jTextFieldPris.getText()), controller.getCurrentOrder().getDepositum(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
-=======
                         controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()) - Double.parseDouble(jTextFieldPris.getText()), controller.getCurrentOrder().getDepositum(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
->>>>>>> branch 'master' of https://github.com/maanba/semesterProject.git
+
                         list2.clear();
                         list3.clear();
                         jLabelError.setText("");
@@ -709,11 +708,8 @@ public class GUI extends javax.swing.JFrame {
                     }
                     String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                     String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
-<<<<<<< HEAD
                     controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText())-Double.parseDouble(jTextFieldPris.getText()), controller.getCurrentOrder().getDepositum(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
-=======
                     controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()) - Double.parseDouble(jTextFieldPris.getText()), controller.getCurrentOrder().getDepositum(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
->>>>>>> branch 'master' of https://github.com/maanba/semesterProject.git
                     list2.clear();
                     list3.clear();
                     jLabelError.setText("");
