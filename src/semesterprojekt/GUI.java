@@ -1064,7 +1064,7 @@ public class GUI extends javax.swing.JFrame
         {
             oa[i] = ol.get(i);
         }
-        // controller.quickSortOrdre(oa, 0, oa.length - 1);
+        controller.quickSortOrdre(oa, 0, oa.length - 1);
         for (int i = 0; i < oa.length; i++)
         {
             if (!"Afsluttet".equals(ol.get(i).getStatus()))
