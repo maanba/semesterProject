@@ -82,8 +82,12 @@ public class GUI extends javax.swing.JFrame {
         jButtonLastbil = new javax.swing.JButton();
         jButtonMontoer = new javax.swing.JButton();
         jButtonStatus = new javax.swing.JButton();
+<<<<<<< HEAD
         jLabel31 = new javax.swing.JLabel();
         jTextFieldTotalPris1 = new javax.swing.JTextField();
+=======
+        jButton1 = new javax.swing.JButton();
+>>>>>>> branch 'master' of https://github.com/maanba/semesterProject.git
         jPanel6 = new javax.swing.JPanel();
         jScrollPane10 = new javax.swing.JScrollPane();
         jList9 = new javax.swing.JList();
@@ -367,11 +371,21 @@ public class GUI extends javax.swing.JFrame {
         });
         jPanel1.add(jButtonStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 270, 100, -1));
 
+<<<<<<< HEAD
         jLabel31.setText(" Efter rabat:");
         jPanel1.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 180, -1, -1));
 
         jTextFieldTotalPris1.setEditable(false);
         jPanel1.add(jTextFieldTotalPris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 180, 60, -1));
+=======
+        jButton1.setText("Check dato");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 90, -1));
+>>>>>>> branch 'master' of https://github.com/maanba/semesterProject.git
 
         jTabbedPane1.addTab("Ordre", jPanel1);
 
