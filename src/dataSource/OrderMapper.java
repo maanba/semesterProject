@@ -506,6 +506,10 @@ public class OrderMapper {
                 "select * "
                 + "from varer "
                 + "where vnummer = ?";
+        String SQLString2 = // get order details
+                "select * "
+                + "from dele "
+                + "where vnummer = ? ";
         String SQLString3 = // get order
                 "select * "
                 + "from varer ";
@@ -530,6 +534,15 @@ public class OrderMapper {
                             rs.getInt(3),
                             rs.getDouble(4));
                 }
+                statement = conn.prepareStatement(SQLString2);
+                    statement.setInt(1, v.getVnummer());
+                    rs = statement.executeQuery();
+                    while (rs.next()) {
+                        v.addDel(new Del(
+                                v.getVnummer(),
+                                rs.getString(2),
+                                rs.getInt(3)));
+                    }
                 vl.add(v);
             }
         } catch (Exception e) {
