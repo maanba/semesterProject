@@ -455,4 +455,8 @@ public class Controller {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void releaseConnection(){
+        dbFacade.releaseConnection();
+    }
 }

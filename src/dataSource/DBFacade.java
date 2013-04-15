@@ -203,7 +203,7 @@ public class DBFacade {
         return con;
     }
 
-    private void releaseConnection(Connection con) {
+    public void releaseConnection() {
         try {
             con.close();
         } catch (Exception e) {
