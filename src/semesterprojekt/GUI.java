@@ -253,7 +253,7 @@ public class GUI extends javax.swing.JFrame {
 
         buttonGroup1.add(jRadioButtonAfhentning);
         jRadioButtonAfhentning.setText("Afhentning");
-        jPanel1.add(jRadioButtonAfhentning, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 40, -1, -1));
+        jPanel1.add(jRadioButtonAfhentning, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 60, -1, -1));
 
         buttonGroup1.add(jRadioButtonLevering);
         jRadioButtonLevering.setText("Levering");
@@ -262,7 +262,7 @@ public class GUI extends javax.swing.JFrame {
                 jRadioButtonLeveringActionPerformed(evt);
             }
         });
-        jPanel1.add(jRadioButtonLevering, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 40, -1, -1));
+        jPanel1.add(jRadioButtonLevering, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 60, -1, -1));
 
         jButtonOrdreRediger.setText("< Rediger");
         jButtonOrdreRediger.setToolTipText("");
@@ -763,7 +763,7 @@ public class GUI extends javax.swing.JFrame {
         Vare selected = (Vare) jList1.getSelectedValue();
         selected.setQty(Integer.parseInt(jTextFieldAntal.getText()));
         if (selected != null && controller.checkQty(selected.getVnummer(), Integer.parseInt(jTextFieldAntal.getText()))) {
-            controller.setQty(selected.getVnummer(), Integer.parseInt(jTextFieldAntal.getText()));
+            //controller.setQty(selected.getVnummer(), Integer.parseInt(jTextFieldAntal.getText()));
             for (int i = 0; i < list2.size(); i++) {
                 Vare vare = (Vare) list2.getElementAt(i);
                 if (vare.getVnummer() == selected.getVnummer()) {
@@ -861,7 +861,7 @@ public class GUI extends javax.swing.JFrame {
         Vare selected = (Vare) jList2.getSelectedValue();
         if (selected != null && selected.getQty() >= Integer.parseInt(jTextFieldAntal.getText())) {
             list2.removeElement(selected);
-            controller.undoQty(selected.getVnavn(), Integer.parseInt(jTextFieldAntal.getText()));
+            //controller.undoQty(selected.getVnavn(), Integer.parseInt(jTextFieldAntal.getText()));
             selected.setQty(selected.getQty() - (Integer.parseInt(jTextFieldAntal.getText())));
             list2.addElement(selected);
             if (selected.getQty() == 0) {
@@ -940,7 +940,7 @@ public class GUI extends javax.swing.JFrame {
         Ordre selected = (Ordre) jList3.getSelectedValue();
         controller.setSelectedOrdre(selected);
         if (selected.getFnummer() == 0) {
-            controller.addOrderFakturaNummer(selected, selected.getOd());
+            controller.addOrderFakturaNummer(selected);
         }
         controller.setCurrentOrder(selected);
         controller.pdfFaktura();
@@ -962,6 +962,10 @@ public class GUI extends javax.swing.JFrame {
     private void jButtonMontoerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMontoerActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonMontoerActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        update();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {
 
@@ -1041,17 +1045,14 @@ public class GUI extends javax.swing.JFrame {
         for (int i = 0; i < ol.size(); i++) {
             oa[i] = ol.get(i);
         }
-        controller.quickSortOrdre(oa, 0, oa.length - 1);
+        controller.quickSortOrdre(oa, 0, oa.length-1);
         // controller.quickSortOrdre(oa, 0, oa.length - 1);
         for (int i = 0; i < oa.length; i++) {
             if (!"Afsluttet".equals(ol.get(i).getStatus())) {
                 list3.addElement(oa[i]);
                 listHistorik.addElement(oa[i]);
                 listOrdrer.addElement(oa[i]);
-            }
-        }
-        for (int i = 0; i < oa.length; i++) {
-            if ("Afsluttet".equals(ol.get(i).getStatus())) {
+            } else if ("Afsluttet".equals(ol.get(i).getStatus())) {
                 listHistorik.addElement(oa[i]);
             }
         }
@@ -1066,19 +1067,6 @@ public class GUI extends javax.swing.JFrame {
 
         for (int i = 0; i < ka.length; i++) {
             jComboBox1.addItem(ka[i].getNavn());
-        }
-
-
-        // list1:
-        ArrayList<Vare> vl = controller.getAllRessources();
-        Vare[] va = new Vare[vl.size()];
-        for (int i = 0; i < vl.size(); i++) {
-            va[i] = vl.get(i);
-        }
-        controller.quickSortVare(va, 0, va.length - 1);
-
-        for (int i = 0; i < va.length; i++) {
-            list1.addElement(va[i]);
         }
 
         // list2:
@@ -1098,9 +1086,63 @@ public class GUI extends javax.swing.JFrame {
                 list2.addElement(va1[i]);
             }
         }
+
+        // list1:
+        if (!"".equals(jTextFieldÅrUd.getText())) {
+            int levYear = Integer.parseInt(jTextFieldÅrUd.getText());
+            int levMonth = Integer.parseInt(jTextFieldMånedUd.getText());
+            int levDay = Integer.parseInt(jTextFieldDagUd.getText());
+            int retYear = Integer.parseInt(jTextFieldÅrInd.getText());
+            int retMonth = Integer.parseInt(jTextFieldMånedInd.getText());
+            int retDay = Integer.parseInt(jTextFieldDagInd.getText());
+            ArrayList<Vare> vl = controller.getAllRessources();
+            Vare[] va = new Vare[vl.size()];
+            for (int i = 0; i < vl.size(); i++) {
+                for (int j = 0; j < list3.size(); j++) {
+                    Ordre o = (Ordre) list3.getElementAt(j);
+                    int oLevYear = Integer.parseInt(o.getLevering().substring(6, 10));
+                    int oLevMonth = Integer.parseInt(o.getLevering().substring(3, 5));
+                    int oLevDay = Integer.parseInt(o.getLevering().substring(0, 2));
+                    int oRetYear = Integer.parseInt(o.getReturnering().substring(6, 10));
+                    int oRetMonth = Integer.parseInt(o.getReturnering().substring(3, 5));
+                    int oRetDay = Integer.parseInt(o.getReturnering().substring(0, 2));
+                    if ((levDay <= oLevDay || levDay <= oRetDay) && (retDay >= oRetDay || retDay >= oLevDay)) {
+                        if ((levMonth <= oLevMonth || levMonth <= oRetMonth) && (retMonth >= oRetMonth || retMonth >= oLevMonth)) {
+                            if ((levYear <= oLevYear || levYear <= oRetYear) && (retYear >= oRetYear || retYear >= oLevYear)) {
+                                for (int k = 0; k < o.getOd().size(); k++) {
+                                    if (vl.get(i).getVnummer() == o.getOd().get(k).getVnummer()) {
+                                        vl.get(i).setQty(vl.get(i).getQty() - o.getOd().get(k).getMaengde());
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                va[i] = vl.get(i);
+
+            }
+            Vare vare;
+            if (!list2.isEmpty()){
+                for (int i = 0; i < list2.size(); i++) {
+                    vare = (Vare) list2.getElementAt(i);
+                    for (int j = 0; j < va.length; j++) {
+                        if (vare.getVnummer() == va[j].getVnummer()){
+                            va[j].setQty(va[j].getQty() - vare.getQty());
+                        }
+                    }
+                }
+            }
+            controller.quickSortVare(va, 0, va.length - 1);
+
+            for (int i = 0; i < va.length; i++) {
+                list1.addElement(va[i]);
+            }
+        }
+        
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButtonAfslut;
     private javax.swing.JButton jButtonAfslutOrdre;
