@@ -91,12 +91,6 @@ public class DBFacade {
         }
     }
 
-    public void registerNewKunde(Kunde k) {
-        if (uow != null) {
-            uow.registerNewCustomer(k);
-        }
-    }
-
     public void registerDirtyOrder(Ordre o) {
         if (uow != null) {
             uow.registerDirtyOrder(o);
@@ -112,6 +106,12 @@ public class DBFacade {
     public void registerDirtyRessource(Vare v) {
         if (uow != null) {
             uow.registerDirtyRessource(v);
+        }
+    }
+
+    public void registerNewCustomer(Kunde k) {
+        if (uow != null) {
+            uow.registerNewCustomer(k);
         }
     }
 
@@ -203,7 +203,7 @@ public class DBFacade {
         return con;
     }
 
-    private void releaseConnection(Connection con) {
+    public void releaseConnection() {
         try {
             con.close();
         } catch (Exception e) {

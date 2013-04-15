@@ -162,6 +162,6 @@ public class Ordre
     @Override
     public String toString()
     {
-        return knummer + ", " + status;
+        return knummer + ", " + onummer + ", " + status;
     }
 }

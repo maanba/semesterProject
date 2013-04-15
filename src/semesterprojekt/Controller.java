@@ -153,7 +153,7 @@ public class Controller {
         Kunde kunde = new Kunde(knummer, firma, navn, adresse, postnummer, telefonnummer);
         kundeArr.add(kunde);
         dbFacade.startNewBusinessTransaction();
-        dbFacade.registerNewKunde(kunde);
+        dbFacade.registerNewCustomer(kunde);
         dbFacade.commitBusinessTransaction();
 
         System.out.println(dbFacade.getAllCustumers());
@@ -375,8 +375,8 @@ public class Controller {
         return array;
     }
 
-    public Vare getVare(int vnummer) {
-        dbFacade.startNewBusinessTransaction();
+    public Vare getVare(int vnummer)
+    {
         currentVare = dbFacade.getVare(vnummer);
         return currentVare;
     }
@@ -454,5 +454,9 @@ public class Controller {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void releaseConnection(){
+        dbFacade.releaseConnection();
     }
 }

@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -24,6 +25,14 @@ public class GUI extends javax.swing.JFrame {
         cellRenderer();
 
         setTitle("Semesterprojekt");
+
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                controller.releaseConnection();
+            }
+        });
 
         jList1.setModel(list1);
         jList2.setModel(list2);
@@ -681,6 +690,9 @@ public class GUI extends javax.swing.JFrame {
                         String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                         String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
                         controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText())-Double.parseDouble(jTextFieldPris.getText()), controller.getCurrentOrder().getDepositum(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
+=======
+                        controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()) - Double.parseDouble(jTextFieldPris.getText()), controller.getCurrentOrder().getDepositum(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
+>>>>>>> branch 'master' of https://github.com/maanba/semesterProject.git
                         list2.clear();
                         list3.clear();
                         jLabelError.setText("");
@@ -697,7 +709,11 @@ public class GUI extends javax.swing.JFrame {
                     }
                     String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                     String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
+<<<<<<< HEAD
                     controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText())-Double.parseDouble(jTextFieldPris.getText()), controller.getCurrentOrder().getDepositum(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
+=======
+                    controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()) - Double.parseDouble(jTextFieldPris.getText()), controller.getCurrentOrder().getDepositum(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
+>>>>>>> branch 'master' of https://github.com/maanba/semesterProject.git
                     list2.clear();
                     list3.clear();
                     jLabelError.setText("");
@@ -757,11 +773,11 @@ public class GUI extends javax.swing.JFrame {
         jTextFieldAdresse.setText(selected.getAdresse() + "");
         jTextFieldPostnummer.setText(selected.getPostnummer() + "");
         jTextFieldTelefonnummer.setText(selected.getTelefonnummer() + "");
-        
+
         if (selected != null) {
             for (int i = 0; i < list9.size(); i++) {
-                Vare vare = (Vare) list9.getElementAt(i);      
-            }  
+                Vare vare = (Vare) list9.getElementAt(i);
+            }
         } else {
             jLabelError.setText("FEJL!");
         }
@@ -852,11 +868,11 @@ public class GUI extends javax.swing.JFrame {
         jTextFieldNavn.setText(selected.getVnavn());
         jTextFieldVarePris.setText(selected.getPris() + "");
         jTextFieldVareQty.setText(selected.getQty() + "");
-        
+
         if (selected != null) {
             for (int i = 0; i < list5.size(); i++) {
-                Vare vare = (Vare) list5.getElementAt(i);      
-            }  
+                Vare vare = (Vare) list5.getElementAt(i);
+            }
         } else {
             jLabelError.setText("FEJL!");
         }
@@ -1045,38 +1061,38 @@ public class GUI extends javax.swing.JFrame {
                 list1.addElement(va[i]);
             }
         }
-        
+
         // list5 
-         ArrayList<Vare> vl5 = controller.getAllRessources();
-            Vare[] va5 = new Vare[vl5.size()];
-            for (int i = 0; i < vl5.size(); i++) {
-                    va5[i] = vl5.get(i);
-                }
-            for (int i = 0; i < vl5.size(); i++) {
-                
-                controller.quickSortVare(va5, 0, va5.length-1);
-                list5.clear();
-                for (int j = 0; j < va5.length; j++) {
-                    list5.addElement(va5[j]);
-                }
-                
+        ArrayList<Vare> vl5 = controller.getAllRessources();
+        Vare[] va5 = new Vare[vl5.size()];
+        for (int i = 0; i < vl5.size(); i++) {
+            va5[i] = vl5.get(i);
+        }
+        for (int i = 0; i < vl5.size(); i++) {
+
+            controller.quickSortVare(va5, 0, va5.length - 1);
+            list5.clear();
+            for (int j = 0; j < va5.length; j++) {
+                list5.addElement(va5[j]);
             }
-        
+
+        }
+
         // list9 
-         ArrayList<Kunde> kl9 = controller.getAllCostumers();
-            Kunde[] ka9 = new Kunde[kl9.size()];
-            for (int i = 0; i < kl9.size(); i++) {
-                    ka9[i] = kl9.get(i);
-                }
-            for (int i = 0; i < kl9.size(); i++) {
-                
-                controller.quickSortKunde(ka9, 0, ka9.length-1);
-                list9.clear();
-                for (int j = 0; j < ka9.length; j++) {
-                    list9.addElement(ka9[j]);
-                }
-                
+        ArrayList<Kunde> kl9 = controller.getAllCostumers();
+        Kunde[] ka9 = new Kunde[kl9.size()];
+        for (int i = 0; i < kl9.size(); i++) {
+            ka9[i] = kl9.get(i);
+        }
+        for (int i = 0; i < kl9.size(); i++) {
+
+            controller.quickSortKunde(ka9, 0, ka9.length - 1);
+            list9.clear();
+            for (int j = 0; j < ka9.length; j++) {
+                list9.addElement(ka9[j]);
             }
+
+        }
 
 
     }
