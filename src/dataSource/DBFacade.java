@@ -16,8 +16,10 @@ public class DBFacade {
 	  //=====	Singleton
 	  
 	  private static DBFacade instance;
+    private Connection con = null;
 
     private DBFacade() {
+        con = getConnection();
     }
 
     public static DBFacade getInstance() {
@@ -29,108 +31,56 @@ public class DBFacade {
 
     //======	Methods to retrieve data 
     public Ordre getOrder(int ono) {
-        Connection con = null;
         Ordre o = null;
-        try {
-            con = getConnection();
-            o = new OrderMapper().getOrder(ono, con);
-        } finally {
-            releaseConnection(con);
-        }
+        o = new OrderMapper().getOrder(ono, con);
         return o;
     }
-    
+
     public Vare getVare(int vnummer) {
-        Connection con = null;
         Vare v = null;
-        try {
-            con = getConnection();
-            v = new OrderMapper().getVare(con, vnummer);
-        } finally {
-            releaseConnection(con);
-        }
+        v = new OrderMapper().getVare(con, vnummer);
         return v;
     }
+
     public Kunde getKunde(int knummer) {
-        Connection con = null;
         Kunde k = null;
-        try {
-            con = getConnection();
-            k = new OrderMapper().getKunde(con, knummer);
-        } finally {
-            releaseConnection(con);
-        }
+        k = new OrderMapper().getKunde(con, knummer);
         return k;
     }
+
     public Postnummer getPostnummer(int postnr) {
-        Connection con = null;
         Postnummer p = null;
-        try {
-            con = getConnection();
-            p = new OrderMapper().getPostnummer(con, postnr);
-        } finally {
-            releaseConnection(con);
-        }
+        p = new OrderMapper().getPostnummer(con, postnr);
         return p;
     }
-    
-    public ArrayList<Ordre> getAllOrdres(){
-        Connection con = null;
+
+    public ArrayList<Ordre> getAllOrdres() {
         ArrayList<Ordre> o = null;
-        try {
-            con = getConnection();
-            o = new OrderMapper().getAllOrders(con);
-        } finally {
-            releaseConnection(con);
-        }
+        o = new OrderMapper().getAllOrders(con);
         return o;
     }
-    
-    public ArrayList<Kunde> getAllCustumers(){
-        Connection con = null;
+
+    public ArrayList<Kunde> getAllCustumers() {
         ArrayList<Kunde> o = null;
-        try {
-            con = getConnection();
-            o = new OrderMapper().getAllCostumers(con);
-        } finally {
-            releaseConnection(con);
-        }
+        o = new OrderMapper().getAllCostumers(con);
         return o;
     }
-    
-    public ArrayList<Vare> getAllRessources(){
-        Connection con = null;
+
+    public ArrayList<Vare> getAllRessources() {
         ArrayList<Vare> o = null;
-        try {
-            con = getConnection();
-            o = new OrderMapper().getAllRessources(con);
-        } finally {
-            releaseConnection(con);
-        }
+        o = new OrderMapper().getAllRessources(con);
         return o;
     }
 
     public int getNextOrderNo() {
-        Connection con = null;
         int nextOno = 0;
-        try {
-            con = getConnection();
-            nextOno = new OrderMapper().getNextOrderNo(con);
-        } finally {
-            releaseConnection(con);
-        }
+        nextOno = new OrderMapper().getNextOrderNo(con);
         return nextOno;
     }
-    
-     public int getNextFNo() {
-        Connection con = null;
+
+    public int getNextFNo() {
         int nextFnummer = 0;
-        try {
-            con = getConnection();
-            nextFnummer = new OrderMapper().getNextFnummer(con);
-        } finally {
-            releaseConnection(con);
-        }
+        nextFnummer = new OrderMapper().getNextFnummer(con);
         return nextFnummer;
     }
 
@@ -140,34 +90,32 @@ public class DBFacade {
             uow.registerNewOrder(o);
         }
     }
-    
-    public void registerNewKunde(Kunde k) {
-        if (uow != null) {
-            uow.registerNewCustomer(k);
-        }
-    }
-    
-    
 
     public void registerDirtyOrder(Ordre o) {
         if (uow != null) {
             uow.registerDirtyOrder(o);
         }
     }
-    
+
     public void registerNewRessource(Vare v) {
         if (uow != null) {
             uow.registerNewRessource(v);
         }
     }
-    
-    public void registerDirtyRessource(Vare v){
+
+    public void registerDirtyRessource(Vare v) {
         if (uow != null) {
             uow.registerDirtyRessource(v);
         }
     }
-    
-    public void registerDirtyCustomer(Kunde k){
+
+    public void registerNewCustomer(Kunde k) {
+        if (uow != null) {
+            uow.registerNewCustomer(k);
+        }
+    }
+
+    public void registerDirtyCustomer(Kunde k) {
         if (uow != null) {
             uow.registerDirtyCustomer(k);
         }
@@ -178,10 +126,10 @@ public class DBFacade {
             uow.registerNewOrderDetail(od);
         }
     }
-    
-    public void registerDirtyOrderDetail(Odetaljer od){
+
+    public void registerDirtyOrderDetail(Odetaljer od) {
         if (uow != null) {
-           uow.registerDirtyOrderDetail(od);
+            uow.registerDirtyOrderDetail(od);
         }
     }
 
@@ -195,21 +143,17 @@ public class DBFacade {
     public boolean commitBusinessTransaction() {
         boolean status = false;
         if (uow != null) {
-            Connection con = null;
             try {
-                con = getConnection();
                 status = uow.commit(con);
             } catch (Exception e) {
                 System.out.println("Fail in DBFacade - commitBusinessTransaction");
                 System.err.println(e);
-            } finally {
-                releaseConnection(con);
             }
             uow = null;
         }
         return status;
     }
-    
+
     //=== delete order
     public boolean deleteOrder(Ordre o) {
         boolean status = false;
@@ -218,7 +162,7 @@ public class DBFacade {
         }
         return status;
     }
-    
+
     public boolean deleteCustomer(Kunde k) {
         boolean status = false;
         if (uow != null) {
@@ -226,21 +170,17 @@ public class DBFacade {
         }
         return status;
     }
-    
+
     public boolean deleteOdetail(int ono) {
         boolean status = true;
-        Connection con = null;
         try {
-            con = getConnection();
             status = new OrderMapper().deleteOrderDetails(ono, con);
         } catch (SQLException ex) {
-            
-        }finally {
-            releaseConnection(con);
-        }
+            System.out.println("fail i deleteOdetail");
+        } 
         return status;
     }
-    
+
     public boolean deleteRessource(Vare v) {
         boolean status = false;
         if (uow != null) {

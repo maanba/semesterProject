@@ -12,6 +12,8 @@ public class GUI extends javax.swing.JFrame
     private DefaultListModel list1 = new DefaultListModel();
     private DefaultListModel list2 = new DefaultListModel();
     private DefaultListModel list3 = new DefaultListModel();
+    private DefaultListModel list5 = new DefaultListModel();
+    private DefaultListModel list9 = new DefaultListModel();
     private DefaultListModel listHistorik = new DefaultListModel();
     private DefaultListModel listOrdrer = new DefaultListModel();
     private DefaultListModel listVarer = new DefaultListModel();
@@ -29,6 +31,8 @@ public class GUI extends javax.swing.JFrame
         jList1.setModel(list1);
         jList2.setModel(list2);
         jList3.setModel(list3);
+        jList5.setModel(list5);
+        jList9.setModel(list9);
         jListHistorik.setModel(listHistorik);
         jListOrdrer.setModel(listOrdrer);
         jListVarer.setModel(listVarer);
@@ -85,6 +89,7 @@ public class GUI extends javax.swing.JFrame
         jButtonLastbil = new javax.swing.JButton();
         jButtonMontoer = new javax.swing.JButton();
         jButtonStatus = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane10 = new javax.swing.JScrollPane();
         jList9 = new javax.swing.JList();
@@ -94,7 +99,7 @@ public class GUI extends javax.swing.JFrame
         jLabel19 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
+        jLabelRedigerKunde = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jTextFieldAdresse = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
@@ -111,7 +116,7 @@ public class GUI extends javax.swing.JFrame
         jList5 = new javax.swing.JList();
         jPanel5 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        jLabelRedigerIVare = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jTextFieldVareQty = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
@@ -148,42 +153,6 @@ public class GUI extends javax.swing.JFrame
         jButtonAfslut = new javax.swing.JButton();
         jButtonPaabegynd = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField12 = new javax.swing.JTextField();
-        jTextField13 = new javax.swing.JTextField();
-        jTextField14 = new javax.swing.JTextField();
-        jTextField15 = new javax.swing.JTextField();
-        jTextField16 = new javax.swing.JTextField();
-        jTextField17 = new javax.swing.JTextField();
-        jTextField18 = new javax.swing.JTextField();
-        jTextField19 = new javax.swing.JTextField();
-        jTextField20 = new javax.swing.JTextField();
-        jTextField21 = new javax.swing.JTextField();
-        jTextField22 = new javax.swing.JTextField();
-        jTextField23 = new javax.swing.JTextField();
-        jTextField24 = new javax.swing.JTextField();
-        jTextField25 = new javax.swing.JTextField();
-        jTextField26 = new javax.swing.JTextField();
-        jTextField27 = new javax.swing.JTextField();
-        jTextField28 = new javax.swing.JTextField();
-        jTextField29 = new javax.swing.JTextField();
-        jTextField30 = new javax.swing.JTextField();
-        jTextField31 = new javax.swing.JTextField();
-        jTextField32 = new javax.swing.JTextField();
-        jTextField33 = new javax.swing.JTextField();
-        jTextField34 = new javax.swing.JTextField();
-        jTextField35 = new javax.swing.JTextField();
-        jTextField36 = new javax.swing.JTextField();
-        jTextField37 = new javax.swing.JTextField();
-        jTextField38 = new javax.swing.JTextField();
-        jTextField39 = new javax.swing.JTextField();
-        jTextField40 = new javax.swing.JTextField();
-        jTextField41 = new javax.swing.JTextField();
-        jTextField42 = new javax.swing.JTextField();
-        jTextField43 = new javax.swing.JTextField();
-        jTextField44 = new javax.swing.JTextField();
-        jTextField45 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -264,7 +233,7 @@ public class GUI extends javax.swing.JFrame
 
         buttonGroup1.add(jRadioButtonAfhentning);
         jRadioButtonAfhentning.setText("Afhentning");
-        jPanel1.add(jRadioButtonAfhentning, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 40, -1, -1));
+        jPanel1.add(jRadioButtonAfhentning, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, -1, -1));
 
         buttonGroup1.add(jRadioButtonLevering);
         jRadioButtonLevering.setText("Levering");
@@ -275,7 +244,7 @@ public class GUI extends javax.swing.JFrame
                 jRadioButtonLeveringActionPerformed(evt);
             }
         });
-        jPanel1.add(jRadioButtonLevering, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 40, -1, -1));
+        jPanel1.add(jRadioButtonLevering, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 50, -1, -1));
 
         jButtonOrdreRediger.setText("< Rediger");
         jButtonOrdreRediger.setToolTipText("");
@@ -398,6 +367,14 @@ public class GUI extends javax.swing.JFrame
         });
         jPanel1.add(jButtonStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 270, 100, -1));
 
+        jButton1.setText("Check Dato");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 50, -1, -1));
+
         jTabbedPane1.addTab("Ordre", jPanel1);
 
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -442,8 +419,8 @@ public class GUI extends javax.swing.JFrame
         jLabel20.setText("Redigerer i:");
         jPanel7.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 21, 80, 30));
 
-        jLabel21.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jPanel7.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 120, 20));
+        jLabelRedigerKunde.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jPanel7.add(jLabelRedigerKunde, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 120, 20));
 
         jLabel22.setText("Firmanavn");
         jPanel7.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 80, 20));
@@ -486,8 +463,8 @@ public class GUI extends javax.swing.JFrame
         jLabel8.setText("Redigerer i:");
         jPanel5.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 21, 80, 30));
 
-        jLabel9.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jPanel5.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 120, 20));
+        jLabelRedigerIVare.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jPanel5.add(jLabelRedigerIVare, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 120, 20));
 
         jLabel10.setText("Navn");
         jPanel5.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 40, 20));
@@ -509,6 +486,11 @@ public class GUI extends javax.swing.JFrame
         jPanel2.add(jLabelRedigerVare, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, 240, -1));
 
         jButtonLagerRediger.setText("Rediger >");
+        jButtonLagerRediger.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLagerRedigerActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButtonLagerRediger, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, 90, -1));
 
         jButtonLagerGem.setText("< Gem");
@@ -536,10 +518,15 @@ public class GUI extends javax.swing.JFrame
         jPanel3.add(jButtonReturGem, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 70, -1));
 
         jButtonLever.setText("Lever >");
+<<<<<<< HEAD
         jButtonLever.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
+=======
+        jButtonLever.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+>>>>>>> branch 'master' of https://github.com/maanba/semesterProject.git
                 jButtonLeverActionPerformed(evt);
             }
         });
@@ -639,115 +626,6 @@ public class GUI extends javax.swing.JFrame
         jPanel9.add(jButtonPaabegynd, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, -1, -1));
 
         jTabbedPane1.addTab("Historik", jPanel9);
-
-        jTextField1.setText("jTextField1");
-        jPanel8.add(jTextField1);
-
-        jTextField2.setText("jTextField1");
-        jPanel8.add(jTextField2);
-
-        jTextField12.setText("jTextField1");
-        jPanel8.add(jTextField12);
-
-        jTextField13.setText("jTextField1");
-        jPanel8.add(jTextField13);
-
-        jTextField14.setText("jTextField1");
-        jPanel8.add(jTextField14);
-
-        jTextField15.setText("jTextField1");
-        jPanel8.add(jTextField15);
-
-        jTextField16.setText("jTextField1");
-        jPanel8.add(jTextField16);
-
-        jTextField17.setText("jTextField1");
-        jPanel8.add(jTextField17);
-
-        jTextField18.setText("jTextField1");
-        jPanel8.add(jTextField18);
-
-        jTextField19.setText("jTextField1");
-        jPanel8.add(jTextField19);
-
-        jTextField20.setText("jTextField1");
-        jPanel8.add(jTextField20);
-
-        jTextField21.setText("jTextField1");
-        jPanel8.add(jTextField21);
-
-        jTextField22.setText("jTextField1");
-        jPanel8.add(jTextField22);
-
-        jTextField23.setText("jTextField1");
-        jPanel8.add(jTextField23);
-
-        jTextField24.setText("jTextField1");
-        jPanel8.add(jTextField24);
-
-        jTextField25.setText("jTextField1");
-        jPanel8.add(jTextField25);
-
-        jTextField26.setText("jTextField1");
-        jPanel8.add(jTextField26);
-
-        jTextField27.setText("jTextField1");
-        jPanel8.add(jTextField27);
-
-        jTextField28.setText("jTextField1");
-        jPanel8.add(jTextField28);
-
-        jTextField29.setText("jTextField1");
-        jPanel8.add(jTextField29);
-
-        jTextField30.setText("jTextField1");
-        jPanel8.add(jTextField30);
-
-        jTextField31.setText("jTextField1");
-        jPanel8.add(jTextField31);
-
-        jTextField32.setText("jTextField1");
-        jPanel8.add(jTextField32);
-
-        jTextField33.setText("jTextField1");
-        jPanel8.add(jTextField33);
-
-        jTextField34.setText("jTextField1");
-        jPanel8.add(jTextField34);
-
-        jTextField35.setText("jTextField1");
-        jPanel8.add(jTextField35);
-
-        jTextField36.setText("jTextField1");
-        jPanel8.add(jTextField36);
-
-        jTextField37.setText("jTextField1");
-        jPanel8.add(jTextField37);
-
-        jTextField38.setText("jTextField1");
-        jPanel8.add(jTextField38);
-
-        jTextField39.setText("jTextField1");
-        jPanel8.add(jTextField39);
-
-        jTextField40.setText("jTextField1");
-        jPanel8.add(jTextField40);
-
-        jTextField41.setText("jTextField1");
-        jPanel8.add(jTextField41);
-
-        jTextField42.setText("jTextField1");
-        jPanel8.add(jTextField42);
-
-        jTextField43.setText("jTextField1");
-        jPanel8.add(jTextField43);
-
-        jTextField44.setText("jTextField1");
-        jPanel8.add(jTextField44);
-
-        jTextField45.setText("jTextField1");
-        jPanel8.add(jTextField45);
-
         jTabbedPane1.addTab("Kalender", jPanel8);
 
         getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 570));
@@ -891,7 +769,7 @@ public class GUI extends javax.swing.JFrame
                         }
                         String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                         String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
-                        controller.createNewOrder(kno, Double.parseDouble(jTextFieldPris.getText()), Double.parseDouble("0.00"), afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                        controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText())-Double.parseDouble(jTextFieldPris.getText()), Double.parseDouble("0.00"), afhentning, "Påbegyndt", levering, returnering, odetaljer);
                         list2.clear();
                         list3.clear();
                         jLabelError.setText("");
@@ -913,7 +791,7 @@ public class GUI extends javax.swing.JFrame
                     }
                     String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                     String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
-                    controller.updateOrder(kno, Double.parseDouble(jTextFieldPris.getText()), Double.parseDouble("0.00"), afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                    controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText())-Double.parseDouble(jTextFieldPris.getText()), Double.parseDouble("0.00"), afhentning, "Påbegyndt", levering, returnering, odetaljer);
                     list2.clear();
                     list3.clear();
                     jLabelError.setText("");
@@ -972,11 +850,24 @@ public class GUI extends javax.swing.JFrame
     }//GEN-LAST:event_jRadioButtonLeveringActionPerformed
 
     private void jButtonTilføj1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilføj1ActionPerformed
-        // TODO add your handling code here:
+        Kunde selected = (Kunde) jList9.getSelectedValue();
+        jLabelRedigerKunde.setText("Redigerer i kunde:");
+        jTextFieldFirmaNavn.setText(selected.getFirma() + "");
+        jTextFieldFuldeNavn.setText(selected.getNavn());
+        jTextFieldAdresse.setText(selected.getAdresse() + "");
+        jTextFieldPostnummer.setText(selected.getPostnummer() + "");
+        jTextFieldTelefonnummer.setText(selected.getTelefonnummer() + "");
+
+        if (selected != null) {
+            for (int i = 0; i < list9.size(); i++) {
+                Vare vare = (Vare) list9.getElementAt(i);
+            }
+        } else {
+            jLabelError.setText("FEJL!");
+        }
     }//GEN-LAST:event_jButtonTilføj1ActionPerformed
 
     private void jButtonTilføj2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilføj2ActionPerformed
-        //   controller.addKunde(,jTextFieldFirmaNavn, jTextFieldFuldeNavn, jTextFieldAdresse, jTextFieldPostnummer, jTextFieldTelefonnummer);
     }//GEN-LAST:event_jButtonTilføj2ActionPerformed
 
     private void jButtonDepositumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDepositumActionPerformed
@@ -1010,12 +901,16 @@ public class GUI extends javax.swing.JFrame
     }//GEN-LAST:event_jButtonPaabegyndActionPerformed
 
     private void jButtonLagerGemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLagerGemActionPerformed
-        int vnummer = Integer.parseInt(jLabelRedigerVare.getText());
+        int vnummer = Integer.parseInt(jLabelRedigerIVare.getText());
         String vnavn = jTextFieldNavn.getText();
-        int pris = Integer.parseInt(jTextFieldVarePris.getText());
+        double pris = Double.parseDouble(jTextFieldVarePris.getText());
         int qty = Integer.parseInt(jTextFieldVareQty.getText());
 
         Vare vare = new Vare(vnummer, vnavn, qty, pris);
+
+        controller.redigerVare(vare);
+
+        update();
     }//GEN-LAST:event_jButtonLagerGemActionPerformed
 
     private void jButtonFakturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFakturaActionPerformed
@@ -1024,6 +919,10 @@ public class GUI extends javax.swing.JFrame
         if (selected.getFnummer() == 0)
         {
             controller.addOrderFakturaNummer(selected, selected.getOd());
+
+        if (selected.getFnummer() == 0) {
+            controller.addOrderFakturaNummer(selected);
+
         }
         controller.setCurrentOrder(selected);
         controller.pdfFaktura();
@@ -1048,6 +947,31 @@ public class GUI extends javax.swing.JFrame
     private void jButtonMontoerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMontoerActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonMontoerActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        update();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButtonLagerRedigerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLagerRedigerActionPerformed
+        Vare selected = (Vare) jList5.getSelectedValue();
+        jLabelRedigerVare.setText("Redigerer i vare:");
+        jLabelRedigerIVare.setText(selected.getVnummer() + "");
+        jTextFieldNavn.setText(selected.getVnavn());
+        jTextFieldVarePris.setText(selected.getPris() + "");
+        jTextFieldVareQty.setText(selected.getQty() + "");
+
+        if (selected != null) {
+            for (int i = 0; i < list5.size(); i++) {
+                Vare vare = (Vare) list5.getElementAt(i);
+            }
+        } else {
+            jLabelError.setText("FEJL!");
+        }
+    }//GEN-LAST:event_jButtonLagerRedigerActionPerformed
+
+    private void jButtonLeverActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
 
     private void jButtonLeverActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonLeverActionPerformed
     {//GEN-HEADEREND:event_jButtonLeverActionPerformed
@@ -1180,6 +1104,12 @@ public class GUI extends javax.swing.JFrame
             }
         }
         
+            } else if ("Afsluttet".equals(ol.get(i).getStatus())) {
+                listHistorik.addElement(oa[i]);
+            }
+        }
+
+
         // jComboBox1:
         ArrayList<Kunde> kl = controller.getAllCostumers();
         Kunde[] ka = new Kunde[kl.size()];
@@ -1230,10 +1160,102 @@ public class GUI extends javax.swing.JFrame
             {
                 list2.addElement(va1[i]);
             }
+            if (list2.isEmpty() == false) {
+                double totalpris = 0;
+                for (int i = 0; i < list2.size(); i++) {
+                    Vare vare = (Vare) list2.getElementAt(i);
+                    totalpris += vare.getPris() * vare.getQty();
+                }
+                jTextFieldTotalPris.setText(totalpris + "");
+            }
+        }
+
+        // list1:
+        if (!"".equals(jTextFieldÅrUd.getText())) {
+            int levYear = Integer.parseInt(jTextFieldÅrUd.getText());
+            int levMonth = Integer.parseInt(jTextFieldMånedUd.getText());
+            int levDay = Integer.parseInt(jTextFieldDagUd.getText());
+            int retYear = Integer.parseInt(jTextFieldÅrInd.getText());
+            int retMonth = Integer.parseInt(jTextFieldMånedInd.getText());
+            int retDay = Integer.parseInt(jTextFieldDagInd.getText());
+            ArrayList<Vare> vl = controller.getAllRessources();
+            Vare[] va = new Vare[vl.size()];
+            for (int i = 0; i < vl.size(); i++) {
+                for (int j = 0; j < list3.size(); j++) {
+                    Ordre o = (Ordre) list3.getElementAt(j);
+                    int oLevYear = Integer.parseInt(o.getLevering().substring(6, 10));
+                    int oLevMonth = Integer.parseInt(o.getLevering().substring(3, 5));
+                    int oLevDay = Integer.parseInt(o.getLevering().substring(0, 2));
+                    int oRetYear = Integer.parseInt(o.getReturnering().substring(6, 10));
+                    int oRetMonth = Integer.parseInt(o.getReturnering().substring(3, 5));
+                    int oRetDay = Integer.parseInt(o.getReturnering().substring(0, 2));
+                    if ((levDay <= oLevDay || levDay <= oRetDay) && (retDay >= oRetDay || retDay >= oLevDay)) {
+                        if ((levMonth <= oLevMonth || levMonth <= oRetMonth) && (retMonth >= oRetMonth || retMonth >= oLevMonth)) {
+                            if ((levYear <= oLevYear || levYear <= oRetYear) && (retYear >= oRetYear || retYear >= oLevYear)) {
+                                for (int k = 0; k < o.getOd().size(); k++) {
+                                    if (vl.get(i).getVnummer() == o.getOd().get(k).getVnummer()) {
+                                        vl.get(i).setQty(vl.get(i).getQty() - o.getOd().get(k).getMaengde());
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                va[i] = vl.get(i);
+
+            }
+            Vare vare;
+            if (!list2.isEmpty()) {
+                for (int i = 0; i < list2.size(); i++) {
+                    vare = (Vare) list2.getElementAt(i);
+                    for (int j = 0; j < va.length; j++) {
+                        if (vare.getVnummer() == va[j].getVnummer()) {
+                            va[j].setQty(va[j].getQty() - vare.getQty());
+                        }
+                    }
+                }
+            }
+            controller.quickSortVare(va, 0, va.length - 1);
+
+            for (int i = 0; i < va.length; i++) {
+                list1.addElement(va[i]);
+            }
+        }
+
+        // list5 
+        ArrayList<Vare> vl5 = controller.getAllRessources();
+        Vare[] va5 = new Vare[vl5.size()];
+        for (int i = 0; i < vl5.size(); i++) {
+            va5[i] = vl5.get(i);
+        }
+        for (int i = 0; i < vl5.size(); i++) {
+
+            controller.quickSortVare(va5, 0, va5.length - 1);
+            list5.clear();
+            for (int j = 0; j < va5.length; j++) {
+                list5.addElement(va5[j]);
+            }
+
+        }
+
+        // list9 
+        ArrayList<Kunde> kl9 = controller.getAllCostumers();
+        Kunde[] ka9 = new Kunde[kl9.size()];
+        for (int i = 0; i < kl9.size(); i++) {
+            ka9[i] = kl9.get(i);
+        }
+        for (int i = 0; i < kl9.size(); i++) {
+
+            controller.quickSortKunde(ka9, 0, ka9.length - 1);
+            list9.clear();
+            for (int j = 0; j < ka9.length; j++) {
+                list9.addElement(ka9[j]);
+            }
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButtonAfslut;
     private javax.swing.JButton jButtonAfslutOrdre;
@@ -1269,7 +1291,6 @@ public class GUI extends javax.swing.JFrame
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
@@ -1284,8 +1305,9 @@ public class GUI extends javax.swing.JFrame
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelError;
+    private javax.swing.JLabel jLabelRedigerIVare;
+    private javax.swing.JLabel jLabelRedigerKunde;
     private javax.swing.JLabel jLabelRedigerVare;
     private javax.swing.JList jList1;
     private javax.swing.JList jList2;
@@ -1319,43 +1341,7 @@ public class GUI extends javax.swing.JFrame
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField15;
-    private javax.swing.JTextField jTextField16;
-    private javax.swing.JTextField jTextField17;
-    private javax.swing.JTextField jTextField18;
-    private javax.swing.JTextField jTextField19;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField20;
-    private javax.swing.JTextField jTextField21;
-    private javax.swing.JTextField jTextField22;
-    private javax.swing.JTextField jTextField23;
-    private javax.swing.JTextField jTextField24;
-    private javax.swing.JTextField jTextField25;
-    private javax.swing.JTextField jTextField26;
-    private javax.swing.JTextField jTextField27;
-    private javax.swing.JTextField jTextField28;
-    private javax.swing.JTextField jTextField29;
-    private javax.swing.JTextField jTextField30;
-    private javax.swing.JTextField jTextField31;
-    private javax.swing.JTextField jTextField32;
-    private javax.swing.JTextField jTextField33;
-    private javax.swing.JTextField jTextField34;
-    private javax.swing.JTextField jTextField35;
-    private javax.swing.JTextField jTextField36;
-    private javax.swing.JTextField jTextField37;
-    private javax.swing.JTextField jTextField38;
-    private javax.swing.JTextField jTextField39;
-    private javax.swing.JTextField jTextField40;
-    private javax.swing.JTextField jTextField41;
-    private javax.swing.JTextField jTextField42;
-    private javax.swing.JTextField jTextField43;
-    private javax.swing.JTextField jTextField44;
-    private javax.swing.JTextField jTextField45;
     private javax.swing.JTextField jTextFieldAdresse;
     private javax.swing.JTextField jTextFieldAntal;
     private javax.swing.JTextField jTextFieldDagInd;
