@@ -29,8 +29,8 @@ public class OrderMapper {
 
         for (int i = 0; i < ol.size(); i++) {
             Ordre o = ol.get(i);
-            statement.setInt(1, getNextFnummer(conn));
-            statement.setInt(2, o.getOnummer());
+            statement.setInt(1, o.getOnummer());
+            statement.setInt(2, o.getFnummer());
             statement.setInt(3, o.getKnummer());
             statement.setDouble(4, o.getPris());
             statement.setDouble(5, o.getDepositum());
@@ -102,7 +102,7 @@ public class OrderMapper {
         statement = conn.prepareStatement(SQLString);
         for (int i = 0; i < ol.size(); i++) {
             Ordre o = ol.get(i);
-            statement.setInt(1, getNextFnummer(conn));
+            statement.setInt(1, o.getFnummer());
             statement.setInt(2, o.getKnummer());
             statement.setDouble(3, o.getPris());
             statement.setDouble(4, o.getDepositum());
@@ -255,7 +255,7 @@ public class OrderMapper {
         }
         return (rowsUpdated == delListe.size());
     }
-    public boolean deleteOrderDetials(int ono, Connection conn) throws SQLException {
+    public boolean deleteOrderDetails(int ono, Connection conn) throws SQLException {
         int ordersDeleted = 0;
         String SQLString = "delete from odetaljer "
                 + "where onummer = ?";

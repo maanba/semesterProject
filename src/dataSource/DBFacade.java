@@ -232,7 +232,7 @@ public class DBFacade {
         Connection con = null;
         try {
             con = getConnection();
-            status = new OrderMapper().deleteOrderDetials(ono, con);
+            status = new OrderMapper().deleteOrderDetails(ono, con);
         } catch (SQLException ex) {
             
         }finally {

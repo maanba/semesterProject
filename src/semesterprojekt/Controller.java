@@ -59,13 +59,11 @@ public class Controller
         {
             return null;
         }
-        dbFacade.startNewBusinessTransaction();
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
         String modtaget = dateFormat.format(date);
         dbFacade.startNewBusinessTransaction();
         int newOrderNo = dbFacade.getNextOrderNo();// DB-generated unique ID
-        int newFakturaNo = dbFacade.getNextFNo();
         if (newOrderNo != 0)
         {
             processingOrder = true;
@@ -73,7 +71,7 @@ public class Controller
             {
                 odetaljer.get(i).setOnummer(newOrderNo);
             }
-            currentOrder = new Ordre(newOrderNo, newFakturaNo, knummer, pris, depositum, afhentning, status, modtaget, levering, returnering, 0);
+            currentOrder = new Ordre(newOrderNo, 0, knummer, pris, depositum, afhentning, status, modtaget, levering, returnering, 0);
             dbFacade.registerNewOrder(currentOrder);
             for (int i = 0; i < odetaljer.size(); i++)
             {
@@ -92,6 +90,31 @@ public class Controller
     public void updateOrder(int knummer, double pris, double depositum, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer)
     {
         currentOrder.setAfhentning(afhentning);
+        currentOrder.setKnummer(knummer);
+        currentOrder.setLevering(levering);
+        currentOrder.setPris(pris);
+        currentOrder.setDepositum(depositum);
+        currentOrder.setReturnering(returnering);
+        currentOrder.setOd(odetaljer);
+        dbFacade.startNewBusinessTransaction();
+        for (int i = 0; i < odetaljer.size(); i++)
+        {
+            odetaljer.get(i).setOnummer(currentOrder.getOnummer());
+        }
+        dbFacade.deleteOdetail(currentOrder.getOnummer());
+        dbFacade.registerDirtyOrder(currentOrder);
+        for (int i = 0; i < odetaljer.size(); i++)
+        {
+            dbFacade.registerNewOrderDetail(odetaljer.get(i));
+        }
+        dbFacade.commitBusinessTransaction();
+        currentOrder = null;
+    }
+    
+    public void addOrderFakturaNummer(int knummer, double pris, double depositum, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer)
+    {
+        currentOrder.setAfhentning(afhentning);
+        currentOrder.setFnummer(dbFacade.getNextFNo());
         currentOrder.setKnummer(knummer);
         currentOrder.setLevering(levering);
         currentOrder.setPris(pris);
@@ -442,7 +465,7 @@ public class Controller
         this.currentOrder = ordre;
     }
 
-    public void pdf()
+    public void pdfOrdre()
     {
         ArrayList<Odetaljer> odetaljeArray = currentOrder.getOd();
         ArrayList<Vare> vareArray = new ArrayList<>();
@@ -458,7 +481,35 @@ public class Controller
         PDF pdf = new PDF();
         try
         {
-            pdf.PDF(currentOrder, kunde, odetaljeArray, vareArray, postnummer);
+            pdf.PdfOrdre(currentOrder, kunde, odetaljeArray, vareArray, postnummer);
+        }
+        catch (DocumentException ex)
+        {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (FileNotFoundException ex)
+        {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void pdfFaktura()
+    {
+        ArrayList<Odetaljer> odetaljeArray = currentOrder.getOd();
+        ArrayList<Vare> vareArray = new ArrayList<>();
+        for (int i = 0; i < odetaljeArray.size(); i++)
+        {
+            Vare vare = getVare(odetaljeArray.get(i).getVnummer());
+            vare.setQty(odetaljeArray.get(i).getMaengde());
+            vareArray.add(vare);
+        }
+        Kunde kunde = getKunde(currentOrder.getKnummer());
+        Postnummer postnummer = getPostnummer(currentKunde.getPostnummer());
+
+        PDF pdf = new PDF();
+        try
+        {
+            pdf.PdfFaktura(currentOrder, kunde, odetaljeArray, vareArray, postnummer);
         }
         catch (DocumentException ex)
         {
