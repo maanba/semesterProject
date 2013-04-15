@@ -640,7 +640,7 @@ public class GUI extends javax.swing.JFrame {
             }
         } else {
             jLabelError.setText("FEJL!");
-        
+
         }
         update();
 
@@ -821,10 +821,10 @@ public class GUI extends javax.swing.JFrame {
         update();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButtonLeverActionPerformed(java.awt.event.ActionEvent evt) {                                               
+    private void jButtonLeverActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-    } 
-    
+    }
+
     public static void main(String args[]) {
 
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -903,7 +903,7 @@ public class GUI extends javax.swing.JFrame {
         for (int i = 0; i < ol.size(); i++) {
             oa[i] = ol.get(i);
         }
-        controller.quickSortOrdre(oa, 0, oa.length-1);
+        controller.quickSortOrdre(oa, 0, oa.length - 1);
         // controller.quickSortOrdre(oa, 0, oa.length - 1);
         for (int i = 0; i < oa.length; i++) {
             if (!"Afsluttet".equals(ol.get(i).getStatus())) {
@@ -944,12 +944,13 @@ public class GUI extends javax.swing.JFrame {
                 list2.addElement(va1[i]);
             }
             if (list2.isEmpty() == false) {
-            double totalpris = 0;
-            for (int i = 0; i < list2.size(); i++) {
-                Vare vare = (Vare) list2.getElementAt(i);
-                totalpris += vare.getPris() * vare.getQty();
+                double totalpris = 0;
+                for (int i = 0; i < list2.size(); i++) {
+                    Vare vare = (Vare) list2.getElementAt(i);
+                    totalpris += vare.getPris() * vare.getQty();
+                }
+                jTextFieldTotalPris.setText(totalpris + "");
             }
-            jTextFieldTotalPris.setText(totalpris + "");
         }
 
         // list1:
@@ -987,11 +988,11 @@ public class GUI extends javax.swing.JFrame {
 
             }
             Vare vare;
-            if (!list2.isEmpty()){
+            if (!list2.isEmpty()) {
                 for (int i = 0; i < list2.size(); i++) {
                     vare = (Vare) list2.getElementAt(i);
                     for (int j = 0; j < va.length; j++) {
-                        if (vare.getVnummer() == va[j].getVnummer()){
+                        if (vare.getVnummer() == va[j].getVnummer()) {
                             va[j].setQty(va[j].getQty() - vare.getQty());
                         }
                     }
@@ -1003,8 +1004,8 @@ public class GUI extends javax.swing.JFrame {
                 list1.addElement(va[i]);
             }
         }
-        
-    }
+
+
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
