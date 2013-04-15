@@ -45,7 +45,7 @@ public class Del {
     
     @Override
     public String toString() {
-        String navn = vnummer + "";
+        String navn = titel;
         int længde = 0;
 
         if (navn.length() >= 15) {

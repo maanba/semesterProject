@@ -506,6 +506,10 @@ public class OrderMapper {
                 "select * "
                 + "from varer "
                 + "where vnummer = ?";
+        String SQLString2 = // get order details
+                "select * "
+                + "from dele "
+                + "where vnummer = ? ";
         String SQLString3 = // get order
                 "select * "
                 + "from varer ";
@@ -530,6 +534,15 @@ public class OrderMapper {
                             rs.getInt(3),
                             rs.getDouble(4));
                 }
+                statement = conn.prepareStatement(SQLString2);
+                    statement.setInt(1, v.getVnummer());
+                    rs = statement.executeQuery();
+                    while (rs.next()) {
+                        v.addDel(new Del(
+                                v.getVnummer(),
+                                rs.getString(2),
+                                rs.getInt(3)));
+                    }
                 vl.add(v);
             }
         } catch (Exception e) {
@@ -549,8 +562,8 @@ public class OrderMapper {
         
         String SQLString2 = // get del
                 "select * "
-                + "from del "
-                + "where onummer = ? ";
+                + "from dele "
+                + "where vnummer = ? ";
         try {
             statement = conn.prepareStatement(SQLString);
             statement.setInt(1, vnummer);
@@ -637,20 +650,20 @@ public class OrderMapper {
     }
 
     public int getNextVnummer(Connection conn) {
-        int nextOno = 0;
+        int nextVno = 0;
         String SQLString = "select varerseq.nextval  " + "from dual";
         PreparedStatement statement = null;
         try {
             statement = conn.prepareStatement(SQLString);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
-                nextOno = rs.getInt(1);
+                nextVno = rs.getInt(1);
             }
         } catch (Exception e) {
             System.out.println("Fail in OrderMapper - getNextVnummer");
             System.out.println(e.getMessage());
         }
-        return nextOno;
+        return nextVno;
     }
     public int getNextFnummer(Connection conn) {
         int nextFnummer = 0;
@@ -670,19 +683,19 @@ public class OrderMapper {
     }
 
     public int getNextKnummer(Connection conn) {
-        int nextOno = 0;
+        int nextKno = 0;
         String SQLString = "select kundeseq.nextval  " + "from dual";
         PreparedStatement statement = null;
         try {
             statement = conn.prepareStatement(SQLString);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
-                nextOno = rs.getInt(1);
+                nextKno = rs.getInt(1);
             }
         } catch (Exception e) {
             System.out.println("Fail in OrderMapper - getNextKnummer");
             System.out.println(e.getMessage());
         }
-        return nextOno;
+        return nextKno;
     }
 }

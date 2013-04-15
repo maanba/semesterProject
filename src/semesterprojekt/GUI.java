@@ -1,5 +1,4 @@
 package semesterprojekt;
-
 import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.DefaultListCellRenderer;
@@ -8,16 +7,18 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
-public class GUI extends javax.swing.JFrame {
-
+public class GUI extends javax.swing.JFrame
+{
     private DefaultListModel list1 = new DefaultListModel();
     private DefaultListModel list2 = new DefaultListModel();
     private DefaultListModel list3 = new DefaultListModel();
     private DefaultListModel listHistorik = new DefaultListModel();
     private DefaultListModel listOrdrer = new DefaultListModel();
+    private DefaultListModel listVarer = new DefaultListModel();
     private Controller controller = new Controller();
 
-    public GUI() {
+    public GUI()
+    {
         initComponents();
         cellRenderer();
 
@@ -30,6 +31,7 @@ public class GUI extends javax.swing.JFrame {
         jList3.setModel(list3);
         jListHistorik.setModel(listHistorik);
         jListOrdrer.setModel(listOrdrer);
+        jListVarer.setModel(listVarer);
 
 
 
@@ -39,7 +41,8 @@ public class GUI extends javax.swing.JFrame {
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
@@ -120,7 +123,7 @@ public class GUI extends javax.swing.JFrame {
         jButtonLagerGem = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jList4 = new javax.swing.JList();
+        jListVarer = new javax.swing.JList();
         jButtonReturGem = new javax.swing.JButton();
         jButtonLever = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -198,16 +201,20 @@ public class GUI extends javax.swing.JFrame {
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, 163, 240));
 
         jButtonTilføj.setText("Tilføj >");
-        jButtonTilføj.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonTilføj.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonTilføjActionPerformed(evt);
             }
         });
         jPanel1.add(jButtonTilføj, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 220, 80, -1));
 
         jButtonFjern.setText("< Fjern");
-        jButtonFjern.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonFjern.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonFjernActionPerformed(evt);
             }
         });
@@ -221,15 +228,19 @@ public class GUI extends javax.swing.JFrame {
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, -1, 20));
         jPanel1.add(jTextFieldMånedInd, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, 30, -1));
 
-        jTextFieldDagUd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jTextFieldDagUd.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jTextFieldDagUdActionPerformed(evt);
             }
         });
         jPanel1.add(jTextFieldDagUd, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 30, -1));
 
-        jTextFieldMånedUd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jTextFieldMånedUd.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jTextFieldMånedUdActionPerformed(evt);
             }
         });
@@ -242,8 +253,10 @@ public class GUI extends javax.swing.JFrame {
         jPanel1.add(jTextFieldÅrUd, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 50, -1));
 
         jButtonGennemførOrdre.setText("Gennemfør ordre >");
-        jButtonGennemførOrdre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonGennemførOrdre.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonGennemførOrdreActionPerformed(evt);
             }
         });
@@ -255,8 +268,10 @@ public class GUI extends javax.swing.JFrame {
 
         buttonGroup1.add(jRadioButtonLevering);
         jRadioButtonLevering.setText("Levering");
-        jRadioButtonLevering.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jRadioButtonLevering.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jRadioButtonLeveringActionPerformed(evt);
             }
         });
@@ -267,8 +282,10 @@ public class GUI extends javax.swing.JFrame {
         jButtonOrdreRediger.setMaximumSize(new java.awt.Dimension(125, 23));
         jButtonOrdreRediger.setMinimumSize(new java.awt.Dimension(125, 23));
         jButtonOrdreRediger.setPreferredSize(new java.awt.Dimension(125, 23));
-        jButtonOrdreRediger.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonOrdreRediger.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonOrdreRedigerActionPerformed(evt);
             }
         });
@@ -279,24 +296,30 @@ public class GUI extends javax.swing.JFrame {
         jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 120, 160, 260));
 
         jButtonDepositum.setText("Depositum");
-        jButtonDepositum.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonDepositum.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonDepositumActionPerformed(evt);
             }
         });
         jPanel1.add(jButtonDepositum, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 240, 100, -1));
 
         jButtonFaktura.setText("Faktura PDF");
-        jButtonFaktura.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonFaktura.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonFakturaActionPerformed(evt);
             }
         });
         jPanel1.add(jButtonFaktura, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 120, 100, -1));
 
         jButtonVisIPDF.setText("Ordre PDF");
-        jButtonVisIPDF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonVisIPDF.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonVisIPDFActionPerformed(evt);
             }
         });
@@ -308,16 +331,20 @@ public class GUI extends javax.swing.JFrame {
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 90, 160, 20));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Kunder" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jComboBox1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jComboBox1ActionPerformed(evt);
             }
         });
         jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 110, 160, -1));
         jPanel1.add(jLabelError, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 810, 20));
 
-        jTextFieldAntal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jTextFieldAntal.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jTextFieldAntalActionPerformed(evt);
             }
         });
@@ -342,24 +369,30 @@ public class GUI extends javax.swing.JFrame {
         jPanel1.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 140, -1, -1));
 
         jButtonLastbil.setText("Tilføj Lastbil");
-        jButtonLastbil.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonLastbil.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonLastbilActionPerformed(evt);
             }
         });
         jPanel1.add(jButtonLastbil, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 180, 100, -1));
 
         jButtonMontoer.setText("Tilføj Montør");
-        jButtonMontoer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonMontoer.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonMontoerActionPerformed(evt);
             }
         });
         jPanel1.add(jButtonMontoer, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 210, 100, -1));
 
         jButtonStatus.setText("Status");
-        jButtonStatus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonStatus.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonStatusActionPerformed(evt);
             }
         });
@@ -374,16 +407,20 @@ public class GUI extends javax.swing.JFrame {
         jPanel6.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 44, 180, 270));
 
         jButtonTilføj1.setText("Rediger >");
-        jButtonTilføj1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonTilføj1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonTilføj1ActionPerformed(evt);
             }
         });
         jPanel6.add(jButtonTilføj1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 110, 90, -1));
 
         jButtonTilføj2.setText("< Gem");
-        jButtonTilføj2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonTilføj2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonTilføj2ActionPerformed(evt);
             }
         });
@@ -478,8 +515,10 @@ public class GUI extends javax.swing.JFrame {
         jButtonLagerGem.setMaximumSize(new java.awt.Dimension(105, 29));
         jButtonLagerGem.setMinimumSize(new java.awt.Dimension(105, 29));
         jButtonLagerGem.setPreferredSize(new java.awt.Dimension(105, 29));
-        jButtonLagerGem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonLagerGem.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonLagerGemActionPerformed(evt);
             }
         });
@@ -489,7 +528,7 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jScrollPane4.setViewportView(jList4);
+        jScrollPane4.setViewportView(jListVarer);
 
         jPanel3.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, 170, 380));
 
@@ -497,6 +536,13 @@ public class GUI extends javax.swing.JFrame {
         jPanel3.add(jButtonReturGem, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 70, -1));
 
         jButtonLever.setText("Lever >");
+        jButtonLever.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButtonLeverActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButtonLever, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 90, -1, -1));
 
         jScrollPane6.setViewportView(jListOrdrer);
@@ -514,8 +560,10 @@ public class GUI extends javax.swing.JFrame {
         jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 170, -1));
 
         jButtonAfslutOrdre.setText("Afslut ordre");
-        jButtonAfslutOrdre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonAfslutOrdre.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonAfslutOrdreActionPerformed(evt);
             }
         });
@@ -560,7 +608,8 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jListHistorik.setModel(new javax.swing.AbstractListModel() {
+        jListHistorik.setModel(new javax.swing.AbstractListModel()
+        {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -570,16 +619,20 @@ public class GUI extends javax.swing.JFrame {
         jPanel9.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 330, 290));
 
         jButtonAfslut.setText("Afslut");
-        jButtonAfslut.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonAfslut.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonAfslutActionPerformed(evt);
             }
         });
         jPanel9.add(jButtonAfslut, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, -1, -1));
 
         jButtonPaabegynd.setText("Påbegynd");
-        jButtonPaabegynd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonPaabegynd.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonPaabegyndActionPerformed(evt);
             }
         });
@@ -709,13 +762,16 @@ public class GUI extends javax.swing.JFrame {
     {//GEN-HEADEREND:event_jButtonOrdreRedigerActionPerformed
         Ordre selected = (Ordre) jList3.getSelectedValue();
         int selectedIndex = jList3.getSelectedIndex();
-        if (list2.isEmpty() == false) {
+        if (list2.isEmpty() == false)
+        {
             jLabelError.setText("You need to finish editing the current group before editing a new one.");
         }
-        if (selected != null && list2.isEmpty() == true) {
+        if (selected != null && list2.isEmpty() == true)
+        {
             ArrayList<Odetaljer> od = selected.getOd();
 
-            for (int i = 0; i < od.size(); i++) {
+            for (int i = 0; i < od.size(); i++)
+            {
                 Vare vare = controller.getVare(od.get(i).getVnummer());
                 vare.setQty(od.get(i).getMaengde());
                 list2.addElement(vare);
@@ -723,8 +779,10 @@ public class GUI extends javax.swing.JFrame {
 
             Kunde kunde = controller.getKunde(selected.getKnummer());
 
-            for (int i = 0; i < jComboBox1.getItemCount(); i++) {
-                if (jComboBox1.getItemAt(i) == kunde.getNavn()) {
+            for (int i = 0; i < jComboBox1.getItemCount(); i++)
+            {
+                if (jComboBox1.getItemAt(i) == kunde.getNavn())
+                {
                     jComboBox1.setSelectedIndex(i);
                 }
             }
@@ -735,9 +793,12 @@ public class GUI extends javax.swing.JFrame {
             jTextFieldMånedInd.setText(selected.getReturnering().substring(3, 5));
             jTextFieldÅrInd.setText(selected.getReturnering().substring(6, 10));
 
-            if (selected.getAfhentning() == "Levering af Hellebaek Festudlejning") {
+            if (selected.getAfhentning() == "Levering af Hellebaek Festudlejning")
+            {
                 jRadioButtonLevering.setSelected(rootPaneCheckingEnabled);
-            } else {
+            }
+            else
+            {
                 jRadioButtonAfhentning.setSelected(rootPaneCheckingEnabled);
             }
 
@@ -754,11 +815,14 @@ public class GUI extends javax.swing.JFrame {
         boolean check = false;
         Vare selected = (Vare) jList1.getSelectedValue();
         selected.setQty(Integer.parseInt(jTextFieldAntal.getText()));
-        if (selected != null && controller.checkQty(selected.getVnummer(), Integer.parseInt(jTextFieldAntal.getText()))) {
+        if (selected != null && controller.checkQty(selected.getVnummer(), Integer.parseInt(jTextFieldAntal.getText())))
+        {
             controller.setQty(selected.getVnummer(), Integer.parseInt(jTextFieldAntal.getText()));
-            for (int i = 0; i < list2.size(); i++) {
+            for (int i = 0; i < list2.size(); i++)
+            {
                 Vare vare = (Vare) list2.getElementAt(i);
-                if (vare.getVnummer() == selected.getVnummer()) {
+                if (vare.getVnummer() == selected.getVnummer())
+                {
                     vare.setQty(vare.getQty() + Integer.parseInt(jTextFieldAntal.getText()));
                     list2.addElement(vare);
                     list2.removeElementAt(i);
@@ -766,15 +830,20 @@ public class GUI extends javax.swing.JFrame {
                     break;
                 }
             }
-            if (check == false) {
+            if (check == false)
+            {
                 list2.addElement(selected);
             }
-        } else {
+        }
+        else
+        {
             jLabelError.setText("FEJL!");
         }
-        if (list2.isEmpty() == false) {
+        if (list2.isEmpty() == false)
+        {
             double totalpris = 0;
-            for (int i = 0; i < list2.size(); i++) {
+            for (int i = 0; i < list2.size(); i++)
+            {
                 Vare vare = (Vare) list2.getElementAt(i);
                 totalpris += vare.getPris() * vare.getQty();
             }
@@ -790,23 +859,33 @@ public class GUI extends javax.swing.JFrame {
         ArrayList<Kunde> kunder = controller.getAllCostumers();
         String afhentning;
         int kno = 0;
-        if (jRadioButtonAfhentning.isSelected()) {
+        if (jRadioButtonAfhentning.isSelected())
+        {
             afhentning = "Leveres af os";
-        } else {
+        }
+        else
+        {
             afhentning = "Afhentes af kunden";
         }
 
-        if (jComboBox1.getSelectedItem() != "Kunder") {
+        if (jComboBox1.getSelectedItem() != "Kunder")
+        {
 
-            if (list2.isEmpty() == false) {
-                if (controller.getCurrentOrder() == null) {
-                    for (int i = 0; i < list2.size(); i++) {
+            if (list2.isEmpty() == false)
+            {
+                if (controller.getCurrentOrder() == null)
+                {
+                    for (int i = 0; i < list2.size(); i++)
+                    {
                         Vare vare = (Vare) list2.getElementAt(i);
                         odetaljer.add(new Odetaljer(0, vare.getVnummer(), vare.getQty()));
                     }
-                    if (jRadioButtonAfhentning.isSelected() || jRadioButtonLevering.isSelected()) {
-                        for (int i = 0; i < kunder.size(); i++) {
-                            if (jComboBox1.getSelectedItem().equals(kunder.get(i).getNavn())) {
+                    if (jRadioButtonAfhentning.isSelected() || jRadioButtonLevering.isSelected())
+                    {
+                        for (int i = 0; i < kunder.size(); i++)
+                        {
+                            if (jComboBox1.getSelectedItem().equals(kunder.get(i).getNavn()))
+                            {
                                 kno = kunder.get(i).getKnummer();
                             }
                         }
@@ -817,13 +896,18 @@ public class GUI extends javax.swing.JFrame {
                         list3.clear();
                         jLabelError.setText("");
                     }
-                } else if (controller.getCurrentOrder() != null) {
-                    for (int i = 0; i < list2.size(); i++) {
+                }
+                else if (controller.getCurrentOrder() != null)
+                {
+                    for (int i = 0; i < list2.size(); i++)
+                    {
                         Vare vare = (Vare) list2.getElementAt(i);
                         odetaljer.add(new Odetaljer(0, vare.getVnummer(), vare.getQty()));
                     }
-                    for (int i = 0; i < kunder.size(); i++) {
-                        if (jComboBox1.getSelectedItem().equals(kunder.get(i).getNavn())) {
+                    for (int i = 0; i < kunder.size(); i++)
+                    {
+                        if (jComboBox1.getSelectedItem().equals(kunder.get(i).getNavn()))
+                        {
                             kno = kunder.get(i).getKnummer();
                         }
                     }
@@ -835,7 +919,9 @@ public class GUI extends javax.swing.JFrame {
                     jLabelError.setText("");
                 }
             }
-        } else {
+        }
+        else
+        {
             jLabelError.setText("FEJL!");
         }
         update();
@@ -851,15 +937,19 @@ public class GUI extends javax.swing.JFrame {
     private void jButtonFjernActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonFjernActionPerformed
     {//GEN-HEADEREND:event_jButtonFjernActionPerformed
         Vare selected = (Vare) jList2.getSelectedValue();
-        if (selected != null && selected.getQty() >= Integer.parseInt(jTextFieldAntal.getText())) {
+        if (selected != null && selected.getQty() >= Integer.parseInt(jTextFieldAntal.getText()))
+        {
             list2.removeElement(selected);
             controller.undoQty(selected.getVnavn(), Integer.parseInt(jTextFieldAntal.getText()));
             selected.setQty(selected.getQty() - (Integer.parseInt(jTextFieldAntal.getText())));
             list2.addElement(selected);
-            if (selected.getQty() == 0) {
+            if (selected.getQty() == 0)
+            {
                 list2.removeElement(selected);
             }
-        } else {
+        }
+        else
+        {
             jLabelError.setText("FEJL!");
         }
         update();
@@ -931,7 +1021,8 @@ public class GUI extends javax.swing.JFrame {
     private void jButtonFakturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFakturaActionPerformed
         Ordre selected = (Ordre) jList3.getSelectedValue();
         controller.setSelectedOrdre(selected);
-        if (selected.getFnummer() == 0) {
+        if (selected.getFnummer() == 0)
+        {
             controller.addOrderFakturaNummer(selected, selected.getOd());
         }
         controller.setCurrentOrder(selected);
@@ -940,9 +1031,12 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButtonStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStatusActionPerformed
         Ordre selected = (Ordre) jList3.getSelectedValue();
-        if (selected == null) {
+        if (selected == null)
+        {
             jLabelError.setText("Vælg en ordre før du trykker status!");
-        } else {
+        }
+        else
+        {
             JOptionPane.showMessageDialog(rootPane, selected.getStatus(), "Status for ordre: " + selected.getOnummer(), WIDTH);
         }
     }//GEN-LAST:event_jButtonStatusActionPerformed
@@ -955,61 +1049,97 @@ public class GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonMontoerActionPerformed
 
-    public static void main(String args[]) {
+    private void jButtonLeverActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonLeverActionPerformed
+    {//GEN-HEADEREND:event_jButtonLeverActionPerformed
+        Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
+        ArrayList<Odetaljer> od = selected.getOd();
+
+        for (int i = 0; i < od.size(); i++)
+        {
+            Vare vare = controller.getVare(od.get(i).getVnummer());
+            for (int j = 0; j < vare.getDel().size(); j++)
+            {
+                listVarer.addElement(vare.getDel().get(j));
+            }
+        }
+    }//GEN-LAST:event_jButtonLeverActionPerformed
+
+    public static void main(String args[])
+    {
 
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /*
          If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel. For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        }
+        catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        }
+        catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        }
+        catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        }
+        catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 new GUI().setVisible(true);
             }
         });
     }
 
-    public void cellRenderer() {
-        jList1.setCellRenderer(new DefaultListCellRenderer() { // Setting the DefaultListCellRenderer
+    public void cellRenderer()
+    {
+        jList1.setCellRenderer(new DefaultListCellRenderer()
+        { // Setting the DefaultListCellRenderer
             @Override
             public Component getListCellRendererComponent(JList list, Object value, int index,
-                    boolean isSelected, boolean cellHasFocus) {
+                    boolean isSelected, boolean cellHasFocus)
+            {
                 Vare vare = (Vare) value;  // Using value we are getting the object in JList
                 JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
                 label.setText(vare.toString());  // Setting the text
                 return label;
             }
         });
-        jList2.setCellRenderer(new DefaultListCellRenderer() { // Setting the DefaultListCellRenderer
+        jList2.setCellRenderer(new DefaultListCellRenderer()
+        { // Setting the DefaultListCellRenderer
             @Override
             public Component getListCellRendererComponent(JList list, Object value, int index,
-                    boolean isSelected, boolean cellHasFocus) {
+                    boolean isSelected, boolean cellHasFocus)
+            {
                 Vare vare = (Vare) value;  // Using value we are getting the object in JList
                 JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
                 label.setText(vare.toString());  // Setting the text
                 return label;
             }
         });
-        jList3.setCellRenderer(new DefaultListCellRenderer() { // Setting the DefaultListCellRenderer
+        jList3.setCellRenderer(new DefaultListCellRenderer()
+        { // Setting the DefaultListCellRenderer
             @Override
             public Component getListCellRendererComponent(JList list, Object value, int index,
-                    boolean isSelected, boolean cellHasFocus) {
+                    boolean isSelected, boolean cellHasFocus)
+            {
                 Ordre ordre = (Ordre) value;  // Using value we are getting the object in JList
                 JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
                 label.setText("" + ordre.getOnummer());  // Setting the text
@@ -1018,7 +1148,8 @@ public class GUI extends javax.swing.JFrame {
         });
     }
 
-    public void update() {
+    public void update()
+    {
         list1.clear();
         list3.clear();
 
@@ -1030,34 +1161,36 @@ public class GUI extends javax.swing.JFrame {
         // list3 & listHistorik & listOrdrer:
         ArrayList<Ordre> ol = controller.getAllOrdres();
         Ordre[] oa = new Ordre[ol.size()];
-        for (int i = 0; i < ol.size(); i++) {
+        for (int i = 0; i < ol.size(); i++)
+        {
             oa[i] = ol.get(i);
         }
         controller.quickSortOrdre(oa, 0, oa.length - 1);
         for (int i = 0; i < oa.length; i++)
         {
-            if (!"Afsluttet".equals(ol.get(i).getStatus()))
+            if ("Afsluttet".equals(ol.get(i).getStatus()))
+            {
+                listHistorik.addElement(oa[i]);
+            }
+            else
             {
                 list3.addElement(oa[i]);
                 listHistorik.addElement(oa[i]);
                 listOrdrer.addElement(oa[i]);
             }
         }
-        for (int i = 0; i < oa.length; i++) {
-            if ("Afsluttet".equals(ol.get(i).getStatus())) {
-                listHistorik.addElement(oa[i]);
-            }
-        }
-
+        
         // jComboBox1:
         ArrayList<Kunde> kl = controller.getAllCostumers();
         Kunde[] ka = new Kunde[kl.size()];
-        for (int i = 0; i < kl.size(); i++) {
+        for (int i = 0; i < kl.size(); i++)
+        {
             ka[i] = kl.get(i);
         }
         controller.quickSortKunde(ka, 0, ka.length - 1);
 
-        for (int i = 0; i < ka.length; i++) {
+        for (int i = 0; i < ka.length; i++)
+        {
             jComboBox1.addItem(ka[i].getNavn());
         }
 
@@ -1065,29 +1198,36 @@ public class GUI extends javax.swing.JFrame {
         // list1:
         ArrayList<Vare> vl = controller.getAllRessources();
         Vare[] va = new Vare[vl.size()];
-        for (int i = 0; i < vl.size(); i++) {
+        
+        for (int i = 0; i < vl.size(); i++)
+        {
             va[i] = vl.get(i);
         }
         controller.quickSortVare(va, 0, va.length - 1);
 
-        for (int i = 0; i < va.length; i++) {
+        for (int i = 0; i < va.length; i++)
+        {
             list1.addElement(va[i]);
         }
 
         // list2:
         ArrayList<Vare> vl2 = new ArrayList<>();
-        if (list2.isEmpty() == false) {
-            for (int i = 0; i < list2.size(); i++) {
+        if (list2.isEmpty() == false)
+        {
+            for (int i = 0; i < list2.size(); i++)
+            {
                 vl2.add((Vare) list2.get(i));
             }
             list2.clear();
             Vare[] va1 = new Vare[vl2.size()];
-            for (int i = 0; i < vl2.size(); i++) {
+            for (int i = 0; i < vl2.size(); i++)
+            {
                 va1[i] = vl2.get(i);
             }
             controller.quickSortVare(va1, 0, va1.length - 1);
 
-            for (int i = 0; i < va1.length; i++) {
+            for (int i = 0; i < va1.length; i++)
+            {
                 list2.addElement(va1[i]);
             }
         }
@@ -1150,12 +1290,12 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JList jList1;
     private javax.swing.JList jList2;
     private javax.swing.JList jList3;
-    private javax.swing.JList jList4;
     private javax.swing.JList jList5;
     private javax.swing.JList jList7;
     private javax.swing.JList jList9;
     private javax.swing.JList jListHistorik;
     private javax.swing.JList jListOrdrer;
+    private javax.swing.JList jListVarer;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
