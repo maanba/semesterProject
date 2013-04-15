@@ -375,8 +375,8 @@ public class Controller {
         return array;
     }
 
-    public Vare getVare(int vnummer) {
-        dbFacade.startNewBusinessTransaction();
+    public Vare getVare(int vnummer)
+    {
         currentVare = dbFacade.getVare(vnummer);
         return currentVare;
     }
