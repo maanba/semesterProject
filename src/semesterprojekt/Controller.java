@@ -111,16 +111,11 @@ public class Controller
         currentOrder = null;
     }
     
-    public void addOrderFakturaNummer(int knummer, double pris, double depositum, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer)
+    public void addOrderFakturaNummer(Ordre o, ArrayList<Odetaljer> odetaljer)
     {
-        currentOrder.setAfhentning(afhentning);
+        setCurrentOrder(o);
         currentOrder.setFnummer(dbFacade.getNextFNo());
-        currentOrder.setKnummer(knummer);
-        currentOrder.setLevering(levering);
-        currentOrder.setPris(pris);
-        currentOrder.setDepositum(depositum);
-        currentOrder.setReturnering(returnering);
-        currentOrder.setOd(odetaljer);
+        
         dbFacade.startNewBusinessTransaction();
         for (int i = 0; i < odetaljer.size(); i++)
         {
