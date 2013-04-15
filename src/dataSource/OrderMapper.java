@@ -567,36 +567,36 @@ public class OrderMapper {
     }
 
     public int getNextVnummer(Connection conn) {
-        int nextOno = 0;
+        int nextVno = 0;
         String SQLString = "select varerseq.nextval  " + "from dual";
         PreparedStatement statement = null;
         try {
             statement = conn.prepareStatement(SQLString);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
-                nextOno = rs.getInt(1);
+                nextVno = rs.getInt(1);
             }
         } catch (Exception e) {
             System.out.println("Fail in OrderMapper - getNextVnummer");
             System.out.println(e.getMessage());
         }
-        return nextOno;
+        return nextVno;
     }
 
     public int getNextKnummer(Connection conn) {
-        int nextOno = 0;
+        int nextKno = 0;
         String SQLString = "select kundeseq.nextval  " + "from dual";
         PreparedStatement statement = null;
         try {
             statement = conn.prepareStatement(SQLString);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
-                nextOno = rs.getInt(1);
+                nextKno = rs.getInt(1);
             }
         } catch (Exception e) {
             System.out.println("Fail in OrderMapper - getNextKnummer");
             System.out.println(e.getMessage());
         }
-        return nextOno;
+        return nextKno;
     }
 }

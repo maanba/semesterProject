@@ -808,10 +808,10 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButtonDepositumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDepositumActionPerformed
         // selected.setQty(Integer.parseInt(jTextFieldAntal.getText()));
-        
+
         Ordre selected = (Ordre) jList3.getSelectedValue();
         selected.setDepositum(Double.parseDouble(JOptionPane.showInputDialog("Her kan Erling indtaste depositum: ")));
-        
+
     }//GEN-LAST:event_jButtonDepositumActionPerformed
 
     public static void main(String args[]) {
@@ -907,40 +907,45 @@ public class GUI extends javax.swing.JFrame {
         }
 
         // list1:
-        int levYear = Integer.parseInt(jTextFieldÅrUd.getText());
-        int levMonth = Integer.parseInt(jTextFieldMånedUd.getText());
-        int levDay = Integer.parseInt(jTextFieldDagUd.getText());
-        int retYear = Integer.parseInt(jTextFieldÅrInd.getText());
-        int retMonth = Integer.parseInt(jTextFieldMånedInd.getText());
-        int retDay = Integer.parseInt(jTextFieldDagInd.getText());
-        ArrayList<Vare> vl = controller.getAllRessources();
-        Vare[] va = new Vare[vl.size()];
-        for (int i = 0; i < vl.size(); i++) {
-            for (int j = 0; j < list3.size(); j++) {
-                Ordre o = (Ordre) list3.getElementAt(i);
-                int oLevYear = Integer.parseInt(o.getLevering().substring(6, 10));
-                int oLevMonth = Integer.parseInt(o.getLevering().substring(3, 5));
-                int oLevDay = Integer.parseInt(o.getLevering().substring(0, 2));
-                int oRetYear = Integer.parseInt(o.getReturnering().substring(6, 10));
-                int oRetMonth = Integer.parseInt(o.getReturnering().substring(3, 5));
-                int oRetDay = Integer.parseInt(o.getReturnering().substring(0, 2));
-                if (oLevDay > levDay) {
-                    if (oLevMonth > levMonth) {
-                        if (oLevYear > levYear) {
-                            
+        if (!"".equals(jTextFieldÅrUd.getText())) {
+            int levYear = Integer.parseInt(jTextFieldÅrUd.getText());
+            int levMonth = Integer.parseInt(jTextFieldMånedUd.getText());
+            int levDay = Integer.parseInt(jTextFieldDagUd.getText());
+            int retYear = Integer.parseInt(jTextFieldÅrInd.getText());
+            int retMonth = Integer.parseInt(jTextFieldMånedInd.getText());
+            int retDay = Integer.parseInt(jTextFieldDagInd.getText());
+            ArrayList<Vare> vl = controller.getAllRessources();
+            Vare[] va = new Vare[vl.size()];
+            for (int i = 0; i < vl.size(); i++) {
+                for (int j = 0; j < list3.size(); j++) {
+                    Ordre o = (Ordre) list3.getElementAt(j);
+                    int oLevYear = Integer.parseInt(o.getLevering().substring(6, 10));
+                    int oLevMonth = Integer.parseInt(o.getLevering().substring(3, 5));
+                    int oLevDay = Integer.parseInt(o.getLevering().substring(0, 2));
+                    int oRetYear = Integer.parseInt(o.getReturnering().substring(6, 10));
+                    int oRetMonth = Integer.parseInt(o.getReturnering().substring(3, 5));
+                    int oRetDay = Integer.parseInt(o.getReturnering().substring(0, 2));
+                    if ((levDay <= oLevDay || levDay <= oRetDay) && (retDay >= oRetDay || retDay >= oLevDay)) {
+                        if ((levMonth <= oLevMonth || levMonth <= oRetMonth) && (retMonth >= oRetMonth || retMonth >= oLevMonth)) {
+                            if ((levYear <= oLevYear || levYear <= oRetYear) && (retYear >= oRetYear || retYear >= oLevYear)) {
+                                for (int k = 0; k < o.getOd().size(); k++) {
+                                    if(vl.get(i).getVnummer() == o.getOd().get(k).getVnummer()){
+                                        vl.get(i).setQty(vl.get(i).getQty() - o.getOd().get(k).getMaengde());
+                                    }
+                                }
+                            }
                         }
                     }
                 }
+                va[i] = vl.get(i);
+
             }
-            va[i] = vl.get(i);
+            controller.quickSortVare(va, 0, va.length - 1);
 
+            for (int i = 0; i < va.length; i++) {
+                list1.addElement(va[i]);
+            }
         }
-        controller.quickSortVare(va, 0, va.length - 1);
-
-        for (int i = 0; i < va.length; i++) {
-            list1.addElement(va[i]);
-        }
-
         // list2:
         ArrayList<Vare> vl2 = new ArrayList<>();
         if (list2.isEmpty() == false) {

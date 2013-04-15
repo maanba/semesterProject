@@ -62,9 +62,6 @@ public class Controller {
     }
 
     public Ordre createNewOrder(int knummer, double pris, double depositum, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
-        if (processingOrder) {
-            return null;
-        }
         dbFacade.startNewBusinessTransaction();
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
