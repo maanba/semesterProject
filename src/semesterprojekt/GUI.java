@@ -771,7 +771,6 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonTilføj1ActionPerformed
 
     private void jButtonTilføj2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilføj2ActionPerformed
-        controller.addKunde(Integer.parseInt(jLabelRedigerKunde.getText()), jTextFieldFirmaNavn.getText(), jTextFieldFuldeNavn.getText(), jTextFieldAdresse.getText(), WIDTH, HIDE_ON_CLOSE);
     }//GEN-LAST:event_jButtonTilføj2ActionPerformed
 
     private void jButtonDepositumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDepositumActionPerformed
