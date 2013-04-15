@@ -3,12 +3,25 @@
  * and open the template in the editor.
  */
 package semesterprojekt;
+
+import com.itextpdf.text.*;
+import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import dataSource.DBFacade;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,15 +39,12 @@ public class Controller
     private Postnummer currentPostnummer;
     private DBFacade dbFacade;
 
-    public Controller()
-    {
+    public Controller() {
         dbFacade = DBFacade.getInstance();
     }
 
-    public Ordre getOrder(int onummer)
-    {
-        if (processingOrder)
-        {
+    public Ordre getOrder(int onummer) {
+        if (processingOrder) {
             return null;
         }
         dbFacade.startNewBusinessTransaction();
@@ -43,13 +53,11 @@ public class Controller
         return currentOrder;
     }
 
-    public Ordre getCurrentOrder()
-    {
+    public Ordre getCurrentOrder() {
         return currentOrder;
     }
 
-    public void setCurrentOrder(Ordre currentOrder)
-    {
+    public void setCurrentOrder(Ordre currentOrder) {
         this.currentOrder = currentOrder;
     }
 
@@ -60,31 +68,25 @@ public class Controller
         String modtaget = dateFormat.format(date);
         dbFacade.startNewBusinessTransaction();
         int newOrderNo = dbFacade.getNextOrderNo();// DB-generated unique ID
-        if (newOrderNo != 0)
-        {
+        if (newOrderNo != 0) {
             processingOrder = true;
-            for (int i = 0; i < odetaljer.size(); i++)
-            {
+            for (int i = 0; i < odetaljer.size(); i++) {
                 odetaljer.get(i).setOnummer(newOrderNo);
             }
             currentOrder = new Ordre(newOrderNo, 0, knummer, pris, depositum, afhentning, status, modtaget, levering, returnering, 0);
             dbFacade.registerNewOrder(currentOrder);
-            for (int i = 0; i < odetaljer.size(); i++)
-            {
+            for (int i = 0; i < odetaljer.size(); i++) {
                 dbFacade.registerNewOrderDetail(odetaljer.get(i));
             }
             dbFacade.commitBusinessTransaction();
-        }
-        else
-        {
+        } else {
             processingOrder = false;
             currentOrder = null;
         }
         return currentOrder;
     }
 
-    public void updateOrder(int knummer, double pris, double depositum, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer)
-    {
+    public void updateOrder(int knummer, double pris, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
         currentOrder.setAfhentning(afhentning);
         currentOrder.setKnummer(knummer);
         currentOrder.setLevering(levering);
@@ -93,24 +95,20 @@ public class Controller
         currentOrder.setReturnering(returnering);
         currentOrder.setOd(odetaljer);
         dbFacade.startNewBusinessTransaction();
-        for (int i = 0; i < odetaljer.size(); i++)
-        {
+        for (int i = 0; i < odetaljer.size(); i++) {
             odetaljer.get(i).setOnummer(currentOrder.getOnummer());
         }
         dbFacade.deleteOdetail(currentOrder.getOnummer());
         dbFacade.registerDirtyOrder(currentOrder);
-        for (int i = 0; i < odetaljer.size(); i++)
-        {
+        for (int i = 0; i < odetaljer.size(); i++) {
             dbFacade.registerNewOrderDetail(odetaljer.get(i));
         }
         dbFacade.commitBusinessTransaction();
         currentOrder = null;
     }
     
-    public void addOrderFakturaNummer(int knummer, double pris, double depositum, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer)
-    {
-        currentOrder.setAfhentning(afhentning);
-        currentOrder.setFnummer(dbFacade.getNextFNo());
+    public Ordre changeCnoForOrder(int knummer) {
+        if (processingOrder) {
         currentOrder.setKnummer(knummer);
         currentOrder.setLevering(levering);
         currentOrder.setPris(pris);
@@ -142,11 +140,9 @@ public class Controller
         return currentOrder;
     }
 
-    public boolean addOrderDetail(int vnummer, int qty)
-    {
+    public boolean addOrderDetail(int vnummer, int qty) {
         boolean status = false;
-        if (processingOrder)
-        {
+        if (processingOrder) {
             Odetaljer od = new Odetaljer(currentOrder.getOnummer(), vnummer, qty);
             currentOrder.addOd(od);
             dbFacade.registerNewOrderDetail(od);
@@ -156,8 +152,7 @@ public class Controller
     }
     ArrayList<Kunde> kundeArr = new ArrayList<>();
 
-    public void addKunde(int knummer, String firma, String navn, String adresse, int postnummer, int telefonnummer)
-    {
+    public void addKunde(int knummer, String firma, String navn, String adresse, int postnummer, int telefonnummer) {
         Kunde kunde = new Kunde(knummer, firma, navn, adresse, postnummer, telefonnummer);
         kundeArr.add(kunde);
         dbFacade.startNewBusinessTransaction();
@@ -185,8 +180,7 @@ public class Controller
     public boolean saveOrder()
     {
         boolean status = false;
-        if (processingOrder)
-        {
+        if (processingOrder) {
             //== ends ongoing business transaction
 
             status = dbFacade.commitBusinessTransaction();
@@ -196,20 +190,16 @@ public class Controller
         return status;
     }
 
-    public void resetOrder()
-    {
+    public void resetOrder() {
         processingOrder = false;
         currentOrder = null;
     }
 
-    public void setQty(int vnummer, int qty)
-    {
+    public void setQty(int vnummer, int qty) {
         ArrayList<Vare> vl = dbFacade.getAllRessources();
 
-        for (int i = 0; i < vl.size(); i++)
-        {
-            if (vl.get(i).getVnummer() == vnummer && qty <= vl.get(i).getQty())
-            {
+        for (int i = 0; i < vl.size(); i++) {
+            if (vl.get(i).getVnummer() == vnummer && qty <= vl.get(i).getQty()) {
                 vl.get(i).setQty(vl.get(i).getQty() - qty);
                 dbFacade.startNewBusinessTransaction();
                 dbFacade.registerDirtyRessource(vl.get(i));
@@ -220,14 +210,11 @@ public class Controller
 
     }
 
-    public void undoQty(String vnavn, int qty)
-    {
+    public void undoQty(String vnavn, int qty) {
         ArrayList<Vare> vl = dbFacade.getAllRessources();
 
-        for (int i = 0; i < vl.size(); i++)
-        {
-            if (vl.get(i).getVnavn().equals(vnavn))
-            {
+        for (int i = 0; i < vl.size(); i++) {
+            if (vl.get(i).getVnavn().equals(vnavn)) {
                 vl.get(i).setQty(vl.get(i).getQty() + qty);
                 dbFacade.startNewBusinessTransaction();
                 dbFacade.registerDirtyRessource(vl.get(i));
@@ -275,10 +262,8 @@ public class Controller
     {
         ArrayList<Vare> vl = dbFacade.getAllRessources();
 
-        for (int i = 0; i < vl.size(); i++)
-        {
-            if (vl.get(i).getVnummer() == vnummer && qty <= vl.get(i).getQty())
-            {
+        for (int i = 0; i < vl.size(); i++) {
+            if (vl.get(i).getVnummer() == vnummer && qty <= vl.get(i).getQty()) {
                 return true;
             }
         }
@@ -286,8 +271,7 @@ public class Controller
 
     }
 
-    private int partitionVare(Vare[] array, int left, int right, int pivotIndex)
-    {
+    private int partitionVare(Vare[] array, int left, int right, int pivotIndex) {
 
         Vare pivotValue = array[pivotIndex];
 
@@ -296,10 +280,8 @@ public class Controller
 
         int storeIndex = left;
 
-        for (int i = left; i < right; i++)
-        {
-            if (array[i].getVnavn().compareTo(pivotValue.getVnavn()) < 0)
-            {
+        for (int i = left; i < right; i++) {
+            if (array[i].getVnavn().compareTo(pivotValue.getVnavn()) < 0) {
                 Vare temp = array[i];
                 array[i] = array[storeIndex];
                 array[storeIndex] = temp;
@@ -313,11 +295,9 @@ public class Controller
         return storeIndex;
     }
 
-    public Vare[] quickSortVare(Vare[] array, int left, int right)
-    {
+    public Vare[] quickSortVare(Vare[] array, int left, int right) {
 
-        if (left < right)
-        {
+        if (left < right) {
             int pivotIndex = (left + right) / 2;
 
             int pivotNewIndex = partitionVare(array, left, right, pivotIndex);
@@ -329,8 +309,7 @@ public class Controller
         return array;
     }
 
-    private int partitionKunde(Kunde[] array, int left, int right, int pivotIndex)
-    {
+    private int partitionKunde(Kunde[] array, int left, int right, int pivotIndex) {
 
         Kunde pivotValue = array[pivotIndex];
 
@@ -339,10 +318,8 @@ public class Controller
 
         int storeIndex = left;
 
-        for (int i = left; i < right; i++)
-        {
-            if (array[i].getNavn().compareTo(pivotValue.getNavn()) < 0)
-            {
+        for (int i = left; i < right; i++) {
+            if (array[i].getNavn().compareTo(pivotValue.getNavn()) < 0) {
                 Kunde temp = array[i];
                 array[i] = array[storeIndex];
                 array[storeIndex] = temp;
@@ -356,11 +333,9 @@ public class Controller
         return storeIndex;
     }
 
-    public Kunde[] quickSortKunde(Kunde[] array, int left, int right)
-    {
+    public Kunde[] quickSortKunde(Kunde[] array, int left, int right) {
 
-        if (left < right)
-        {
+        if (left < right) {
             int pivotIndex = (left + right) / 2;
 
             int pivotNewIndex = partitionKunde(array, left, right, pivotIndex);
@@ -372,8 +347,7 @@ public class Controller
         return array;
     }
 
-    private int partitionOrdre(Ordre[] array, int left, int right, int pivotIndex)
-    {
+    private int partitionOrdre(Ordre[] array, int left, int right, int pivotIndex) {
 
         Ordre pivotValue = array[pivotIndex];
 
@@ -382,10 +356,8 @@ public class Controller
 
         int storeIndex = left;
 
-        for (int i = left; i < right; i++)
-        {
-            if (array[i].getOnummer() < pivotValue.getOnummer())
-            {
+        for (int i = left; i < right; i++) {
+            if (array[i].getOnummer() < pivotValue.getOnummer()) {
                 Ordre temp = array[i];
                 array[i] = array[storeIndex];
                 array[storeIndex] = temp;
@@ -399,11 +371,9 @@ public class Controller
         return storeIndex;
     }
 
-    public Ordre[] quickSortOrdre(Ordre[] array, int left, int right)
-    {
+    public Ordre[] quickSortOrdre(Ordre[] array, int left, int right) {
 
-        if (left < right)
-        {
+        if (left < right) {
             int pivotIndex = (left + right) / 2;
 
             int pivotNewIndex = partitionOrdre(array, left, right, pivotIndex);
@@ -415,58 +385,49 @@ public class Controller
         return array;
     }
 
-    public Vare getVare(int vnummer)
-    {
+    public Vare getVare(int vnummer) {
         dbFacade.startNewBusinessTransaction();
         currentVare = dbFacade.getVare(vnummer);
         return currentVare;
     }
 
-    public Kunde getKunde(int knummer)
-    {
+    public Kunde getKunde(int knummer) {
         dbFacade.startNewBusinessTransaction();
         processingOrder = true;
         currentKunde = dbFacade.getKunde(knummer);
         return currentKunde;
     }
 
-    public Postnummer getPostnummer(int postnr)
-    {
+    public Postnummer getPostnummer(int postnr) {
         dbFacade.startNewBusinessTransaction();
         processingOrder = true;
         currentPostnummer = dbFacade.getPostnummer(postnr);
         return currentPostnummer;
     }
 
-    public ArrayList<Ordre> getAllOrdres()
-    {
+    public ArrayList<Ordre> getAllOrdres() {
         ArrayList<Ordre> ol = dbFacade.getAllOrdres();
         return ol;
     }
 
-    public ArrayList<Kunde> getAllCostumers()
-    {
+    public ArrayList<Kunde> getAllCostumers() {
         ArrayList<Kunde> kl = dbFacade.getAllCustumers();
         return kl;
     }
 
-    public ArrayList<Vare> getAllRessources()
-    {
+    public ArrayList<Vare> getAllRessources() {
         ArrayList<Vare> vl = dbFacade.getAllRessources();
         return vl;
     }
 
-    public void setSelectedOrdre(Ordre ordre)
-    {
+    public void setSelectedOrdre(Ordre ordre) {
         this.currentOrder = ordre;
     }
 
-    public void pdfOrdre()
-    {
+    public void pdf() {
         ArrayList<Odetaljer> odetaljeArray = currentOrder.getOd();
         ArrayList<Vare> vareArray = new ArrayList<>();
-        for (int i = 0; i < odetaljeArray.size(); i++)
-        {
+        for (int i = 0; i < odetaljeArray.size(); i++) {
             Vare vare = getVare(odetaljeArray.get(i).getVnummer());
             vare.setQty(odetaljeArray.get(i).getMaengde());
             vareArray.add(vare);
@@ -475,16 +436,11 @@ public class Controller
         Postnummer postnummer = getPostnummer(currentKunde.getPostnummer());
 
         PDF pdf = new PDF();
-        try
-        {
-            pdf.PdfOrdre(currentOrder, kunde, odetaljeArray, vareArray, postnummer);
-        }
-        catch (DocumentException ex)
-        {
+        try {
+            pdf.PDF(currentOrder, kunde, odetaljeArray, vareArray, postnummer);
+        } catch (DocumentException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        catch (FileNotFoundException ex)
-        {
+        } catch (FileNotFoundException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
