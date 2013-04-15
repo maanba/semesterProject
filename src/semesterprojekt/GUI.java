@@ -82,6 +82,7 @@ public class GUI extends javax.swing.JFrame {
         jButtonLastbil = new javax.swing.JButton();
         jButtonMontoer = new javax.swing.JButton();
         jButtonStatus = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane10 = new javax.swing.JScrollPane();
         jList9 = new javax.swing.JList();
@@ -251,7 +252,7 @@ public class GUI extends javax.swing.JFrame {
 
         buttonGroup1.add(jRadioButtonAfhentning);
         jRadioButtonAfhentning.setText("Afhentning");
-        jPanel1.add(jRadioButtonAfhentning, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 40, -1, -1));
+        jPanel1.add(jRadioButtonAfhentning, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 60, -1, -1));
 
         buttonGroup1.add(jRadioButtonLevering);
         jRadioButtonLevering.setText("Levering");
@@ -260,7 +261,7 @@ public class GUI extends javax.swing.JFrame {
                 jRadioButtonLeveringActionPerformed(evt);
             }
         });
-        jPanel1.add(jRadioButtonLevering, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 40, -1, -1));
+        jPanel1.add(jRadioButtonLevering, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 60, -1, -1));
 
         jButtonOrdreRediger.setText("< Rediger");
         jButtonOrdreRediger.setToolTipText("");
@@ -364,6 +365,14 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButtonStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 270, 100, -1));
+
+        jButton1.setText("Check dato");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 90, -1));
 
         jTabbedPane1.addTab("Ordre", jPanel1);
 
@@ -755,7 +764,7 @@ public class GUI extends javax.swing.JFrame {
         Vare selected = (Vare) jList1.getSelectedValue();
         selected.setQty(Integer.parseInt(jTextFieldAntal.getText()));
         if (selected != null && controller.checkQty(selected.getVnummer(), Integer.parseInt(jTextFieldAntal.getText()))) {
-            controller.setQty(selected.getVnummer(), Integer.parseInt(jTextFieldAntal.getText()));
+            //controller.setQty(selected.getVnummer(), Integer.parseInt(jTextFieldAntal.getText()));
             for (int i = 0; i < list2.size(); i++) {
                 Vare vare = (Vare) list2.getElementAt(i);
                 if (vare.getVnummer() == selected.getVnummer()) {
@@ -853,7 +862,7 @@ public class GUI extends javax.swing.JFrame {
         Vare selected = (Vare) jList2.getSelectedValue();
         if (selected != null && selected.getQty() >= Integer.parseInt(jTextFieldAntal.getText())) {
             list2.removeElement(selected);
-            controller.undoQty(selected.getVnavn(), Integer.parseInt(jTextFieldAntal.getText()));
+            //controller.undoQty(selected.getVnavn(), Integer.parseInt(jTextFieldAntal.getText()));
             selected.setQty(selected.getQty() - (Integer.parseInt(jTextFieldAntal.getText())));
             list2.addElement(selected);
             if (selected.getQty() == 0) {
@@ -955,6 +964,10 @@ public class GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonMontoerActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        update();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public static void main(String args[]) {
 
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1033,16 +1046,14 @@ public class GUI extends javax.swing.JFrame {
         for (int i = 0; i < ol.size(); i++) {
             oa[i] = ol.get(i);
         }
+        controller.quickSortOrdre(oa, 0, oa.length-1);
         // controller.quickSortOrdre(oa, 0, oa.length - 1);
         for (int i = 0; i < oa.length; i++) {
             if (!"Afsluttet".equals(ol.get(i).getStatus())) {
                 list3.addElement(oa[i]);
                 listHistorik.addElement(oa[i]);
                 listOrdrer.addElement(oa[i]);
-            }
-        }
-        for (int i = 0; i < oa.length; i++) {
-            if ("Afsluttet".equals(ol.get(i).getStatus())) {
+            } else if ("Afsluttet".equals(ol.get(i).getStatus())) {
                 listHistorik.addElement(oa[i]);
             }
         }
@@ -1059,6 +1070,23 @@ public class GUI extends javax.swing.JFrame {
             jComboBox1.addItem(ka[i].getNavn());
         }
 
+        // list2:
+        ArrayList<Vare> vl2 = new ArrayList<>();
+        if (list2.isEmpty() == false) {
+            for (int i = 0; i < list2.size(); i++) {
+                vl2.add((Vare) list2.get(i));
+            }
+            list2.clear();
+            Vare[] va1 = new Vare[vl2.size()];
+            for (int i = 0; i < vl2.size(); i++) {
+                va1[i] = vl2.get(i);
+            }
+            controller.quickSortVare(va1, 0, va1.length - 1);
+
+            for (int i = 0; i < va1.length; i++) {
+                list2.addElement(va1[i]);
+            }
+        }
 
         // list1:
         if (!"".equals(jTextFieldÅrUd.getText())) {
@@ -1094,32 +1122,28 @@ public class GUI extends javax.swing.JFrame {
                 va[i] = vl.get(i);
 
             }
+            Vare vare;
+            if (!list2.isEmpty()){
+                for (int i = 0; i < list2.size(); i++) {
+                    vare = (Vare) list2.getElementAt(i);
+                    for (int j = 0; j < va.length; j++) {
+                        if (vare.getVnummer() == va[j].getVnummer()){
+                            va[j].setQty(va[j].getQty() - vare.getQty());
+                        }
+                    }
+                }
+            }
             controller.quickSortVare(va, 0, va.length - 1);
 
             for (int i = 0; i < va.length; i++) {
                 list1.addElement(va[i]);
             }
         }
-        // list2:
-        ArrayList<Vare> vl2 = new ArrayList<>();
-        if (list2.isEmpty() == false) {
-            for (int i = 0; i < list2.size(); i++) {
-                vl2.add((Vare) list2.get(i));
-            }
-            list2.clear();
-            Vare[] va1 = new Vare[vl2.size()];
-            for (int i = 0; i < vl2.size(); i++) {
-                va1[i] = vl2.get(i);
-            }
-            controller.quickSortVare(va1, 0, va1.length - 1);
-
-            for (int i = 0; i < va1.length; i++) {
-                list2.addElement(va1[i]);
-            }
-        }
+        
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButtonAfslut;
     private javax.swing.JButton jButtonAfslutOrdre;
