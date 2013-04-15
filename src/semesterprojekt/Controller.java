@@ -27,11 +27,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
-
- @author Daniel Krarup Knudsen
+ *
+ * @author Daniel Krarup Knudsen
  */
-public class Controller
-{
+public class Controller {
+
     private boolean processingOrder;	// state of business transaction
     private Ordre currentOrder;       	// Order in focus
     private Vare currentVare;
@@ -86,7 +86,7 @@ public class Controller
         return currentOrder;
     }
 
-    public void updateOrder(int knummer, double pris, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
+    public void updateOrder(int knummer, double pris, double depositum, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
         currentOrder.setAfhentning(afhentning);
         currentOrder.setKnummer(knummer);
         currentOrder.setLevering(levering);
@@ -106,34 +106,9 @@ public class Controller
         dbFacade.commitBusinessTransaction();
         currentOrder = null;
     }
-    
+
     public Ordre changeCnoForOrder(int knummer) {
         if (processingOrder) {
-        currentOrder.setKnummer(knummer);
-        currentOrder.setLevering(levering);
-        currentOrder.setPris(pris);
-        currentOrder.setDepositum(depositum);
-        currentOrder.setReturnering(returnering);
-        currentOrder.setOd(odetaljer);
-        dbFacade.startNewBusinessTransaction();
-        for (int i = 0; i < odetaljer.size(); i++)
-        {
-            odetaljer.get(i).setOnummer(currentOrder.getOnummer());
-        }
-        dbFacade.deleteOdetail(currentOrder.getOnummer());
-        dbFacade.registerDirtyOrder(currentOrder);
-        for (int i = 0; i < odetaljer.size(); i++)
-        {
-            dbFacade.registerNewOrderDetail(odetaljer.get(i));
-        }
-        dbFacade.commitBusinessTransaction();
-        currentOrder = null;
-    }
-
-    public Ordre changeCnoForOrder(int knummer)
-    {
-        if (processingOrder)
-        {
             currentOrder.setKnummer(knummer);
             dbFacade.registerDirtyOrder(currentOrder);
         }
@@ -161,11 +136,9 @@ public class Controller
 
         System.out.println(dbFacade.getAllCustumers());
     }
-    
     //       dbFacade.getNextkundeNr
-
     ArrayList<Vare> vareArr = new ArrayList<>();
-    
+
     public void addRessource(int vnummer, String vnavn, int qty, double pris) {
         Vare ressource = new Vare(vnummer, vnavn, qty, pris);
         vareArr.add(ressource);
@@ -176,9 +149,7 @@ public class Controller
         System.out.println(dbFacade.getAllCustumers());
     }
 
-
-    public boolean saveOrder()
-    {
+    public boolean saveOrder() {
         boolean status = false;
         if (processingOrder) {
             //== ends ongoing business transaction
@@ -224,13 +195,10 @@ public class Controller
         }
     }
 
-    public void ordreAfslut(int knummer)
-    {
+    public void ordreAfslut(int knummer) {
         ArrayList<Ordre> ol = dbFacade.getAllOrdres();
-        for (int i = 0; i < ol.size(); i++)
-        {
-            if (knummer == ol.get(i).getKnummer())
-            {
+        for (int i = 0; i < ol.size(); i++) {
+            if (knummer == ol.get(i).getKnummer()) {
                 ol.get(i).setStatus("Afsluttet");
                 dbFacade.startNewBusinessTransaction();
                 dbFacade.registerDirtyOrder(ol.get(i));
@@ -239,16 +207,11 @@ public class Controller
             }
         }
     }
-    
 
-
-    public void ordrePaabegynd(int knummer)
-    {
+    public void ordrePaabegynd(int knummer) {
         ArrayList<Ordre> ol = dbFacade.getAllOrdres();
-        for (int i = 0; i < ol.size(); i++)
-        {
-            if (knummer == ol.get(i).getKnummer())
-            {
+        for (int i = 0; i < ol.size(); i++) {
+            if (knummer == ol.get(i).getKnummer()) {
                 ol.get(i).setStatus("Påbegyndt");
                 dbFacade.startNewBusinessTransaction();
                 dbFacade.registerDirtyOrder(ol.get(i));
@@ -258,8 +221,7 @@ public class Controller
         }
     }
 
-    public boolean checkQty(int vnummer, int qty)
-    {
+    public boolean checkQty(int vnummer, int qty) {
         ArrayList<Vare> vl = dbFacade.getAllRessources();
 
         for (int i = 0; i < vl.size(); i++) {
@@ -424,7 +386,7 @@ public class Controller
         this.currentOrder = ordre;
     }
 
-    public void pdf() {
+    public void pdfOrdre() {
         ArrayList<Odetaljer> odetaljeArray = currentOrder.getOd();
         ArrayList<Vare> vareArray = new ArrayList<>();
         for (int i = 0; i < odetaljeArray.size(); i++) {
@@ -437,20 +399,18 @@ public class Controller
 
         PDF pdf = new PDF();
         try {
-            pdf.PDF(currentOrder, kunde, odetaljeArray, vareArray, postnummer);
+            pdf.PdfOrdre(currentOrder, kunde, odetaljeArray, vareArray, postnummer);
         } catch (DocumentException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void pdfFaktura()
-    {
+
+    public void pdfFaktura() {
         ArrayList<Odetaljer> odetaljeArray = currentOrder.getOd();
         ArrayList<Vare> vareArray = new ArrayList<>();
-        for (int i = 0; i < odetaljeArray.size(); i++)
-        {
+        for (int i = 0; i < odetaljeArray.size(); i++) {
             Vare vare = getVare(odetaljeArray.get(i).getVnummer());
             vare.setQty(odetaljeArray.get(i).getMaengde());
             vareArray.add(vare);
@@ -459,19 +419,12 @@ public class Controller
         Postnummer postnummer = getPostnummer(currentKunde.getPostnummer());
 
         PDF pdf = new PDF();
-        try
-        {
+        try {
             pdf.PdfFaktura(currentOrder, kunde, odetaljeArray, vareArray, postnummer);
-        }
-        catch (DocumentException ex)
-        {
+        } catch (DocumentException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        catch (FileNotFoundException ex)
-        {
+        } catch (FileNotFoundException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-   
 }
