@@ -367,10 +367,10 @@ public class PDF {
     
     public void openOrdrePDF(Ordre currentOrder) {
         try {
-            if ((new File("C:\\" + currentOrder.getOnummer() + ".pdf")).exists()) {
+            if ((new File(browser.getFileName())).exists()) {
                 Process p = Runtime
                         .getRuntime()
-                        .exec("rundll32 url.dll,FileProtocolHandler C:\\" + currentOrder.getOnummer() + ".pdf");
+                        .exec("rundll32 url.dll,FileProtocolHandler " + browser.getFileName());
                 p.waitFor();
             } else {
                 System.out.println("File does not exists");
@@ -382,10 +382,10 @@ public class PDF {
     }
     public void openFakturaPDF(Ordre currentOrder) {
         try {
-            if ((new File("C:\\" + currentOrder.getFnummer() + ".pdf")).exists()) {
+            if ((new File(browser.getFileName())).exists()) {
                 Process p = Runtime
                         .getRuntime()
-                        .exec("rundll32 url.dll,FileProtocolHandler C:\\" + currentOrder.getOnummer() + ".pdf");
+                        .exec("rundll32 url.dll,FileProtocolHandler " + browser.getFileName());
                 p.waitFor();
             } else {
                 System.out.println("File does not exists");

@@ -82,7 +82,7 @@ public class GUI extends javax.swing.JFrame {
         jButtonLastbil = new javax.swing.JButton();
         jButtonMontoer = new javax.swing.JButton();
         jButtonStatus = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane10 = new javax.swing.JScrollPane();
         jList9 = new javax.swing.JList();
@@ -366,8 +366,13 @@ public class GUI extends javax.swing.JFrame {
         });
         jPanel1.add(jButtonStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 270, 100, -1));
 
-        jButton2.setText("Check Dato");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
+        jButton1.setText("Check Dato");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
 
         jTabbedPane1.addTab("Ordre", jPanel1);
 
@@ -1147,8 +1152,8 @@ public class GUI extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonAfslut;
     private javax.swing.JButton jButtonAfslutOrdre;
     private javax.swing.JButton jButtonDepositum;

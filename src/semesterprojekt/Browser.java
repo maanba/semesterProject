@@ -24,11 +24,15 @@ public class Browser {
         JFileChooser chooser = new JFileChooser();
         FileFilter filter = new Browser.ExtensionFileFilter(".pdf", new String[]{"PDF"});
         chooser.setFileFilter(filter);
-        int result = chooser.showOpenDialog(null);
+        chooser.setName("vuf");
+        int result = chooser.showSaveDialog(null);
         switch (result) {
             case JFileChooser.APPROVE_OPTION:
                 file = chooser.getSelectedFile();
                 fileName = file.getAbsolutePath();
+                if (!fileName.endsWith("pdf")){
+                    fileName = fileName + ".pdf";
+                }
                 if ("person.txt".equals(file.getName())) {
                     bool = true;
                 } else {
