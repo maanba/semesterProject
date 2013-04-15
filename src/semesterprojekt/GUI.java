@@ -760,18 +760,18 @@ public class GUI extends javax.swing.JFrame {
         jTextFieldAdresse.setText(selected.getAdresse() + "");
         jTextFieldPostnummer.setText(selected.getPostnummer() + "");
         jTextFieldTelefonnummer.setText(selected.getTelefonnummer() + "");
-        
+
         if (selected != null) {
             for (int i = 0; i < list9.size(); i++) {
-                Vare vare = (Vare) list9.getElementAt(i);      
-            }  
+                Vare vare = (Vare) list9.getElementAt(i);
+            }
         } else {
             jLabelError.setText("FEJL!");
         }
     }//GEN-LAST:event_jButtonTilføj1ActionPerformed
 
     private void jButtonTilføj2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilføj2ActionPerformed
-        //   controller.addKunde(,jTextFieldFirmaNavn, jTextFieldFuldeNavn, jTextFieldAdresse, jTextFieldPostnummer, jTextFieldTelefonnummer);
+        controller.addKunde(Integer.parseInt(jLabelRedigerKunde.getText()), jTextFieldFirmaNavn.getText(), jTextFieldFuldeNavn.getText(), jTextFieldAdresse.getText(), WIDTH, HIDE_ON_CLOSE);
     }//GEN-LAST:event_jButtonTilføj2ActionPerformed
 
     private void jButtonDepositumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDepositumActionPerformed
@@ -855,11 +855,11 @@ public class GUI extends javax.swing.JFrame {
         jTextFieldNavn.setText(selected.getVnavn());
         jTextFieldVarePris.setText(selected.getPris() + "");
         jTextFieldVareQty.setText(selected.getQty() + "");
-        
+
         if (selected != null) {
             for (int i = 0; i < list5.size(); i++) {
-                Vare vare = (Vare) list5.getElementAt(i);      
-            }  
+                Vare vare = (Vare) list5.getElementAt(i);
+            }
         } else {
             jLabelError.setText("FEJL!");
         }
@@ -1048,40 +1048,37 @@ public class GUI extends javax.swing.JFrame {
                 list1.addElement(va[i]);
             }
         }
-        
+
         // list5 
-         ArrayList<Vare> vl5 = controller.getAllRessources();
-            Vare[] va5 = new Vare[vl5.size()];
-            for (int i = 0; i < vl5.size(); i++) {
-                    va5[i] = vl5.get(i);
-                }
-            for (int i = 0; i < vl5.size(); i++) {
-                
-                controller.quickSortVare(va5, 0, va5.length-1);
-                list5.clear();
-                for (int j = 0; j < va5.length; j++) {
-                    list5.addElement(va5[j]);
-                }
-                
+        ArrayList<Vare> vl5 = controller.getAllRessources();
+        Vare[] va5 = new Vare[vl5.size()];
+        for (int i = 0; i < vl5.size(); i++) {
+            va5[i] = vl5.get(i);
+        }
+        for (int i = 0; i < vl5.size(); i++) {
+
+            controller.quickSortVare(va5, 0, va5.length - 1);
+            list5.clear();
+            for (int j = 0; j < va5.length; j++) {
+                list5.addElement(va5[j]);
             }
-        
+
+        }
+
         // list9 
-         ArrayList<Kunde> kl9 = controller.getAllCostumers();
-            Kunde[] ka9 = new Kunde[kl9.size()];
-            for (int i = 0; i < kl9.size(); i++) {
-                    ka9[i] = kl9.get(i);
-                }
-            for (int i = 0; i < kl9.size(); i++) {
-                
-                controller.quickSortKunde(ka9, 0, ka9.length-1);
-                list9.clear();
-                for (int j = 0; j < ka9.length; j++) {
-                    list9.addElement(ka9[j]);
-                }
-                
+        ArrayList<Kunde> kl9 = controller.getAllCostumers();
+        Kunde[] ka9 = new Kunde[kl9.size()];
+        for (int i = 0; i < kl9.size(); i++) {
+            ka9[i] = kl9.get(i);
+        }
+        for (int i = 0; i < kl9.size(); i++) {
+
+            controller.quickSortKunde(ka9, 0, ka9.length - 1);
+            list9.clear();
+            for (int j = 0; j < ka9.length; j++) {
+                list9.addElement(ka9[j]);
             }
-
-
+        }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;

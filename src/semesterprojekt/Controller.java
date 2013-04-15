@@ -153,7 +153,7 @@ public class Controller {
         Kunde kunde = new Kunde(knummer, firma, navn, adresse, postnummer, telefonnummer);
         kundeArr.add(kunde);
         dbFacade.startNewBusinessTransaction();
-        dbFacade.registerNewKunde(kunde);
+        dbFacade.registerNewCustomer(kunde);
         dbFacade.commitBusinessTransaction();
 
         System.out.println(dbFacade.getAllCustumers());
