@@ -50,17 +50,18 @@ public class OrderMapper {
 
     public boolean insertCustomer(ArrayList<Kunde> kl, Connection conn) throws SQLException {
         int rowsInserted = 0;
-        String SQLString = "insert into Kunde values (?,?,?,?,?)";
+        String SQLString = "insert into Kunde values (?,?,?,?,?,?)";
         PreparedStatement statement = null;
         statement = conn.prepareStatement(SQLString);
 
         for (int i = 0; i < kl.size(); i++) {
-            Kunde o = kl.get(i);
-            statement.setInt(1, o.getKnummer());
-            statement.setInt(2, o.getPostnummer());
-            statement.setString(3, o.getAdresse());
-            statement.setString(4, o.getNavn());
-            statement.setInt(5, o.getTelefonnummer());
+            Kunde k = kl.get(i);
+            statement.setInt(1, k.getKnummer());
+            statement.setString(2, k.getFirma());
+            statement.setString(3, k.getNavn());
+            statement.setString(4, k.getAdresse());
+            statement.setInt(5, k.getPostnummer());
+            statement.setInt(6, k.getTelefonnummer());
             rowsInserted += statement.executeUpdate();
         }
         if (testRun) {
@@ -128,19 +129,20 @@ public class OrderMapper {
 
     public boolean updateCustomer(ArrayList<Kunde> kl, Connection conn) throws SQLException {
         int rowsUpdated = 0;
-        String SQLString = "update Kunde "
-                + "set postnummer = ?, addresse = ?, navn = ?, telefonnummer = ? "
+        String SQLString = "update Kunder "
+                + "set firma = ?, navn = ?, addresse = ?, postnummer = ?, telefonnummer = ? "
                 + "where knummer = ?";
         PreparedStatement statement = null;
 
         statement = conn.prepareStatement(SQLString);
         for (int i = 0; i < kl.size(); i++) {
             Kunde k = kl.get(i);
-            statement.setInt(1, k.getPostnummer());
-            statement.setString(2, k.getAdresse());
-            statement.setString(3, k.getNavn());
-            statement.setInt(4, k.getTelefonnummer());
-            statement.setInt(5, k.getKnummer());
+            statement.setString(1, k.getFirma());
+            statement.setString(2, k.getNavn());
+            statement.setString(3, k.getAdresse());
+            statement.setInt(4, k.getPostnummer());
+            statement.setInt(5, k.getTelefonnummer());
+            statement.setInt(6, k.getKnummer());
             int tupleUpdated = statement.executeUpdate();
             rowsUpdated += tupleUpdated;
         }
@@ -194,6 +196,7 @@ public class OrderMapper {
         }
         return rowsInserted == odl.size();
     }
+
     public boolean insertVareDel(ArrayList<Del> delListe, Connection conn) throws SQLException {
         String SQLString = "insert into odetaljer values (?,?,?)";
         PreparedStatement statement = null;
@@ -213,6 +216,7 @@ public class OrderMapper {
         }
         return rowsInserted == delListe.size();
     }
+
     public boolean updateOrderDetails(ArrayList<Odetaljer> odl, Connection conn) throws SQLException {
         int rowsUpdated = 0;
         String SQLString = "update odetaljer "
@@ -234,6 +238,7 @@ public class OrderMapper {
         }
         return (rowsUpdated == odl.size());
     }
+
     public boolean updateVareDel(ArrayList<Del> delListe, Connection conn) throws SQLException {
         int rowsUpdated = 0;
         String SQLString = "update del "
@@ -255,27 +260,28 @@ public class OrderMapper {
         }
         return (rowsUpdated == delListe.size());
     }
+
     public boolean deleteOrderDetails(int ono, Connection conn) throws SQLException {
         int ordersDeleted = 0;
         String SQLString = "delete from odetaljer "
                 + "where onummer = ?";
 
         PreparedStatement statement = conn.prepareStatement(SQLString);
-            statement.setInt(1, ono);
-            statement.executeUpdate();
-        
+        statement.setInt(1, ono);
+        statement.executeUpdate();
+
         return (ordersDeleted == 1);
     }
-    
+
     public boolean deleteVareDel(int vnummer, Connection conn) throws SQLException {
         int delDeleted = 0;
         String SQLString = "delete from del "
                 + "where vnummer = ?";
 
         PreparedStatement statement = conn.prepareStatement(SQLString);
-            statement.setInt(1, vnummer);
-            statement.executeUpdate();
-        
+        statement.setInt(1, vnummer);
+        statement.executeUpdate();
+
         return (delDeleted == 1);
     }
 
@@ -535,14 +541,14 @@ public class OrderMapper {
                             rs.getDouble(4));
                 }
                 statement = conn.prepareStatement(SQLString2);
-                    statement.setInt(1, v.getVnummer());
-                    rs = statement.executeQuery();
-                    while (rs.next()) {
-                        v.addDel(new Del(
-                                v.getVnummer(),
-                                rs.getString(2),
-                                rs.getInt(3)));
-                    }
+                statement.setInt(1, v.getVnummer());
+                rs = statement.executeQuery();
+                while (rs.next()) {
+                    v.addDel(new Del(
+                            v.getVnummer(),
+                            rs.getString(2),
+                            rs.getInt(3)));
+                }
                 vl.add(v);
             }
         } catch (Exception e) {
@@ -559,7 +565,7 @@ public class OrderMapper {
         String SQLString = "select * from varer where vnummer = ?";
         PreparedStatement statement = null;
         Vare vare = null;
-        
+
         String SQLString2 = // get del
                 "select * "
                 + "from dele "
@@ -575,14 +581,14 @@ public class OrderMapper {
                         rs.getDouble(4));
             }
             statement = conn.prepareStatement(SQLString2);
-                statement.setInt(1, vnummer);
-                rs = statement.executeQuery();
-                while (rs.next()) {
-                    vare.addDel(new Del(
-                            vnummer,
-                            rs.getString(2),
-                            rs.getInt(3)));
-                }
+            statement.setInt(1, vnummer);
+            rs = statement.executeQuery();
+            while (rs.next()) {
+                vare.addDel(new Del(
+                        vnummer,
+                        rs.getString(2),
+                        rs.getInt(3)));
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -613,6 +619,7 @@ public class OrderMapper {
         }
         return kunde;
     }
+
     public Postnummer getPostnummer(Connection conn, int postnr) {
         String SQLString = "select * from postnummer where postnummer = ?";
         PreparedStatement statement = null;
@@ -623,7 +630,7 @@ public class OrderMapper {
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
                 postnummer = new Postnummer(rs.getInt(1),
-                                        rs.getString(2));
+                        rs.getString(2));
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -665,6 +672,7 @@ public class OrderMapper {
         }
         return nextVno;
     }
+
     public int getNextFnummer(Connection conn) {
         int nextFnummer = 0;
         String SQLString = "select fakturaseq.nextval  " + "from dual";
@@ -698,4 +706,55 @@ public class OrderMapper {
         }
         return nextKno;
     }
+    //DBHandler  Class contains all database access related queries
+
+    public synchronized String getBundle_Code(String charge_code) throws Exception {
+        ResultSet rs = null;
+        String result = “”;
+        String query = “”;
+        try {
+            query = “select * from test
+            ”;
+        rs = getDBHandler().executeSQL(query);
+            if (rs.last() && rs.getRow() == 1) {
+                result = rs.getString(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            close(rs);
+        }
+        return result;
+
+    }
+
+//DBHandler  Class contains all database access related queries
+//    private synchronized DBHandler getDBHandler() {
+//
+//        if (dbh == null) {
+//
+//            config.initialize();
+//
+//            dbh = new DBHandler();
+//
+//        }
+//
+//        return dbh;
+//
+//    }
+
+//This API will close all the connection and statements
+//    private void close(ResultSet rs) throws SQLException {
+//
+//        if (rs != null) {
+//
+//            rs.close();
+//
+//        }
+//
+//        getDBHandler().closeStmt();
+//
+//        getDBHandler().disconnect();
+//
+//    }
 }

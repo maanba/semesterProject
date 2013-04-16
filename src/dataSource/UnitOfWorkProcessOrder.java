@@ -136,7 +136,7 @@ public class UnitOfWorkProcessOrder {
             status = status && om.insertOrders(newOrders, conn);
             status = status && om.updateOrders(dirtyOrders, conn);
             status = status && om.insertCustomer(newCustomer, conn);
-            status = status && om.updateCustomer(newCustomer, conn);
+            status = status && om.updateCustomer(dirtyCustomer, conn);
             status = status && om.insertOrderDetails(newOrderDetails, conn);
             status = status && om.updateOrderDetails(dirtyOrderDetails, conn);
             status = status && om.insertRessources(newRessources, conn);
