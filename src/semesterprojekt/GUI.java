@@ -44,8 +44,6 @@ public class GUI extends javax.swing.JFrame {
         jListOrdrer.setModel(listOrdrer);
         jListVarer.setModel(listVarer);
 
-
-
         jLabelError.setText(null);
         update();
     }
@@ -673,7 +671,7 @@ public class GUI extends javax.swing.JFrame {
             jTextFieldMånedInd.setText(selected.getReturnering().substring(3, 5));
             jTextFieldÅrInd.setText(selected.getReturnering().substring(6, 10));
 
-            if (selected.getAfhentning() == "Levering af Hellebaek Festudlejning") {
+            if (selected.getAfhentning() == "Leveres af os") {
                 jRadioButtonLevering.setSelected(rootPaneCheckingEnabled);
             } else {
                 jRadioButtonAfhentning.setSelected(rootPaneCheckingEnabled);
@@ -743,7 +741,6 @@ public class GUI extends javax.swing.JFrame {
                         String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                         String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
                         controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()) - Double.parseDouble(jTextFieldPris.getText()), controller.getCurrentOrder().getDepositum(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
-                        controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()) - Double.parseDouble(jTextFieldPris.getText()), controller.getCurrentOrder().getDepositum(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
 
                         list2.clear();
                         list3.clear();
@@ -762,10 +759,17 @@ public class GUI extends javax.swing.JFrame {
                     String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                     String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
                     controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()) - Double.parseDouble(jTextFieldPris.getText()), controller.getCurrentOrder().getDepositum(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
-                    controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()) - Double.parseDouble(jTextFieldPris.getText()), controller.getCurrentOrder().getDepositum(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
                     list2.clear();
                     list3.clear();
                     jLabelError.setText("");
+                    jTextFieldTotalPris.setText("");
+                    jTextFieldPris.setText("");
+                    jTextFieldDagInd.setText("");
+                    jTextFieldDagUd.setText("");
+                    jTextFieldMånedInd.setText("");
+                    jTextFieldMånedUd.setText("");
+                    jTextFieldÅrInd.setText("");
+                    jTextFieldÅrUd.setText("");
                 }
             }
         } else {
@@ -1160,15 +1164,13 @@ public class GUI extends javax.swing.JFrame {
             for (int j = 0; j < va5.length; j++) {
                 list5.addElement(va5[j]);
             }
-<<<<<<< HEAD
-=======
 
             jLabelRedigerVare.setText("Opret vare:");
             jLabelRedigerIVare.setText("");
             jTextFieldNavn.setText("");
             jTextFieldVarePris.setText("");
             jTextFieldVareQty.setText("");
->>>>>>> branch 'master' of https://github.com/maanba/semesterProject.git
+
         }
         // list9 
         ArrayList<Kunde> kl9 = controller.getAllCostumers();
@@ -1183,8 +1185,6 @@ public class GUI extends javax.swing.JFrame {
             for (int j = 0; j < ka9.length; j++) {
                 list9.addElement(ka9[j]);
             }
-<<<<<<< HEAD
-=======
 
             jLabel20.setText("");
             jLabel18.setText("Opret kunde:");
@@ -1194,12 +1194,7 @@ public class GUI extends javax.swing.JFrame {
             jTextFieldAdresse.setText("");
             jTextFieldPostnummer.setText("");
             jTextFieldTelefonnummer.setText("");
->>>>>>> branch 'master' of https://github.com/maanba/semesterProject.git
         }
-<<<<<<< HEAD
-=======
-
->>>>>>> branch 'master' of https://github.com/maanba/semesterProject.git
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
