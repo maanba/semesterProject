@@ -48,8 +48,6 @@ public class GUI extends javax.swing.JFrame
         jListVarer.setModel(listVarer);
         jListParts.setModel(listParts);
 
-
-
         jLabelError.setText(null);
         update();
     }
@@ -714,8 +712,9 @@ public class GUI extends javax.swing.JFrame
             jTextFieldMånedInd.setText(selected.getReturnering().substring(3, 5));
             jTextFieldÅrInd.setText(selected.getReturnering().substring(6, 10));
 
-            if (selected.getAfhentning() == "Levering af Hellebaek Festudlejning")
-            {
+          
+
+            if (selected.getAfhentning() == "Leveres af os") {
                 jRadioButtonLevering.setSelected(rootPaneCheckingEnabled);
             }
             else
@@ -803,8 +802,6 @@ public class GUI extends javax.swing.JFrame
                         String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                         String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
                         controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()) - Double.parseDouble(jTextFieldPris.getText()), controller.getCurrentOrder().getDepositum(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
-                        controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()) - Double.parseDouble(jTextFieldPris.getText()), controller.getCurrentOrder().getDepositum(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
-
                         list2.clear();
                         list3.clear();
                         jLabelError.setText("");
@@ -827,10 +824,17 @@ public class GUI extends javax.swing.JFrame
                     String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                     String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
                     controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()) - Double.parseDouble(jTextFieldPris.getText()), controller.getCurrentOrder().getDepositum(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
-                    controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()) - Double.parseDouble(jTextFieldPris.getText()), controller.getCurrentOrder().getDepositum(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
                     list2.clear();
                     list3.clear();
                     jLabelError.setText("");
+                    jTextFieldTotalPris.setText("");
+                    jTextFieldPris.setText("");
+                    jTextFieldDagInd.setText("");
+                    jTextFieldDagUd.setText("");
+                    jTextFieldMånedInd.setText("");
+                    jTextFieldMånedUd.setText("");
+                    jTextFieldÅrInd.setText("");
+                    jTextFieldÅrUd.setText("");
                 }
             }
         }
