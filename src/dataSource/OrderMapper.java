@@ -744,17 +744,17 @@ public class OrderMapper {
 //    }
 
 //This API will close all the connection and statements
-    private void close(ResultSet rs) throws SQLException {
-
-        if (rs != null) {
-
-            rs.close();
-
-        }
-
-        getDBHandler().closeStmt();
-
-        getDBHandler().disconnect();
-
-    }
+//    private void close(ResultSet rs) throws SQLException {
+//
+//        if (rs != null) {
+//
+//            rs.close();
+//
+//        }
+//
+//        getDBHandler().closeStmt();
+//
+//        getDBHandler().disconnect();
+//
+//    }
 }
