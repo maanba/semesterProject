@@ -69,8 +69,8 @@ public class Controller {
             dbFacade.commitBusinessTransaction();
         } else {
             processingOrder = false;
-            currentOrder = null;
         }
+        currentOrder = null;
         return currentOrder;
     }
 
@@ -88,29 +88,25 @@ public class Controller {
         }
         dbFacade.deleteOdetail(currentOrder.getOnummer());
         dbFacade.registerDirtyOrder(currentOrder);
-        for (int i = 0; i < odetaljer.size(); i++)
-        {
+        for (int i = 0; i < odetaljer.size(); i++) {
             dbFacade.registerNewOrderDetail(odetaljer.get(i));
         }
         dbFacade.commitBusinessTransaction();
         currentOrder = null;
     }
-    
-    public void addOrderFakturaNummer(Ordre o)
-    {
+
+    public void addOrderFakturaNummer(Ordre o) {
         setCurrentOrder(o);
         ArrayList<Odetaljer> odetaljer = o.getOd();
         currentOrder.setFnummer(dbFacade.getNextFNo());
-        
+
         dbFacade.startNewBusinessTransaction();
-        for (int i = 0; i < odetaljer.size(); i++)
-        {
+        for (int i = 0; i < odetaljer.size(); i++) {
             odetaljer.get(i).setOnummer(currentOrder.getOnummer());
         }
         dbFacade.deleteOdetail(currentOrder.getOnummer());
         dbFacade.registerDirtyOrder(currentOrder);
-        for (int i = 0; i < odetaljer.size(); i++)
-        {
+        for (int i = 0; i < odetaljer.size(); i++) {
             dbFacade.registerNewOrderDetail(odetaljer.get(i));
         }
         dbFacade.commitBusinessTransaction();
@@ -158,7 +154,8 @@ public class Controller {
 
         System.out.println(dbFacade.getAllCustumers());
     }
-    public void deleteVare(Vare v){
+
+    public void deleteVare(Vare v) {
         dbFacade.startNewBusinessTransaction();
         dbFacade.deleteRessource(v);
         dbFacade.commitBusinessTransaction();
@@ -285,14 +282,14 @@ public class Controller {
         }
         return array;
     }
-    
-    public void redigerVare (Vare vare){
+
+    public void redigerVare(Vare vare) {
         dbFacade.startNewBusinessTransaction();
         dbFacade.registerDirtyRessource(vare);
         dbFacade.commitBusinessTransaction();
     }
-    
-    public void redigerKunde (Kunde kunde){
+
+    public void redigerKunde(Kunde kunde) {
         dbFacade.startNewBusinessTransaction();
         dbFacade.registerDirtyCustomer(kunde);
         dbFacade.commitBusinessTransaction();
@@ -374,8 +371,7 @@ public class Controller {
         return array;
     }
 
-    public Vare getVare(int vnummer)
-    {
+    public Vare getVare(int vnummer) {
         currentVare = dbFacade.getVare(vnummer);
         return currentVare;
     }
@@ -454,8 +450,8 @@ public class Controller {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void releaseConnection(){
+
+    public void releaseConnection() {
         dbFacade.releaseConnection();
     }
 }
