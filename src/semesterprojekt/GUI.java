@@ -117,22 +117,6 @@ public class GUI extends javax.swing.JFrame {
         jLabel26 = new javax.swing.JLabel();
         jTextFieldPostnummer = new javax.swing.JTextField();
         jTextFieldTelefonnummer = new javax.swing.JTextField();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        jList5 = new javax.swing.JList();
-        jPanel5 = new javax.swing.JPanel();
-        jLabelVareRediger = new javax.swing.JLabel();
-        jLabelRedigerIVare = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jTextFieldVareQty = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        jTextFieldNavn = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        jTextFieldVarePris = new javax.swing.JTextField();
-        jLabelRedigerVare = new javax.swing.JLabel();
-        jButtonLagerRediger = new javax.swing.JButton();
-        jButtonLagerGem = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         jList7 = new javax.swing.JList();
@@ -148,7 +132,30 @@ public class GUI extends javax.swing.JFrame {
         jListHistorik = new javax.swing.JList();
         jButtonAfslut = new javax.swing.JButton();
         jButtonPaabegynd = new javax.swing.JButton();
-        jPanel8 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jList5 = new javax.swing.JList();
+        jPanel5 = new javax.swing.JPanel();
+        jLabelVareRediger = new javax.swing.JLabel();
+        jLabelRedigerIVare = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jTextFieldVareQty = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jTextFieldNavn = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jTextFieldVarePris = new javax.swing.JTextField();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        jList4 = new javax.swing.JList();
+        jTextFieldPartNavn = new javax.swing.JTextField();
+        jTextFieldPartQuantity = new javax.swing.JTextField();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jLabelRedigerVare = new javax.swing.JLabel();
+        jButtonLagerRediger = new javax.swing.JButton();
+        jButtonLagerGem = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jListVarer = new javax.swing.JList();
@@ -160,6 +167,7 @@ public class GUI extends javax.swing.JFrame {
         jButtonAfslutOrdre = new javax.swing.JButton();
         jButtonOK = new javax.swing.JButton();
         jButtonLevér = new javax.swing.JButton();
+        jPanel8 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -330,8 +338,8 @@ public class GUI extends javax.swing.JFrame {
         jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 140, -1, -1));
         jPanel1.add(jTextFieldPris, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 170, 60, -1));
 
-        jLabel27.setText(" Tilbud:");
-        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 170, -1, -1));
+        jLabel27.setText(" Rabat:");
+        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, -1, -1));
 
         jLabel28.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -341,8 +349,8 @@ public class GUI extends javax.swing.JFrame {
         jTextFieldTotalPris.setEditable(false);
         jPanel1.add(jTextFieldTotalPris, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 140, 60, -1));
 
-        jLabel30.setText(" Total pris:");
-        jPanel1.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 140, -1, -1));
+        jLabel30.setText(" Pris før rabat:");
+        jPanel1.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 140, -1, -1));
 
         jButtonLastbil.setText("Tilføj Lastbil");
         jButtonLastbil.addActionListener(new java.awt.event.ActionListener()
@@ -453,66 +461,6 @@ public class GUI extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Kunder", jPanel6);
 
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel5.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Vareliste:");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 170, 20));
-
-        jScrollPane5.setViewportView(jList5);
-
-        jPanel2.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 222, 363));
-
-        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel5.add(jLabelVareRediger, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 21, 80, 30));
-        jPanel5.add(jLabelRedigerIVare, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 120, 20));
-
-        jLabel10.setText("Navn");
-        jPanel5.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 40, 20));
-        jPanel5.add(jTextFieldVareQty, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, 120, -1));
-
-        jLabel11.setText("Quantity");
-        jPanel5.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 60, -1));
-        jPanel5.add(jTextFieldNavn, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 120, -1));
-
-        jLabel12.setText("Pris");
-        jPanel5.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 50, -1));
-        jPanel5.add(jTextFieldVarePris, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 120, -1));
-
-        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 240, 360));
-
-        jLabelRedigerVare.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jLabelRedigerVare.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelRedigerVare.setText("Opret vare:");
-        jPanel2.add(jLabelRedigerVare, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, 240, -1));
-
-        jButtonLagerRediger.setText("Rediger >");
-        jButtonLagerRediger.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButtonLagerRedigerActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButtonLagerRediger, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, 90, -1));
-
-        jButtonLagerGem.setText("< Gem");
-        jButtonLagerGem.setMaximumSize(new java.awt.Dimension(105, 29));
-        jButtonLagerGem.setMinimumSize(new java.awt.Dimension(105, 29));
-        jButtonLagerGem.setPreferredSize(new java.awt.Dimension(105, 29));
-        jButtonLagerGem.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButtonLagerGemActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButtonLagerGem, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 90, 20));
-
-        jTabbedPane1.addTab("Lager", jPanel2);
-
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jScrollPane7.setViewportView(jList7);
@@ -578,7 +526,90 @@ public class GUI extends javax.swing.JFrame {
         jPanel9.add(jButtonPaabegynd, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, -1, -1));
 
         jTabbedPane1.addTab("Historik", jPanel9);
-        jTabbedPane1.addTab("Kalender", jPanel8);
+
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel5.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Vareliste:");
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 170, 20));
+
+        jScrollPane5.setViewportView(jList5);
+
+        jPanel2.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 222, 380));
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel5.add(jLabelVareRediger, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 21, 80, 30));
+        jPanel5.add(jLabelRedigerIVare, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 120, 20));
+
+        jLabel10.setText("Navn");
+        jPanel5.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 40, 20));
+        jPanel5.add(jTextFieldVareQty, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 120, -1));
+
+        jLabel11.setText("Quantity");
+        jPanel5.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 60, -1));
+        jPanel5.add(jTextFieldNavn, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 120, -1));
+
+        jLabel12.setText("Pris");
+        jPanel5.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 50, -1));
+        jPanel5.add(jTextFieldVarePris, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 120, -1));
+
+        jList4.setModel(new javax.swing.AbstractListModel()
+        {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane11.setViewportView(jList4);
+
+        jPanel5.add(jScrollPane11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 180, 130));
+        jPanel5.add(jTextFieldPartNavn, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, 120, -1));
+        jPanel5.add(jTextFieldPartQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, 120, -1));
+
+        jToggleButton1.setText("Tilføj");
+        jPanel5.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 150, 60, 50));
+
+        jLabel7.setText("Navn");
+        jPanel5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
+
+        jLabel8.setText("Quantity");
+        jPanel5.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
+
+        jButton2.setText("Fjern");
+        jPanel5.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 60, -1));
+
+        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 40, 290, 380));
+
+        jLabelRedigerVare.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jLabelRedigerVare.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelRedigerVare.setText("Opret vare:");
+        jPanel2.add(jLabelRedigerVare, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 10, 240, -1));
+
+        jButtonLagerRediger.setText("Rediger >");
+        jButtonLagerRediger.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButtonLagerRedigerActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButtonLagerRediger, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, 90, -1));
+
+        jButtonLagerGem.setText("< Gem");
+        jButtonLagerGem.setMaximumSize(new java.awt.Dimension(105, 29));
+        jButtonLagerGem.setMinimumSize(new java.awt.Dimension(105, 29));
+        jButtonLagerGem.setPreferredSize(new java.awt.Dimension(105, 29));
+        jButtonLagerGem.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButtonLagerGemActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButtonLagerGem, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, 90, 20));
+
+        jTabbedPane1.addTab("Lager", jPanel2);
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -634,6 +665,7 @@ public class GUI extends javax.swing.JFrame {
         jPanel3.add(jButtonLevér, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, -1, -1));
 
         jTabbedPane1.addTab("Retur", jPanel3);
+        jTabbedPane1.addTab("Kalender", jPanel8);
 
         getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 570));
 
@@ -1200,6 +1232,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonAfslut;
     private javax.swing.JButton jButtonAfslutOrdre;
     private javax.swing.JButton jButtonDepositum;
@@ -1247,6 +1280,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabelError;
     private javax.swing.JLabel jLabelRedigerIVare;
     private javax.swing.JLabel jLabelRedigerKunde;
@@ -1255,6 +1290,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JList jList1;
     private javax.swing.JList jList2;
     private javax.swing.JList jList3;
+    private javax.swing.JList jList4;
     private javax.swing.JList jList5;
     private javax.swing.JList jList7;
     private javax.swing.JList jList9;
@@ -1274,6 +1310,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButtonLevering;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
+    private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -1294,6 +1331,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldMånedInd;
     private javax.swing.JTextField jTextFieldMånedUd;
     private javax.swing.JTextField jTextFieldNavn;
+    private javax.swing.JTextField jTextFieldPartNavn;
+    private javax.swing.JTextField jTextFieldPartQuantity;
     private javax.swing.JTextField jTextFieldPostnummer;
     private javax.swing.JTextField jTextFieldPris;
     private javax.swing.JTextField jTextFieldTelefonnummer;
@@ -1302,5 +1341,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldVareQty;
     private javax.swing.JTextField jTextFieldÅrInd;
     private javax.swing.JTextField jTextFieldÅrUd;
+    private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 }
