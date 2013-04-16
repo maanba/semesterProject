@@ -1128,7 +1128,7 @@ public class GUI extends javax.swing.JFrame {
                 jTextFieldTotalPris.setText(totalpris + "");
             }
         }
-
+        
         // list1:
         if (!"".equals(jTextFieldÅrUd.getText())) {
             int levYear = Integer.parseInt(jTextFieldÅrUd.getText());
@@ -1161,7 +1161,6 @@ public class GUI extends javax.swing.JFrame {
                     }
                 }
                 va[i] = vl.get(i);
-
             }
             Vare vare;
             if (!list2.isEmpty()) {
@@ -1188,20 +1187,21 @@ public class GUI extends javax.swing.JFrame {
             va5[i] = vl5.get(i);
         }
         for (int i = 0; i < vl5.size(); i++) {
-
             controller.quickSortVare(va5, 0, va5.length - 1);
             list5.clear();
             for (int j = 0; j < va5.length; j++) {
                 list5.addElement(va5[j]);
             }
+<<<<<<< HEAD
+=======
 
             jLabelRedigerVare.setText("Opret vare:");
             jLabelRedigerIVare.setText("");
             jTextFieldNavn.setText("");
             jTextFieldVarePris.setText("");
             jTextFieldVareQty.setText("");
+>>>>>>> branch 'master' of https://github.com/maanba/semesterProject.git
         }
-
         // list9 
         ArrayList<Kunde> kl9 = controller.getAllCostumers();
         Kunde[] ka9 = new Kunde[kl9.size()];
@@ -1215,6 +1215,8 @@ public class GUI extends javax.swing.JFrame {
             for (int j = 0; j < ka9.length; j++) {
                 list9.addElement(ka9[j]);
             }
+<<<<<<< HEAD
+=======
 
             jLabel20.setText("");
             jLabel18.setText("Opret kunde:");
@@ -1224,8 +1226,12 @@ public class GUI extends javax.swing.JFrame {
             jTextFieldAdresse.setText("");
             jTextFieldPostnummer.setText("");
             jTextFieldTelefonnummer.setText("");
+>>>>>>> branch 'master' of https://github.com/maanba/semesterProject.git
         }
+<<<<<<< HEAD
+=======
 
+>>>>>>> branch 'master' of https://github.com/maanba/semesterProject.git
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
