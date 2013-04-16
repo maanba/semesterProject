@@ -98,6 +98,7 @@ public class GUI extends javax.swing.JFrame {
         jButtonMontoer = new javax.swing.JButton();
         jButtonStatus = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jComboBox2 = new javax.swing.JComboBox();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane10 = new javax.swing.JScrollPane();
         jList9 = new javax.swing.JList();
@@ -239,10 +240,20 @@ public class GUI extends javax.swing.JFrame {
 
         buttonGroup1.add(jRadioButtonAfhentning);
         jRadioButtonAfhentning.setText("Afhentning");
+        jRadioButtonAfhentning.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonAfhentningActionPerformed(evt);
+            }
+        });
         jPanel1.add(jRadioButtonAfhentning, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, -1, -1));
 
         buttonGroup1.add(jRadioButtonLevering);
         jRadioButtonLevering.setText("Levering");
+        jRadioButtonLevering.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonLeveringActionPerformed(evt);
+            }
+        });
         jPanel1.add(jRadioButtonLevering, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 50, -1, -1));
 
         jButtonOrdreRediger.setText("< Rediger");
@@ -344,6 +355,9 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 50, -1, -1));
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Lastbil" }));
+        jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 50, -1, -1));
 
         jTabbedPane1.addTab("Ordre", jPanel1);
 
@@ -757,7 +771,11 @@ public class GUI extends javax.swing.JFrame {
                         }
                         String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                         String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
-                        controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()) - Double.parseDouble(jTextFieldPris.getText()), 0.00, afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                        if (jRadioButtonAfhentning.isSelected()) {
+                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()) - Double.parseDouble(jTextFieldPris.getText()), 0.00, "", afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                        } else {
+                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()) - Double.parseDouble(jTextFieldPris.getText()), 0.00, "" + jComboBox2.getSelectedItem(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                        }
                         list2.clear();
                         list3.clear();
                         jLabelError.setText("");
@@ -774,7 +792,11 @@ public class GUI extends javax.swing.JFrame {
                     }
                     String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                     String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
-                    controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()) - Double.parseDouble(jTextFieldPris.getText()), controller.getCurrentOrder().getDepositum(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                    if (jRadioButtonAfhentning.isSelected()) {
+                        controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()) - Double.parseDouble(jTextFieldPris.getText()), controller.getCurrentOrder().getDepositum(), "", afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                    } else {
+                        controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()) - Double.parseDouble(jTextFieldPris.getText()), controller.getCurrentOrder().getDepositum(), "" + jComboBox2.getSelectedItem(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                    }
                     list2.clear();
                     list3.clear();
                     jLabelError.setText("");
@@ -865,7 +887,7 @@ public class GUI extends javax.swing.JFrame {
         selected.setDepositum(depositum);
         System.out.println("Depositum: " + selected.getDepositum());
         controller.setCurrentOrder(selected);
-        controller.updateOrder(selected.getKnummer(), selected.getPris(), selected.getDepositum(), selected.getAfhentning(), selected.getStatus(), selected.getLevering(), selected.getReturnering(), selected.getOd());
+        controller.updateOrder(selected.getKnummer(), selected.getPris(), selected.getDepositum(), selected.getTid(), selected.getAfhentning(), selected.getStatus(), selected.getLevering(), selected.getReturnering(), selected.getOd());
     }//GEN-LAST:event_jButtonDepositumActionPerformed
 
     private void jButtonAfslutOrdreActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonAfslutOrdreActionPerformed
@@ -973,6 +995,7 @@ public class GUI extends javax.swing.JFrame {
         if (!jListHistorik.isSelectionEmpty()) {
             Ordre ordre = (Ordre) jListHistorik.getSelectedValue();
             controller.deleteOrder(ordre);
+            update();
         }
     }//GEN-LAST:event_jButtonSletOrdreActionPerformed
 
@@ -984,63 +1007,13 @@ public class GUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonSletVareActionPerformed
 
-    private void jButtonKundeSøgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKundeSøgActionPerformed
-        if(!jTextFieldKundeSøg.getText().equals("")){
-                ArrayList<Kunde> kl = new ArrayList<>();
-        int counter = 0;
-        for (int i = 0; i < list9.size(); i++) {
-            kl.add((Kunde) list9.getElementAt(i));
-        }
-        for (int i = 0; i < kl.size(); i++) {
-            if (kl.get(i).getFirma() == null && kl.get(i).getNavn().contains(jTextFieldKundeSøg.getText())) {
-                jList9.setSelectedIndex(i);
-            }
-            else if (kl.get(i).getFirma() != null && kl.get(i).getFirma().contains(jTextFieldKundeSøg.getText()) || kl.get(i).getNavn().contains(jTextFieldKundeSøg.getText())) {
-                jList9.setSelectedIndex(i);
-            }
-            else {
-                list9.removeElementAt(i-counter);
-                counter++;
-            }
-        }
-        if(list9.isEmpty() == true){
-            update();
-        }
-        } else {
-            update();
-        }   
-    }//GEN-LAST:event_jButtonKundeSøgActionPerformed
+    private void jRadioButtonAfhentningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAfhentningActionPerformed
+        jComboBox2.setEnabled(false);
+    }//GEN-LAST:event_jRadioButtonAfhentningActionPerformed
 
-    private void jButtonTilbudSøgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilbudSøgActionPerformed
-        ArrayList<Vare> vl = new ArrayList<>();
-        for (int i = 0; i < list7.size(); i++) {
-            vl.add((Vare) list7.getElementAt(i));
-        }
-        for (int i = 0; i < vl.size(); i++) {
-            if (vl.get(i).getVnavn().contains(jTextFieldKundeSøg.getText())) {
-                jList7.setSelectedIndex(i);
-        }
-            else {
-                list7.removeElementAt(i);
-            }
-        }
-    }//GEN-LAST:event_jButtonTilbudSøgActionPerformed
-
-    private void jButtonReturSøgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReturSøgActionPerformed
-        ArrayList<Ordre> ol = new ArrayList<>();
-        for (int i = 0; i < listOrdrer.size(); i++) {
-            ol.add((Ordre) listOrdrer.getElementAt(i));
-        }
-        for (int i = 0; i < ol.size(); i++) {
-            String onummer = ol.get(i).getOnummer() + "";
-            if (onummer.contains(jTextFieldKundeSøg.getText())) {
-                jListOrdrer.setSelectedIndex(i);
-        }
-            else {
-                listOrdrer.removeElementAt(i);
-            }
-        }
-    }//GEN-LAST:event_jButtonReturSøgActionPerformed
+    private void jRadioButtonLeveringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonLeveringActionPerformed
+        jComboBox2.setEnabled(true);
+    }//GEN-LAST:event_jRadioButtonLeveringActionPerformed
 
     private void jButtonLeverActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
@@ -1175,7 +1148,7 @@ public class GUI extends javax.swing.JFrame {
         }
 
         // list1:
-        if (!"".equals(jTextFieldÅrUd.getText())) {
+        if (!"".equals(jTextFieldÅrUd.getText()) && !"".equals(jTextFieldDagUd.getText()) && !"".equals(jTextFieldMånedUd.getText()) && !"".equals(jTextFieldÅrInd.getText()) && !"".equals(jTextFieldDagInd.getText()) && !"".equals(jTextFieldMånedInd.getText())) {
             int levYear = Integer.parseInt(jTextFieldÅrUd.getText());
             int levMonth = Integer.parseInt(jTextFieldMånedUd.getText());
             int levDay = Integer.parseInt(jTextFieldDagUd.getText());
@@ -1222,6 +1195,40 @@ public class GUI extends javax.swing.JFrame {
 
             for (int i = 0; i < va.length; i++) {
                 list1.addElement(va[i]);
+            }
+        }
+
+        //jComboBox2
+        if (!"".equals(jTextFieldÅrUd.getText()) && !"".equals(jTextFieldDagUd.getText()) && !"".equals(jTextFieldMånedUd.getText()) && !"".equals(jTextFieldÅrInd.getText()) && !"".equals(jTextFieldDagInd.getText()) && !"".equals(jTextFieldMånedInd.getText())) {
+            int levYear = Integer.parseInt(jTextFieldÅrUd.getText());
+            int levMonth = Integer.parseInt(jTextFieldMånedUd.getText());
+            int levDay = Integer.parseInt(jTextFieldDagUd.getText());
+            int retYear = Integer.parseInt(jTextFieldÅrInd.getText());
+            int retMonth = Integer.parseInt(jTextFieldMånedInd.getText());
+            int retDay = Integer.parseInt(jTextFieldDagInd.getText());
+            for (int i = 0; i < ol.size(); i++) {
+                for (int j = 0; j < list3.size(); j++) {
+                    Ordre o = (Ordre) list3.getElementAt(j);
+                    int oLevYear = Integer.parseInt(o.getLevering().substring(6, 10));
+                    int oLevMonth = Integer.parseInt(o.getLevering().substring(3, 5));
+                    int oLevDay = Integer.parseInt(o.getLevering().substring(0, 2));
+                    int oRetYear = Integer.parseInt(o.getReturnering().substring(6, 10));
+                    int oRetMonth = Integer.parseInt(o.getReturnering().substring(3, 5));
+                    int oRetDay = Integer.parseInt(o.getReturnering().substring(0, 2));
+                    if ((levDay <= oLevDay || levDay <= oRetDay) && (retDay >= oRetDay || retDay >= oLevDay)) {
+                        if ((levMonth <= oLevMonth || levMonth <= oRetMonth) && (retMonth >= oRetMonth || retMonth >= oLevMonth)) {
+                            if ((levYear <= oLevYear || levYear <= oRetYear) && (retYear >= oRetYear || retYear >= oLevYear)) {
+                                for (int k = 0; k < o.getOd().size(); k++) {
+                                    for (int l = 0; l < jComboBox2.getItemCount(); l++) {
+                                        if (ol.get(i).getTid().equals("" + jComboBox2.getItemAt(i))) {
+                                            jComboBox2.removeItemAt(i);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -1306,6 +1313,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonTilføj2;
     private javax.swing.JButton jButtonVisIPDF;
     private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
