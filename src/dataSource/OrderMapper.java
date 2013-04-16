@@ -27,20 +27,27 @@ public class OrderMapper {
         PreparedStatement statement = null;
         statement = conn.prepareStatement(SQLString);
 
-        for (int i = 0; i < ol.size(); i++) {
-            Ordre o = ol.get(i);
-            statement.setInt(1, o.getOnummer());
-            statement.setInt(2, o.getFnummer());
-            statement.setInt(3, o.getKnummer());
-            statement.setDouble(4, o.getPris());
-            statement.setDouble(5, o.getDepositum());
-            statement.setString(6, o.getAfhentning());
-            statement.setString(7, o.getStatus());
-            statement.setString(8, o.getModtaget());
-            statement.setString(9, o.getLevering());
-            statement.setString(10, o.getReturnering());
-            statement.setInt(11, o.getVer());
-            rowsInserted += statement.executeUpdate();
+        try {
+            for (int i = 0; i < ol.size(); i++) {
+                Ordre o = ol.get(i);
+                statement.setInt(1, o.getOnummer());
+                statement.setInt(2, o.getFnummer());
+                statement.setInt(3, o.getKnummer());
+                statement.setDouble(4, o.getPris());
+                statement.setDouble(5, o.getDepositum());
+                statement.setString(6, o.getAfhentning());
+                statement.setString(7, o.getStatus());
+                statement.setString(8, o.getModtaget());
+                statement.setString(9, o.getLevering());
+                statement.setString(10, o.getReturnering());
+                statement.setInt(11, o.getVer());
+                rowsInserted += statement.executeUpdate();
+                statement.close();
+            }
+        } finally {
+            if (!statement.isClosed()) {
+                statement.close();
+            }
         }
         if (testRun) {
             System.out.println("insertOrders(): " + (rowsInserted == ol.size())); // for test
@@ -54,15 +61,22 @@ public class OrderMapper {
         PreparedStatement statement = null;
         statement = conn.prepareStatement(SQLString);
 
-        for (int i = 0; i < kl.size(); i++) {
-            Kunde k = kl.get(i);
-            statement.setInt(1, k.getKnummer());
-            statement.setString(2, k.getFirma());
-            statement.setString(3, k.getNavn());
-            statement.setString(4, k.getAdresse());
-            statement.setInt(5, k.getPostnummer());
-            statement.setInt(6, k.getTelefonnummer());
-            rowsInserted += statement.executeUpdate();
+        try {
+            for (int i = 0; i < kl.size(); i++) {
+                Kunde k = kl.get(i);
+                statement.setInt(1, k.getKnummer());
+                statement.setString(2, k.getFirma());
+                statement.setString(3, k.getNavn());
+                statement.setString(4, k.getAdresse());
+                statement.setInt(5, k.getPostnummer());
+                statement.setInt(6, k.getTelefonnummer());
+                rowsInserted += statement.executeUpdate();
+                statement.close();
+            }
+        } finally {
+            if (!statement.isClosed()) {
+                statement.close();
+            }
         }
         if (testRun) {
             System.out.println("insertOrders(): " + (rowsInserted == kl.size())); // for test
@@ -76,13 +90,20 @@ public class OrderMapper {
         PreparedStatement statement = null;
         statement = conn.prepareStatement(SQLString);
 
-        for (int i = 0; i < vl.size(); i++) {
-            Vare v = vl.get(i);
-            statement.setInt(1, v.getVnummer());
-            statement.setString(2, v.getVnavn());
-            statement.setInt(3, v.getQty());
-            statement.setDouble(4, v.getPris());
-            rowsInserted += statement.executeUpdate();
+        try {
+            for (int i = 0; i < vl.size(); i++) {
+                Vare v = vl.get(i);
+                statement.setInt(1, v.getVnummer());
+                statement.setString(2, v.getVnavn());
+                statement.setInt(3, v.getQty());
+                statement.setDouble(4, v.getPris());
+                rowsInserted += statement.executeUpdate();
+                statement.close();
+            }
+        } finally {
+            if (!statement.isClosed()) {
+                statement.close();
+            }
         }
         if (testRun) {
             System.out.println("insertOrders(): " + (rowsInserted == vl.size())); // for test
@@ -101,25 +122,32 @@ public class OrderMapper {
         PreparedStatement statement = null;
 
         statement = conn.prepareStatement(SQLString);
-        for (int i = 0; i < ol.size(); i++) {
-            Ordre o = ol.get(i);
-            statement.setInt(1, o.getFnummer());
-            statement.setInt(2, o.getKnummer());
-            statement.setDouble(3, o.getPris());
-            statement.setDouble(4, o.getDepositum());
-            statement.setString(5, o.getAfhentning());
-            statement.setString(6, o.getStatus());
-            statement.setString(7, o.getModtaget());
-            statement.setString(8, o.getLevering());
-            statement.setString(9, o.getReturnering());
-            statement.setInt(10, o.getVer() + 1); // next version number
-            statement.setInt(11, o.getOnummer());
-            statement.setInt(12, o.getVer());   // old version number
-            int tupleUpdated = statement.executeUpdate();
-            if (tupleUpdated == 1) {
-                o.nuVer();                       // increment version in current OrderObject
+        try {
+            for (int i = 0; i < ol.size(); i++) {
+                Ordre o = ol.get(i);
+                statement.setInt(1, o.getFnummer());
+                statement.setInt(2, o.getKnummer());
+                statement.setDouble(3, o.getPris());
+                statement.setDouble(4, o.getDepositum());
+                statement.setString(5, o.getAfhentning());
+                statement.setString(6, o.getStatus());
+                statement.setString(7, o.getModtaget());
+                statement.setString(8, o.getLevering());
+                statement.setString(9, o.getReturnering());
+                statement.setInt(10, o.getVer() + 1); // next version number
+                statement.setInt(11, o.getOnummer());
+                statement.setInt(12, o.getVer());   // old version number
+                int tupleUpdated = statement.executeUpdate();
+                if (tupleUpdated == 1) {
+                    o.nuVer();                       // increment version in current OrderObject
+                }
+                rowsUpdated += tupleUpdated;
+                statement.close();
             }
-            rowsUpdated += tupleUpdated;
+        } finally {
+            if (!statement.isClosed()) {
+                statement.close();
+            }
         }
         if (testRun) {
             System.out.println("updateOrders: " + (rowsUpdated == ol.size())); // for test
@@ -135,16 +163,23 @@ public class OrderMapper {
         PreparedStatement statement = null;
 
         statement = conn.prepareStatement(SQLString);
-        for (int i = 0; i < kl.size(); i++) {
-            Kunde k = kl.get(i);
-            statement.setString(1, k.getFirma());
-            statement.setString(2, k.getNavn());
-            statement.setString(3, k.getAdresse());
-            statement.setInt(4, k.getPostnummer());
-            statement.setInt(5, k.getTelefonnummer());
-            statement.setInt(6, k.getKnummer());
-            int tupleUpdated = statement.executeUpdate();
-            rowsUpdated += tupleUpdated;
+        try {
+            for (int i = 0; i < kl.size(); i++) {
+                Kunde k = kl.get(i);
+                statement.setString(1, k.getFirma());
+                statement.setString(2, k.getNavn());
+                statement.setString(3, k.getAdresse());
+                statement.setInt(4, k.getPostnummer());
+                statement.setInt(5, k.getTelefonnummer());
+                statement.setInt(6, k.getKnummer());
+                int tupleUpdated = statement.executeUpdate();
+                rowsUpdated += tupleUpdated;
+                statement.close();
+            }
+        } finally {
+            if (!statement.isClosed()) {
+                statement.close();
+            }
         }
         if (testRun) {
             System.out.println("updateOrders: " + (rowsUpdated == kl.size())); // for test
@@ -160,14 +195,21 @@ public class OrderMapper {
         PreparedStatement statement = null;
 
         statement = conn.prepareStatement(SQLString);
-        for (int i = 0; i < vl.size(); i++) {
-            Vare v = vl.get(i);
-            statement.setString(1, v.getVnavn());
-            statement.setInt(2, v.getQty());
-            statement.setDouble(3, v.getPris());
-            statement.setInt(4, v.getVnummer());
-            int tupleUpdated = statement.executeUpdate();
-            rowsUpdated += tupleUpdated;
+        try {
+            for (int i = 0; i < vl.size(); i++) {
+                Vare v = vl.get(i);
+                statement.setString(1, v.getVnavn());
+                statement.setInt(2, v.getQty());
+                statement.setDouble(3, v.getPris());
+                statement.setInt(4, v.getVnummer());
+                int tupleUpdated = statement.executeUpdate();
+                rowsUpdated += tupleUpdated;
+                statement.close();
+            }
+        } finally {
+            if (!statement.isClosed()) {
+                statement.close();
+            }
         }
         if (testRun) {
             System.out.println("updateOrders: " + (rowsUpdated == vl.size())); // for test
@@ -182,13 +224,20 @@ public class OrderMapper {
         PreparedStatement statement = null;
 
         int rowsInserted = 0;
-        if (0 < odl.size()) {
-            statement = conn.prepareStatement(SQLString);
-            for (int i = 0; i < odl.size(); i++) {
-                statement.setInt(1, odl.get(i).getOnummer());
-                statement.setInt(2, odl.get(i).getVnummer());
-                statement.setInt(3, odl.get(i).getMaengde());
-                rowsInserted += statement.executeUpdate();
+        try {
+            if (0 < odl.size()) {
+                statement = conn.prepareStatement(SQLString);
+                for (int i = 0; i < odl.size(); i++) {
+                    statement.setInt(1, odl.get(i).getOnummer());
+                    statement.setInt(2, odl.get(i).getVnummer());
+                    statement.setInt(3, odl.get(i).getMaengde());
+                    rowsInserted += statement.executeUpdate();
+                    statement.close();
+                }
+            }
+        } finally {
+            if (!statement.isClosed()) {
+                statement.close();
             }
         }
         if (testRun) {
@@ -202,13 +251,20 @@ public class OrderMapper {
         PreparedStatement statement = null;
 
         int rowsInserted = 0;
-        if (0 < delListe.size()) {
-            statement = conn.prepareStatement(SQLString);
-            for (int i = 0; i < delListe.size(); i++) {
-                statement.setInt(1, delListe.get(i).getVnummer());
-                statement.setString(2, delListe.get(i).getTitel());
-                statement.setInt(3, delListe.get(i).getAntal());
-                rowsInserted += statement.executeUpdate();
+        try {
+            if (0 < delListe.size()) {
+                statement = conn.prepareStatement(SQLString);
+                for (int i = 0; i < delListe.size(); i++) {
+                    statement.setInt(1, delListe.get(i).getVnummer());
+                    statement.setString(2, delListe.get(i).getTitel());
+                    statement.setInt(3, delListe.get(i).getAntal());
+                    rowsInserted += statement.executeUpdate();
+                    statement.close();
+                }
+            }
+        } finally {
+            if (!statement.isClosed()) {
+                statement.close();
             }
         }
         if (testRun) {
@@ -225,13 +281,20 @@ public class OrderMapper {
         PreparedStatement statement = null;
 
         statement = conn.prepareStatement(SQLString);
-        for (int i = 0; i < odl.size(); i++) {
-            Odetaljer od = odl.get(i);
-            statement.setInt(1, od.getMaengde());
-            statement.setInt(2, od.getOnummer());
-            statement.setInt(3, od.getVnummer());
-            int tupleUpdated = statement.executeUpdate();
-            rowsUpdated += tupleUpdated;
+        try {
+            for (int i = 0; i < odl.size(); i++) {
+                Odetaljer od = odl.get(i);
+                statement.setInt(1, od.getMaengde());
+                statement.setInt(2, od.getOnummer());
+                statement.setInt(3, od.getVnummer());
+                int tupleUpdated = statement.executeUpdate();
+                rowsUpdated += tupleUpdated;
+                statement.close();
+            }
+        } finally {
+            if (!statement.isClosed()) {
+                statement.close();
+            }
         }
         if (testRun) {
             System.out.println("updateOrders: " + (rowsUpdated == odl.size())); // for test
@@ -247,13 +310,20 @@ public class OrderMapper {
         PreparedStatement statement = null;
 
         statement = conn.prepareStatement(SQLString);
-        for (int i = 0; i < delListe.size(); i++) {
-            Del od = delListe.get(i);
-            statement.setInt(1, od.getVnummer());
-            statement.setString(2, od.getTitel());
-            statement.setInt(3, od.getAntal());
-            int tupleUpdated = statement.executeUpdate();
-            rowsUpdated += tupleUpdated;
+        try {
+            for (int i = 0; i < delListe.size(); i++) {
+                Del od = delListe.get(i);
+                statement.setInt(1, od.getVnummer());
+                statement.setString(2, od.getTitel());
+                statement.setInt(3, od.getAntal());
+                int tupleUpdated = statement.executeUpdate();
+                rowsUpdated += tupleUpdated;
+                statement.close();
+            }
+        } finally {
+            if (!statement.isClosed()) {
+                statement.close();
+            }
         }
         if (testRun) {
             System.out.println("updateDel: " + (rowsUpdated == delListe.size())); // for test
@@ -267,9 +337,14 @@ public class OrderMapper {
                 + "where onummer = ?";
 
         PreparedStatement statement = conn.prepareStatement(SQLString);
-        statement.setInt(1, ono);
-        statement.executeUpdate();
-
+        try {
+            statement.setInt(1, ono);
+            statement.executeUpdate();
+        } finally {
+            if (!statement.isClosed()) {
+                statement.close();
+            }
+        }
         return (ordersDeleted == 1);
     }
 
@@ -279,9 +354,14 @@ public class OrderMapper {
                 + "where vnummer = ?";
 
         PreparedStatement statement = conn.prepareStatement(SQLString);
-        statement.setInt(1, vnummer);
-        statement.executeUpdate();
-
+        try {
+            statement.setInt(1, vnummer);
+            statement.executeUpdate();
+        } finally {
+            if (!statement.isClosed()) {
+                statement.close();
+            }
+        }
         return (delDeleted == 1);
     }
 
@@ -291,10 +371,17 @@ public class OrderMapper {
                 + "where knummer = ?";
 
         PreparedStatement statement = conn.prepareStatement(SQLString);
-        for (int i = 0; i < kl.size(); i++) {
-            Kunde k = kl.get(i);
-            statement.setInt(1, k.getKnummer());
-            statement.executeUpdate();
+        try {
+            for (int i = 0; i < kl.size(); i++) {
+                Kunde k = kl.get(i);
+                statement.setInt(1, k.getKnummer());
+                statement.executeUpdate();
+                statement.close();
+            }
+        } finally {
+            if (!statement.isClosed()) {
+                statement.close();
+            }
         }
         return (ordersDeleted == kl.size());
     }
@@ -308,16 +395,27 @@ public class OrderMapper {
 
         PreparedStatement statement1 = conn.prepareStatement(SQLString2);
         PreparedStatement statement2 = conn.prepareStatement(SQLString1);
-        for (int i = 0; i < ol.size(); i++) {
-            Ordre o = (Ordre) ol.get(i);
-            for (int j = 0; j < o.getOd().size(); j++) {
-                statement1.setInt(1, o.getOnummer());
-                statement1.setInt(2, o.getOd().get(j).getVnummer());
-                statement1.executeUpdate();
+        try {
+            for (int i = 0; i < ol.size(); i++) {
+                Ordre o = (Ordre) ol.get(i);
+                for (int j = 0; j < o.getOd().size(); j++) {
+                    statement1.setInt(1, o.getOnummer());
+                    statement1.setInt(2, o.getOd().get(j).getVnummer());
+                    statement1.executeUpdate();
+                    statement1.close();
+                }
+                statement2.setInt(1, o.getOnummer());
+                statement2.setInt(2, o.getVer());
+                ordersDeleted += statement2.executeUpdate();
+                statement2.close();
             }
-            statement2.setInt(1, o.getOnummer());
-            statement2.setInt(2, o.getVer());
-            ordersDeleted += statement2.executeUpdate();
+        } finally {
+            if (!statement1.isClosed()) {
+                statement1.close();
+            }
+            if (!statement2.isClosed()) {
+                statement2.close();
+            }
         }
         return (ordersDeleted == ol.size());
     }
@@ -325,13 +423,20 @@ public class OrderMapper {
     public boolean deleteRessources(ArrayList<Vare> vl, Connection conn) throws SQLException {
         int ordersDeleted = 0;
         String SQLString = "delete from varer "
-                + "where knummer = ?";
+                + "where vnummer = ?";
 
         PreparedStatement statement = conn.prepareStatement(SQLString);
-        for (int i = 0; i < vl.size(); i++) {
-            Vare v = vl.get(i);
-            statement.setInt(1, v.getVnummer());
-            statement.executeUpdate();
+        try {
+            for (int i = 0; i < vl.size(); i++) {
+                Vare v = vl.get(i);
+                statement.setInt(1, v.getVnummer());
+                statement.executeUpdate();
+                statement.close();
+            }
+        } finally {
+            if (!statement.isClosed()) {
+                statement.close();
+            }
         }
         return (ordersDeleted == vl.size());
     }
@@ -339,7 +444,7 @@ public class OrderMapper {
     //======  Methods to read from DB =======================================================
     // Retrieve a specific order and related order details
     // Returns the Order-object
-    public Ordre getOrder(int ono, Connection conn) {
+    public Ordre getOrder(int ono, Connection conn) throws SQLException {
         Ordre o = null;
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
         String SQLString1 = // get order
@@ -351,12 +456,13 @@ public class OrderMapper {
                 + "from odetaljer "
                 + "where onummer = ? ";
         PreparedStatement statement = null;
+        ResultSet rs = null;
 
         try {
             //=== get order
             statement = conn.prepareStatement(SQLString1);
             statement.setInt(1, ono);
-            ResultSet rs = statement.executeQuery();
+            rs = statement.executeQuery();
             if (rs.next()) {
                 o = new Ordre(ono,
                         rs.getInt(2),
@@ -371,8 +477,10 @@ public class OrderMapper {
                         rs.getInt(11));
 
                 //=== get order details
+                statement.close();
                 statement = conn.prepareStatement(SQLString2);
                 statement.setInt(1, ono);
+                rs.close();
                 rs = statement.executeQuery();
                 while (rs.next()) {
                     o.addOd(new Odetaljer(
@@ -381,9 +489,13 @@ public class OrderMapper {
                             rs.getInt(3)));
                 }
             }
-        } catch (Exception e) {
-            System.out.println("Fail in OrderMapper - getOrder");
-            System.out.println(e.getMessage());
+        } finally {
+            if (!rs.isClosed()) {
+                rs.close();
+            }
+            if (!statement.isClosed()) {
+                statement.close();
+            }
         }
         if (testRun) {
             System.out.println("Retrieved Order: " + o);
@@ -391,7 +503,7 @@ public class OrderMapper {
         return o;
     }
 
-    public ArrayList<Ordre> getAllOrders(Connection conn) {
+    public ArrayList<Ordre> getAllOrders(Connection conn) throws SQLException {
         Ordre o = null;
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
         ArrayList<Ordre> ol = new ArrayList();
@@ -408,11 +520,12 @@ public class OrderMapper {
                 "select * "
                 + "from ordrer ";
         PreparedStatement statement = null;
+        ResultSet rs = null;
 
         try {
 
             statement = conn.prepareStatement(SQLString3);
-            ResultSet rs = statement.executeQuery();
+            rs = statement.executeQuery();
             int i = 1;
             while (rs.next()) {
                 ono.add(rs.getInt(i));
@@ -436,8 +549,10 @@ public class OrderMapper {
                             rs.getInt(11));
 
                     //=== get order details
+                    statement.close();
                     statement = conn.prepareStatement(SQLString2);
                     statement.setInt(1, o.getOnummer());
+                    rs.close();
                     rs = statement.executeQuery();
                     while (rs.next()) {
                         o.addOd(new Odetaljer(
@@ -447,10 +562,16 @@ public class OrderMapper {
                     }
                     ol.add(o);
                 }
+                statement.close();
+                rs.close();
             }
-        } catch (Exception e) {
-            System.out.println("Fail in OrderMapper - getAllOrders");
-            System.out.println(e.getMessage());
+        } finally {
+            if (!rs.isClosed()) {
+                rs.close();
+            }
+            if (!statement.isClosed()) {
+                statement.close();
+            }
         }
         if (testRun) {
             System.out.println("Retrieved Order: " + o);
@@ -458,7 +579,7 @@ public class OrderMapper {
         return ol;
     }
 
-    public ArrayList<Kunde> getAllCostumers(Connection conn) {
+    public ArrayList<Kunde> getAllCostumers(Connection conn) throws SQLException {
         Kunde k = null;
         ArrayList<Kunde> kl = new ArrayList();
         ArrayList kno = new ArrayList();
@@ -470,11 +591,12 @@ public class OrderMapper {
                 "select * "
                 + "from kunder ";
         PreparedStatement statement = null;
+        ResultSet rs = null;
 
         try {
 
             statement = conn.prepareStatement(SQLString3);
-            ResultSet rs = statement.executeQuery();
+            rs = statement.executeQuery();
             int i = 1;
             while (rs.next()) {
                 kno.add(rs.getInt(i));
@@ -493,10 +615,16 @@ public class OrderMapper {
                             rs.getInt(6));
                 }
                 kl.add(k);
+                statement.close();
+                rs.close();
             }
-        } catch (Exception e) {
-            System.out.println("Fail in OrderMapper - getAllCostumers");
-            System.out.println(e.getMessage());
+        } finally {
+            if (!rs.isClosed()) {
+                rs.close();
+            }
+            if (!statement.isClosed()) {
+                statement.close();
+            }
         }
         if (testRun) {
             System.out.println("Retrieved Order: " + k);
@@ -504,7 +632,7 @@ public class OrderMapper {
         return kl;
     }
 
-    public ArrayList<Vare> getAllRessources(Connection conn) {
+    public ArrayList<Vare> getAllRessources(Connection conn) throws SQLException {
         Vare v = null;
         ArrayList<Vare> vl = new ArrayList();
         ArrayList vno = new ArrayList();
@@ -520,11 +648,12 @@ public class OrderMapper {
                 "select * "
                 + "from varer ";
         PreparedStatement statement = null;
+        ResultSet rs = null;
 
         try {
 
             statement = conn.prepareStatement(SQLString3);
-            ResultSet rs = statement.executeQuery();
+            rs = statement.executeQuery();
             int i = 1;
             while (rs.next()) {
                 vno.add(rs.getInt(i));
@@ -540,8 +669,10 @@ public class OrderMapper {
                             rs.getInt(3),
                             rs.getDouble(4));
                 }
+                statement.close();
                 statement = conn.prepareStatement(SQLString2);
                 statement.setInt(1, v.getVnummer());
+                rs.close();
                 rs = statement.executeQuery();
                 while (rs.next()) {
                     v.addDel(new Del(
@@ -550,10 +681,16 @@ public class OrderMapper {
                             rs.getInt(3)));
                 }
                 vl.add(v);
+                statement.close();
+                rs.close();
             }
-        } catch (Exception e) {
-            System.out.println("Fail in OrderMapper - getAllRessources");
-            System.out.println(e.getMessage());
+        } finally {
+            if (!rs.isClosed()) {
+                rs.close();
+            }
+            if (!statement.isClosed()) {
+                statement.close();
+            }
         }
         if (testRun) {
             System.out.println("Retrieved Order: " + v);
@@ -561,7 +698,7 @@ public class OrderMapper {
         return vl;
     }
 
-    public Vare getVare(Connection conn, int vnummer) {
+    public Vare getVare(Connection conn, int vnummer) throws SQLException {
         String SQLString = "select * from varer where vnummer = ?";
         PreparedStatement statement = null;
         Vare vare = null;
@@ -570,18 +707,22 @@ public class OrderMapper {
                 "select * "
                 + "from dele "
                 + "where vnummer = ? ";
+        ResultSet rs = null;
+
         try {
             statement = conn.prepareStatement(SQLString);
             statement.setInt(1, vnummer);
-            ResultSet rs = statement.executeQuery();
+            rs = statement.executeQuery();
             if (rs.next()) {
                 vare = new Vare(rs.getInt(1),
                         rs.getString(2),
                         rs.getInt(3),
                         rs.getDouble(4));
             }
+            statement.close();
             statement = conn.prepareStatement(SQLString2);
             statement.setInt(1, vnummer);
+            rs.close();
             rs = statement.executeQuery();
             while (rs.next()) {
                 vare.addDel(new Del(
@@ -589,8 +730,13 @@ public class OrderMapper {
                         rs.getString(2),
                         rs.getInt(3)));
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } finally {
+            if (!rs.isClosed()) {
+                rs.close();
+            }
+            if (!statement.isClosed()) {
+                statement.close();
+            }
         }
         if (testRun) {
             System.out.println("Retrieved Varer: " + vare);
@@ -598,14 +744,15 @@ public class OrderMapper {
         return vare;
     }
 
-    public Kunde getKunde(Connection conn, int knummer) {
+    public Kunde getKunde(Connection conn, int knummer) throws SQLException {
         String SQLString = "select * from kunder where knummer = ?";
         PreparedStatement statement = null;
         Kunde kunde = null;
+        ResultSet rs = null;
         try {
             statement = conn.prepareStatement(SQLString);
             statement.setInt(1, knummer);
-            ResultSet rs = statement.executeQuery();
+            rs = statement.executeQuery();
             if (rs.next()) {
                 kunde = new Kunde(rs.getInt(1),
                         rs.getString(2),
@@ -614,147 +761,128 @@ public class OrderMapper {
                         rs.getInt(5),
                         rs.getInt(6));
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+
+        } finally {
+            if (!rs.isClosed()) {
+                rs.close();
+            }
+            if (!statement.isClosed()) {
+                statement.close();
+            }
         }
         return kunde;
     }
 
-    public Postnummer getPostnummer(Connection conn, int postnr) {
+    public Postnummer getPostnummer(Connection conn, int postnr) throws SQLException {
         String SQLString = "select * from postnummer where postnummer = ?";
         PreparedStatement statement = null;
         Postnummer postnummer = null;
+        ResultSet rs = null;
         try {
             statement = conn.prepareStatement(SQLString);
             statement.setInt(1, postnr);
-            ResultSet rs = statement.executeQuery();
+            rs = statement.executeQuery();
             if (rs.next()) {
                 postnummer = new Postnummer(rs.getInt(1),
                         rs.getString(2));
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } finally {
+            if (!rs.isClosed()) {
+                rs.close();
+            }
+            if (!statement.isClosed()) {
+                statement.close();
+            }
         }
         return postnummer;
     }
     // Retrieves the next unique order number from DB
 
-    public int getNextOrderNo(Connection conn) {
+    public int getNextOrderNo(Connection conn) throws SQLException {
         int nextOno = 0;
         String SQLString = "select orderseq.nextval  " + "from dual";
         PreparedStatement statement = null;
+        ResultSet rs = null;
         try {
             statement = conn.prepareStatement(SQLString);
-            ResultSet rs = statement.executeQuery();
+            rs = statement.executeQuery();
             if (rs.next()) {
                 nextOno = rs.getInt(1);
             }
-        } catch (Exception e) {
-            System.out.println("Fail in OrderMapper - getNextOrderNo");
-            System.out.println(e.getMessage());
+        } finally {
+            if (!rs.isClosed()) {
+                rs.close();
+            }
+            if (!statement.isClosed()) {
+                statement.close();
+            }
         }
         return nextOno;
     }
 
-    public int getNextVnummer(Connection conn) {
+    public int getNextVnummer(Connection conn) throws SQLException {
         int nextVno = 0;
         String SQLString = "select varerseq.nextval  " + "from dual";
         PreparedStatement statement = null;
+        ResultSet rs = null;
         try {
             statement = conn.prepareStatement(SQLString);
-            ResultSet rs = statement.executeQuery();
+            rs = statement.executeQuery();
             if (rs.next()) {
                 nextVno = rs.getInt(1);
             }
-        } catch (Exception e) {
-            System.out.println("Fail in OrderMapper - getNextVnummer");
-            System.out.println(e.getMessage());
+        } finally {
+            if (!rs.isClosed()) {
+                rs.close();
+            }
+            if (!statement.isClosed()) {
+                statement.close();
+            }
         }
         return nextVno;
     }
 
-    public int getNextFnummer(Connection conn) {
+    public int getNextFnummer(Connection conn) throws SQLException {
         int nextFnummer = 0;
         String SQLString = "select fakturaseq.nextval  " + "from dual";
         PreparedStatement statement = null;
+        ResultSet rs = null;
         try {
             statement = conn.prepareStatement(SQLString);
-            ResultSet rs = statement.executeQuery();
+            rs = statement.executeQuery();
             if (rs.next()) {
                 nextFnummer = rs.getInt(1);
             }
-        } catch (Exception e) {
-            System.out.println("Fail in OrderMapper - getNextFnummer");
-            System.out.println(e.getMessage());
+        } finally {
+            if (!rs.isClosed()) {
+                rs.close();
+            }
+            if (!statement.isClosed()) {
+                statement.close();
+            }
         }
         return nextFnummer;
     }
 
-    public int getNextKnummer(Connection conn) {
+    public int getNextKnummer(Connection conn) throws SQLException {
         int nextKno = 0;
         String SQLString = "select kundeseq.nextval  " + "from dual";
         PreparedStatement statement = null;
+        ResultSet rs = null;
         try {
             statement = conn.prepareStatement(SQLString);
-            ResultSet rs = statement.executeQuery();
+            rs = statement.executeQuery();
             if (rs.next()) {
                 nextKno = rs.getInt(1);
             }
-        } catch (Exception e) {
-            System.out.println("Fail in OrderMapper - getNextKnummer");
-            System.out.println(e.getMessage());
+        } finally {
+            if (!rs.isClosed()) {
+                rs.close();
+            }
+            if (!statement.isClosed()) {
+                statement.close();
+            }
         }
         return nextKno;
     }
-    //DBHandler  Class contains all database access related queries
-
-    public synchronized String getBundle_Code(String charge_code) throws Exception {
-        ResultSet rs = null;
-        String result = “”;
-        String query = “”;
-        try {
-            query = “select * from test
-            ”;
-        rs = getDBHandler().executeSQL(query);
-            if (rs.last() && rs.getRow() == 1) {
-                result = rs.getString(1);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            close(rs);
-        }
-        return result;
-
-    }
-
-//DBHandler  Class contains all database access related queries
-//    private synchronized DBHandler getDBHandler() {
-//
-//        if (dbh == null) {
-//
-//            config.initialize();
-//
-//            dbh = new DBHandler();
-//
-//        }
-//
-//        return dbh;
-//
-//    }
-
-//This API will close all the connection and statements
-//    private void close(ResultSet rs) throws SQLException {
-//
-//        if (rs != null) {
-//
-//            rs.close();
-//
-//        }
-//
-//        getDBHandler().closeStmt();
-//
-//        getDBHandler().disconnect();
-//
-//    }
 }

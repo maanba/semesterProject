@@ -32,55 +32,97 @@ public class DBFacade {
     //======	Methods to retrieve data 
     public Ordre getOrder(int ono) {
         Ordre o = null;
-        o = new OrderMapper().getOrder(ono, con);
+        try {
+            o = new OrderMapper().getOrder(ono, con);
+        } catch (Exception e) {
+            System.out.println("Fail in OrderMapper - getOrder");
+            System.out.println(e.getMessage());
+        }
         return o;
     }
 
     public Vare getVare(int vnummer) {
         Vare v = null;
-        v = new OrderMapper().getVare(con, vnummer);
+        try {
+            v = new OrderMapper().getVare(con, vnummer);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         return v;
     }
 
     public Kunde getKunde(int knummer) {
         Kunde k = null;
-        k = new OrderMapper().getKunde(con, knummer);
+        try {
+            k = new OrderMapper().getKunde(con, knummer);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         return k;
     }
 
     public Postnummer getPostnummer(int postnr) {
         Postnummer p = null;
-        p = new OrderMapper().getPostnummer(con, postnr);
+        try {
+            p = new OrderMapper().getPostnummer(con, postnr);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         return p;
     }
 
     public ArrayList<Ordre> getAllOrdres() {
         ArrayList<Ordre> o = null;
-        o = new OrderMapper().getAllOrders(con);
+        try {
+            o = new OrderMapper().getAllOrders(con);
+        } catch (Exception e) {
+            System.out.println("Fail in OrderMapper - getAllOrders");
+            System.out.println(e.getMessage());
+        }
         return o;
     }
 
     public ArrayList<Kunde> getAllCustumers() {
         ArrayList<Kunde> o = null;
-        o = new OrderMapper().getAllCostumers(con);
+        try {
+            o = new OrderMapper().getAllCostumers(con);
+        } catch (Exception e) {
+            System.out.println("Fail in OrderMapper - getAllCostumers");
+            System.out.println(e.getMessage());
+        }
         return o;
     }
 
     public ArrayList<Vare> getAllRessources() {
         ArrayList<Vare> o = null;
-        o = new OrderMapper().getAllRessources(con);
+        try {
+            o = new OrderMapper().getAllRessources(con);
+        } catch (Exception e) {
+            System.out.println("Fail in OrderMapper - getAllRessources");
+            System.out.println(e.getMessage());
+        }
         return o;
     }
 
     public int getNextOrderNo() {
         int nextOno = 0;
-        nextOno = new OrderMapper().getNextOrderNo(con);
+        try {
+            nextOno = new OrderMapper().getNextOrderNo(con);
+        } catch (Exception e) {
+            System.out.println("Fail in OrderMapper - getNextFnummer");
+            System.out.println(e.getMessage());
+        }
         return nextOno;
     }
 
     public int getNextFNo() {
         int nextFnummer = 0;
-        nextFnummer = new OrderMapper().getNextFnummer(con);
+        try {
+            nextFnummer = new OrderMapper().getNextFnummer(con);
+        } catch (Exception e) {
+            System.out.println("Fail in OrderMapper - getNextFnummer");
+            System.out.println(e.getMessage());
+        }
         return nextFnummer;
     }
 
@@ -177,7 +219,7 @@ public class DBFacade {
             status = new OrderMapper().deleteOrderDetails(ono, con);
         } catch (SQLException ex) {
             System.out.println("fail i deleteOdetail");
-        } 
+        }
         return status;
     }
 
