@@ -1192,15 +1192,14 @@ public class GUI extends javax.swing.JFrame {
             for (int j = 0; j < va5.length; j++) {
                 list5.addElement(va5[j]);
             }
-<<<<<<< HEAD
-=======
+
 
             jLabelRedigerVare.setText("Opret vare:");
             jLabelRedigerIVare.setText("");
             jTextFieldNavn.setText("");
             jTextFieldVarePris.setText("");
             jTextFieldVareQty.setText("");
->>>>>>> branch 'master' of https://github.com/maanba/semesterProject.git
+
         }
         // list9 
         ArrayList<Kunde> kl9 = controller.getAllCostumers();
@@ -1215,8 +1214,7 @@ public class GUI extends javax.swing.JFrame {
             for (int j = 0; j < ka9.length; j++) {
                 list9.addElement(ka9[j]);
             }
-<<<<<<< HEAD
-=======
+
 
             jLabel20.setText("");
             jLabel18.setText("Opret kunde:");
@@ -1226,12 +1224,9 @@ public class GUI extends javax.swing.JFrame {
             jTextFieldAdresse.setText("");
             jTextFieldPostnummer.setText("");
             jTextFieldTelefonnummer.setText("");
->>>>>>> branch 'master' of https://github.com/maanba/semesterProject.git
-        }
-<<<<<<< HEAD
-=======
 
->>>>>>> branch 'master' of https://github.com/maanba/semesterProject.git
+
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
