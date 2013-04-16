@@ -976,7 +976,10 @@ public class GUI extends javax.swing.JFrame
     }//GEN-LAST:event_jButtonLevérActionPerformed
 
     private void jButtonSletOrdreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSletOrdreActionPerformed
-        // TODO add your handling code here:
+        if (!jListHistorik.isSelectionEmpty()){
+            Ordre ordre = (Ordre) jListHistorik.getSelectedValue();
+            controller.deleteOrder(ordre);
+        }
     }//GEN-LAST:event_jButtonSletOrdreActionPerformed
 
     private void jButtonSletVareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSletVareActionPerformed

@@ -225,15 +225,13 @@ public class OrderMapper {
 
         int rowsInserted = 0;
         try {
-            if (0 < odl.size()) {
-                statement = conn.prepareStatement(SQLString);
-                for (int i = 0; i < odl.size(); i++) {
-                    statement.setInt(1, odl.get(i).getOnummer());
-                    statement.setInt(2, odl.get(i).getVnummer());
-                    statement.setInt(3, odl.get(i).getMaengde());
-                    rowsInserted += statement.executeUpdate();
-                    statement.close();
-                }
+            statement = conn.prepareStatement(SQLString);
+            for (int i = 0; i < odl.size(); i++) {
+                statement.setInt(1, odl.get(i).getOnummer());
+                statement.setInt(2, odl.get(i).getVnummer());
+                statement.setInt(3, odl.get(i).getMaengde());
+                rowsInserted += statement.executeUpdate();
+                statement.close();
             }
         } finally {
             if (!statement.isClosed()) {

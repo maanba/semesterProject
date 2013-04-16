@@ -94,6 +94,14 @@ public class Controller {
         dbFacade.commitBusinessTransaction();
         currentOrder = null;
     }
+    
+    public boolean deleteOrder(Ordre o){
+        boolean result = false;
+        dbFacade.startNewBusinessTransaction();
+        result = dbFacade.deleteOrder(o);
+        dbFacade.commitBusinessTransaction();
+        return result;
+    }
 
     public void addOrderFakturaNummer(Ordre o) {
         setCurrentOrder(o);
