@@ -528,6 +528,8 @@ public class OrderMapper {
             while (rs.next()) {
                 ono.add(rs.getInt(i));
             }
+            statement.close();
+            rs.close();
             //=== get order
             for (int j = 0; j < ono.size(); j++) {
                 statement = conn.prepareStatement(SQLString1);

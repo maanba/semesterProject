@@ -979,6 +979,7 @@ public class GUI extends javax.swing.JFrame
         if (!jListHistorik.isSelectionEmpty()){
             Ordre ordre = (Ordre) jListHistorik.getSelectedValue();
             controller.deleteOrder(ordre);
+            update();
         }
     }//GEN-LAST:event_jButtonSletOrdreActionPerformed
 
