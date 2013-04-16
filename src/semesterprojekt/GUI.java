@@ -359,6 +359,9 @@ public class GUI extends javax.swing.JFrame {
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Lastbil" }));
         jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 50, -1, -1));
 
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Lastbil" }));
+        jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 50, -1, -1));
+
         jTabbedPane1.addTab("Ordre", jPanel1);
 
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
