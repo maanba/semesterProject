@@ -19,7 +19,7 @@ public class OrderMapper {
     // returns true if all elements were inserted successfully
     public boolean insertOrders(ArrayList<Ordre> ol, Connection conn) throws SQLException {
         int rowsInserted = 0;
-        String SQLString = "insert into ordrer values (?,?,?,?,?,?,?,"
+        String SQLString = "insert into ordrer values (?,?,?,?,?,?,?,?,"
                 + "to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'),"
                 + "to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'),"
                 + "to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'),"
@@ -35,12 +35,13 @@ public class OrderMapper {
                 statement.setInt(3, o.getKnummer());
                 statement.setDouble(4, o.getPris());
                 statement.setDouble(5, o.getDepositum());
-                statement.setString(6, o.getAfhentning());
-                statement.setString(7, o.getStatus());
-                statement.setString(8, o.getModtaget());
-                statement.setString(9, o.getLevering());
-                statement.setString(10, o.getReturnering());
-                statement.setInt(11, o.getVer());
+                statement.setString(6, o.getTid());
+                statement.setString(7, o.getAfhentning());
+                statement.setString(8, o.getStatus());
+                statement.setString(9, o.getModtaget());
+                statement.setString(10, o.getLevering());
+                statement.setString(11, o.getReturnering());
+                statement.setInt(12, o.getVer());
                 rowsInserted += statement.executeUpdate();
                 statement.close();
             }
@@ -117,7 +118,7 @@ public class OrderMapper {
     public boolean updateOrders(ArrayList<Ordre> ol, Connection conn) throws SQLException {
         int rowsUpdated = 0;
         String SQLString = "update ordrer "
-                + "set fnummer = ?, knummer = ?, pris = ?, depositum = ?, afhentning = ?, status = ?, modtaget = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), levering = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), returnering = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), ver = ? "
+                + "set fnummer = ?, knummer = ?, pris = ?, depositum = ?, tid = ?, afhentning = ?, status = ?, modtaget = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), levering = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), returnering = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), ver = ? "
                 + "where onummer = ? and ver = ?";
         PreparedStatement statement = null;
 
@@ -129,14 +130,15 @@ public class OrderMapper {
                 statement.setInt(2, o.getKnummer());
                 statement.setDouble(3, o.getPris());
                 statement.setDouble(4, o.getDepositum());
-                statement.setString(5, o.getAfhentning());
-                statement.setString(6, o.getStatus());
-                statement.setString(7, o.getModtaget());
-                statement.setString(8, o.getLevering());
-                statement.setString(9, o.getReturnering());
-                statement.setInt(10, o.getVer() + 1); // next version number
-                statement.setInt(11, o.getOnummer());
-                statement.setInt(12, o.getVer());   // old version number
+                statement.setString(5, o.getTid());
+                statement.setString(6, o.getAfhentning());
+                statement.setString(7, o.getStatus());
+                statement.setString(8, o.getModtaget());
+                statement.setString(9, o.getLevering());
+                statement.setString(10, o.getReturnering());
+                statement.setInt(11, o.getVer() + 1); // next version number
+                statement.setInt(12, o.getOnummer());
+                statement.setInt(13, o.getVer());   // old version number
                 int tupleUpdated = statement.executeUpdate();
                 if (tupleUpdated == 1) {
                     o.nuVer();                       // increment version in current OrderObject
@@ -469,10 +471,11 @@ public class OrderMapper {
                         rs.getDouble(5),
                         rs.getString(6),
                         rs.getString(7),
-                        dateFormat.format(rs.getDate(8)),
+                        rs.getString(8),
                         dateFormat.format(rs.getDate(9)),
                         dateFormat.format(rs.getDate(10)),
-                        rs.getInt(11));
+                        dateFormat.format(rs.getDate(11)),
+                        rs.getInt(12));
 
                 //=== get order details
                 statement.close();
@@ -543,10 +546,11 @@ public class OrderMapper {
                             rs.getDouble(5),
                             rs.getString(6),
                             rs.getString(7),
-                            dateFormat.format(rs.getDate(8)),
+                            rs.getString(8),
                             dateFormat.format(rs.getDate(9)),
                             dateFormat.format(rs.getDate(10)),
-                            rs.getInt(11));
+                            dateFormat.format(rs.getDate(11)),
+                            rs.getInt(12));
 
                     //=== get order details
                     statement.close();
