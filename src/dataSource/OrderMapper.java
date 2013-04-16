@@ -708,25 +708,6 @@ public class OrderMapper {
     }
     //DBHandler  Class contains all database access related queries
 
-    public synchronized String getBundle_Code(String charge_code) throws Exception {
-        ResultSet rs = null;
-        String result = “”;
-        String query = “”;
-        try {
-            query = “select * from test
-            ”;
-        rs = getDBHandler().executeSQL(query);
-            if (rs.last() && rs.getRow() == 1) {
-                result = rs.getString(1);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            close(rs);
-        }
-        return result;
-
-    }
 
 //DBHandler  Class contains all database access related queries
 //    private synchronized DBHandler getDBHandler() {
