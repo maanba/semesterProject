@@ -325,13 +325,13 @@ public class OrderMapper {
     public boolean deleteRessources(ArrayList<Vare> vl, Connection conn) throws SQLException {
         int ordersDeleted = 0;
         String SQLString = "delete from varer "
-                + "where knummer = ?";
+                + "where vnummer = ?";
 
         PreparedStatement statement = conn.prepareStatement(SQLString);
         for (int i = 0; i < vl.size(); i++) {
             Vare v = vl.get(i);
             statement.setInt(1, v.getVnummer());
-            statement.executeUpdate();
+            ordersDeleted += statement.executeUpdate();
         }
         return (ordersDeleted == vl.size());
     }

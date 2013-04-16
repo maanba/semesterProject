@@ -158,6 +158,11 @@ public class Controller {
 
         System.out.println(dbFacade.getAllCustumers());
     }
+    public void deleteVare(Vare v){
+        dbFacade.startNewBusinessTransaction();
+        dbFacade.deleteRessource(v);
+        dbFacade.commitBusinessTransaction();
+    }
 
     public boolean saveOrder() {
         boolean status = false;
