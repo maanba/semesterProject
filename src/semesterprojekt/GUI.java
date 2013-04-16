@@ -112,7 +112,7 @@ public class GUI extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         jList5 = new javax.swing.JList();
         jPanel5 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
+        jLabelVareRediger = new javax.swing.JLabel();
         jLabelRedigerIVare = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jTextFieldVareQty = new javax.swing.JTextField();
@@ -369,7 +369,7 @@ public class GUI extends javax.swing.JFrame {
         jLabel18.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setText("Opret kunde:");
-        jPanel6.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, 250, 20));
+        jPanel6.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, 350, 20));
 
         jLabel19.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -378,34 +378,32 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel20.setText("Redigerer i:");
         jPanel7.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 21, 80, 30));
 
-        jLabelRedigerKunde.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jPanel7.add(jLabelRedigerKunde, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 120, 20));
+        jLabelRedigerKunde.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel7.add(jLabelRedigerKunde, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 190, 20));
 
         jLabel22.setText("Firmanavn");
         jPanel7.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 80, 20));
-        jPanel7.add(jTextFieldAdresse, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 120, -1));
+        jPanel7.add(jTextFieldAdresse, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 190, -1));
 
         jLabel23.setText("Adresse");
         jPanel7.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 60, -1));
-        jPanel7.add(jTextFieldFirmaNavn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 120, -1));
+        jPanel7.add(jTextFieldFirmaNavn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 190, -1));
 
         jLabel24.setText("Fulde navn");
         jPanel7.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 90, -1));
-        jPanel7.add(jTextFieldFuldeNavn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 120, -1));
+        jPanel7.add(jTextFieldFuldeNavn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 190, -1));
 
         jLabel25.setText("Telefonnummer");
         jPanel7.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 100, -1));
 
         jLabel26.setText("Postnummer");
         jPanel7.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
-        jPanel7.add(jTextFieldPostnummer, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, 120, -1));
-        jPanel7.add(jTextFieldTelefonnummer, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, 120, -1));
+        jPanel7.add(jTextFieldPostnummer, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, 190, -1));
+        jPanel7.add(jTextFieldTelefonnummer, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, 190, -1));
 
-        jPanel6.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 50, 250, 270));
+        jPanel6.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 50, 350, 270));
 
         jTabbedPane1.addTab("Kunder", jPanel6);
 
@@ -422,11 +420,7 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel8.setText("Redigerer i:");
-        jPanel5.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 21, 80, 30));
-
-        jLabelRedigerIVare.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jPanel5.add(jLabelVareRediger, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 21, 80, 30));
         jPanel5.add(jLabelRedigerIVare, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 120, 20));
 
         jLabel10.setText("Navn");
@@ -754,8 +748,15 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButtonTilføj1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilføj1ActionPerformed
         Kunde selected = (Kunde) jList9.getSelectedValue();
-        jLabelRedigerKunde.setText("Redigerer i kunde:");
-        jTextFieldFirmaNavn.setText(selected.getFirma() + "");
+        
+        jLabel20.setText("Redigerer i:");
+        jLabel18.setText("Redigerer kunde oplysninger");
+        jLabelRedigerKunde.setText(selected.getKnummer() + "");
+        if (jTextFieldFirmaNavn == null){
+        jTextFieldFirmaNavn.setText("");
+        } else{
+        jTextFieldFirmaNavn.setText(selected.getFirma());
+        }
         jTextFieldFuldeNavn.setText(selected.getNavn());
         jTextFieldAdresse.setText(selected.getAdresse() + "");
         jTextFieldPostnummer.setText(selected.getPostnummer() + "");
@@ -763,7 +764,7 @@ public class GUI extends javax.swing.JFrame {
         
         if (selected != null) {
             for (int i = 0; i < list9.size(); i++) {
-                Vare vare = (Vare) list9.getElementAt(i);      
+                Kunde kunde = (Kunde) list9.getElementAt(i);      
             }  
         } else {
             jLabelError.setText("FEJL!");
@@ -771,7 +772,19 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonTilføj1ActionPerformed
 
     private void jButtonTilføj2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilføj2ActionPerformed
-        //   controller.addKunde(,jTextFieldFirmaNavn, jTextFieldFuldeNavn, jTextFieldAdresse, jTextFieldPostnummer, jTextFieldTelefonnummer);
+        int knummer = Integer.parseInt(jLabelRedigerKunde.getText());
+        String firma = jTextFieldFirmaNavn.getText();
+        String navn = jTextFieldFuldeNavn.getText();
+        String adresse = jTextFieldAdresse.getText();
+        int postnummer = Integer.parseInt(jTextFieldPostnummer.getText());
+        int telefonnummer = Integer.parseInt(jTextFieldTelefonnummer.getText());
+ 
+
+        Kunde kunde = new Kunde(knummer, firma, navn, adresse, postnummer, telefonnummer);
+
+        controller.redigerKunde(kunde);
+
+        update();      
     }//GEN-LAST:event_jButtonTilføj2ActionPerformed
 
     private void jButtonDepositumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDepositumActionPerformed
@@ -850,6 +863,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButtonLagerRedigerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLagerRedigerActionPerformed
         Vare selected = (Vare) jList5.getSelectedValue();
+        jLabelVareRediger.setText("Redigerer i:");
         jLabelRedigerVare.setText("Redigerer i vare:");
         jLabelRedigerIVare.setText(selected.getVnummer() + "");
         jTextFieldNavn.setText(selected.getVnavn());
@@ -1063,6 +1077,12 @@ public class GUI extends javax.swing.JFrame {
                     list5.addElement(va5[j]);
                 }
                 
+                jLabelRedigerVare.setText("Opret vare:");
+                jLabelRedigerIVare.setText("");
+                jTextFieldNavn.setText("");
+                jTextFieldVarePris.setText("");
+                jTextFieldVareQty.setText("");
+                
             }
         
         // list9 
@@ -1078,6 +1098,16 @@ public class GUI extends javax.swing.JFrame {
                 for (int j = 0; j < ka9.length; j++) {
                     list9.addElement(ka9[j]);
                 }
+                
+                jLabel20.setText("");
+                jLabel18.setText("Opret kunde:");
+                jLabelRedigerKunde.setText("");
+                jTextFieldFirmaNavn.setText("");
+                jTextFieldFuldeNavn.setText("");
+                jTextFieldAdresse.setText("");
+                jTextFieldPostnummer.setText("");
+                jTextFieldTelefonnummer.setText("");
+                
                 
             }
 
@@ -1134,11 +1164,11 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabelError;
     private javax.swing.JLabel jLabelRedigerIVare;
     private javax.swing.JLabel jLabelRedigerKunde;
     private javax.swing.JLabel jLabelRedigerVare;
+    private javax.swing.JLabel jLabelVareRediger;
     private javax.swing.JList jList1;
     private javax.swing.JList jList2;
     private javax.swing.JList jList3;

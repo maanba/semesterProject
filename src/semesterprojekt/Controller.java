@@ -298,6 +298,12 @@ public class Controller {
         dbFacade.registerDirtyRessource(vare);
         dbFacade.commitBusinessTransaction();
     }
+    
+    public void redigerKunde (Kunde kunde){
+        dbFacade.startNewBusinessTransaction();
+        dbFacade.registerDirtyCustomer(kunde);
+        dbFacade.commitBusinessTransaction();
+    }
 
     private int partitionKunde(Kunde[] array, int left, int right, int pivotIndex) {
 
