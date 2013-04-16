@@ -631,7 +631,7 @@ public class GUI extends javax.swing.JFrame {
             controller.setCurrentOrder(selected);
         }
         update();
-        jTextFieldPris.setText(Double.parseDouble(jTextFieldTotalPris.getText())-selected.getPris() + "");
+        jTextFieldPris.setText(Double.parseDouble(jTextFieldTotalPris.getText()) - selected.getPris() + "");
     }//GEN-LAST:event_jButtonOrdreRedigerActionPerformed
 
     private void jButtonTilføjActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonTilføjActionPerformed
@@ -689,7 +689,7 @@ public class GUI extends javax.swing.JFrame {
                         }
                         String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                         String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
-                        controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText())-Double.parseDouble(jTextFieldPris.getText()), controller.getCurrentOrder().getDepositum(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                        controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()) - Double.parseDouble(jTextFieldPris.getText()), controller.getCurrentOrder().getDepositum(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
                         controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()) - Double.parseDouble(jTextFieldPris.getText()), controller.getCurrentOrder().getDepositum(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
 
                         list2.clear();
@@ -708,7 +708,7 @@ public class GUI extends javax.swing.JFrame {
                     }
                     String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                     String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
-                    controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText())-Double.parseDouble(jTextFieldPris.getText()), controller.getCurrentOrder().getDepositum(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                    controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()) - Double.parseDouble(jTextFieldPris.getText()), controller.getCurrentOrder().getDepositum(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
                     controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()) - Double.parseDouble(jTextFieldPris.getText()), controller.getCurrentOrder().getDepositum(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
                     list2.clear();
                     list3.clear();
@@ -1005,7 +1005,7 @@ public class GUI extends javax.swing.JFrame {
                 jTextFieldTotalPris.setText(totalpris + "");
             }
         }
-
+        
         // list1:
         if (!"".equals(jTextFieldÅrUd.getText())) {
             int levYear = Integer.parseInt(jTextFieldÅrUd.getText());
@@ -1038,7 +1038,6 @@ public class GUI extends javax.swing.JFrame {
                     }
                 }
                 va[i] = vl.get(i);
-
             }
             Vare vare;
             if (!list2.isEmpty()) {
@@ -1065,15 +1064,12 @@ public class GUI extends javax.swing.JFrame {
             va5[i] = vl5.get(i);
         }
         for (int i = 0; i < vl5.size(); i++) {
-
             controller.quickSortVare(va5, 0, va5.length - 1);
             list5.clear();
             for (int j = 0; j < va5.length; j++) {
                 list5.addElement(va5[j]);
             }
-
         }
-
         // list9 
         ArrayList<Kunde> kl9 = controller.getAllCostumers();
         Kunde[] ka9 = new Kunde[kl9.size()];
@@ -1087,10 +1083,7 @@ public class GUI extends javax.swing.JFrame {
             for (int j = 0; j < ka9.length; j++) {
                 list9.addElement(ka9[j]);
             }
-
         }
-
-
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
