@@ -51,6 +51,7 @@ public class PDF {
         String status = currentOrder.getStatus() + "";
 
         double pris = currentOrder.getPris();
+        double rabat = currentOrder.getRabat();
         double depositum = currentOrder.getDepositum();
 
         String afhentning = currentOrder.getAfhentning() + "";
@@ -127,7 +128,6 @@ public class PDF {
                 table2.addCell(" ");
                 table2.addCell(" ");
                 table2.addCell(" ");
-                double sum = 0;
                 for (int i = 0; i < vareArray.size(); i++) {
 
                     table2.addCell(new Phrase(vareArray.get(i).getVnummer() + "", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
@@ -135,7 +135,6 @@ public class PDF {
                     table2.addCell(new Phrase(vareArray.get(i).getPris() + "", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                     table2.addCell(new Phrase(odetaljeArray.get(i).getMaengde() + "", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                     table2.addCell(new Phrase("   " + odetaljeArray.get(i).getMaengde() * vareArray.get(i).getPris(), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
-                    sum = sum + odetaljeArray.get(i).getMaengde() * vareArray.get(i).getPris();
                 }
 
                 table2.addCell(" ");
@@ -154,19 +153,19 @@ public class PDF {
                 table2.addCell(new Phrase("Sum eksl. moms:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table2.addCell(" ");
                 table2.addCell(" ");
-                table2.addCell(new Phrase("   " + (sum + depositum), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table2.addCell(new Phrase("   " + (pris + depositum), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
 
                 table2.addCell(" ");
                 table2.addCell(new Phrase("Rabat:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table2.addCell(" ");
                 table2.addCell(" ");
-                table2.addCell(new Phrase("   " + (sum-pris), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table2.addCell(new Phrase("   " + rabat + " %", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
 
                 table2.addCell(" ");
                 table2.addCell(new Phrase("At betale:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table2.addCell(" ");
                 table2.addCell(" ");
-                table2.addCell(new Phrase("   " + (pris + ((pris / 100) * 25)), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table2.addCell(new Phrase("   " + ((pris + depositum) * (1 - (rabat / 100))), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
 
                 PdfPTable table3 = new PdfPTable(3);
                 table3.setTotalWidth(500);
@@ -195,10 +194,11 @@ public class PDF {
         } catch (Exception i) {
             System.out.println(i);
         }
-        if (!(browser.getFileName() == null)){
+        if (!(browser.getFileName() == null)) {
             openPDF(currentOrder);
         }
     }
+
     public void pdfTilbud(Ordre currentOrder, Kunde kunde, ArrayList<Odetaljer> odetaljeArray, ArrayList<Vare> vareArray, Postnummer postnummer) throws DocumentException, FileNotFoundException {
 
         int postnr = kunde.getPostnummer();
@@ -224,6 +224,7 @@ public class PDF {
         String status = currentOrder.getStatus() + "";
 
         double pris = currentOrder.getPris();
+        double rabat = currentOrder.getRabat();
         double depositum = currentOrder.getDepositum();
 
         String afhentning = currentOrder.getAfhentning() + "";
@@ -300,7 +301,6 @@ public class PDF {
                 table2.addCell(" ");
                 table2.addCell(" ");
                 table2.addCell(" ");
-                double sum = 0;
                 for (int i = 0; i < vareArray.size(); i++) {
 
                     table2.addCell(new Phrase(vareArray.get(i).getVnummer() + "", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
@@ -308,7 +308,6 @@ public class PDF {
                     table2.addCell(new Phrase(vareArray.get(i).getPris() + "", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                     table2.addCell(new Phrase(odetaljeArray.get(i).getMaengde() + "", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                     table2.addCell(new Phrase("   " + odetaljeArray.get(i).getMaengde() * vareArray.get(i).getPris(), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
-                    sum = sum + odetaljeArray.get(i).getMaengde() * vareArray.get(i).getPris();
                 }
 
                 table2.addCell(" ");
@@ -327,19 +326,19 @@ public class PDF {
                 table2.addCell(new Phrase("Sum eksl. moms:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table2.addCell(" ");
                 table2.addCell(" ");
-                table2.addCell(new Phrase("   " + (sum + depositum), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table2.addCell(new Phrase("   " + (pris + depositum), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
 
                 table2.addCell(" ");
                 table2.addCell(new Phrase("Rabat:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table2.addCell(" ");
                 table2.addCell(" ");
-                table2.addCell(new Phrase("   " + (sum-pris), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table2.addCell(new Phrase("   " + rabat + " %", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
 
                 table2.addCell(" ");
                 table2.addCell(new Phrase("At betale:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table2.addCell(" ");
                 table2.addCell(" ");
-                table2.addCell(new Phrase("   " + (pris + ((pris / 100) * 25)), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table2.addCell(new Phrase("   " + ((pris + depositum) * (1 - (rabat / 100))), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
 
                 PdfPTable table3 = new PdfPTable(3);
                 table3.setTotalWidth(500);
@@ -368,11 +367,11 @@ public class PDF {
         } catch (Exception i) {
             System.out.println(i);
         }
-        if (!(browser.getFileName() == null)){
+        if (!(browser.getFileName() == null)) {
             openPDF(currentOrder);
         }
     }
-    
+
     public void PdfFaktura(Ordre currentOrder, Kunde kunde, ArrayList<Odetaljer> odetaljeArray, ArrayList<Vare> vareArray, Postnummer postnummer) throws DocumentException, FileNotFoundException {
 
         int postnr = kunde.getPostnummer();
@@ -398,6 +397,7 @@ public class PDF {
         String status = currentOrder.getStatus() + "";
 
         double pris = currentOrder.getPris();
+        double rabat = currentOrder.getRabat();
         double depositum = currentOrder.getDepositum();
 
         String afhentning = currentOrder.getAfhentning() + "";
@@ -474,15 +474,12 @@ public class PDF {
                 table2.addCell(" ");
                 table2.addCell(" ");
                 table2.addCell(" ");
-                double sum = 0;
                 for (int i = 0; i < vareArray.size(); i++) {
-
                     table2.addCell(new Phrase(vareArray.get(i).getVnummer() + "", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                     table2.addCell(new Phrase(vareArray.get(i).getVnavn(), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                     table2.addCell(new Phrase(vareArray.get(i).getPris() + "", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                     table2.addCell(new Phrase(odetaljeArray.get(i).getMaengde() + "", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                     table2.addCell(new Phrase("   " + odetaljeArray.get(i).getMaengde() * vareArray.get(i).getPris(), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
-                    sum = sum + odetaljeArray.get(i).getMaengde() * vareArray.get(i).getPris();
                 }
 
                 table2.addCell(" ");
@@ -501,20 +498,19 @@ public class PDF {
                 table2.addCell(new Phrase("Sum eksl. moms:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table2.addCell(" ");
                 table2.addCell(" ");
-                sum = sum + depositum;
-                table2.addCell(new Phrase("   " + sum, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table2.addCell(new Phrase("   " + (pris + depositum), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
 
                 table2.addCell(" ");
                 table2.addCell(new Phrase("Rabat:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table2.addCell(" ");
                 table2.addCell(" ");
-                table2.addCell(new Phrase("   " + (sum-pris), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table2.addCell(new Phrase("   " + rabat + " %", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
 
                 table2.addCell(" ");
                 table2.addCell(new Phrase("At betale:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table2.addCell(" ");
                 table2.addCell(" ");
-                table2.addCell(new Phrase("   " + (pris + ((pris / 100) * 25)), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table2.addCell(new Phrase("   " + ((pris + depositum) * (1 - (rabat / 100))), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
 
                 PdfPTable table3 = new PdfPTable(3);
                 table3.setTotalWidth(500);
@@ -543,7 +539,7 @@ public class PDF {
         } catch (Exception i) {
             System.out.println(i);
         }
-        if (!(browser.getFileName() == null)){
+        if (!(browser.getFileName() == null)) {
             openPDF(currentOrder);
         }
     }

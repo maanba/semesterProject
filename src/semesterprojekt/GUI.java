@@ -83,13 +83,13 @@ public class GUI extends javax.swing.JFrame {
         jList3 = new javax.swing.JList();
         jButtonDepositum = new javax.swing.JButton();
         jButtonFaktura = new javax.swing.JButton();
-        jButtonVisIPDF = new javax.swing.JButton();
+        jButtonTilbudPdf = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
         jLabelError = new javax.swing.JLabel();
         jTextFieldAntal = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
-        jTextFieldPris = new javax.swing.JTextField();
+        jTextFieldRabat = new javax.swing.JTextField();
         jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         jTextFieldTotalPris = new javax.swing.JTextField();
@@ -99,6 +99,7 @@ public class GUI extends javax.swing.JFrame {
         jButtonStatus = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jComboBox2 = new javax.swing.JComboBox();
+        jButtonOrdrePdf = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane10 = new javax.swing.JScrollPane();
         jListKundeliste = new javax.swing.JList();
@@ -279,7 +280,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonDepositumActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonDepositum, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 240, 100, -1));
+        jPanel1.add(jButtonDepositum, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 270, 100, -1));
 
         jButtonFaktura.setText("Faktura PDF");
         jButtonFaktura.addActionListener(new java.awt.event.ActionListener() {
@@ -289,13 +290,13 @@ public class GUI extends javax.swing.JFrame {
         });
         jPanel1.add(jButtonFaktura, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 120, 100, -1));
 
-        jButtonVisIPDF.setText("Ordre PDF");
-        jButtonVisIPDF.addActionListener(new java.awt.event.ActionListener() {
+        jButtonTilbudPdf.setText("Tilbud PDF");
+        jButtonTilbudPdf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonVisIPDFActionPerformed(evt);
+                jButtonTilbudPdfActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonVisIPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 150, 100, -1));
+        jPanel1.add(jButtonTilbudPdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 180, 100, -1));
 
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -309,7 +310,13 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel17.setText("Antal:");
         jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 140, -1, -1));
-        jPanel1.add(jTextFieldPris, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 170, 60, -1));
+
+        jTextFieldRabat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldRabatActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jTextFieldRabat, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 170, 60, -1));
 
         jLabel27.setText(" Rabat:");
         jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, -1, -1));
@@ -331,7 +338,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonLastbilActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonLastbil, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 180, 100, -1));
+        jPanel1.add(jButtonLastbil, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 210, 100, -1));
 
         jButtonMontoer.setText("Tilføj Montør");
         jButtonMontoer.addActionListener(new java.awt.event.ActionListener() {
@@ -339,7 +346,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonMontoerActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonMontoer, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 210, 100, -1));
+        jPanel1.add(jButtonMontoer, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 240, 100, -1));
 
         jButtonStatus.setText("Status");
         jButtonStatus.addActionListener(new java.awt.event.ActionListener() {
@@ -347,7 +354,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonStatusActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 270, 100, -1));
+        jPanel1.add(jButtonStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 300, 100, -1));
 
         jButton1.setText("Check Dato");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -359,6 +366,14 @@ public class GUI extends javax.swing.JFrame {
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Transport", "08:00", "10:00", "12:00", "14:00", "16:00", "Stor Order" }));
         jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 50, -1, -1));
+
+        jButtonOrdrePdf.setText("Ordre PDF");
+        jButtonOrdrePdf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonOrdrePdfActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonOrdrePdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 150, 100, -1));
 
         jTabbedPane1.addTab("Ordre", jPanel1);
 
@@ -740,7 +755,7 @@ public class GUI extends javax.swing.JFrame {
             controller.setCurrentOrder(selected);
         }
         update();
-        jTextFieldPris.setText(Double.parseDouble(jTextFieldTotalPris.getText()) - selected.getPris() + "");
+        jTextFieldRabat.setText(selected.getRabat() + "");
     }//GEN-LAST:event_jButtonOrdreRedigerActionPerformed
 
     private void jButtonTilføjActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonTilføjActionPerformed
@@ -799,9 +814,9 @@ public class GUI extends javax.swing.JFrame {
                         String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                         String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
                         if (jRadioButtonAfhentning.isSelected()) {
-                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()) - Double.parseDouble(jTextFieldPris.getText()), 0.00, "", afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), 0.00, "", afhentning, "Påbegyndt", levering, returnering, odetaljer);
                         } else {
-                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()) - Double.parseDouble(jTextFieldPris.getText()), 0.00, "" + jComboBox2.getSelectedItem(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), 0.00, "" + jComboBox2.getSelectedItem(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
                         }
                         list2.clear();
                         list3.clear();
@@ -820,15 +835,15 @@ public class GUI extends javax.swing.JFrame {
                     String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                     String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
                     if (jRadioButtonAfhentning.isSelected()) {
-                        controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()) - Double.parseDouble(jTextFieldPris.getText()), controller.getCurrentOrder().getDepositum(), "", afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                        controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), controller.getCurrentOrder().getDepositum(), "", afhentning, "Påbegyndt", levering, returnering, odetaljer);
                     } else {
-                        controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()) - Double.parseDouble(jTextFieldPris.getText()), controller.getCurrentOrder().getDepositum(), "" + jComboBox2.getSelectedItem(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                        controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), controller.getCurrentOrder().getDepositum(), "" + jComboBox2.getSelectedItem(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
                     }
                     list2.clear();
                     list3.clear();
                     jLabelError.setText("");
                     jTextFieldTotalPris.setText("");
-                    jTextFieldPris.setText("");
+                    jTextFieldRabat.setText("");
                     jTextFieldDagInd.setText("");
                     jTextFieldDagUd.setText("");
                     jTextFieldMånedInd.setText("");
@@ -843,12 +858,12 @@ public class GUI extends javax.swing.JFrame {
         update();
     }//GEN-LAST:event_jButtonGennemførOrdreActionPerformed
 
-    private void jButtonVisIPDFActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonVisIPDFActionPerformed
-    {//GEN-HEADEREND:event_jButtonVisIPDFActionPerformed
+    private void jButtonTilbudPdfActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonTilbudPdfActionPerformed
+    {//GEN-HEADEREND:event_jButtonTilbudPdfActionPerformed
         Ordre selected = (Ordre) jList3.getSelectedValue();
         controller.setSelectedOrdre(selected);
-        controller.pdfOrdre();
-    }//GEN-LAST:event_jButtonVisIPDFActionPerformed
+        controller.pdfTilbud();
+    }//GEN-LAST:event_jButtonTilbudPdfActionPerformed
 
     private void jButtonFjernActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonFjernActionPerformed
     {//GEN-HEADEREND:event_jButtonFjernActionPerformed
@@ -914,7 +929,7 @@ public class GUI extends javax.swing.JFrame {
         selected.setDepositum(depositum);
         System.out.println("Depositum: " + selected.getDepositum());
         controller.setCurrentOrder(selected);
-        controller.updateOrder(selected.getKnummer(), selected.getPris(), selected.getDepositum(), selected.getTid(), selected.getAfhentning(), selected.getStatus(), selected.getLevering(), selected.getReturnering(), selected.getOd());
+        controller.updateOrder(selected.getKnummer(), selected.getPris(), selected.getRabat(), selected.getDepositum(), selected.getTid(), selected.getAfhentning(), selected.getStatus(), selected.getLevering(), selected.getReturnering(), selected.getOd());
     }//GEN-LAST:event_jButtonDepositumActionPerformed
 
     private void jButtonAfslutOrdreActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonAfslutOrdreActionPerformed
@@ -1182,6 +1197,16 @@ public class GUI extends javax.swing.JFrame {
         if (selected.getAntal() != Integer.parseInt(jTextFieldReturAntal.getText())) {
         }
     }//GEN-LAST:event_jButtonOKActionPerformed
+
+    private void jTextFieldRabatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldRabatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldRabatActionPerformed
+
+    private void jButtonOrdrePdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdrePdfActionPerformed
+        Ordre selected = (Ordre) jList3.getSelectedValue();
+        controller.setSelectedOrdre(selected);
+        controller.pdfTilbud();
+    }//GEN-LAST:event_jButtonOrdrePdfActionPerformed
 
     private void jButtonLeverActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
@@ -1486,6 +1511,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonLevér;
     private javax.swing.JButton jButtonMontoer;
     private javax.swing.JButton jButtonOK;
+    private javax.swing.JButton jButtonOrdrePdf;
     private javax.swing.JButton jButtonOrdreRediger;
     private javax.swing.JButton jButtonPaabegynd;
     private javax.swing.JButton jButtonReturGem;
@@ -1493,12 +1519,12 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonSletOrdre;
     private javax.swing.JButton jButtonSletVare;
     private javax.swing.JButton jButtonStatus;
+    private javax.swing.JButton jButtonTilbudPdf;
     private javax.swing.JButton jButtonTilbudSøg;
     private javax.swing.JButton jButtonTilføj;
     private javax.swing.JButton jButtonTilføj1;
     private javax.swing.JButton jButtonTilføj2;
     private javax.swing.JButton jButtonTilføjPart;
-    private javax.swing.JButton jButtonVisIPDF;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
@@ -1584,7 +1610,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldPartAntal;
     private javax.swing.JTextField jTextFieldPartNavn;
     private javax.swing.JTextField jTextFieldPostnummer;
-    private javax.swing.JTextField jTextFieldPris;
+    private javax.swing.JTextField jTextFieldRabat;
     private javax.swing.JTextField jTextFieldReturAntal;
     private javax.swing.JTextField jTextFieldReturSøg;
     private javax.swing.JTextField jTextFieldTelefonnummer;

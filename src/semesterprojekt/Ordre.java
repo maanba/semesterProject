@@ -13,15 +13,16 @@ public class Ordre
 {
     private int onummer, fnummer, knummer, ver;
     private String status, modtaget, levering, returnering, afhentning, tid;
-    private double pris, depositum;
+    private double pris, depositum, rabat;
     private ArrayList<Odetaljer> od = new ArrayList();
 
-    public Ordre(int onummer, int fnummer, int knummer, double pris, double depositum, String tid, String afhentning, String status, String modtaget, String levering, String returnering, int ver)
+    public Ordre(int onummer, int fnummer, int knummer, double pris, double rabat, double depositum, String tid, String afhentning, String status, String modtaget, String levering, String returnering, int ver)
     {
         this.onummer = onummer;
         this.fnummer = fnummer;
         this.knummer = knummer;
         this.pris = pris;
+        this.rabat = rabat;
         this.depositum = depositum;
         this.tid = tid;
         this.afhentning = afhentning;
@@ -30,6 +31,14 @@ public class Ordre
         this.modtaget = modtaget;
         this.levering = levering;
         this.returnering = returnering;
+    }
+
+    public double getRabat() {
+        return rabat;
+    }
+
+    public void setRabat(double rabat) {
+        this.rabat = rabat;
     }
 
     public String getTid() {
