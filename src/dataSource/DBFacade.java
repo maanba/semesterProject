@@ -115,15 +115,15 @@ public class DBFacade {
         return nextOno;
     }
     
-    public int getNextCustomerNo() {
-        int nextCusNo = 0;
+        public int getNextVnummer() {
+        int nextVno = 0;
         try {
-            nextCusNo = new OrderMapper().getNextKnummer(con);
+            nextVno = new OrderMapper().getNextVnummer(con);
         } catch (Exception e) {
-            System.out.println("Fail in OrderMapper - getNextCnummer");
+            System.out.println("Fail in OrderMapper - getNextVnummer");
             System.out.println(e.getMessage());
         }
-        return nextCusNo;
+        return nextVno;
     }
 
     public int getNextFNo() {
