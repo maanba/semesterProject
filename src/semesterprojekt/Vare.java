@@ -25,6 +25,7 @@ public class Vare {
     }
     
     public void addDel(Del del){
+        del.setVnummer(vnummer);
         this.del.add(del);
     }
     

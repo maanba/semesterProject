@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 public class Controller {
 
     private boolean processingOrder;	// state of business transaction
+    private boolean rediger = false;
     private Ordre currentOrder;       	// Order in focus
     private Vare currentVare;
     private Kunde currentKunde;
@@ -489,4 +490,23 @@ public class Controller {
     public void releaseConnection() {
         dbFacade.releaseConnection();
     }
+    
+     public void addVare(Vare vare) {
+        dbFacade.startNewBusinessTransaction();
+        dbFacade.registerNewRessource(vare);
+        dbFacade.commitBusinessTransaction();
+    }
+
+    public boolean redigerTrue() {
+        return rediger = true;
+    }
+
+    public boolean redigerFalse() {
+        return rediger = false;
+    }
+
+    public boolean getRediger() {
+        return rediger;
+    }
+
 }

@@ -89,11 +89,16 @@ public class OrderMapper {
     public boolean insertRessources(ArrayList<Vare> vl, Connection conn) throws SQLException {
         int rowsInserted = 0;
         String SQLString = "insert into varer values (?,?,?,?)";
+        String SQLString2 = "insert into dele values (?,?,?)";
         PreparedStatement statement = null;
         statement = conn.prepareStatement(SQLString);
 
         try {
             for (int i = 0; i < vl.size(); i++) {
+                if (!statement.isClosed()) {
+                    statement.close();
+                }
+                statement = conn.prepareStatement(SQLString);
                 Vare v = vl.get(i);
                 statement.setInt(1, v.getVnummer());
                 statement.setString(2, v.getVnavn());
@@ -101,6 +106,15 @@ public class OrderMapper {
                 statement.setDouble(4, v.getPris());
                 rowsInserted += statement.executeUpdate();
                 statement.close();
+                for (int j = 0; j < v.getDel().size(); j++) {
+                    statement = conn.prepareStatement(SQLString2);
+                    Del d = v.getDel().get(j);
+                    statement.setInt(1, d.getVnummer());
+                    statement.setString(2, d.getTitel());
+                    statement.setInt(3, d.getAntal());
+                    statement.executeUpdate();
+                    statement.close();
+                }
             }
         } finally {
             if (!statement.isClosed()) {
@@ -158,7 +172,7 @@ public class OrderMapper {
         }
         return (rowsUpdated == ol.size());    // false if any conflict in version number             
     }
-    
+
     public boolean updateCustomer(ArrayList<Kunde> kl, Connection conn) throws SQLException {
         int rowsUpdated = 0;
         String SQLString = "update Kunder "
@@ -196,12 +210,23 @@ public class OrderMapper {
         String SQLString = "update varer "
                 + "set vnavn = ?, qty = ?, pris = ? "
                 + "where vnummer = ?";
+        String SQLString2 = "delete from dele "
+                + "where vnummer = ?";
+        String SQLString3 = "insert into dele values (?,?,?)";
         PreparedStatement statement = null;
 
         statement = conn.prepareStatement(SQLString);
         try {
             for (int i = 0; i < vl.size(); i++) {
+                if (!statement.isClosed()) {
+                    statement.close();
+                }
                 Vare v = vl.get(i);
+                statement = conn.prepareStatement(SQLString2);
+                statement.setInt(1, v.getVnummer());
+                statement.executeUpdate();
+                statement.close();
+                statement = conn.prepareStatement(SQLString);
                 statement.setString(1, v.getVnavn());
                 statement.setInt(2, v.getQty());
                 statement.setDouble(3, v.getPris());
@@ -209,6 +234,15 @@ public class OrderMapper {
                 int tupleUpdated = statement.executeUpdate();
                 rowsUpdated += tupleUpdated;
                 statement.close();
+                for (int j = 0; j < v.getDel().size(); j++) {
+                    statement = conn.prepareStatement(SQLString3);
+                    Del d = v.getDel().get(j);
+                    statement.setInt(1, d.getVnummer());
+                    statement.setString(2, d.getTitel());
+                    statement.setInt(3, d.getAntal());
+                    statement.executeUpdate();
+                    statement.close();
+                }
             }
         } finally {
             if (!statement.isClosed()) {
@@ -586,6 +620,7 @@ public class OrderMapper {
         }
         return ol;
     }
+
     public ArrayList<Kunde> getAllCostumers(Connection conn) throws SQLException {
         Kunde k = null;
         ArrayList<Kunde> kl = new ArrayList();
