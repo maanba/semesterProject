@@ -1053,23 +1053,36 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonKundeSøgActionPerformed
 
     private void jButtonReturSøgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReturSøgActionPerformed
+        if(!jTextFieldReturSøg.getText().equals("")){
+        int counter = 0;
         ArrayList<Ordre> ol = new ArrayList<>();
+        
         for (int i = 0; i < listOrdrer.size(); i++) {
             ol.add((Ordre) listOrdrer.getElementAt(i));
         }
         for (int i = 0; i < ol.size(); i++) {
             String onummer = ol.get(i).getOnummer() + "";
-            if (onummer.contains(jTextFieldKundeSøg.getText())) {
+            if (onummer.contains(jTextFieldReturSøg.getText())) {
                 jListOrdrer.setSelectedIndex(i);
         }
             else {
-                listOrdrer.removeElementAt(i);
+                listOrdrer.removeElementAt(i-counter);
+                counter++;
             }
+            }
+        if(listOrdrer.isEmpty() == true){
+            update();
+        }
+        } else {
+            update();
         }
     }//GEN-LAST:event_jButtonReturSøgActionPerformed
 
     private void jButtonTilbudSøgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilbudSøgActionPerformed
+        if(!jTextFieldTilbudSøg.getText().equals("")){
+        int counter = 0;
         ArrayList<Vare> vl = new ArrayList<>();
+        
         for (int i = 0; i < list7.size(); i++) {
             vl.add((Vare) list7.getElementAt(i));
         }
@@ -1078,12 +1091,21 @@ public class GUI extends javax.swing.JFrame {
                 jList7.setSelectedIndex(i);
         }
             else {
-                list7.removeElementAt(i);
+                list7.removeElementAt(i-counter);
+              counter++;
             }
+            }
+        if(list7.isEmpty() == true){
+            update();
+        }
+        } else {
+            update();
         }
     }//GEN-LAST:event_jButtonTilbudSøgActionPerformed
 
     private void jButtonHistorikSøgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHistorikSøgActionPerformed
+        if(!jTextFieldHistorikSøg.getText().equals("")){
+        int counter = 0;
         ArrayList<Ordre> ol = new ArrayList<>();
         for (int i = 0; i < listHistorik.size(); i++) {
             ol.add((Ordre) listHistorik.getElementAt(i));
@@ -1094,12 +1116,22 @@ public class GUI extends javax.swing.JFrame {
                 jListHistorik.setSelectedIndex(i);
         }
             else {
-                listHistorik.removeElementAt(i);
+                listHistorik.removeElementAt(i-counter);
+            counter++;
             }
+            }
+        if(listHistorik.isEmpty() == true){
+            update();
         }
+        } else {
+            update();
+        }
+        
     }//GEN-LAST:event_jButtonHistorikSøgActionPerformed
 
     private void jButtonLagerSøgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLagerSøgActionPerformed
+        if(!jTextFieldLagerSøg.getText().equals("")){
+        int counter = 0;
         ArrayList<Vare> vl = new ArrayList<>();
         for (int i = 0; i < Vareliste.size(); i++) {
             vl.add((Vare) Vareliste.getElementAt(i));
@@ -1109,8 +1141,15 @@ public class GUI extends javax.swing.JFrame {
                 jListVareliste.setSelectedIndex(i);
         }
             else {
-                Vareliste.removeElementAt(i);
+                Vareliste.removeElementAt(i-counter);
+            counter++;
             }
+            }
+        if(Vareliste.isEmpty() == true){
+            update();
+        }
+        } else {
+            update();
         }
     }//GEN-LAST:event_jButtonLagerSøgActionPerformed
 
