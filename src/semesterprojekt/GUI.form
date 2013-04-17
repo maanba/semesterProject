@@ -490,13 +490,14 @@
             <Component class="javax.swing.JComboBox" name="jComboBox2">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="6">
+                  <StringArray count="7">
                     <StringItem index="0" value="Transport"/>
                     <StringItem index="1" value="08:00"/>
                     <StringItem index="2" value="10:00"/>
                     <StringItem index="3" value="12:00"/>
                     <StringItem index="4" value="14:00"/>
                     <StringItem index="5" value="16:00"/>
+                    <StringItem index="6" value="Stor Order"/>
                   </StringArray>
                 </Property>
               </Properties>
