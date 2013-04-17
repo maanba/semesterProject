@@ -954,16 +954,36 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonPaabegyndActionPerformed
 
     private void jButtonLagerGemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLagerGemActionPerformed
-        int vnummer = Integer.parseInt(jLabelRedigerIVare.getText());
+        int vnummer;
         String vnavn = jTextFieldNavn.getText();
         double pris = Double.parseDouble(jTextFieldVarePris.getText());
         int qty = Integer.parseInt(jTextFieldVareQty.getText());
 
-        Vare vare = new Vare(vnummer, vnavn, qty, pris);
+        if (controller.getRediger() == true) 
+        {
+            vnummer = Integer.parseInt(jLabelRedigerIVare.getText());
 
-        controller.redigerVare(vare);
-
+            Vare vare = new Vare(vnummer, vnavn, qty, pris);
+            for (int i = 0; i < listParts.size(); i++) 
+            {
+                vare.addDel((Del) listParts.getElementAt(i));
+            }
+            controller.redigerVare(vare);
+        }
+        else
+        {
+            vnummer = controller.getNextVnummer();
+            
+            Vare vare = new Vare(vnummer, vnavn, qty, pris);
+            for (int i = 0; i < listParts.size(); i++) 
+            {
+                vare.addDel((Del) listParts.getElementAt(i));
+            }
+            controller.addVare(vare);
+        }
+        
         update();
+        controller.redigerFalse();
     }//GEN-LAST:event_jButtonLagerGemActionPerformed
 
     private void jButtonFakturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFakturaActionPerformed
@@ -999,20 +1019,27 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButtonLagerRedigerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLagerRedigerActionPerformed
         Vare selected = (Vare) jListVareliste.getSelectedValue();
+        listVarer.removeElement(selected);
         jLabelVareRediger.setText("Redigerer i:");
         jLabelRedigerVare.setText("Redigerer i vare:");
         jLabelRedigerIVare.setText(selected.getVnummer() + "");
         jTextFieldNavn.setText(selected.getVnavn());
         jTextFieldVarePris.setText(selected.getPris() + "");
         jTextFieldVareQty.setText(selected.getQty() + "");
-
-        if (selected != null) {
-            for (int i = 0; i < Vareliste.size(); i++) {
-                Vare vare = (Vare) Vareliste.getElementAt(i);
-            }
-        } else {
-            jLabelError.setText("FEJL!");
+        for (int i = 0; i < selected.getDel().size(); i++) {
+            listParts.addElement(selected.getDel().get(i));
         }
+
+        /* if (selected != null) {
+         for (int i = 0; i < Vareliste.size(); i++) {
+         Vare vare = (Vare) Vareliste.getElementAt(i);
+         }
+         * 
+         * 
+         } else {
+         jLabelError.setText("FEJL!");
+         }*/
+        controller.redigerTrue();
     }//GEN-LAST:event_jButtonLagerRedigerActionPerformed
 
     private void jButtonReturGemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonReturGemActionPerformed
@@ -1438,7 +1465,7 @@ public class GUI extends javax.swing.JFrame {
             }
         }
 
-        // list5 
+        // Vareliste
         ArrayList<Vare> vl5 = controller.getAllRessources();
         Vare[] va5 = new Vare[vl5.size()];
         for (int i = 0; i < vl5.size(); i++) {
@@ -1457,9 +1484,12 @@ public class GUI extends javax.swing.JFrame {
             jTextFieldNavn.setText("");
             jTextFieldVarePris.setText("");
             jTextFieldVareQty.setText("");
+            jTextFieldPartNavn.setText("");
+            jTextFieldPartAntal.setText("");
+            listParts.clear();
 
         }
-        // list9 
+        // Kundeliste 
         ArrayList<Kunde> kl9 = controller.getAllCostumers();
         Kunde[] ka9 = new Kunde[kl9.size()];
         for (int i = 0; i < kl9.size(); i++) {
