@@ -147,6 +147,7 @@ public class GUI extends javax.swing.JFrame {
         jButtonLevér = new javax.swing.JButton();
         jButtonReturSøg = new javax.swing.JButton();
         jTextFieldReturSøg = new javax.swing.JTextField();
+        jTextFieldReturAntal = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane9 = new javax.swing.JScrollPane();
@@ -289,10 +290,10 @@ public class GUI extends javax.swing.JFrame {
         });
         jPanel1.add(jButtonFaktura, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 120, 100, -1));
 
-        jButtonTilbudPdf.setText("Tilbud PDF");
-        jButtonTilbudPdf.addActionListener(new java.awt.event.ActionListener() {
+        jButtonVisIPDF.setText("Ordre PDF");
+        jButtonVisIPDF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonTilbudPdfActionPerformed(evt);
+                jButtonVisIPDFActionPerformed(evt);
             }
         });
         jPanel1.add(jButtonTilbudPdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 180, 100, -1));
@@ -357,7 +358,7 @@ public class GUI extends javax.swing.JFrame {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 50, -1, -1));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Lastbil", "08:00", "10:00", "12:00", "14:00", "16:00" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Transport", "08:00", "10:00", "12:00", "14:00", "16:00" }));
         jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 50, -1, -1));
 
         jButtonVisIPDF1.setText("Ordre PDF");
@@ -520,6 +521,11 @@ public class GUI extends javax.swing.JFrame {
         jPanel3.add(jButtonAfslutOrdre, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 90, -1, -1));
 
         jButtonOK.setText("OK");
+        jButtonOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonOKActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButtonOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 60, 50, -1));
 
         jButtonLevér.setText("Levér >");
@@ -538,6 +544,7 @@ public class GUI extends javax.swing.JFrame {
         });
         jPanel3.add(jButtonReturSøg, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, -1, -1));
         jPanel3.add(jTextFieldReturSøg, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 110, -1));
+        jPanel3.add(jTextFieldReturAntal, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 60, 60, -1));
 
         jTabbedPane1.addTab("Retur", jPanel3);
         jTabbedPane1.addTab("Kalender", jPanel8);
@@ -895,18 +902,18 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonTilføj1ActionPerformed
 
     private void jButtonTilføj2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilføj2ActionPerformed
-        int knummer = Integer.parseInt(jLabelRedigerKunde.getText());
         String firma = jTextFieldFirmaNavn.getText();
+        if ("".equals(jTextFieldFirmaNavn.getText())) {
+            firma = null;
+        } else {
+            firma = jTextFieldFirmaNavn.getText();
+        }
         String navn = jTextFieldFuldeNavn.getText();
         String adresse = jTextFieldAdresse.getText();
         int postnummer = Integer.parseInt(jTextFieldPostnummer.getText());
         int telefonnummer = Integer.parseInt(jTextFieldTelefonnummer.getText());
 
-
-        Kunde kunde = new Kunde(knummer, firma, navn, adresse, postnummer, telefonnummer);
-
-        controller.redigerKunde(kunde);
-
+        controller.addKunde(0, firma, navn, adresse, postnummer, telefonnummer);
         update();
     }//GEN-LAST:event_jButtonTilføj2ActionPerformed
 
@@ -1004,7 +1011,6 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButtonReturGemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonReturGemActionPerformed
     {//GEN-HEADEREND:event_jButtonReturGemActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_jButtonReturGemActionPerformed
 
     private void jButtonLevérActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonLevérActionPerformed
@@ -1179,9 +1185,12 @@ public class GUI extends javax.swing.JFrame {
         listParts.addElement(new Del(vnummer, delnavn, delantal));
     }//GEN-LAST:event_jButtonTilføjPartActionPerformed
 
-    private void jButtonVisIPDF1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVisIPDF1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonVisIPDF1ActionPerformed
+    private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
+        Del selected = (Del) jListVarer.getSelectedValue();
+
+        if (selected.getAntal() != Integer.parseInt(jTextFieldReturAntal.getText())){
+        }
+    }//GEN-LAST:event_jButtonOKActionPerformed
 
     private void jButtonLeverActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
@@ -1245,6 +1254,16 @@ public class GUI extends javax.swing.JFrame {
                 Ordre ordre = (Ordre) value;  // Using value we are getting the object in JList
                 JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
                 label.setText("" + ordre.getOnummer());  // Setting the text
+                return label;
+            }
+        });
+        jListVarer.setCellRenderer(new DefaultListCellRenderer() { // Setting the DefaultListCellRenderer
+            @Override
+            public Component getListCellRendererComponent(JList list, Object value, int index,
+                    boolean isSelected, boolean cellHasFocus) {
+                Del del = (Del) value;  // Using value we are getting the object in JList
+                JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                label.setText(del.toString());  // Setting the text
                 return label;
             }
         });
@@ -1368,7 +1387,7 @@ public class GUI extends javax.swing.JFrame {
 
         //jComboBox2
         jComboBox2.removeAllItems();
-        jComboBox2.addItem("Lastbil");
+        jComboBox2.addItem("Transport");
         jComboBox2.addItem("08:00");
         jComboBox2.addItem("10:00");
         jComboBox2.addItem("12:00");
@@ -1570,7 +1589,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldPartAntal;
     private javax.swing.JTextField jTextFieldPartNavn;
     private javax.swing.JTextField jTextFieldPostnummer;
-    private javax.swing.JTextField jTextFieldRabat;
+    private javax.swing.JTextField jTextFieldPris;
+    private javax.swing.JTextField jTextFieldReturAntal;
     private javax.swing.JTextField jTextFieldReturSøg;
     private javax.swing.JTextField jTextFieldTelefonnummer;
     private javax.swing.JTextField jTextFieldTilbudSøg;
