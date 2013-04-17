@@ -364,7 +364,7 @@ public class GUI extends javax.swing.JFrame {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 50, -1, -1));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Transport", "08:00", "10:00", "12:00", "14:00", "16:00" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Transport", "08:00", "10:00", "12:00", "14:00", "16:00", "Stor Order" }));
         jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 50, -1, -1));
 
         jButtonOrdrePdf.setText("Ordre PDF");
@@ -792,9 +792,9 @@ public class GUI extends javax.swing.JFrame {
         String afhentning;
         int kno = 0;
         if (jRadioButtonAfhentning.isSelected()) {
-            afhentning = "Leveres af os";
-        } else {
             afhentning = "Afhentes af kunden";
+        } else {
+            afhentning = "Leveres af os";
         }
 
         if (jComboBox1.getSelectedItem() != "Kunder") {
@@ -1221,7 +1221,7 @@ public class GUI extends javax.swing.JFrame {
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
         Del selected = (Del) jListVarer.getSelectedValue();
 
-        if (selected.getAntal() != Integer.parseInt(jTextFieldReturAntal.getText())){
+        if (selected.getAntal() != Integer.parseInt(jTextFieldReturAntal.getText())) {
         }
     }//GEN-LAST:event_jButtonOKActionPerformed
 
@@ -1436,6 +1436,7 @@ public class GUI extends javax.swing.JFrame {
         jComboBox2.addItem("12:00");
         jComboBox2.addItem("14:00");
         jComboBox2.addItem("16:00");
+        jComboBox2.addItem("Stor Order");
         if (!"".equals(jTextFieldÅrUd.getText()) && !"".equals(jTextFieldDagUd.getText()) && !"".equals(jTextFieldMånedUd.getText()) && !"".equals(jTextFieldÅrInd.getText()) && !"".equals(jTextFieldDagInd.getText()) && !"".equals(jTextFieldMånedInd.getText())) {
             int levYear = Integer.parseInt(jTextFieldÅrUd.getText());
             int levMonth = Integer.parseInt(jTextFieldMånedUd.getText());
@@ -1451,12 +1452,17 @@ public class GUI extends javax.swing.JFrame {
                 int oRetYear = Integer.parseInt(o.getReturnering().substring(6, 10));
                 int oRetMonth = Integer.parseInt(o.getReturnering().substring(3, 5));
                 int oRetDay = Integer.parseInt(o.getReturnering().substring(0, 2));
-                if ((levDay <= oLevDay || levDay <= oRetDay) && (retDay >= oRetDay || retDay >= oLevDay)) {
-                    if ((levMonth <= oLevMonth || levMonth <= oRetMonth) && (retMonth >= oRetMonth || retMonth >= oLevMonth)) {
-                        if ((levYear <= oLevYear || levYear <= oRetYear) && (retYear >= oRetYear || retYear >= oLevYear)) {
-                            for (int l = 0; l < jComboBox2.getItemCount(); l++) {
-                                if (o.getTid().equals("" + jComboBox2.getItemAt(l))) {
-                                    jComboBox2.removeItemAt(l);
+                if (o.getAfhentning().equalsIgnoreCase("Leveres af os")) {
+                    if ((levDay == oLevDay || levDay == oRetDay) && (retDay == oRetDay || retDay == oLevDay)) {
+                        if ((levMonth == oLevMonth || levMonth == oRetMonth) && (retMonth == oRetMonth || retMonth == oLevMonth)) {
+                            if ((levYear == oLevYear || levYear == oRetYear) && (retYear == oRetYear || retYear == oLevYear)) {
+                                for (int l = 0; l < jComboBox2.getItemCount(); l++) {
+                                    if (o.getTid().equals("" + jComboBox2.getItemAt(l))) {
+                                        jComboBox2.removeItemAt(l);
+                                    } else if (o.getTid().equals("Stor Order")) {
+                                        jComboBox2.removeAllItems();
+                                        jComboBox2.addItem("Transport");
+                                    }
                                 }
                             }
                         }
