@@ -121,6 +121,18 @@ public class GUI extends javax.swing.JFrame {
         jTextFieldTelefonnummer = new javax.swing.JTextField();
         jButtonKundeSøg = new javax.swing.JButton();
         jTextFieldKundeSøg = new javax.swing.JTextField();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jListTilbudVarer = new javax.swing.JList();
+        jTextField10 = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jButton14 = new javax.swing.JButton();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jTextFieldTilbudSøg = new javax.swing.JTextField();
+        jButtonTilbudSøg = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jListVarer = new javax.swing.JList();
@@ -435,6 +447,47 @@ public class GUI extends javax.swing.JFrame {
         jPanel6.add(jTextFieldKundeSøg, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 110, -1));
 
         jTabbedPane1.addTab("Kunder", jPanel6);
+
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jScrollPane7.setViewportView(jListTilbudVarer);
+
+        jPanel4.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 83, 210, 390));
+        jPanel4.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 80, -1));
+
+        jLabel15.setText("Kroner ");
+        jPanel4.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 80, -1, 30));
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jTextArea1.setText("\nKære kunde... ");
+        jScrollPane8.setViewportView(jTextArea1);
+
+        jPanel4.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(406, 80, 210, 390));
+
+        jButton14.setText("PDF");
+        jPanel4.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 60, -1, -1));
+
+        jLabel16.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel16.setText("Kommentar:");
+        jPanel4.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, 200, -1));
+
+        jLabel29.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel29.setText("Varer:");
+        jPanel4.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 200, -1));
+        jPanel4.add(jTextFieldTilbudSøg, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 110, -1));
+
+        jButtonTilbudSøg.setText("Søg");
+        jButtonTilbudSøg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTilbudSøgActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jButtonTilbudSøg, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, -1, -1));
+
+        jTabbedPane1.addTab("Tilbud", jPanel4);
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -1143,6 +1196,30 @@ public class GUI extends javax.swing.JFrame {
         update();
     }//GEN-LAST:event_jButtonTilføjActionPerformed
 
+    private void jButtonTilbudSøgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilbudSøgActionPerformed
+        if (!jTextFieldTilbudSøg.getText().equals("")) {
+            int counter = 0;
+            ArrayList<Vare> vl = new ArrayList<>();
+
+            for (int i = 0; i < listTilbudVarer.size(); i++) {
+                vl.add((Vare) listTilbudVarer.getElementAt(i));
+            }
+            for (int i = 0; i < vl.size(); i++) {
+                if (vl.get(i).getVnavn().contains(jTextFieldTilbudSøg.getText())) {
+                    jListTilbudVarer.setSelectedIndex(i);
+                } else {
+                    listTilbudVarer.removeElementAt(i - counter);
+                    counter++;
+                }
+            }
+            if (listTilbudVarer.isEmpty() == true) {
+                update();
+            }
+        } else {
+            update();
+        }
+    }//GEN-LAST:event_jButtonTilbudSøgActionPerformed
+
     private void jButtonLeverActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
@@ -1433,6 +1510,7 @@ public class GUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton14;
     private javax.swing.JButton jButtonAfslut;
     private javax.swing.JButton jButtonAfslutOrdre;
     private javax.swing.JButton jButtonDepositum;
@@ -1458,6 +1536,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonSletVare;
     private javax.swing.JButton jButtonStatus;
     private javax.swing.JButton jButtonTilbudPdf;
+    private javax.swing.JButton jButtonTilbudSøg;
     private javax.swing.JButton jButtonTilføj;
     private javax.swing.JButton jButtonTilføj1;
     private javax.swing.JButton jButtonTilføj2;
@@ -1470,6 +1549,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -1482,6 +1563,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
@@ -1501,11 +1583,13 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JList jListKundeliste;
     private javax.swing.JList jListOrdrer;
     private javax.swing.JList jListParts;
+    private javax.swing.JList jListTilbudVarer;
     private javax.swing.JList jListVareliste;
     private javax.swing.JList jListVarer;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
@@ -1521,8 +1605,12 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextFieldAdresse;
     private javax.swing.JTextField jTextFieldAntal;
     private javax.swing.JTextField jTextFieldDagInd;
@@ -1542,6 +1630,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldReturAntal;
     private javax.swing.JTextField jTextFieldReturSøg;
     private javax.swing.JTextField jTextFieldTelefonnummer;
+    private javax.swing.JTextField jTextFieldTilbudSøg;
     private javax.swing.JTextField jTextFieldTotalPris;
     private javax.swing.JTextField jTextFieldVarePris;
     private javax.swing.JTextField jTextFieldVareQty;
