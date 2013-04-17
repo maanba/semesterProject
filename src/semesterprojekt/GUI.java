@@ -796,6 +796,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButtonLagerRedigerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLagerRedigerActionPerformed
         if (controller.getRediger() == false) {
+            jLabelErrorLager.setText("");
             Vare selected = (Vare) jListVareliste.getSelectedValue();
             listVarer.removeElement(selected);
             listParts.clear();
@@ -808,8 +809,12 @@ public class GUI extends javax.swing.JFrame {
             for (int i = 0; i < selected.getDel().size(); i++) {
                 listParts.addElement(selected.getDel().get(i));
             }
+            controller.redigerTrue();
         }
-        controller.redigerTrue();
+        else
+        {
+            jLabelErrorLager.setText("You need to finish editing your stock before editing a new one.");
+        }
     }//GEN-LAST:event_jButtonLagerRedigerActionPerformed
 
     private void jButtonTilføjPartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilføjPartActionPerformed
