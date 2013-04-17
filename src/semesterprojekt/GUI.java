@@ -792,9 +792,9 @@ public class GUI extends javax.swing.JFrame {
         String afhentning;
         int kno = 0;
         if (jRadioButtonAfhentning.isSelected()) {
-            afhentning = "Leveres af os";
-        } else {
             afhentning = "Afhentes af kunden";
+        } else {
+            afhentning = "Leveres af os";
         }
 
         if (jComboBox1.getSelectedItem() != "Kunder") {
