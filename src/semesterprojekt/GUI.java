@@ -41,7 +41,6 @@ public class GUI extends javax.swing.JFrame {
         jList2.setModel(list2);
         jList3.setModel(list3);
         jListVareliste.setModel(Vareliste);
-        jListTilbudVarer.setModel(listTilbudVarer);
         jListKundeliste.setModel(listKundeliste);
         jListHistorik.setModel(listHistorik);
         jListOrdrer.setModel(listOrdrer);
@@ -122,18 +121,6 @@ public class GUI extends javax.swing.JFrame {
         jTextFieldTelefonnummer = new javax.swing.JTextField();
         jButtonKundeSøg = new javax.swing.JButton();
         jTextFieldKundeSøg = new javax.swing.JTextField();
-        jPanel4 = new javax.swing.JPanel();
-        jScrollPane7 = new javax.swing.JScrollPane();
-        jListTilbudVarer = new javax.swing.JList();
-        jTextField10 = new javax.swing.JTextField();
-        jLabel15 = new javax.swing.JLabel();
-        jScrollPane8 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jButton14 = new javax.swing.JButton();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
-        jTextFieldTilbudSøg = new javax.swing.JTextField();
-        jButtonTilbudSøg = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jListVarer = new javax.swing.JList();
@@ -449,47 +436,6 @@ public class GUI extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Kunder", jPanel6);
 
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jScrollPane7.setViewportView(jListTilbudVarer);
-
-        jPanel4.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 83, 210, 390));
-        jPanel4.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 80, -1));
-
-        jLabel15.setText("Kroner ");
-        jPanel4.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 80, -1, 30));
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jTextArea1.setText("\nKære kunde... ");
-        jScrollPane8.setViewportView(jTextArea1);
-
-        jPanel4.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(406, 80, 210, 390));
-
-        jButton14.setText("PDF");
-        jPanel4.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 60, -1, -1));
-
-        jLabel16.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setText("Kommentar:");
-        jPanel4.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, 200, -1));
-
-        jLabel29.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel29.setText("Varer:");
-        jPanel4.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 200, -1));
-        jPanel4.add(jTextFieldTilbudSøg, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 110, -1));
-
-        jButtonTilbudSøg.setText("Søg");
-        jButtonTilbudSøg.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonTilbudSøgActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jButtonTilbudSøg, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, -1, -1));
-
-        jTabbedPane1.addTab("Tilbud", jPanel4);
-
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jScrollPane4.setViewportView(jListVarer);
@@ -712,8 +658,327 @@ public class GUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonOrdreRedigerActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonOrdreRedigerActionPerformed
-    {//GEN-HEADEREND:event_jButtonOrdreRedigerActionPerformed
+    private void jButtonLagerSøgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLagerSøgActionPerformed
+        if (!jTextFieldLagerSøg.getText().equals("")) {
+            int counter = 0;
+            ArrayList<Vare> vl = new ArrayList<>();
+            for (int i = 0; i < Vareliste.size(); i++) {
+                vl.add((Vare) Vareliste.getElementAt(i));
+            }
+            for (int i = 0; i < vl.size(); i++) {
+                if (vl.get(i).getVnavn().contains(jTextFieldLagerSøg.getText())) {
+                    jListVareliste.setSelectedIndex(i);
+                } else {
+                    Vareliste.removeElementAt(i - counter);
+                    counter++;
+                }
+            }
+            if (Vareliste.isEmpty() == true) {
+                update();
+            }
+        } else {
+            update();
+        }
+    }//GEN-LAST:event_jButtonLagerSøgActionPerformed
+
+    private void jButtonSletVareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSletVareActionPerformed
+        Vare selected = (Vare) jListVareliste.getSelectedValue();
+        if (selected != null) {
+            controller.deleteVare(selected);
+            update();
+        }
+    }//GEN-LAST:event_jButtonSletVareActionPerformed
+
+    private void jButtonLagerGemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLagerGemActionPerformed
+        int vnummer;
+        String vnavn = jTextFieldNavn.getText();
+        double pris = Double.parseDouble(jTextFieldVarePris.getText());
+        int qty = Integer.parseInt(jTextFieldVareQty.getText());
+
+        if (controller.getRediger() == true)
+        {
+            vnummer = Integer.parseInt(jLabelRedigerIVare.getText());
+
+            Vare vare = new Vare(vnummer, vnavn, qty, pris);
+            for (int i = 0; i < listParts.size(); i++)
+            {
+                vare.addDel((Del) listParts.getElementAt(i));
+            }
+            controller.redigerVare(vare);
+        }
+        else
+        {
+            vnummer = controller.getNextVnummer();
+
+            Vare vare = new Vare(vnummer, vnavn, qty, pris);
+            for (int i = 0; i < listParts.size(); i++)
+            {
+                vare.addDel((Del) listParts.getElementAt(i));
+            }
+            controller.addVare(vare);
+        }
+
+        update();
+        controller.redigerFalse();
+    }//GEN-LAST:event_jButtonLagerGemActionPerformed
+
+    private void jButtonLagerRedigerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLagerRedigerActionPerformed
+        Vare selected = (Vare) jListVareliste.getSelectedValue();
+        listVarer.removeElement(selected);
+        jLabelVareRediger.setText("Redigerer i:");
+        jLabelRedigerVare.setText("Redigerer i vare:");
+        jLabelRedigerIVare.setText(selected.getVnummer() + "");
+        jTextFieldNavn.setText(selected.getVnavn());
+        jTextFieldVarePris.setText(selected.getPris() + "");
+        jTextFieldVareQty.setText(selected.getQty() + "");
+        for (int i = 0; i < selected.getDel().size(); i++) {
+            listParts.addElement(selected.getDel().get(i));
+        }
+
+        /* if (selected != null) {
+            for (int i = 0; i < Vareliste.size(); i++) {
+                Vare vare = (Vare) Vareliste.getElementAt(i);
+            }
+            *
+            *
+        } else {
+            jLabelError.setText("FEJL!");
+        }*/
+        controller.redigerTrue();
+    }//GEN-LAST:event_jButtonLagerRedigerActionPerformed
+
+    private void jButtonTilføjPartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilføjPartActionPerformed
+        int vnummer = controller.getNextVnummer();
+        String delnavn = jTextFieldPartNavn.getText();
+        int delantal = Integer.parseInt(jTextFieldPartAntal.getText());
+        listParts.addElement(new Del(vnummer, delnavn, delantal));
+    }//GEN-LAST:event_jButtonTilføjPartActionPerformed
+
+    private void jButtonFjernPartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFjernPartActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonFjernPartActionPerformed
+
+    private void jButtonHistorikSøgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHistorikSøgActionPerformed
+        if (!jTextFieldHistorikSøg.getText().equals("")) {
+            int counter = 0;
+            ArrayList<Ordre> ol = new ArrayList<>();
+            for (int i = 0; i < listHistorik.size(); i++) {
+                ol.add((Ordre) listHistorik.getElementAt(i));
+            }
+            for (int i = 0; i < ol.size(); i++) {
+                String onummer = ol.get(i).getOnummer() + "";
+                if (onummer.contains(jTextFieldHistorikSøg.getText())) {
+                    jListHistorik.setSelectedIndex(i);
+                } else {
+                    listHistorik.removeElementAt(i - counter);
+                    counter++;
+                }
+            }
+            if (listHistorik.isEmpty() == true) {
+                update();
+            }
+        } else {
+            update();
+        }
+    }//GEN-LAST:event_jButtonHistorikSøgActionPerformed
+
+    private void jButtonSletOrdreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSletOrdreActionPerformed
+        if (!jListHistorik.isSelectionEmpty()) {
+            Ordre ordre = (Ordre) jListHistorik.getSelectedValue();
+            controller.deleteOrder(ordre);
+            update();
+        }
+    }//GEN-LAST:event_jButtonSletOrdreActionPerformed
+
+    private void jButtonPaabegyndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPaabegyndActionPerformed
+        Ordre selected = (Ordre) jListHistorik.getSelectedValue();
+        controller.ordrePaabegynd(selected.getKnummer());
+        update();
+    }//GEN-LAST:event_jButtonPaabegyndActionPerformed
+
+    private void jButtonAfslutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAfslutActionPerformed
+        Ordre selected = (Ordre) jListHistorik.getSelectedValue();
+        controller.ordreAfslut(selected.getKnummer());
+        update();
+    }//GEN-LAST:event_jButtonAfslutActionPerformed
+
+    private void jButtonReturSøgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReturSøgActionPerformed
+        if (!jTextFieldReturSøg.getText().equals("")) {
+            int counter = 0;
+            ArrayList<Ordre> ol = new ArrayList<>();
+
+            for (int i = 0; i < listOrdrer.size(); i++) {
+                ol.add((Ordre) listOrdrer.getElementAt(i));
+            }
+            for (int i = 0; i < ol.size(); i++) {
+                String onummer = ol.get(i).getOnummer() + "";
+                if (onummer.contains(jTextFieldReturSøg.getText())) {
+                    jListOrdrer.setSelectedIndex(i);
+                } else {
+                    listOrdrer.removeElementAt(i - counter);
+                    counter++;
+                }
+            }
+            if (listOrdrer.isEmpty() == true) {
+                update();
+            }
+        } else {
+            update();
+        }
+    }//GEN-LAST:event_jButtonReturSøgActionPerformed
+
+    private void jButtonLevérActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLevérActionPerformed
+        Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
+        ArrayList<Odetaljer> od = selected.getOd();
+
+        for (int i = 0; i < od.size(); i++) {
+            Vare vare = controller.getVare(od.get(i).getVnummer());
+            for (int j = 0; j < vare.getDel().size(); j++) {
+                listVarer.addElement(vare.getDel().get(j));
+            }
+        }
+    }//GEN-LAST:event_jButtonLevérActionPerformed
+
+    private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
+        Del selected = (Del) jListVarer.getSelectedValue();
+
+        if (selected.getAntal() != Integer.parseInt(jTextFieldReturAntal.getText())) {
+        }
+    }//GEN-LAST:event_jButtonOKActionPerformed
+
+    private void jButtonAfslutOrdreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAfslutOrdreActionPerformed
+        Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
+        controller.ordreAfslut(selected.getKnummer());
+        update();
+    }//GEN-LAST:event_jButtonAfslutOrdreActionPerformed
+
+    private void jButtonReturGemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReturGemActionPerformed
+
+    }//GEN-LAST:event_jButtonReturGemActionPerformed
+
+    private void jButtonKundeSøgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKundeSøgActionPerformed
+        if (!jTextFieldKundeSøg.getText().equals("")) {
+            ArrayList<Kunde> kl = new ArrayList<>();
+            int counter = 0;
+            for (int i = 0; i < listKundeliste.size(); i++) {
+                kl.add((Kunde) listKundeliste.getElementAt(i));
+            }
+            for (int i = 0; i < kl.size(); i++) {
+                if (kl.get(i).getFirma() == null && kl.get(i).getNavn().contains(jTextFieldKundeSøg.getText())) {
+                    jListKundeliste.setSelectedIndex(i);
+                } else if (kl.get(i).getFirma() != null && kl.get(i).getFirma().contains(jTextFieldKundeSøg.getText()) || kl.get(i).getNavn().contains(jTextFieldKundeSøg.getText())) {
+                    jListKundeliste.setSelectedIndex(i);
+                } else {
+                    listKundeliste.removeElementAt(i - counter);
+                    counter++;
+                }
+            }
+            if (listKundeliste.isEmpty() == true) {
+                update();
+            }
+        } else {
+            update();
+        }
+    }//GEN-LAST:event_jButtonKundeSøgActionPerformed
+
+    private void jButtonTilføj2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilføj2ActionPerformed
+        String firma = jTextFieldFirmaNavn.getText();
+        if ("".equals(jTextFieldFirmaNavn.getText())) {
+            firma = null;
+        } else {
+            firma = jTextFieldFirmaNavn.getText();
+        }
+        String navn = jTextFieldFuldeNavn.getText();
+        String adresse = jTextFieldAdresse.getText();
+        int postnummer = Integer.parseInt(jTextFieldPostnummer.getText());
+        int telefonnummer = Integer.parseInt(jTextFieldTelefonnummer.getText());
+
+        controller.addKunde(0, firma, navn, adresse, postnummer, telefonnummer);
+        update();
+    }//GEN-LAST:event_jButtonTilføj2ActionPerformed
+
+    private void jButtonTilføj1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilføj1ActionPerformed
+        Kunde selected = (Kunde) jListKundeliste.getSelectedValue();
+
+        jLabel20.setText("Redigerer i:");
+        jLabel18.setText("Redigerer kunde oplysninger");
+        jLabelRedigerKunde.setText(selected.getKnummer() + "");
+        if (jTextFieldFirmaNavn == null) {
+            jTextFieldFirmaNavn.setText("");
+        } else {
+            jTextFieldFirmaNavn.setText(selected.getFirma());
+        }
+        jTextFieldFuldeNavn.setText(selected.getNavn());
+        jTextFieldAdresse.setText(selected.getAdresse() + "");
+        jTextFieldPostnummer.setText(selected.getPostnummer() + "");
+        jTextFieldTelefonnummer.setText(selected.getTelefonnummer() + "");
+
+        if (selected != null) {
+            for (int i = 0; i < listKundeliste.size(); i++) {
+                Kunde kunde = (Kunde) listKundeliste.getElementAt(i);
+            }
+        } else {
+            jLabelError.setText("FEJL!");
+        }
+    }//GEN-LAST:event_jButtonTilføj1ActionPerformed
+
+    private void jButtonOrdrePdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdrePdfActionPerformed
+        Ordre selected = (Ordre) jList3.getSelectedValue();
+        controller.setSelectedOrdre(selected);
+        controller.pdfTilbud();
+    }//GEN-LAST:event_jButtonOrdrePdfActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        update();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButtonStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStatusActionPerformed
+        Ordre selected = (Ordre) jList3.getSelectedValue();
+        if (selected == null) {
+            jLabelError.setText("Vælg en ordre før du trykker status!");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, selected.getStatus(), "Status for ordre: " + selected.getOnummer(), WIDTH);
+        }
+    }//GEN-LAST:event_jButtonStatusActionPerformed
+
+    private void jButtonMontoerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMontoerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonMontoerActionPerformed
+
+    private void jButtonLastbilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLastbilActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonLastbilActionPerformed
+
+    private void jTextFieldRabatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldRabatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldRabatActionPerformed
+
+    private void jButtonTilbudPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilbudPdfActionPerformed
+        Ordre selected = (Ordre) jList3.getSelectedValue();
+        controller.setSelectedOrdre(selected);
+        controller.pdfTilbud();
+    }//GEN-LAST:event_jButtonTilbudPdfActionPerformed
+
+    private void jButtonFakturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFakturaActionPerformed
+        Ordre selected = (Ordre) jList3.getSelectedValue();
+        controller.setSelectedOrdre(selected);
+        if (selected.getFnummer() == 0) {
+            controller.addOrderFakturaNummer(selected);
+        }
+        controller.setCurrentOrder(selected);
+        controller.pdfFaktura();
+    }//GEN-LAST:event_jButtonFakturaActionPerformed
+
+    private void jButtonDepositumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDepositumActionPerformed
+        Ordre selected = (Ordre) jList3.getSelectedValue();
+        double depositum = Double.parseDouble(JOptionPane.showInputDialog("Her kan Erling indtaste depositum: "));
+        selected.setDepositum(depositum);
+        System.out.println("Depositum: " + selected.getDepositum());
+        controller.setCurrentOrder(selected);
+        controller.updateOrder(selected.getKnummer(), selected.getPris(), selected.getRabat(), selected.getDepositum(), selected.getTid(), selected.getAfhentning(), selected.getStatus(), selected.getLevering(), selected.getReturnering(), selected.getOd());
+    }//GEN-LAST:event_jButtonDepositumActionPerformed
+
+    private void jButtonOrdreRedigerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdreRedigerActionPerformed
         Ordre selected = (Ordre) jList3.getSelectedValue();
         int selectedIndex = jList3.getSelectedIndex();
         if (list2.isEmpty() == false) {
@@ -742,8 +1007,6 @@ public class GUI extends javax.swing.JFrame {
             jTextFieldMånedInd.setText(selected.getReturnering().substring(3, 5));
             jTextFieldÅrInd.setText(selected.getReturnering().substring(6, 10));
 
-
-
             if (selected.getAfhentning() == "Leveres af os") {
                 jRadioButtonLevering.setSelected(rootPaneCheckingEnabled);
             } else {
@@ -758,35 +1021,15 @@ public class GUI extends javax.swing.JFrame {
         jTextFieldRabat.setText(selected.getRabat() + "");
     }//GEN-LAST:event_jButtonOrdreRedigerActionPerformed
 
-    private void jButtonTilføjActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonTilføjActionPerformed
-    {//GEN-HEADEREND:event_jButtonTilføjActionPerformed
-        boolean check = false;
-        Vare selected = (Vare) jList1.getSelectedValue();
-        selected.setQty(Integer.parseInt(jTextFieldAntal.getText()));
-        if (selected != null && controller.checkQty(selected.getVnummer(), Integer.parseInt(jTextFieldAntal.getText()))) {
-            //controller.setQty(selected.getVnummer(), Integer.parseInt(jTextFieldAntal.getText()));
-            for (int i = 0; i < list2.size(); i++) {
-                Vare vare = (Vare) list2.getElementAt(i);
-                if (vare.getVnummer() == selected.getVnummer()) {
-                    vare.setQty(vare.getQty() + Integer.parseInt(jTextFieldAntal.getText()));
-                    list2.addElement(vare);
-                    list2.removeElementAt(i);
-                    check = true;
-                    break;
-                }
-            }
-            if (check == false) {
-                list2.addElement(selected);
-            }
-        } else {
-            jLabelError.setText("FEJL!");
+    private void jRadioButtonLeveringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonLeveringActionPerformed
+        jComboBox2.setEnabled(true);
+    }//GEN-LAST:event_jRadioButtonLeveringActionPerformed
 
-        }
-        update();
-    }//GEN-LAST:event_jButtonTilføjActionPerformed
+    private void jRadioButtonAfhentningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAfhentningActionPerformed
+        jComboBox2.setEnabled(false);
+    }//GEN-LAST:event_jRadioButtonAfhentningActionPerformed
 
-    private void jButtonGennemførOrdreActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonGennemførOrdreActionPerformed
-    {//GEN-HEADEREND:event_jButtonGennemførOrdreActionPerformed
+    private void jButtonGennemførOrdreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGennemførOrdreActionPerformed
         ArrayList<Odetaljer> odetaljer = new ArrayList<>();
         ArrayList<Kunde> kunder = controller.getAllCostumers();
         String afhentning;
@@ -858,15 +1101,7 @@ public class GUI extends javax.swing.JFrame {
         update();
     }//GEN-LAST:event_jButtonGennemførOrdreActionPerformed
 
-    private void jButtonTilbudPdfActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonTilbudPdfActionPerformed
-    {//GEN-HEADEREND:event_jButtonTilbudPdfActionPerformed
-        Ordre selected = (Ordre) jList3.getSelectedValue();
-        controller.setSelectedOrdre(selected);
-        controller.pdfTilbud();
-    }//GEN-LAST:event_jButtonTilbudPdfActionPerformed
-
-    private void jButtonFjernActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonFjernActionPerformed
-    {//GEN-HEADEREND:event_jButtonFjernActionPerformed
+    private void jButtonFjernActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFjernActionPerformed
         Vare selected = (Vare) jList2.getSelectedValue();
         if (selected != null && selected.getQty() >= Integer.parseInt(jTextFieldAntal.getText())) {
             list2.removeElement(selected);
@@ -882,358 +1117,31 @@ public class GUI extends javax.swing.JFrame {
         update();
     }//GEN-LAST:event_jButtonFjernActionPerformed
 
-    private void jButtonTilføj1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilføj1ActionPerformed
-        Kunde selected = (Kunde) jListKundeliste.getSelectedValue();
-
-        jLabel20.setText("Redigerer i:");
-        jLabel18.setText("Redigerer kunde oplysninger");
-        jLabelRedigerKunde.setText(selected.getKnummer() + "");
-        if (jTextFieldFirmaNavn == null) {
-            jTextFieldFirmaNavn.setText("");
-        } else {
-            jTextFieldFirmaNavn.setText(selected.getFirma());
-        }
-        jTextFieldFuldeNavn.setText(selected.getNavn());
-        jTextFieldAdresse.setText(selected.getAdresse() + "");
-        jTextFieldPostnummer.setText(selected.getPostnummer() + "");
-        jTextFieldTelefonnummer.setText(selected.getTelefonnummer() + "");
-
-        if (selected != null) {
-            for (int i = 0; i < listKundeliste.size(); i++) {
-                Kunde kunde = (Kunde) listKundeliste.getElementAt(i);
+    private void jButtonTilføjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilføjActionPerformed
+        boolean check = false;
+        Vare selected = (Vare) jList1.getSelectedValue();
+        selected.setQty(Integer.parseInt(jTextFieldAntal.getText()));
+        if (selected != null && controller.checkQty(selected.getVnummer(), Integer.parseInt(jTextFieldAntal.getText()))) {
+            //controller.setQty(selected.getVnummer(), Integer.parseInt(jTextFieldAntal.getText()));
+            for (int i = 0; i < list2.size(); i++) {
+                Vare vare = (Vare) list2.getElementAt(i);
+                if (vare.getVnummer() == selected.getVnummer()) {
+                    vare.setQty(vare.getQty() + Integer.parseInt(jTextFieldAntal.getText()));
+                    list2.addElement(vare);
+                    list2.removeElementAt(i);
+                    check = true;
+                    break;
+                }
+            }
+            if (check == false) {
+                list2.addElement(selected);
             }
         } else {
             jLabelError.setText("FEJL!");
-        }
-    }//GEN-LAST:event_jButtonTilføj1ActionPerformed
 
-    private void jButtonTilføj2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilføj2ActionPerformed
-        String firma = jTextFieldFirmaNavn.getText();
-        if ("".equals(jTextFieldFirmaNavn.getText())) {
-            firma = null;
-        } else {
-            firma = jTextFieldFirmaNavn.getText();
         }
-        String navn = jTextFieldFuldeNavn.getText();
-        String adresse = jTextFieldAdresse.getText();
-        int postnummer = Integer.parseInt(jTextFieldPostnummer.getText());
-        int telefonnummer = Integer.parseInt(jTextFieldTelefonnummer.getText());
-
-        controller.addKunde(0, firma, navn, adresse, postnummer, telefonnummer);
         update();
-    }//GEN-LAST:event_jButtonTilføj2ActionPerformed
-
-    private void jButtonDepositumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDepositumActionPerformed
-        Ordre selected = (Ordre) jList3.getSelectedValue();
-        double depositum = Double.parseDouble(JOptionPane.showInputDialog("Her kan Erling indtaste depositum: "));
-        selected.setDepositum(depositum);
-        System.out.println("Depositum: " + selected.getDepositum());
-        controller.setCurrentOrder(selected);
-        controller.updateOrder(selected.getKnummer(), selected.getPris(), selected.getRabat(), selected.getDepositum(), selected.getTid(), selected.getAfhentning(), selected.getStatus(), selected.getLevering(), selected.getReturnering(), selected.getOd());
-    }//GEN-LAST:event_jButtonDepositumActionPerformed
-
-    private void jButtonAfslutOrdreActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonAfslutOrdreActionPerformed
-    {//GEN-HEADEREND:event_jButtonAfslutOrdreActionPerformed
-        Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
-        controller.ordreAfslut(selected.getKnummer());
-        update();
-    }//GEN-LAST:event_jButtonAfslutOrdreActionPerformed
-
-    private void jButtonAfslutActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonAfslutActionPerformed
-    {//GEN-HEADEREND:event_jButtonAfslutActionPerformed
-        Ordre selected = (Ordre) jListHistorik.getSelectedValue();
-        controller.ordreAfslut(selected.getKnummer());
-        update();
-    }//GEN-LAST:event_jButtonAfslutActionPerformed
-
-    private void jButtonPaabegyndActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonPaabegyndActionPerformed
-    {//GEN-HEADEREND:event_jButtonPaabegyndActionPerformed
-        Ordre selected = (Ordre) jListHistorik.getSelectedValue();
-        controller.ordrePaabegynd(selected.getKnummer());
-        update();
-    }//GEN-LAST:event_jButtonPaabegyndActionPerformed
-
-    private void jButtonLagerGemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLagerGemActionPerformed
-        int vnummer;
-        String vnavn = jTextFieldNavn.getText();
-        double pris = Double.parseDouble(jTextFieldVarePris.getText());
-        int qty = Integer.parseInt(jTextFieldVareQty.getText());
-
-        if (controller.getRediger() == true) 
-        {
-            vnummer = Integer.parseInt(jLabelRedigerIVare.getText());
-
-            Vare vare = new Vare(vnummer, vnavn, qty, pris);
-            for (int i = 0; i < listParts.size(); i++) 
-            {
-                vare.addDel((Del) listParts.getElementAt(i));
-            }
-            controller.redigerVare(vare);
-        }
-        else
-        {
-            vnummer = controller.getNextVnummer();
-            
-            Vare vare = new Vare(vnummer, vnavn, qty, pris);
-            for (int i = 0; i < listParts.size(); i++) 
-            {
-                vare.addDel((Del) listParts.getElementAt(i));
-            }
-            controller.addVare(vare);
-        }
-        
-        update();
-        controller.redigerFalse();
-    }//GEN-LAST:event_jButtonLagerGemActionPerformed
-
-    private void jButtonFakturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFakturaActionPerformed
-        Ordre selected = (Ordre) jList3.getSelectedValue();
-        controller.setSelectedOrdre(selected);
-        if (selected.getFnummer() == 0) {
-            controller.addOrderFakturaNummer(selected);
-        }
-        controller.setCurrentOrder(selected);
-        controller.pdfFaktura();
-    }//GEN-LAST:event_jButtonFakturaActionPerformed
-
-    private void jButtonStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStatusActionPerformed
-        Ordre selected = (Ordre) jList3.getSelectedValue();
-        if (selected == null) {
-            jLabelError.setText("Vælg en ordre før du trykker status!");
-        } else {
-            JOptionPane.showMessageDialog(rootPane, selected.getStatus(), "Status for ordre: " + selected.getOnummer(), WIDTH);
-        }
-    }//GEN-LAST:event_jButtonStatusActionPerformed
-
-    private void jButtonLastbilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLastbilActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonLastbilActionPerformed
-
-    private void jButtonMontoerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMontoerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonMontoerActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        update();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButtonLagerRedigerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLagerRedigerActionPerformed
-        Vare selected = (Vare) jListVareliste.getSelectedValue();
-        listVarer.removeElement(selected);
-        jLabelVareRediger.setText("Redigerer i:");
-        jLabelRedigerVare.setText("Redigerer i vare:");
-        jLabelRedigerIVare.setText(selected.getVnummer() + "");
-        jTextFieldNavn.setText(selected.getVnavn());
-        jTextFieldVarePris.setText(selected.getPris() + "");
-        jTextFieldVareQty.setText(selected.getQty() + "");
-        for (int i = 0; i < selected.getDel().size(); i++) {
-            listParts.addElement(selected.getDel().get(i));
-        }
-
-        /* if (selected != null) {
-         for (int i = 0; i < Vareliste.size(); i++) {
-         Vare vare = (Vare) Vareliste.getElementAt(i);
-         }
-         * 
-         * 
-         } else {
-         jLabelError.setText("FEJL!");
-         }*/
-        controller.redigerTrue();
-    }//GEN-LAST:event_jButtonLagerRedigerActionPerformed
-
-    private void jButtonReturGemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonReturGemActionPerformed
-    {//GEN-HEADEREND:event_jButtonReturGemActionPerformed
-    }//GEN-LAST:event_jButtonReturGemActionPerformed
-
-    private void jButtonLevérActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonLevérActionPerformed
-    {//GEN-HEADEREND:event_jButtonLevérActionPerformed
-        Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
-        ArrayList<Odetaljer> od = selected.getOd();
-
-        for (int i = 0; i < od.size(); i++) {
-            Vare vare = controller.getVare(od.get(i).getVnummer());
-            for (int j = 0; j < vare.getDel().size(); j++) {
-                listVarer.addElement(vare.getDel().get(j));
-            }
-        }
-    }//GEN-LAST:event_jButtonLevérActionPerformed
-
-    private void jButtonSletOrdreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSletOrdreActionPerformed
-        if (!jListHistorik.isSelectionEmpty()) {
-            Ordre ordre = (Ordre) jListHistorik.getSelectedValue();
-            controller.deleteOrder(ordre);
-            update();
-        }
-    }//GEN-LAST:event_jButtonSletOrdreActionPerformed
-
-    private void jButtonSletVareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSletVareActionPerformed
-        Vare selected = (Vare) jListVareliste.getSelectedValue();
-        if (selected != null) {
-            controller.deleteVare(selected);
-            update();
-        }
-    }//GEN-LAST:event_jButtonSletVareActionPerformed
-
-    private void jRadioButtonAfhentningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAfhentningActionPerformed
-        jComboBox2.setEnabled(false);
-    }//GEN-LAST:event_jRadioButtonAfhentningActionPerformed
-
-    private void jRadioButtonLeveringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonLeveringActionPerformed
-        jComboBox2.setEnabled(true);
-    }//GEN-LAST:event_jRadioButtonLeveringActionPerformed
-
-    private void jButtonKundeSøgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKundeSøgActionPerformed
-        if (!jTextFieldKundeSøg.getText().equals("")) {
-            ArrayList<Kunde> kl = new ArrayList<>();
-            int counter = 0;
-            for (int i = 0; i < listKundeliste.size(); i++) {
-                kl.add((Kunde) listKundeliste.getElementAt(i));
-            }
-            for (int i = 0; i < kl.size(); i++) {
-                if (kl.get(i).getFirma() == null && kl.get(i).getNavn().contains(jTextFieldKundeSøg.getText())) {
-                    jListKundeliste.setSelectedIndex(i);
-                } else if (kl.get(i).getFirma() != null && kl.get(i).getFirma().contains(jTextFieldKundeSøg.getText()) || kl.get(i).getNavn().contains(jTextFieldKundeSøg.getText())) {
-                    jListKundeliste.setSelectedIndex(i);
-                } else {
-                    listKundeliste.removeElementAt(i - counter);
-                    counter++;
-                }
-            }
-            if (listKundeliste.isEmpty() == true) {
-                update();
-            }
-        } else {
-            update();
-        }
-    }//GEN-LAST:event_jButtonKundeSøgActionPerformed
-
-    private void jButtonReturSøgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReturSøgActionPerformed
-        if (!jTextFieldReturSøg.getText().equals("")) {
-            int counter = 0;
-            ArrayList<Ordre> ol = new ArrayList<>();
-
-            for (int i = 0; i < listOrdrer.size(); i++) {
-                ol.add((Ordre) listOrdrer.getElementAt(i));
-            }
-            for (int i = 0; i < ol.size(); i++) {
-                String onummer = ol.get(i).getOnummer() + "";
-                if (onummer.contains(jTextFieldReturSøg.getText())) {
-                    jListOrdrer.setSelectedIndex(i);
-                } else {
-                    listOrdrer.removeElementAt(i - counter);
-                    counter++;
-                }
-            }
-            if (listOrdrer.isEmpty() == true) {
-                update();
-            }
-        } else {
-            update();
-        }
-    }//GEN-LAST:event_jButtonReturSøgActionPerformed
-
-    private void jButtonTilbudSøgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilbudSøgActionPerformed
-        if (!jTextFieldTilbudSøg.getText().equals("")) {
-            int counter = 0;
-            ArrayList<Vare> vl = new ArrayList<>();
-
-            for (int i = 0; i < listTilbudVarer.size(); i++) {
-                vl.add((Vare) listTilbudVarer.getElementAt(i));
-            }
-            for (int i = 0; i < vl.size(); i++) {
-                if (vl.get(i).getVnavn().contains(jTextFieldTilbudSøg.getText())) {
-                    jListTilbudVarer.setSelectedIndex(i);
-                } else {
-                    listTilbudVarer.removeElementAt(i - counter);
-                    counter++;
-                }
-            }
-            if (listTilbudVarer.isEmpty() == true) {
-                update();
-            }
-        } else {
-            update();
-        }
-    }//GEN-LAST:event_jButtonTilbudSøgActionPerformed
-
-    private void jButtonHistorikSøgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHistorikSøgActionPerformed
-        if (!jTextFieldHistorikSøg.getText().equals("")) {
-            int counter = 0;
-            ArrayList<Ordre> ol = new ArrayList<>();
-            for (int i = 0; i < listHistorik.size(); i++) {
-                ol.add((Ordre) listHistorik.getElementAt(i));
-            }
-            for (int i = 0; i < ol.size(); i++) {
-                String onummer = ol.get(i).getOnummer() + "";
-                if (onummer.contains(jTextFieldHistorikSøg.getText())) {
-                    jListHistorik.setSelectedIndex(i);
-                } else {
-                    listHistorik.removeElementAt(i - counter);
-                    counter++;
-                }
-            }
-            if (listHistorik.isEmpty() == true) {
-                update();
-            }
-        } else {
-            update();
-        }
-
-    }//GEN-LAST:event_jButtonHistorikSøgActionPerformed
-
-    private void jButtonLagerSøgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLagerSøgActionPerformed
-        if (!jTextFieldLagerSøg.getText().equals("")) {
-            int counter = 0;
-            ArrayList<Vare> vl = new ArrayList<>();
-            for (int i = 0; i < Vareliste.size(); i++) {
-                vl.add((Vare) Vareliste.getElementAt(i));
-            }
-            for (int i = 0; i < vl.size(); i++) {
-                if (vl.get(i).getVnavn().contains(jTextFieldLagerSøg.getText())) {
-                    jListVareliste.setSelectedIndex(i);
-                } else {
-                    Vareliste.removeElementAt(i - counter);
-                    counter++;
-                }
-            }
-            if (Vareliste.isEmpty() == true) {
-                update();
-            }
-        } else {
-            update();
-        }
-    }//GEN-LAST:event_jButtonLagerSøgActionPerformed
-
-    private void jButtonFjernPartActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonFjernPartActionPerformed
-    {//GEN-HEADEREND:event_jButtonFjernPartActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFjernPartActionPerformed
-
-    private void jButtonTilføjPartActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonTilføjPartActionPerformed
-    {//GEN-HEADEREND:event_jButtonTilføjPartActionPerformed
-        int vnummer = controller.getNextVnummer();
-        String delnavn = jTextFieldPartNavn.getText();
-        int delantal = Integer.parseInt(jTextFieldPartAntal.getText());
-        listParts.addElement(new Del(vnummer, delnavn, delantal));
-    }//GEN-LAST:event_jButtonTilføjPartActionPerformed
-
-    private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
-        Del selected = (Del) jListVarer.getSelectedValue();
-
-        if (selected.getAntal() != Integer.parseInt(jTextFieldReturAntal.getText())) {
-        }
-    }//GEN-LAST:event_jButtonOKActionPerformed
-
-    private void jTextFieldRabatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldRabatActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldRabatActionPerformed
-
-    private void jButtonOrdrePdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdrePdfActionPerformed
-        Ordre selected = (Ordre) jList3.getSelectedValue();
-        controller.setSelectedOrdre(selected);
-        controller.pdfTilbud();
-    }//GEN-LAST:event_jButtonOrdrePdfActionPerformed
+    }//GEN-LAST:event_jButtonTilføjActionPerformed
 
     private void jButtonLeverActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
@@ -1525,7 +1433,6 @@ public class GUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton14;
     private javax.swing.JButton jButtonAfslut;
     private javax.swing.JButton jButtonAfslutOrdre;
     private javax.swing.JButton jButtonDepositum;
@@ -1551,7 +1458,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonSletVare;
     private javax.swing.JButton jButtonStatus;
     private javax.swing.JButton jButtonTilbudPdf;
-    private javax.swing.JButton jButtonTilbudSøg;
     private javax.swing.JButton jButtonTilføj;
     private javax.swing.JButton jButtonTilføj1;
     private javax.swing.JButton jButtonTilføj2;
@@ -1564,8 +1470,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -1578,7 +1482,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
@@ -1598,13 +1501,11 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JList jListKundeliste;
     private javax.swing.JList jListOrdrer;
     private javax.swing.JList jListParts;
-    private javax.swing.JList jListTilbudVarer;
     private javax.swing.JList jListVareliste;
     private javax.swing.JList jListVarer;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
@@ -1620,12 +1521,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextFieldAdresse;
     private javax.swing.JTextField jTextFieldAntal;
     private javax.swing.JTextField jTextFieldDagInd;
@@ -1645,7 +1542,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldReturAntal;
     private javax.swing.JTextField jTextFieldReturSøg;
     private javax.swing.JTextField jTextFieldTelefonnummer;
-    private javax.swing.JTextField jTextFieldTilbudSøg;
     private javax.swing.JTextField jTextFieldTotalPris;
     private javax.swing.JTextField jTextFieldVarePris;
     private javax.swing.JTextField jTextFieldVareQty;
