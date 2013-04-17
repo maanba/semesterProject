@@ -47,11 +47,13 @@ public class GUI extends javax.swing.JFrame {
         jListVarer.setModel(listVarer);
         jListParts.setModel(listParts);
 
+        jLabelErrorLager.setText("");
         jLabelErrorOrdre.setText("");
         jLabelOpretRediger.setText("");
         jLabelRedigerKunde.setText("");
         jLabelVarenummer1.setText("");
         jLabelVarenummer2.setText("");
+
 
         jLabelErrorOrdre.setText(null);
         update();
@@ -313,7 +315,7 @@ public class GUI extends javax.swing.JFrame {
         jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 110, 160, -1));
 
         jLabelErrorOrdre.setText("jLabelErrorOrdre");
-        jPanel1.add(jLabelErrorOrdre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 810, 20));
+        jPanel1.add(jLabelErrorOrdre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 810, 20));
         jPanel1.add(jTextFieldAntal, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 140, 40, -1));
 
         jLabel17.setText("Antal:");
@@ -389,7 +391,7 @@ public class GUI extends javax.swing.JFrame {
 
         jScrollPane10.setViewportView(jListKundeliste);
 
-        jPanel6.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 64, 180, 260));
+        jPanel6.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 64, 180, 280));
 
         jButtonTilføj1.setText("Rediger >");
         jButtonTilføj1.addActionListener(new java.awt.event.ActionListener() {
@@ -444,7 +446,7 @@ public class GUI extends javax.swing.JFrame {
         jPanel7.add(jTextFieldPostnummer, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, 190, -1));
         jPanel7.add(jTextFieldTelefonnummer, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, 190, -1));
 
-        jPanel6.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 350, 260));
+        jPanel6.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 350, 280));
 
         jButtonKundeSøg.setText("Søg");
         jButtonKundeSøg.addActionListener(new java.awt.event.ActionListener() {
@@ -461,7 +463,7 @@ public class GUI extends javax.swing.JFrame {
 
         jScrollPane7.setViewportView(jListTilbudVarer);
 
-        jPanel4.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 83, 210, 390));
+        jPanel4.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 83, 210, 360));
         jPanel4.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 80, -1));
 
         jLabel15.setText("Kroner ");
@@ -472,7 +474,7 @@ public class GUI extends javax.swing.JFrame {
         jTextArea1.setText("\nKære kunde... ");
         jScrollPane8.setViewportView(jTextArea1);
 
-        jPanel4.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(406, 80, 210, 390));
+        jPanel4.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(406, 80, 210, 360));
 
         jButton14.setText("PDF");
         jPanel4.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 60, -1, -1));
@@ -618,7 +620,7 @@ public class GUI extends javax.swing.JFrame {
 
         jScrollPane5.setViewportView(jListVareliste);
 
-        jPanel2.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 222, 400));
+        jPanel2.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 222, 360));
 
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -668,7 +670,7 @@ public class GUI extends javax.swing.JFrame {
         });
         jPanel5.add(jButtonTilføjPart, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 150, 60, 50));
 
-        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 70, 290, 400));
+        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 70, 290, 360));
 
         jLabelOpretRediger.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabelOpretRediger.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -718,11 +720,11 @@ public class GUI extends javax.swing.JFrame {
         jPanel2.add(jButtonLagerSøg, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, -1, -1));
 
         jLabelErrorLager.setText("jLabelErrorLager");
-        jPanel2.add(jLabelErrorLager, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 500, -1, -1));
+        jPanel2.add(jLabelErrorLager, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, -1, -1));
 
         jTabbedPane1.addTab("Lager", jPanel2);
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 570));
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 500));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
