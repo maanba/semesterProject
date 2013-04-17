@@ -99,7 +99,7 @@ public class GUI extends javax.swing.JFrame {
         jButtonStatus = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jComboBox2 = new javax.swing.JComboBox();
-        jButtonVisIPDF1 = new javax.swing.JButton();
+        jButtonOrdrePdf = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane10 = new javax.swing.JScrollPane();
         jListKundeliste = new javax.swing.JList();
@@ -290,10 +290,10 @@ public class GUI extends javax.swing.JFrame {
         });
         jPanel1.add(jButtonFaktura, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 120, 100, -1));
 
-        jButtonVisIPDF.setText("Ordre PDF");
-        jButtonVisIPDF.addActionListener(new java.awt.event.ActionListener() {
+        jButtonTilbudPdf.setText("Tilbud PDF");
+        jButtonTilbudPdf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonVisIPDFActionPerformed(evt);
+                jButtonTilbudPdfActionPerformed(evt);
             }
         });
         jPanel1.add(jButtonTilbudPdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 180, 100, -1));
@@ -310,6 +310,12 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel17.setText("Antal:");
         jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 140, -1, -1));
+
+        jTextFieldRabat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldRabatActionPerformed(evt);
+            }
+        });
         jPanel1.add(jTextFieldRabat, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 170, 60, -1));
 
         jLabel27.setText(" Rabat:");
@@ -361,13 +367,13 @@ public class GUI extends javax.swing.JFrame {
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Transport", "08:00", "10:00", "12:00", "14:00", "16:00" }));
         jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 50, -1, -1));
 
-        jButtonVisIPDF1.setText("Ordre PDF");
-        jButtonVisIPDF1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonOrdrePdf.setText("Ordre PDF");
+        jButtonOrdrePdf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonVisIPDF1ActionPerformed(evt);
+                jButtonOrdrePdfActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonVisIPDF1, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 150, 100, -1));
+        jPanel1.add(jButtonOrdrePdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 150, 100, -1));
 
         jTabbedPane1.addTab("Ordre", jPanel1);
 
@@ -1192,6 +1198,16 @@ public class GUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonOKActionPerformed
 
+    private void jTextFieldRabatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldRabatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldRabatActionPerformed
+
+    private void jButtonOrdrePdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdrePdfActionPerformed
+        Ordre selected = (Ordre) jList3.getSelectedValue();
+        controller.setSelectedOrdre(selected);
+        controller.pdfTilbud();
+    }//GEN-LAST:event_jButtonOrdrePdfActionPerformed
+
     private void jButtonLeverActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
@@ -1490,6 +1506,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonLevér;
     private javax.swing.JButton jButtonMontoer;
     private javax.swing.JButton jButtonOK;
+    private javax.swing.JButton jButtonOrdrePdf;
     private javax.swing.JButton jButtonOrdreRediger;
     private javax.swing.JButton jButtonPaabegynd;
     private javax.swing.JButton jButtonReturGem;
@@ -1503,7 +1520,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonTilføj1;
     private javax.swing.JButton jButtonTilføj2;
     private javax.swing.JButton jButtonTilføjPart;
-    private javax.swing.JButton jButtonVisIPDF1;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
@@ -1589,7 +1605,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldPartAntal;
     private javax.swing.JTextField jTextFieldPartNavn;
     private javax.swing.JTextField jTextFieldPostnummer;
-    private javax.swing.JTextField jTextFieldPris;
+    private javax.swing.JTextField jTextFieldRabat;
     private javax.swing.JTextField jTextFieldReturAntal;
     private javax.swing.JTextField jTextFieldReturSøg;
     private javax.swing.JTextField jTextFieldTelefonnummer;

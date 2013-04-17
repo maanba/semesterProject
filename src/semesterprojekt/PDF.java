@@ -498,7 +498,7 @@ public class PDF {
                 table2.addCell(new Phrase("Sum eksl. moms:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table2.addCell(" ");
                 table2.addCell(" ");
-                table2.addCell(new Phrase("   " + pris + depositum, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table2.addCell(new Phrase("   " + (pris + depositum), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
 
                 table2.addCell(" ");
                 table2.addCell(new Phrase("Rabat:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
