@@ -163,6 +163,11 @@ public class Controller {
 
         System.out.println(dbFacade.getAllCustumers());
     }
+    
+    public int getNextVnummer()
+    {
+        return dbFacade.getNextVnummer();
+    }
 
     public void deleteVare(Vare v) {
         dbFacade.startNewBusinessTransaction();

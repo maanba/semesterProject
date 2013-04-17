@@ -114,6 +114,17 @@ public class DBFacade {
         }
         return nextOno;
     }
+    
+        public int getNextVnummer() {
+        int nextVno = 0;
+        try {
+            nextVno = new OrderMapper().getNextVnummer(con);
+        } catch (Exception e) {
+            System.out.println("Fail in OrderMapper - getNextVnummer");
+            System.out.println(e.getMessage());
+        }
+        return nextVno;
+    }
 
     public int getNextFNo() {
         int nextFnummer = 0;
