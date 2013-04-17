@@ -114,6 +114,17 @@ public class DBFacade {
         }
         return nextOno;
     }
+    
+    public int getNextCustomerNo() {
+        int nextCusNo = 0;
+        try {
+            nextCusNo = new OrderMapper().getNextKnummer(con);
+        } catch (Exception e) {
+            System.out.println("Fail in OrderMapper - getNextCnummer");
+            System.out.println(e.getMessage());
+        }
+        return nextCusNo;
+    }
 
     public int getNextFNo() {
         int nextFnummer = 0;
