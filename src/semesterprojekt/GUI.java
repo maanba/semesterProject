@@ -1152,6 +1152,13 @@ public class GUI extends javax.swing.JFrame {
         }
 
         //jComboBox2
+        jComboBox2.removeAllItems();
+        jComboBox2.addItem("Lastbil");
+        jComboBox2.addItem("08:00");
+        jComboBox2.addItem("10:00");
+        jComboBox2.addItem("12:00");
+        jComboBox2.addItem("14:00");
+        jComboBox2.addItem("16:00");
         if (!"".equals(jTextFieldÅrUd.getText()) && !"".equals(jTextFieldDagUd.getText()) && !"".equals(jTextFieldMånedUd.getText()) && !"".equals(jTextFieldÅrInd.getText()) && !"".equals(jTextFieldDagInd.getText()) && !"".equals(jTextFieldMånedInd.getText())) {
             int levYear = Integer.parseInt(jTextFieldÅrUd.getText());
             int levMonth = Integer.parseInt(jTextFieldMånedUd.getText());
@@ -1159,24 +1166,20 @@ public class GUI extends javax.swing.JFrame {
             int retYear = Integer.parseInt(jTextFieldÅrInd.getText());
             int retMonth = Integer.parseInt(jTextFieldMånedInd.getText());
             int retDay = Integer.parseInt(jTextFieldDagInd.getText());
-            for (int i = 0; i < ol.size(); i++) {
-                for (int j = 0; j < list3.size(); j++) {
-                    Ordre o = (Ordre) list3.getElementAt(j);
-                    int oLevYear = Integer.parseInt(o.getLevering().substring(6, 10));
-                    int oLevMonth = Integer.parseInt(o.getLevering().substring(3, 5));
-                    int oLevDay = Integer.parseInt(o.getLevering().substring(0, 2));
-                    int oRetYear = Integer.parseInt(o.getReturnering().substring(6, 10));
-                    int oRetMonth = Integer.parseInt(o.getReturnering().substring(3, 5));
-                    int oRetDay = Integer.parseInt(o.getReturnering().substring(0, 2));
-                    if ((levDay <= oLevDay || levDay <= oRetDay) && (retDay >= oRetDay || retDay >= oLevDay)) {
-                        if ((levMonth <= oLevMonth || levMonth <= oRetMonth) && (retMonth >= oRetMonth || retMonth >= oLevMonth)) {
-                            if ((levYear <= oLevYear || levYear <= oRetYear) && (retYear >= oRetYear || retYear >= oLevYear)) {
-                                for (int k = 0; k < o.getOd().size(); k++) {
-                                    for (int l = 0; l < jComboBox2.getItemCount(); l++) {
-                                        if (ol.get(i).getTid().equals("" + jComboBox2.getItemAt(i))) {
-                                            jComboBox2.removeItemAt(i);
-                                        }
-                                    }
+            for (int j = 0; j < list3.size(); j++) {
+                Ordre o = (Ordre) list3.getElementAt(j);
+                int oLevYear = Integer.parseInt(o.getLevering().substring(6, 10));
+                int oLevMonth = Integer.parseInt(o.getLevering().substring(3, 5));
+                int oLevDay = Integer.parseInt(o.getLevering().substring(0, 2));
+                int oRetYear = Integer.parseInt(o.getReturnering().substring(6, 10));
+                int oRetMonth = Integer.parseInt(o.getReturnering().substring(3, 5));
+                int oRetDay = Integer.parseInt(o.getReturnering().substring(0, 2));
+                if ((levDay <= oLevDay || levDay <= oRetDay) && (retDay >= oRetDay || retDay >= oLevDay)) {
+                    if ((levMonth <= oLevMonth || levMonth <= oRetMonth) && (retMonth >= oRetMonth || retMonth >= oLevMonth)) {
+                        if ((levYear <= oLevYear || levYear <= oRetYear) && (retYear >= oRetYear || retYear >= oLevYear)) {
+                            for (int l = 0; l < jComboBox2.getItemCount(); l++) {
+                                if (o.getTid().equals("" + jComboBox2.getItemAt(l))) {
+                                    jComboBox2.removeItemAt(l);
                                 }
                             }
                         }
