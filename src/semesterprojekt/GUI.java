@@ -54,8 +54,7 @@ public class GUI extends javax.swing.JFrame {
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
@@ -84,13 +83,13 @@ public class GUI extends javax.swing.JFrame {
         jList3 = new javax.swing.JList();
         jButtonDepositum = new javax.swing.JButton();
         jButtonFaktura = new javax.swing.JButton();
-        jButtonVisIPDF = new javax.swing.JButton();
+        jButtonTilbudPdf = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
         jLabelError = new javax.swing.JLabel();
         jTextFieldAntal = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
-        jTextFieldPris = new javax.swing.JTextField();
+        jTextFieldRabat = new javax.swing.JTextField();
         jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         jTextFieldTotalPris = new javax.swing.JTextField();
@@ -100,6 +99,7 @@ public class GUI extends javax.swing.JFrame {
         jButtonStatus = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jComboBox2 = new javax.swing.JComboBox();
+        jButtonVisIPDF1 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane10 = new javax.swing.JScrollPane();
         jListKundeliste = new javax.swing.JList();
@@ -200,20 +200,16 @@ public class GUI extends javax.swing.JFrame {
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, 163, 240));
 
         jButtonTilføj.setText("Tilføj >");
-        jButtonTilføj.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonTilføj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonTilføjActionPerformed(evt);
             }
         });
         jPanel1.add(jButtonTilføj, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 220, 80, -1));
 
         jButtonFjern.setText("< Fjern");
-        jButtonFjern.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonFjern.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonFjernActionPerformed(evt);
             }
         });
@@ -236,10 +232,8 @@ public class GUI extends javax.swing.JFrame {
         jPanel1.add(jTextFieldÅrUd, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 50, -1));
 
         jButtonGennemførOrdre.setText("Gennemfør ordre >");
-        jButtonGennemførOrdre.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonGennemførOrdre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonGennemførOrdreActionPerformed(evt);
             }
         });
@@ -247,10 +241,8 @@ public class GUI extends javax.swing.JFrame {
 
         buttonGroup1.add(jRadioButtonAfhentning);
         jRadioButtonAfhentning.setText("Afhentning");
-        jRadioButtonAfhentning.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jRadioButtonAfhentning.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButtonAfhentningActionPerformed(evt);
             }
         });
@@ -258,10 +250,8 @@ public class GUI extends javax.swing.JFrame {
 
         buttonGroup1.add(jRadioButtonLevering);
         jRadioButtonLevering.setText("Levering");
-        jRadioButtonLevering.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jRadioButtonLevering.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButtonLeveringActionPerformed(evt);
             }
         });
@@ -272,10 +262,8 @@ public class GUI extends javax.swing.JFrame {
         jButtonOrdreRediger.setMaximumSize(new java.awt.Dimension(125, 23));
         jButtonOrdreRediger.setMinimumSize(new java.awt.Dimension(125, 23));
         jButtonOrdreRediger.setPreferredSize(new java.awt.Dimension(125, 23));
-        jButtonOrdreRediger.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonOrdreRediger.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonOrdreRedigerActionPerformed(evt);
             }
         });
@@ -286,34 +274,28 @@ public class GUI extends javax.swing.JFrame {
         jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 120, 160, 260));
 
         jButtonDepositum.setText("Depositum");
-        jButtonDepositum.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonDepositum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDepositumActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonDepositum, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 240, 100, -1));
+        jPanel1.add(jButtonDepositum, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 270, 100, -1));
 
         jButtonFaktura.setText("Faktura PDF");
-        jButtonFaktura.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonFaktura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonFakturaActionPerformed(evt);
             }
         });
         jPanel1.add(jButtonFaktura, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 120, 100, -1));
 
-        jButtonVisIPDF.setText("Ordre PDF");
-        jButtonVisIPDF.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButtonVisIPDFActionPerformed(evt);
+        jButtonTilbudPdf.setText("Tilbud PDF");
+        jButtonTilbudPdf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTilbudPdfActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonVisIPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 150, 100, -1));
+        jPanel1.add(jButtonTilbudPdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 180, 100, -1));
 
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -327,7 +309,7 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel17.setText("Antal:");
         jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 140, -1, -1));
-        jPanel1.add(jTextFieldPris, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 170, 60, -1));
+        jPanel1.add(jTextFieldRabat, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 170, 60, -1));
 
         jLabel27.setText(" Rabat:");
         jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, -1, -1));
@@ -344,40 +326,32 @@ public class GUI extends javax.swing.JFrame {
         jPanel1.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 140, -1, -1));
 
         jButtonLastbil.setText("Tilføj Lastbil");
-        jButtonLastbil.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonLastbil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLastbilActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonLastbil, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 180, 100, -1));
+        jPanel1.add(jButtonLastbil, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 210, 100, -1));
 
         jButtonMontoer.setText("Tilføj Montør");
-        jButtonMontoer.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonMontoer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonMontoerActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonMontoer, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 210, 100, -1));
+        jPanel1.add(jButtonMontoer, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 240, 100, -1));
 
         jButtonStatus.setText("Status");
-        jButtonStatus.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonStatusActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 270, 100, -1));
+        jPanel1.add(jButtonStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 300, 100, -1));
 
         jButton1.setText("Check Dato");
-        jButton1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
@@ -385,6 +359,14 @@ public class GUI extends javax.swing.JFrame {
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Lastbil", "08:00", "10:00", "12:00", "14:00", "16:00" }));
         jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 50, -1, -1));
+
+        jButtonVisIPDF1.setText("Ordre PDF");
+        jButtonVisIPDF1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVisIPDF1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonVisIPDF1, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 150, 100, -1));
 
         jTabbedPane1.addTab("Ordre", jPanel1);
 
@@ -395,20 +377,16 @@ public class GUI extends javax.swing.JFrame {
         jPanel6.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 64, 180, 260));
 
         jButtonTilføj1.setText("Rediger >");
-        jButtonTilføj1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonTilføj1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonTilføj1ActionPerformed(evt);
             }
         });
         jPanel6.add(jButtonTilføj1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 110, 90, -1));
 
         jButtonTilføj2.setText("< Gem");
-        jButtonTilføj2.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonTilføj2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonTilføj2ActionPerformed(evt);
             }
         });
@@ -454,10 +432,8 @@ public class GUI extends javax.swing.JFrame {
         jPanel6.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 350, 260));
 
         jButtonKundeSøg.setText("Søg");
-        jButtonKundeSøg.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonKundeSøg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonKundeSøgActionPerformed(evt);
             }
         });
@@ -498,10 +474,8 @@ public class GUI extends javax.swing.JFrame {
         jPanel4.add(jTextFieldTilbudSøg, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 110, -1));
 
         jButtonTilbudSøg.setText("Søg");
-        jButtonTilbudSøg.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonTilbudSøg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonTilbudSøgActionPerformed(evt);
             }
         });
@@ -516,10 +490,8 @@ public class GUI extends javax.swing.JFrame {
         jPanel3.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 80, 170, 360));
 
         jButtonReturGem.setText("< Gem");
-        jButtonReturGem.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonReturGem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonReturGemActionPerformed(evt);
             }
         });
@@ -540,10 +512,8 @@ public class GUI extends javax.swing.JFrame {
         jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 170, -1));
 
         jButtonAfslutOrdre.setText("Afslut ordre");
-        jButtonAfslutOrdre.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonAfslutOrdre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAfslutOrdreActionPerformed(evt);
             }
         });
@@ -553,20 +523,16 @@ public class GUI extends javax.swing.JFrame {
         jPanel3.add(jButtonOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 60, 50, -1));
 
         jButtonLevér.setText("Levér >");
-        jButtonLevér.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonLevér.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLevérActionPerformed(evt);
             }
         });
         jPanel3.add(jButtonLevér, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, -1, -1));
 
         jButtonReturSøg.setText("Søg");
-        jButtonReturSøg.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonReturSøg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonReturSøgActionPerformed(evt);
             }
         });
@@ -578,8 +544,7 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jListHistorik.setModel(new javax.swing.AbstractListModel()
-        {
+        jListHistorik.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -589,30 +554,24 @@ public class GUI extends javax.swing.JFrame {
         jPanel9.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 330, 230));
 
         jButtonAfslut.setText("Afslut");
-        jButtonAfslut.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonAfslut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAfslutActionPerformed(evt);
             }
         });
         jPanel9.add(jButtonAfslut, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, -1, -1));
 
         jButtonPaabegynd.setText("Påbegynd");
-        jButtonPaabegynd.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonPaabegynd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPaabegyndActionPerformed(evt);
             }
         });
         jPanel9.add(jButtonPaabegynd, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, -1, -1));
 
         jButtonSletOrdre.setText("Slet");
-        jButtonSletOrdre.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonSletOrdre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSletOrdreActionPerformed(evt);
             }
         });
@@ -620,10 +579,8 @@ public class GUI extends javax.swing.JFrame {
         jPanel9.add(jTextFieldHistorikSøg, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 110, -1));
 
         jButtonHistorikSøg.setText("Søg");
-        jButtonHistorikSøg.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonHistorikSøg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonHistorikSøgActionPerformed(evt);
             }
         });
@@ -657,8 +614,7 @@ public class GUI extends javax.swing.JFrame {
         jPanel5.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 50, -1));
         jPanel5.add(jTextFieldVarePris, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 120, -1));
 
-        jListParts.setModel(new javax.swing.AbstractListModel()
-        {
+        jListParts.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -676,20 +632,16 @@ public class GUI extends javax.swing.JFrame {
         jPanel5.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
 
         jButtonFjernPart.setText("Fjern");
-        jButtonFjernPart.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonFjernPart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonFjernPartActionPerformed(evt);
             }
         });
         jPanel5.add(jButtonFjernPart, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 60, -1));
 
         jButtonTilføjPart.setText("Tilføj");
-        jButtonTilføjPart.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonTilføjPart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonTilføjPartActionPerformed(evt);
             }
         });
@@ -703,10 +655,8 @@ public class GUI extends javax.swing.JFrame {
         jPanel2.add(jLabelRedigerVare, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 10, 240, -1));
 
         jButtonLagerRediger.setText("Rediger >");
-        jButtonLagerRediger.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonLagerRediger.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLagerRedigerActionPerformed(evt);
             }
         });
@@ -716,20 +666,16 @@ public class GUI extends javax.swing.JFrame {
         jButtonLagerGem.setMaximumSize(new java.awt.Dimension(105, 29));
         jButtonLagerGem.setMinimumSize(new java.awt.Dimension(105, 29));
         jButtonLagerGem.setPreferredSize(new java.awt.Dimension(105, 29));
-        jButtonLagerGem.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonLagerGem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLagerGemActionPerformed(evt);
             }
         });
         jPanel2.add(jButtonLagerGem, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, 90, 20));
 
         jButtonSletVare.setText("Slet");
-        jButtonSletVare.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonSletVare.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSletVareActionPerformed(evt);
             }
         });
@@ -739,10 +685,8 @@ public class GUI extends javax.swing.JFrame {
         jPanel2.add(jTextFieldLagerSøg, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 110, -1));
 
         jButtonLagerSøg.setText("Søg");
-        jButtonLagerSøg.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonLagerSøg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLagerSøgActionPerformed(evt);
             }
         });
@@ -798,7 +742,7 @@ public class GUI extends javax.swing.JFrame {
             controller.setCurrentOrder(selected);
         }
         update();
-        jTextFieldPris.setText(Double.parseDouble(jTextFieldTotalPris.getText()) - selected.getPris() + "");
+        jTextFieldRabat.setText(selected.getRabat() + "");
     }//GEN-LAST:event_jButtonOrdreRedigerActionPerformed
 
     private void jButtonTilføjActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonTilføjActionPerformed
@@ -857,9 +801,9 @@ public class GUI extends javax.swing.JFrame {
                         String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                         String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
                         if (jRadioButtonAfhentning.isSelected()) {
-                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()) - Double.parseDouble(jTextFieldPris.getText()), 0.00, "", afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), 0.00, "", afhentning, "Påbegyndt", levering, returnering, odetaljer);
                         } else {
-                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()) - Double.parseDouble(jTextFieldPris.getText()), 0.00, "" + jComboBox2.getSelectedItem(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), 0.00, "" + jComboBox2.getSelectedItem(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
                         }
                         list2.clear();
                         list3.clear();
@@ -878,15 +822,15 @@ public class GUI extends javax.swing.JFrame {
                     String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                     String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
                     if (jRadioButtonAfhentning.isSelected()) {
-                        controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()) - Double.parseDouble(jTextFieldPris.getText()), controller.getCurrentOrder().getDepositum(), "", afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                        controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), controller.getCurrentOrder().getDepositum(), "", afhentning, "Påbegyndt", levering, returnering, odetaljer);
                     } else {
-                        controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()) - Double.parseDouble(jTextFieldPris.getText()), controller.getCurrentOrder().getDepositum(), "" + jComboBox2.getSelectedItem(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                        controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), controller.getCurrentOrder().getDepositum(), "" + jComboBox2.getSelectedItem(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
                     }
                     list2.clear();
                     list3.clear();
                     jLabelError.setText("");
                     jTextFieldTotalPris.setText("");
-                    jTextFieldPris.setText("");
+                    jTextFieldRabat.setText("");
                     jTextFieldDagInd.setText("");
                     jTextFieldDagUd.setText("");
                     jTextFieldMånedInd.setText("");
@@ -901,12 +845,12 @@ public class GUI extends javax.swing.JFrame {
         update();
     }//GEN-LAST:event_jButtonGennemførOrdreActionPerformed
 
-    private void jButtonVisIPDFActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonVisIPDFActionPerformed
-    {//GEN-HEADEREND:event_jButtonVisIPDFActionPerformed
+    private void jButtonTilbudPdfActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonTilbudPdfActionPerformed
+    {//GEN-HEADEREND:event_jButtonTilbudPdfActionPerformed
         Ordre selected = (Ordre) jList3.getSelectedValue();
         controller.setSelectedOrdre(selected);
-        controller.pdfOrdre();
-    }//GEN-LAST:event_jButtonVisIPDFActionPerformed
+        controller.pdfTilbud();
+    }//GEN-LAST:event_jButtonTilbudPdfActionPerformed
 
     private void jButtonFjernActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonFjernActionPerformed
     {//GEN-HEADEREND:event_jButtonFjernActionPerformed
@@ -972,7 +916,7 @@ public class GUI extends javax.swing.JFrame {
         selected.setDepositum(depositum);
         System.out.println("Depositum: " + selected.getDepositum());
         controller.setCurrentOrder(selected);
-        controller.updateOrder(selected.getKnummer(), selected.getPris(), selected.getDepositum(), selected.getTid(), selected.getAfhentning(), selected.getStatus(), selected.getLevering(), selected.getReturnering(), selected.getOd());
+        controller.updateOrder(selected.getKnummer(), selected.getPris(), selected.getRabat(), selected.getDepositum(), selected.getTid(), selected.getAfhentning(), selected.getStatus(), selected.getLevering(), selected.getReturnering(), selected.getOd());
     }//GEN-LAST:event_jButtonDepositumActionPerformed
 
     private void jButtonAfslutOrdreActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonAfslutOrdreActionPerformed
@@ -1101,128 +1045,122 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButtonLeveringActionPerformed
 
     private void jButtonKundeSøgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKundeSøgActionPerformed
-        if(!jTextFieldKundeSøg.getText().equals("")){
-                ArrayList<Kunde> kl = new ArrayList<>();
-        int counter = 0;
-        for (int i = 0; i < listKundeliste.size(); i++) {
-            kl.add((Kunde) listKundeliste.getElementAt(i));
-        }
-        for (int i = 0; i < kl.size(); i++) {
-            if (kl.get(i).getFirma() == null && kl.get(i).getNavn().contains(jTextFieldKundeSøg.getText())) {
-                jListKundeliste.setSelectedIndex(i);
+        if (!jTextFieldKundeSøg.getText().equals("")) {
+            ArrayList<Kunde> kl = new ArrayList<>();
+            int counter = 0;
+            for (int i = 0; i < listKundeliste.size(); i++) {
+                kl.add((Kunde) listKundeliste.getElementAt(i));
             }
-            else if (kl.get(i).getFirma() != null && kl.get(i).getFirma().contains(jTextFieldKundeSøg.getText()) || kl.get(i).getNavn().contains(jTextFieldKundeSøg.getText())) {
-                jListKundeliste.setSelectedIndex(i);
+            for (int i = 0; i < kl.size(); i++) {
+                if (kl.get(i).getFirma() == null && kl.get(i).getNavn().contains(jTextFieldKundeSøg.getText())) {
+                    jListKundeliste.setSelectedIndex(i);
+                } else if (kl.get(i).getFirma() != null && kl.get(i).getFirma().contains(jTextFieldKundeSøg.getText()) || kl.get(i).getNavn().contains(jTextFieldKundeSøg.getText())) {
+                    jListKundeliste.setSelectedIndex(i);
+                } else {
+                    listKundeliste.removeElementAt(i - counter);
+                    counter++;
+                }
             }
-            else {
-                listKundeliste.removeElementAt(i-counter);
-                counter++;
+            if (listKundeliste.isEmpty() == true) {
+                update();
             }
-        }
-        if(listKundeliste.isEmpty() == true){
-            update();
-        }
         } else {
             update();
-        }   
+        }
     }//GEN-LAST:event_jButtonKundeSøgActionPerformed
 
     private void jButtonReturSøgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReturSøgActionPerformed
-        if(!jTextFieldReturSøg.getText().equals("")){
-        int counter = 0;
-        ArrayList<Ordre> ol = new ArrayList<>();
-        
-        for (int i = 0; i < listOrdrer.size(); i++) {
-            ol.add((Ordre) listOrdrer.getElementAt(i));
-        }
-        for (int i = 0; i < ol.size(); i++) {
-            String onummer = ol.get(i).getOnummer() + "";
-            if (onummer.contains(jTextFieldReturSøg.getText())) {
-                jListOrdrer.setSelectedIndex(i);
-        }
-            else {
-                listOrdrer.removeElementAt(i-counter);
-                counter++;
+        if (!jTextFieldReturSøg.getText().equals("")) {
+            int counter = 0;
+            ArrayList<Ordre> ol = new ArrayList<>();
+
+            for (int i = 0; i < listOrdrer.size(); i++) {
+                ol.add((Ordre) listOrdrer.getElementAt(i));
             }
+            for (int i = 0; i < ol.size(); i++) {
+                String onummer = ol.get(i).getOnummer() + "";
+                if (onummer.contains(jTextFieldReturSøg.getText())) {
+                    jListOrdrer.setSelectedIndex(i);
+                } else {
+                    listOrdrer.removeElementAt(i - counter);
+                    counter++;
+                }
             }
-        if(listOrdrer.isEmpty() == true){
-            update();
-        }
+            if (listOrdrer.isEmpty() == true) {
+                update();
+            }
         } else {
             update();
         }
     }//GEN-LAST:event_jButtonReturSøgActionPerformed
 
     private void jButtonTilbudSøgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilbudSøgActionPerformed
-        if(!jTextFieldTilbudSøg.getText().equals("")){
-        int counter = 0;
-        ArrayList<Vare> vl = new ArrayList<>();
-        
-        for (int i = 0; i < listTilbudVarer.size(); i++) {
-            vl.add((Vare) listTilbudVarer.getElementAt(i));
-        }
-        for (int i = 0; i < vl.size(); i++) {
-            if (vl.get(i).getVnavn().contains(jTextFieldTilbudSøg.getText())) {
-                jListTilbudVarer.setSelectedIndex(i);
-        }
-            else {
-                listTilbudVarer.removeElementAt(i-counter);
-              counter++;
+        if (!jTextFieldTilbudSøg.getText().equals("")) {
+            int counter = 0;
+            ArrayList<Vare> vl = new ArrayList<>();
+
+            for (int i = 0; i < listTilbudVarer.size(); i++) {
+                vl.add((Vare) listTilbudVarer.getElementAt(i));
             }
+            for (int i = 0; i < vl.size(); i++) {
+                if (vl.get(i).getVnavn().contains(jTextFieldTilbudSøg.getText())) {
+                    jListTilbudVarer.setSelectedIndex(i);
+                } else {
+                    listTilbudVarer.removeElementAt(i - counter);
+                    counter++;
+                }
             }
-        if(listTilbudVarer.isEmpty() == true){
-            update();
-        }
+            if (listTilbudVarer.isEmpty() == true) {
+                update();
+            }
         } else {
             update();
         }
     }//GEN-LAST:event_jButtonTilbudSøgActionPerformed
 
     private void jButtonHistorikSøgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHistorikSøgActionPerformed
-        if(!jTextFieldHistorikSøg.getText().equals("")){
-        int counter = 0;
-        ArrayList<Ordre> ol = new ArrayList<>();
-        for (int i = 0; i < listHistorik.size(); i++) {
-            ol.add((Ordre) listHistorik.getElementAt(i));
-        }
-        for (int i = 0; i < ol.size(); i++) {
-            String onummer = ol.get(i).getOnummer() + "";
-            if (onummer.contains(jTextFieldHistorikSøg.getText())) {
-                jListHistorik.setSelectedIndex(i);
-        }
-            else {
-                listHistorik.removeElementAt(i-counter);
-            counter++;
+        if (!jTextFieldHistorikSøg.getText().equals("")) {
+            int counter = 0;
+            ArrayList<Ordre> ol = new ArrayList<>();
+            for (int i = 0; i < listHistorik.size(); i++) {
+                ol.add((Ordre) listHistorik.getElementAt(i));
             }
+            for (int i = 0; i < ol.size(); i++) {
+                String onummer = ol.get(i).getOnummer() + "";
+                if (onummer.contains(jTextFieldHistorikSøg.getText())) {
+                    jListHistorik.setSelectedIndex(i);
+                } else {
+                    listHistorik.removeElementAt(i - counter);
+                    counter++;
+                }
             }
-        if(listHistorik.isEmpty() == true){
-            update();
-        }
+            if (listHistorik.isEmpty() == true) {
+                update();
+            }
         } else {
             update();
         }
-        
+
     }//GEN-LAST:event_jButtonHistorikSøgActionPerformed
 
     private void jButtonLagerSøgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLagerSøgActionPerformed
-        if(!jTextFieldLagerSøg.getText().equals("")){
-        int counter = 0;
-        ArrayList<Vare> vl = new ArrayList<>();
-        for (int i = 0; i < Vareliste.size(); i++) {
-            vl.add((Vare) Vareliste.getElementAt(i));
-        }
-        for (int i = 0; i < vl.size(); i++) {
-            if (vl.get(i).getVnavn().contains(jTextFieldLagerSøg.getText())) {
-                jListVareliste.setSelectedIndex(i);
-        }
-            else {
-                Vareliste.removeElementAt(i-counter);
-            counter++;
+        if (!jTextFieldLagerSøg.getText().equals("")) {
+            int counter = 0;
+            ArrayList<Vare> vl = new ArrayList<>();
+            for (int i = 0; i < Vareliste.size(); i++) {
+                vl.add((Vare) Vareliste.getElementAt(i));
             }
+            for (int i = 0; i < vl.size(); i++) {
+                if (vl.get(i).getVnavn().contains(jTextFieldLagerSøg.getText())) {
+                    jListVareliste.setSelectedIndex(i);
+                } else {
+                    Vareliste.removeElementAt(i - counter);
+                    counter++;
+                }
             }
-        if(Vareliste.isEmpty() == true){
-            update();
-        }
+            if (Vareliste.isEmpty() == true) {
+                update();
+            }
         } else {
             update();
         }
@@ -1240,6 +1178,10 @@ public class GUI extends javax.swing.JFrame {
         int delantal = Integer.parseInt(jTextFieldPartAntal.getText());
         listParts.addElement(new Del(vnummer, delnavn, delantal));
     }//GEN-LAST:event_jButtonTilføjPartActionPerformed
+
+    private void jButtonVisIPDF1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVisIPDF1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonVisIPDF1ActionPerformed
 
     private void jButtonLeverActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
@@ -1536,12 +1478,13 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonSletOrdre;
     private javax.swing.JButton jButtonSletVare;
     private javax.swing.JButton jButtonStatus;
+    private javax.swing.JButton jButtonTilbudPdf;
     private javax.swing.JButton jButtonTilbudSøg;
     private javax.swing.JButton jButtonTilføj;
     private javax.swing.JButton jButtonTilføj1;
     private javax.swing.JButton jButtonTilføj2;
     private javax.swing.JButton jButtonTilføjPart;
-    private javax.swing.JButton jButtonVisIPDF;
+    private javax.swing.JButton jButtonVisIPDF1;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
@@ -1627,7 +1570,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldPartAntal;
     private javax.swing.JTextField jTextFieldPartNavn;
     private javax.swing.JTextField jTextFieldPostnummer;
-    private javax.swing.JTextField jTextFieldPris;
+    private javax.swing.JTextField jTextFieldRabat;
     private javax.swing.JTextField jTextFieldReturSøg;
     private javax.swing.JTextField jTextFieldTelefonnummer;
     private javax.swing.JTextField jTextFieldTilbudSøg;

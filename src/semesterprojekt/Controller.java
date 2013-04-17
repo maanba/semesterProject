@@ -49,7 +49,7 @@ public class Controller {
         this.currentOrder = currentOrder;
     }
 
-    public Ordre createNewOrder(int knummer, double pris, double depositum, String tid, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
+    public Ordre createNewOrder(int knummer, double pris, double rabat, double depositum, String tid, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
         dbFacade.startNewBusinessTransaction();
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
@@ -61,7 +61,7 @@ public class Controller {
             for (int i = 0; i < odetaljer.size(); i++) {
                 odetaljer.get(i).setOnummer(newOrderNo);
             }
-            currentOrder = new Ordre(newOrderNo, 0, knummer, pris, depositum, tid, afhentning, status, modtaget, levering, returnering, 0);
+            currentOrder = new Ordre(newOrderNo, 0, knummer, pris, rabat, depositum, tid, afhentning, status, modtaget, levering, returnering, 0);
             dbFacade.registerNewOrder(currentOrder);
             for (int i = 0; i < odetaljer.size(); i++) {
                 dbFacade.registerNewOrderDetail(odetaljer.get(i));
@@ -74,11 +74,12 @@ public class Controller {
         return currentOrder;
     }
 
-    public void updateOrder(int knummer, double pris, double depositum, String tid, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
+    public void updateOrder(int knummer, double pris, double rabat, double depositum, String tid, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
         currentOrder.setAfhentning(afhentning);
         currentOrder.setKnummer(knummer);
         currentOrder.setLevering(levering);
         currentOrder.setPris(pris);
+        currentOrder.setRabat(rabat);
         currentOrder.setDepositum(depositum);
         currentOrder.setTid(tid);
         currentOrder.setReturnering(returnering);
@@ -95,8 +96,8 @@ public class Controller {
         dbFacade.commitBusinessTransaction();
         currentOrder = null;
     }
-    
-    public boolean deleteOrder(Ordre o){
+
+    public boolean deleteOrder(Ordre o) {
         boolean result = false;
         dbFacade.startNewBusinessTransaction();
         result = dbFacade.deleteOrder(o);
@@ -163,9 +164,8 @@ public class Controller {
 
         System.out.println(dbFacade.getAllCustumers());
     }
-    
-    public int getNextVnummer()
-    {
+
+    public int getNextVnummer() {
         return dbFacade.getNextVnummer();
     }
 
@@ -437,6 +437,27 @@ public class Controller {
         PDF pdf = new PDF();
         try {
             pdf.PdfOrdre(currentOrder, kunde, odetaljeArray, vareArray, postnummer);
+        } catch (DocumentException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void pdfTilbud() {
+        ArrayList<Odetaljer> odetaljeArray = currentOrder.getOd();
+        ArrayList<Vare> vareArray = new ArrayList<>();
+        for (int i = 0; i < odetaljeArray.size(); i++) {
+            Vare vare = getVare(odetaljeArray.get(i).getVnummer());
+            vare.setQty(odetaljeArray.get(i).getMaengde());
+            vareArray.add(vare);
+        }
+        Kunde kunde = getKunde(currentOrder.getKnummer());
+        Postnummer postnummer = getPostnummer(currentKunde.getPostnummer());
+
+        PDF pdf = new PDF();
+        try {
+            pdf.pdfTilbud(currentOrder, kunde, odetaljeArray, vareArray, postnummer);
         } catch (DocumentException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         } catch (FileNotFoundException ex) {
