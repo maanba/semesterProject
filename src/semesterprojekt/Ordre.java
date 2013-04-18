@@ -13,24 +13,33 @@ import java.util.ArrayList;
 public class Ordre {
 
     private int onummer, fnummer, knummer, ver;
-    private String status, modtaget, levering, returnering, afhentning, tid;
+    private String status, modtaget, levering, returnering, afhentning, tidLev, tidRet;
     private double pris, depositum, rabat;
     private ArrayList<Odetaljer> od = new ArrayList();
 
-    public Ordre(int onummer, int fnummer, int knummer, double pris, double rabat, double depositum, String tid, String afhentning, String status, String modtaget, String levering, String returnering, int ver) {
+    public Ordre(int onummer, int fnummer, int knummer, double pris, double rabat, double depositum, String tidLev, String tidRet, String afhentning, String status, String modtaget, String levering, String returnering, int ver) {
         this.onummer = onummer;
         this.fnummer = fnummer;
         this.knummer = knummer;
         this.pris = pris;
         this.rabat = rabat;
         this.depositum = depositum;
-        this.tid = tid;
+        this.tidLev = tidLev;
+        this.tidRet = tidRet;
         this.afhentning = afhentning;
         this.ver = ver;
         this.status = status;
         this.modtaget = modtaget;
         this.levering = levering;
         this.returnering = returnering;
+    }
+
+    public String getTidRet() {
+        return tidRet;
+    }
+
+    public void setTidRet(String tidRet) {
+        this.tidRet = tidRet;
     }
 
     public double getRabat() {
@@ -41,12 +50,12 @@ public class Ordre {
         this.rabat = rabat;
     }
 
-    public String getTid() {
-        return tid;
+    public String getTidLev() {
+        return tidLev;
     }
 
-    public void setTid(String tid) {
-        this.tid = tid;
+    public void setTidLev(String tid) {
+        this.tidLev = tid;
     }
 
     public int getFnummer() {

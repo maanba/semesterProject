@@ -36,13 +36,14 @@ public class OrderMapper {
                 statement.setDouble(4, o.getPris());
                 statement.setDouble(5, o.getRabat());
                 statement.setDouble(6, o.getDepositum());
-                statement.setString(7, o.getTid());
-                statement.setString(8, o.getAfhentning());
-                statement.setString(9, o.getStatus());
-                statement.setString(10, o.getModtaget());
-                statement.setString(11, o.getLevering());
-                statement.setString(12, o.getReturnering());
-                statement.setInt(13, o.getVer());
+                statement.setString(7, o.getTidLev());
+                statement.setString(8, o.getTidRet());
+                statement.setString(9, o.getAfhentning());
+                statement.setString(10, o.getStatus());
+                statement.setString(11, o.getModtaget());
+                statement.setString(12, o.getLevering());
+                statement.setString(13, o.getReturnering());
+                statement.setInt(14, o.getVer());
                 rowsInserted += statement.executeUpdate();
                 statement.close();
             }
@@ -133,7 +134,7 @@ public class OrderMapper {
     public boolean updateOrders(ArrayList<Ordre> ol, Connection conn) throws SQLException {
         int rowsUpdated = 0;
         String SQLString = "update ordrer "
-                + "set fnummer = ?, knummer = ?, pris = ?, rabat = ?, depositum = ?, tid = ?, afhentning = ?, status = ?, modtaget = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), levering = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), returnering = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), ver = ? "
+                + "set fnummer = ?, knummer = ?, pris = ?, rabat = ?, depositum = ?, tidlev = ?, tidret = ?, afhentning = ?, status = ?, modtaget = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), levering = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), returnering = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), ver = ? "
                 + "where onummer = ? and ver = ?";
         PreparedStatement statement = null;
 
@@ -144,17 +145,18 @@ public class OrderMapper {
                 statement.setInt(1, o.getFnummer());
                 statement.setInt(2, o.getKnummer());
                 statement.setDouble(3, o.getPris());
-                statement.setDouble(4, o.getDepositum());
-                statement.setDouble(5, o.getRabat());
-                statement.setString(5, o.getTid());
-                statement.setString(6, o.getAfhentning());
-                statement.setString(7, o.getStatus());
-                statement.setString(8, o.getModtaget());
-                statement.setString(9, o.getLevering());
-                statement.setString(10, o.getReturnering());
-                statement.setInt(11, o.getVer() + 1); // next version number
-                statement.setInt(12, o.getOnummer());
-                statement.setInt(13, o.getVer());   // old version number
+                statement.setDouble(4, o.getRabat());
+                statement.setDouble(5, o.getDepositum());
+                statement.setString(6, o.getTidLev());
+                statement.setString(7, o.getTidRet());
+                statement.setString(8, o.getAfhentning());
+                statement.setString(9, o.getStatus());
+                statement.setString(10, o.getModtaget());
+                statement.setString(11, o.getLevering());
+                statement.setString(12, o.getReturnering());
+                statement.setInt(13, o.getVer() + 1); // next version number
+                statement.setInt(14, o.getOnummer());
+                statement.setInt(15, o.getVer());   // old version number
                 int tupleUpdated = statement.executeUpdate();
                 if (tupleUpdated == 1) {
                     o.nuVer();                       // increment version in current OrderObject
@@ -509,10 +511,11 @@ public class OrderMapper {
                         rs.getString(7),
                         rs.getString(8),
                         rs.getString(9),
-                        dateFormat.format(rs.getDate(10)),
+                        rs.getString(10),
                         dateFormat.format(rs.getDate(11)),
                         dateFormat.format(rs.getDate(12)),
-                        rs.getInt(13));
+                        dateFormat.format(rs.getDate(13)),
+                        rs.getInt(14));
 
                 //=== get order details
                 statement.close();
@@ -585,10 +588,11 @@ public class OrderMapper {
                             rs.getString(7),
                             rs.getString(8),
                             rs.getString(9),
-                            dateFormat.format(rs.getDate(10)),
+                            rs.getString(10),
                             dateFormat.format(rs.getDate(11)),
                             dateFormat.format(rs.getDate(12)),
-                            rs.getInt(13));
+                            dateFormat.format(rs.getDate(13)),
+                            rs.getInt(14));
 
                     //=== get order details
                     statement.close();

@@ -107,6 +107,7 @@ public class GUI extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jComboBox2 = new javax.swing.JComboBox();
         jButtonOrdrePdf = new javax.swing.JButton();
+        jComboBox3 = new javax.swing.JComboBox();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane10 = new javax.swing.JScrollPane();
         jListKundeliste = new javax.swing.JList();
@@ -166,6 +167,8 @@ public class GUI extends javax.swing.JFrame {
         jButtonHistorikSøg = new javax.swing.JButton();
         jButtonTilbud = new javax.swing.JButton();
         jButtonOrdre = new javax.swing.JButton();
+        jButtonTilbud1 = new javax.swing.JButton();
+        jButtonOrdre1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -376,7 +379,7 @@ public class GUI extends javax.swing.JFrame {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 50, -1, -1));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Transport", "08:00", "10:00", "12:00", "14:00", "16:00", "Stor Order" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Levering", "08:00", "10:00", "12:00", "14:00", "16:00", "Stor Order" }));
         jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 50, -1, -1));
 
         jButtonOrdrePdf.setText("Ordre PDF");
@@ -386,6 +389,9 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButtonOrdrePdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 150, 100, -1));
+
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Afhentning", "08:00", "10:00", "12:00", "14:00", "16:00", "Stor Order" }));
+        jPanel1.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 50, -1, -1));
 
         jTabbedPane1.addTab("Ordre", jPanel1);
 
@@ -629,6 +635,22 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         jPanel9.add(jButtonOrdre, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, 80, -1));
+
+        jButtonTilbud1.setText("Tilbud");
+        jButtonTilbud1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTilbudActionPerformed(evt);
+            }
+        });
+        jPanel9.add(jButtonTilbud1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, 80, -1));
+
+        jButtonOrdre1.setText("Ordre");
+        jButtonOrdre1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonOrdreActionPerformed(evt);
+            }
+        });
+        jPanel9.add(jButtonOrdre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, 80, -1));
 
         jTabbedPane1.addTab("Historik", jPanel9);
 
@@ -1081,7 +1103,7 @@ public class GUI extends javax.swing.JFrame {
         selected.setDepositum(depositum);
         System.out.println("Depositum: " + selected.getDepositum());
         controller.setCurrentOrder(selected);
-        controller.updateOrder(selected.getKnummer(), selected.getPris(), selected.getRabat(), selected.getDepositum(), selected.getTid(), selected.getAfhentning(), selected.getStatus(), selected.getLevering(), selected.getReturnering(), selected.getOd());
+        controller.updateOrder(selected.getKnummer(), selected.getPris(), selected.getRabat(), selected.getDepositum(), selected.getTidLev(), selected.getTidRet(), selected.getAfhentning(), selected.getStatus(), selected.getLevering(), selected.getReturnering(), selected.getOd());
     }//GEN-LAST:event_jButtonDepositumActionPerformed
 
     private void jButtonOrdreRedigerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdreRedigerActionPerformed
@@ -1163,9 +1185,9 @@ public class GUI extends javax.swing.JFrame {
                         String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                         String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
                         if (jRadioButtonAfhentning.isSelected()) {
-                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), 0.00, "", afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), 0.00, "", "", afhentning, "Påbegyndt", levering, returnering, odetaljer);
                         } else {
-                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), 0.00, "" + jComboBox2.getSelectedItem(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), 0.00, "" + jComboBox2.getSelectedItem(), "" + jComboBox3.getSelectedItem(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
                         }
                         list2.clear();
                         list3.clear();
@@ -1184,9 +1206,9 @@ public class GUI extends javax.swing.JFrame {
                     String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                     String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
                     if (jRadioButtonAfhentning.isSelected()) {
-                        controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), controller.getCurrentOrder().getDepositum(), "", afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                        controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), controller.getCurrentOrder().getDepositum(), "", "", afhentning, "Påbegyndt", levering, returnering, odetaljer);
                     } else {
-                        controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), controller.getCurrentOrder().getDepositum(), "" + jComboBox2.getSelectedItem(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                        controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), controller.getCurrentOrder().getDepositum(), "" + jComboBox2.getSelectedItem(), "" + jComboBox3.getSelectedItem(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
                     }
                     list2.clear();
                     list3.clear();
@@ -1482,7 +1504,9 @@ public class GUI extends javax.swing.JFrame {
             }
         }
 
-        //jComboBox2
+        //jComboBox2 & jComboBox3
+        int[] tidLev = new int[5];
+        int[] tidRet = new int[5];
         jComboBox2.removeAllItems();
         jComboBox2.addItem("Transport");
         jComboBox2.addItem("08:00");
@@ -1491,6 +1515,14 @@ public class GUI extends javax.swing.JFrame {
         jComboBox2.addItem("14:00");
         jComboBox2.addItem("16:00");
         jComboBox2.addItem("Stor Order");
+        jComboBox3.removeAllItems();
+        jComboBox3.addItem("Transport");
+        jComboBox3.addItem("08:00");
+        jComboBox3.addItem("10:00");
+        jComboBox3.addItem("12:00");
+        jComboBox3.addItem("14:00");
+        jComboBox3.addItem("16:00");
+        jComboBox3.addItem("Stor Order");
         if (!"".equals(jTextFieldÅrUd.getText()) && !"".equals(jTextFieldDagUd.getText()) && !"".equals(jTextFieldMånedUd.getText()) && !"".equals(jTextFieldÅrInd.getText()) && !"".equals(jTextFieldDagInd.getText()) && !"".equals(jTextFieldMånedInd.getText())) {
             int levYear = Integer.parseInt(jTextFieldÅrUd.getText());
             int levMonth = Integer.parseInt(jTextFieldMånedUd.getText());
@@ -1507,17 +1539,29 @@ public class GUI extends javax.swing.JFrame {
                 int oRetMonth = Integer.parseInt(o.getReturnering().substring(3, 5));
                 int oRetDay = Integer.parseInt(o.getReturnering().substring(0, 2));
                 if (o.getAfhentning().equalsIgnoreCase("Leveres af os")) {
-                    if ((levDay == oLevDay || levDay == oRetDay) && (retDay == oRetDay || retDay == oLevDay)) {
-                        if ((levMonth == oLevMonth || levMonth == oRetMonth) && (retMonth == oRetMonth || retMonth == oLevMonth)) {
-                            if ((levYear == oLevYear || levYear == oRetYear) && (retYear == oRetYear || retYear == oLevYear)) {
-                                for (int l = 0; l < jComboBox2.getItemCount(); l++) {
-                                    if (o.getTid().equals("" + jComboBox2.getItemAt(l))) {
-                                        jComboBox2.removeItemAt(l);
-                                    } else if (o.getTid().equals("Stor Order")) {
-                                        jComboBox2.removeAllItems();
-                                        jComboBox2.addItem("Transport");
-                                    }
+                    if ((levDay == oLevDay && levMonth == oLevMonth && levYear == oLevYear) || (levDay == oRetDay && levMonth == oRetMonth && levYear == oRetYear)) {
+                        for (int l = 1; l < jComboBox2.getItemCount(); l++) {
+                            if (o.getTidLev().equals("" + jComboBox2.getItemAt(l))) {
+                                tidLev[l - 1]++;
+                                if (tidLev[l - 1] >= 2) {
+                                    jComboBox2.removeItemAt(l);
                                 }
+                            } else if (o.getTidLev().equals("Stor Order")) {
+                                jComboBox2.removeAllItems();
+                                jComboBox2.addItem("Levering");
+                            }
+                        }
+                    }
+                    if ((retDay == oRetDay && retMonth == oRetMonth && retYear == oRetYear) || (retDay == oLevDay && retMonth == oLevMonth && retYear == oLevYear)) {
+                        for (int l = 1; l < jComboBox3.getItemCount(); l++) {
+                            if (o.getTidRet().equals("" + jComboBox3.getItemAt(l))) {
+                                tidRet[l - 1]++;
+                                if (tidRet[l - 1] >= 2) {
+                                    jComboBox3.removeItemAt(l);
+                                }
+                            } else if (o.getTidRet().equals("Stor Order")) {
+                                jComboBox3.removeAllItems();
+                                jComboBox3.addItem("Afhentning");
                             }
                         }
                     }
@@ -1599,6 +1643,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonMontoer;
     private javax.swing.JButton jButtonOK;
     private javax.swing.JButton jButtonOrdre;
+    private javax.swing.JButton jButtonOrdre1;
     private javax.swing.JButton jButtonOrdrePdf;
     private javax.swing.JButton jButtonOrdreRediger;
     private javax.swing.JButton jButtonRedigerKunde;
@@ -1608,12 +1653,14 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonSletVare;
     private javax.swing.JButton jButtonStatus;
     private javax.swing.JButton jButtonTilbud;
+    private javax.swing.JButton jButtonTilbud1;
     private javax.swing.JButton jButtonTilbudPdf;
     private javax.swing.JButton jButtonTilbudSøg;
     private javax.swing.JButton jButtonTilføj;
     private javax.swing.JButton jButtonTilføjPart;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JComboBox jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1658,7 +1705,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JList jListTilbudVarer;
     private javax.swing.JList jListVareliste;
     private javax.swing.JList jListVarer;
-    private static javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

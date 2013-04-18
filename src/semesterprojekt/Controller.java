@@ -51,7 +51,7 @@ public class Controller {
         this.currentOrder = currentOrder;
     }
 
-    public Ordre createNewOrder(int knummer, double pris, double rabat, double depositum, String tid, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
+    public Ordre createNewOrder(int knummer, double pris, double rabat, double depositum, String tidLev, String tidRet, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
         dbFacade.startNewBusinessTransaction();
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
@@ -63,7 +63,7 @@ public class Controller {
             for (int i = 0; i < odetaljer.size(); i++) {
                 odetaljer.get(i).setOnummer(newOrderNo);
             }
-            currentOrder = new Ordre(newOrderNo, 0, knummer, pris, rabat, depositum, tid, afhentning, status, modtaget, levering, returnering, 0);
+            currentOrder = new Ordre(newOrderNo, 0, knummer, pris, rabat, depositum, tidLev, tidRet, afhentning, status, modtaget, levering, returnering, 0);
             dbFacade.registerNewOrder(currentOrder);
             for (int i = 0; i < odetaljer.size(); i++) {
                 dbFacade.registerNewOrderDetail(odetaljer.get(i));
@@ -76,14 +76,15 @@ public class Controller {
         return currentOrder;
     }
 
-    public void updateOrder(int knummer, double pris, double rabat, double depositum, String tid, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
+    public void updateOrder(int knummer, double pris, double rabat, double depositum, String tidLev,String tidRet, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
         currentOrder.setAfhentning(afhentning);
         currentOrder.setKnummer(knummer);
         currentOrder.setLevering(levering);
         currentOrder.setPris(pris);
         currentOrder.setRabat(rabat);
         currentOrder.setDepositum(depositum);
-        currentOrder.setTid(tid);
+        currentOrder.setTidLev(tidLev);
+        currentOrder.setTidRet(tidRet);
         currentOrder.setReturnering(returnering);
         currentOrder.setOd(odetaljer);
         dbFacade.startNewBusinessTransaction();
