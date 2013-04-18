@@ -192,7 +192,7 @@ public class GUI extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jButtonFjernPart = new javax.swing.JButton();
         jButtonTilføjPart = new javax.swing.JButton();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        jButton2 = new javax.swing.JButton();
         jLabelOpretRedigerVare = new javax.swing.JLabel();
         jButtonLagerRediger = new javax.swing.JButton();
         jButtonLagerGem = new javax.swing.JButton();
@@ -737,13 +737,13 @@ public class GUI extends javax.swing.JFrame {
         });
         jPanel5.add(jButtonTilføjPart, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 150, 60, 50));
 
-        jToggleButton1.setText("Rediger");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButton2.setText("Rediger");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
-        jPanel5.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 250, -1, -1));
+        jPanel5.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 250, -1, -1));
 
         jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, 290, 360));
 
@@ -1030,20 +1030,15 @@ public class GUI extends javax.swing.JFrame {
         String adresse = jTextFieldAdresse.getText();
         int postnummer = Integer.parseInt(jTextFieldPostnummer.getText());
         int telefonnummer = Integer.parseInt(jTextFieldTelefonnummer.getText());
-        
-        if (jTextFieldFuldeNavn.getText().isEmpty() || jTextFieldAdresse.getText().isEmpty() 
-                || jTextFieldPostnummer.getText().isEmpty() || jTextFieldTelefonnummer.getText().isEmpty()) 
-        {
+
+        if (jTextFieldFuldeNavn.getText().isEmpty() || jTextFieldAdresse.getText().isEmpty()
+                || jTextFieldPostnummer.getText().isEmpty() || jTextFieldTelefonnummer.getText().isEmpty()) {
             jLabelErrorKunder.setText("You need to fill in all the fields before adding a new customer.");
-        } 
-        else if (controller.getRediger() == false) 
-        {
+        } else if (controller.getRediger() == false) {
             controller.addNewKunde(firma, navn, adresse, postnummer, telefonnummer);
             jLabelErrorKunder.setText("");
             update();
-        } 
-        else if (controller.getRediger() == true) 
-        {
+        } else if (controller.getRediger() == true) {
             int knummer = Integer.parseInt(jLabelKundenummer2.getText());
             Kunde kunde = new Kunde(knummer, firma, navn, adresse, postnummer, telefonnummer);
             controller.redigerKunde(kunde);
@@ -1367,8 +1362,18 @@ public class GUI extends javax.swing.JFrame {
         int si = jListParts.getSelectedIndex();
         listParts.removeElementAt(si);
         jTextFieldPartNavn.setText(del.getTitel());
-        jTextFieldPartAntal.setText(""+del.getAntal());
+        jTextFieldPartAntal.setText("" + del.getAntal());
     }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (!jTextFieldPartNavn.getText().isEmpty() || !jTextFieldPartAntal.getText().isEmpty()) {
+            Del del = (Del) jListParts.getSelectedValue();
+            int si = jListParts.getSelectedIndex();
+            listParts.removeElementAt(si);
+            jTextFieldPartNavn.setText(del.getTitel());
+            jTextFieldPartAntal.setText("" + del.getAntal());
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButtonLeverActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
@@ -1465,7 +1470,7 @@ public class GUI extends javax.swing.JFrame {
         controller.quickSortOrdre(oa, 0, oa.length - 1);
         // controller.quickSortOrdre(oa, 0, oa.length - 1);
         for (int i = 0; i < oa.length; i++) {
-            
+
             if (!"Afsluttet".equals(oa[i].getStatus())) {
                 list3.addElement(oa[i]);
                 listHistorik.addElement(oa[i]);
@@ -1693,6 +1698,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonAfslut;
     private javax.swing.JButton jButtonAfslutOrdre;
     private javax.swing.JButton jButtonDepositum;
@@ -1777,7 +1783,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JList jListTilbudVarer;
     private javax.swing.JList jListVareliste;
     private javax.swing.JList jListVarer;
-    private javax.swing.JPanel jPanel1;
+    private static javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1827,6 +1833,5 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldVareQty;
     private javax.swing.JTextField jTextFieldÅrInd;
     private javax.swing.JTextField jTextFieldÅrUd;
-    private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 }
