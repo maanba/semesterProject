@@ -22,11 +22,13 @@ public class Controller {
 
     private boolean processingOrder;	// state of business transaction
     private boolean rediger = false;
+    private String tab;
     private Ordre currentOrder;       	// Order in focus
     private Vare currentVare;
     private Kunde currentKunde;
     private Postnummer currentPostnummer;
     private DBFacade dbFacade;
+ 
 
     public Controller() {
         dbFacade = DBFacade.getInstance();

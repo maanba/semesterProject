@@ -229,16 +229,16 @@ public class GUI extends javax.swing.JFrame {
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 163, 260));
 
         jLabel3.setText(" Dato for afhentning/levering:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, -1, 20));
-        jPanel1.add(jTextFieldMånedInd, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, 30, -1));
-        jPanel1.add(jTextFieldDagUd, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 30, -1));
-        jPanel1.add(jTextFieldMånedUd, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 30, -1));
-        jPanel1.add(jTextFieldÅrInd, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, 50, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, 20));
+        jPanel1.add(jTextFieldMånedInd, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 50, 30, -1));
+        jPanel1.add(jTextFieldDagUd, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 30, -1));
+        jPanel1.add(jTextFieldMånedUd, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 30, -1));
+        jPanel1.add(jTextFieldÅrInd, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 50, 50, -1));
 
         jLabel4.setText(" Dato for returnering:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, -1, 20));
-        jPanel1.add(jTextFieldDagInd, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, 30, -1));
-        jPanel1.add(jTextFieldÅrUd, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 50, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, -1, 20));
+        jPanel1.add(jTextFieldDagInd, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 50, 30, -1));
+        jPanel1.add(jTextFieldÅrUd, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 50, -1));
 
         jButtonGennemførOrdre.setText("Gennemfør ordre >");
         jButtonGennemførOrdre.addActionListener(new java.awt.event.ActionListener() {
@@ -255,7 +255,7 @@ public class GUI extends javax.swing.JFrame {
                 jRadioButtonAfhentningActionPerformed(evt);
             }
         });
-        jPanel1.add(jRadioButtonAfhentning, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, -1, -1));
+        jPanel1.add(jRadioButtonAfhentning, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 50, -1, -1));
 
         buttonGroup1.add(jRadioButtonLevering);
         jRadioButtonLevering.setText("Levering");
@@ -264,7 +264,7 @@ public class GUI extends javax.swing.JFrame {
                 jRadioButtonLeveringActionPerformed(evt);
             }
         });
-        jPanel1.add(jRadioButtonLevering, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 50, -1, -1));
+        jPanel1.add(jRadioButtonLevering, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 50, -1, -1));
 
         jButtonOrdreRediger.setText("< Rediger");
         jButtonOrdreRediger.setToolTipText("");
@@ -372,10 +372,10 @@ public class GUI extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 50, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 50, -1, -1));
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Transport", "08:00", "10:00", "12:00", "14:00", "16:00", "Stor Order" }));
-        jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 50, -1, -1));
+        jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 50, -1, -1));
 
         jButtonOrdrePdf.setText("Ordre PDF");
         jButtonOrdrePdf.addActionListener(new java.awt.event.ActionListener() {
