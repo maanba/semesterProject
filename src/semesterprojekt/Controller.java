@@ -52,7 +52,6 @@ public class Controller {
     }
 
     public Ordre createNewOrder(int knummer, double pris, double rabat, double depositum, String tidLev, String tidRet, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
-        dbFacade.startNewBusinessTransaction();
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
         String modtaget = dateFormat.format(date);

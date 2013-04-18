@@ -265,8 +265,8 @@ public class OrderMapper {
 
         int rowsInserted = 0;
         try {
-            statement = conn.prepareStatement(SQLString);
             for (int i = 0; i < odl.size(); i++) {
+                statement = conn.prepareStatement(SQLString);
                 statement.setInt(1, odl.get(i).getOnummer());
                 statement.setInt(2, odl.get(i).getVnummer());
                 statement.setInt(3, odl.get(i).getMaengde());
