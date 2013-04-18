@@ -146,15 +146,15 @@ public class OrderMapper {
                 statement.setDouble(3, o.getPris());
                 statement.setDouble(4, o.getDepositum());
                 statement.setDouble(5, o.getRabat());
-                statement.setString(5, o.getTid());
-                statement.setString(6, o.getAfhentning());
-                statement.setString(7, o.getStatus());
-                statement.setString(8, o.getModtaget());
-                statement.setString(9, o.getLevering());
-                statement.setString(10, o.getReturnering());
-                statement.setInt(11, o.getVer() + 1); // next version number
-                statement.setInt(12, o.getOnummer());
-                statement.setInt(13, o.getVer());   // old version number
+                statement.setString(6, o.getTid());
+                statement.setString(7, o.getAfhentning());
+                statement.setString(8, o.getStatus());
+                statement.setString(9, o.getModtaget());
+                statement.setString(10, o.getLevering());
+                statement.setString(11, o.getReturnering());
+                statement.setInt(12, o.getVer() + 1); // next version number
+                statement.setInt(13, o.getOnummer());
+                statement.setInt(14, o.getVer());   // old version number
                 int tupleUpdated = statement.executeUpdate();
                 if (tupleUpdated == 1) {
                     o.nuVer();                       // increment version in current OrderObject

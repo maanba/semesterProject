@@ -151,11 +151,13 @@ public class GUI extends javax.swing.JFrame {
         jPanel9 = new javax.swing.JPanel();
         jScrollPane9 = new javax.swing.JScrollPane();
         jListHistorik = new javax.swing.JList();
-        jButtonAfslut = new javax.swing.JButton();
-        jButtonPaabegynd = new javax.swing.JButton();
+        jButtonFaktureret = new javax.swing.JButton();
+        jButtonTilbud = new javax.swing.JButton();
         jButtonSletOrdre = new javax.swing.JButton();
         jTextFieldHistorikSøg = new javax.swing.JTextField();
         jButtonHistorikSøg = new javax.swing.JButton();
+        jButtonOrdre = new javax.swing.JButton();
+        jButtonAfslut = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -556,30 +558,25 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jListHistorik.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane9.setViewportView(jListHistorik);
 
         jPanel9.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 330, 230));
 
-        jButtonAfslut.setText("Afslut");
-        jButtonAfslut.addActionListener(new java.awt.event.ActionListener() {
+        jButtonFaktureret.setText("Faktureret");
+        jButtonFaktureret.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAfslutActionPerformed(evt);
+                jButtonFaktureretActionPerformed(evt);
             }
         });
-        jPanel9.add(jButtonAfslut, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, -1, -1));
+        jPanel9.add(jButtonFaktureret, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 120, 90, -1));
 
-        jButtonPaabegynd.setText("Påbegynd");
-        jButtonPaabegynd.addActionListener(new java.awt.event.ActionListener() {
+        jButtonTilbud.setText("Tilbud");
+        jButtonTilbud.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonPaabegyndActionPerformed(evt);
+                jButtonTilbudActionPerformed(evt);
             }
         });
-        jPanel9.add(jButtonPaabegynd, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, -1, -1));
+        jPanel9.add(jButtonTilbud, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, 90, -1));
 
         jButtonSletOrdre.setText("Slet");
         jButtonSletOrdre.addActionListener(new java.awt.event.ActionListener() {
@@ -587,7 +584,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonSletOrdreActionPerformed(evt);
             }
         });
-        jPanel9.add(jButtonSletOrdre, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 120, -1, -1));
+        jPanel9.add(jButtonSletOrdre, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 180, 90, -1));
         jPanel9.add(jTextFieldHistorikSøg, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 110, -1));
 
         jButtonHistorikSøg.setText("Søg");
@@ -597,6 +594,22 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         jPanel9.add(jButtonHistorikSøg, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, -1, -1));
+
+        jButtonOrdre.setText("Ordre");
+        jButtonOrdre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonOrdreActionPerformed(evt);
+            }
+        });
+        jPanel9.add(jButtonOrdre, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, 90, -1));
+
+        jButtonAfslut.setText("Afslut");
+        jButtonAfslut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAfslutActionPerformed(evt);
+            }
+        });
+        jPanel9.add(jButtonAfslut, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 150, 90, -1));
 
         jTabbedPane1.addTab("Historik", jPanel9);
 
@@ -843,17 +856,17 @@ public class GUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonSletOrdreActionPerformed
 
-    private void jButtonPaabegyndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPaabegyndActionPerformed
+    private void jButtonTilbudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilbudActionPerformed
         Ordre selected = (Ordre) jListHistorik.getSelectedValue();
-        controller.ordrePaabegynd(selected.getKnummer());
+        controller.ordreTilbud(selected.getOnummer());
         update();
-    }//GEN-LAST:event_jButtonPaabegyndActionPerformed
+    }//GEN-LAST:event_jButtonTilbudActionPerformed
 
-    private void jButtonAfslutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAfslutActionPerformed
+    private void jButtonFaktureretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFaktureretActionPerformed
         Ordre selected = (Ordre) jListHistorik.getSelectedValue();
-        controller.ordreAfslut(selected.getKnummer());
+        controller.ordreFaktureret(selected.getOnummer());
         update();
-    }//GEN-LAST:event_jButtonAfslutActionPerformed
+    }//GEN-LAST:event_jButtonFaktureretActionPerformed
 
     private void jButtonReturSøgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReturSøgActionPerformed
         if (!jTextFieldReturSøg.getText().equals("")) {
@@ -901,7 +914,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButtonAfslutOrdreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAfslutOrdreActionPerformed
         Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
-        controller.ordreAfslut(selected.getKnummer());
+        controller.ordreAfslut(selected.getOnummer());
         update();
     }//GEN-LAST:event_jButtonAfslutOrdreActionPerformed
 
@@ -977,8 +990,13 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButtonOrdrePdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdrePdfActionPerformed
         Ordre selected = (Ordre) jList3.getSelectedValue();
+        int selectedIndex = jList3.getSelectedIndex();
+        controller.ordreOrdre(selected.getOnummer());
         controller.setSelectedOrdre(selected);
-        controller.pdfTilbud();
+        update();
+        selected = (Ordre) list3.getElementAt(selectedIndex);
+        controller.setCurrentOrder(selected);
+        controller.pdfOrdre();
     }//GEN-LAST:event_jButtonOrdrePdfActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -1008,16 +1026,25 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButtonTilbudPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilbudPdfActionPerformed
         Ordre selected = (Ordre) jList3.getSelectedValue();
+        int selectedIndex = jList3.getSelectedIndex();
+        controller.ordreTilbud(selected.getOnummer());
         controller.setSelectedOrdre(selected);
+        update();
+        selected = (Ordre) list3.getElementAt(selectedIndex);
+        controller.setCurrentOrder(selected);
         controller.pdfTilbud();
     }//GEN-LAST:event_jButtonTilbudPdfActionPerformed
 
     private void jButtonFakturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFakturaActionPerformed
         Ordre selected = (Ordre) jList3.getSelectedValue();
+        int selectedIndex = jList3.getSelectedIndex();
         controller.setSelectedOrdre(selected);
         if (selected.getFnummer() == 0) {
             controller.addOrderFakturaNummer(selected);
         }
+        controller.ordreFaktureret(selected.getOnummer());
+        update();
+        selected = (Ordre) list3.getElementAt(selectedIndex);
         controller.setCurrentOrder(selected);
         controller.pdfFaktura();
     }//GEN-LAST:event_jButtonFakturaActionPerformed
@@ -1110,9 +1137,9 @@ public class GUI extends javax.swing.JFrame {
                         String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                         String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
                         if (jRadioButtonAfhentning.isSelected()) {
-                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), 0.00, "", afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), 0.00, "", afhentning, "Tilbud", levering, returnering, odetaljer);
                         } else {
-                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), 0.00, "" + jComboBox2.getSelectedItem(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), 0.00, "" + jComboBox2.getSelectedItem(), afhentning, "Tilbud", levering, returnering, odetaljer);
                         }
                         list2.clear();
                         list3.clear();
@@ -1131,9 +1158,9 @@ public class GUI extends javax.swing.JFrame {
                     String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                     String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
                     if (jRadioButtonAfhentning.isSelected()) {
-                        controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), controller.getCurrentOrder().getDepositum(), "", afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                        controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), controller.getCurrentOrder().getDepositum(), "", afhentning, controller.getCurrentOrder().getStatus(), levering, returnering, odetaljer);
                     } else {
-                        controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), controller.getCurrentOrder().getDepositum(), "" + jComboBox2.getSelectedItem(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                        controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), controller.getCurrentOrder().getDepositum(), "" + jComboBox2.getSelectedItem(), afhentning, controller.getCurrentOrder().getStatus(), levering, returnering, odetaljer);
                     }
                     list2.clear();
                     list3.clear();
@@ -1219,6 +1246,18 @@ public class GUI extends javax.swing.JFrame {
             update();
         }
     }//GEN-LAST:event_jButtonTilbudSøgActionPerformed
+
+    private void jButtonOrdreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdreActionPerformed
+        Ordre selected = (Ordre) jListHistorik.getSelectedValue();
+        controller.ordreOrdre(selected.getOnummer());
+        update();
+    }//GEN-LAST:event_jButtonOrdreActionPerformed
+
+    private void jButtonAfslutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAfslutActionPerformed
+        Ordre selected = (Ordre) jListHistorik.getSelectedValue();
+        controller.ordreAfslut(selected.getOnummer());
+        update();
+    }//GEN-LAST:event_jButtonAfslutActionPerformed
 
     private void jButtonLeverActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
@@ -1515,6 +1554,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAfslutOrdre;
     private javax.swing.JButton jButtonDepositum;
     private javax.swing.JButton jButtonFaktura;
+    private javax.swing.JButton jButtonFaktureret;
     private javax.swing.JButton jButtonFjern;
     private javax.swing.JButton jButtonFjernPart;
     private javax.swing.JButton jButtonGennemførOrdre;
@@ -1527,14 +1567,15 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonLevér;
     private javax.swing.JButton jButtonMontoer;
     private javax.swing.JButton jButtonOK;
+    private javax.swing.JButton jButtonOrdre;
     private javax.swing.JButton jButtonOrdrePdf;
     private javax.swing.JButton jButtonOrdreRediger;
-    private javax.swing.JButton jButtonPaabegynd;
     private javax.swing.JButton jButtonReturGem;
     private javax.swing.JButton jButtonReturSøg;
     private javax.swing.JButton jButtonSletOrdre;
     private javax.swing.JButton jButtonSletVare;
     private javax.swing.JButton jButtonStatus;
+    private javax.swing.JButton jButtonTilbud;
     private javax.swing.JButton jButtonTilbudPdf;
     private javax.swing.JButton jButtonTilbudSøg;
     private javax.swing.JButton jButtonTilføj;
