@@ -1169,10 +1169,12 @@ public class GUI extends javax.swing.JFrame {
 
     private void jRadioButtonLeveringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonLeveringActionPerformed
         jComboBox2.setEnabled(true);
+        jComboBox3.setEnabled(true);
     }//GEN-LAST:event_jRadioButtonLeveringActionPerformed
 
     private void jRadioButtonAfhentningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAfhentningActionPerformed
         jComboBox2.setEnabled(false);
+        jComboBox3.setEnabled(false);
     }//GEN-LAST:event_jRadioButtonAfhentningActionPerformed
 
     private void jButtonGennemførOrdreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGennemførOrdreActionPerformed
