@@ -169,6 +169,8 @@ public class GUI extends javax.swing.JFrame {
         jButtonOrdre = new javax.swing.JButton();
         jButtonTilbud1 = new javax.swing.JButton();
         jButtonOrdre1 = new javax.swing.JButton();
+        jButtonTilbud2 = new javax.swing.JButton();
+        jButtonOrdre2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -651,6 +653,22 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         jPanel9.add(jButtonOrdre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, 80, -1));
+
+        jButtonTilbud2.setText("Tilbud");
+        jButtonTilbud2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTilbudActionPerformed(evt);
+            }
+        });
+        jPanel9.add(jButtonTilbud2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, 80, -1));
+
+        jButtonOrdre2.setText("Ordre");
+        jButtonOrdre2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonOrdreActionPerformed(evt);
+            }
+        });
+        jPanel9.add(jButtonOrdre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, 80, -1));
 
         jTabbedPane1.addTab("Historik", jPanel9);
 
@@ -1644,6 +1662,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonOK;
     private javax.swing.JButton jButtonOrdre;
     private javax.swing.JButton jButtonOrdre1;
+    private javax.swing.JButton jButtonOrdre2;
     private javax.swing.JButton jButtonOrdrePdf;
     private javax.swing.JButton jButtonOrdreRediger;
     private javax.swing.JButton jButtonRedigerKunde;
@@ -1654,6 +1673,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonStatus;
     private javax.swing.JButton jButtonTilbud;
     private javax.swing.JButton jButtonTilbud1;
+    private javax.swing.JButton jButtonTilbud2;
     private javax.swing.JButton jButtonTilbudPdf;
     private javax.swing.JButton jButtonTilbudSøg;
     private javax.swing.JButton jButtonTilføj;
@@ -1705,7 +1725,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JList jListTilbudVarer;
     private javax.swing.JList jListVareliste;
     private javax.swing.JList jListVarer;
-    private javax.swing.JPanel jPanel1;
+    private static javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
