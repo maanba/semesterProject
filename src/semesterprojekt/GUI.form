@@ -438,12 +438,12 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JButton" name="jButtonPakkeGenaflevering">
+            <Component class="javax.swing.JButton" name="jButtonPakkeliste">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Lister"/>
+                <Property name="text" type="java.lang.String" value="Pakkeliste"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonPakkeGenafleveringActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonPakkelisteActionPerformed"/>
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -1239,7 +1239,7 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JButton" name="jButtonTilbud">
+            <Component class="javax.swing.JButton" name="jButtonTilbud3">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Tilbud"/>
               </Properties>
@@ -1252,7 +1252,7 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JButton" name="jButtonOrdre">
+            <Component class="javax.swing.JButton" name="jButtonOrdre3">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ordre"/>
               </Properties>

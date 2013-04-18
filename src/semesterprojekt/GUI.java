@@ -101,7 +101,7 @@ public class GUI extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         jTextFieldTotalPris = new javax.swing.JTextField();
         jLabel30 = new javax.swing.JLabel();
-        jButtonPakkeGenaflevering = new javax.swing.JButton();
+        jButtonPakkeliste = new javax.swing.JButton();
         jButtonMontoer = new javax.swing.JButton();
         jButtonStatus = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -169,8 +169,8 @@ public class GUI extends javax.swing.JFrame {
         jButtonOrdre = new javax.swing.JButton();
         jButtonTilbud1 = new javax.swing.JButton();
         jButtonOrdre1 = new javax.swing.JButton();
-        jButtonTilbud2 = new javax.swing.JButton();
-        jButtonOrdre2 = new javax.swing.JButton();
+        jButtonTilbud3 = new javax.swing.JButton();
+        jButtonOrdre3 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -349,13 +349,13 @@ public class GUI extends javax.swing.JFrame {
         jLabel30.setText(" Pris før rabat:");
         jPanel1.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 140, -1, -1));
 
-        jButtonPakkeGenaflevering.setText("Lister");
-        jButtonPakkeGenaflevering.addActionListener(new java.awt.event.ActionListener() {
+        jButtonPakkeliste.setText("Pakkeliste");
+        jButtonPakkeliste.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonPakkeGenafleveringActionPerformed(evt);
+                jButtonPakkelisteActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonPakkeGenaflevering, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 210, 130, -1));
+        jPanel1.add(jButtonPakkeliste, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 210, 130, -1));
 
         jButtonMontoer.setText("Tilføj Montør");
         jButtonMontoer.addActionListener(new java.awt.event.ActionListener() {
@@ -654,21 +654,21 @@ public class GUI extends javax.swing.JFrame {
         });
         jPanel9.add(jButtonOrdre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, 80, -1));
 
-        jButtonTilbud2.setText("Tilbud");
-        jButtonTilbud2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonTilbud3.setText("Tilbud");
+        jButtonTilbud3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonTilbudActionPerformed(evt);
             }
         });
-        jPanel9.add(jButtonTilbud2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, 80, -1));
+        jPanel9.add(jButtonTilbud3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, 80, -1));
 
-        jButtonOrdre2.setText("Ordre");
-        jButtonOrdre2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonOrdre3.setText("Ordre");
+        jButtonOrdre3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonOrdreActionPerformed(evt);
             }
         });
-        jPanel9.add(jButtonOrdre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, 80, -1));
+        jPanel9.add(jButtonOrdre3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, 80, -1));
 
         jTabbedPane1.addTab("Historik", jPanel9);
 
@@ -1082,11 +1082,19 @@ public class GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonMontoerActionPerformed
 
-    private void jButtonPakkeGenafleveringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPakkeGenafleveringActionPerformed
+    private void jButtonPakkelisteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPakkelisteActionPerformed
         Ordre selected = (Ordre) jList3.getSelectedValue();
+        int selectedIndex = jList3.getSelectedIndex();
+        controller.setSelectedOrdre(selected);
+        if (selected.getFnummer() == 0) {
+            controller.addOrderFakturaNummer(selected);
+        }
+        controller.ordreFaktureret(selected.getOnummer());
+        update();
+        selected = (Ordre) list3.getElementAt(selectedIndex);
         controller.setCurrentOrder(selected);
         controller.pdfPakkeliste();
-    }//GEN-LAST:event_jButtonPakkeGenafleveringActionPerformed
+    }//GEN-LAST:event_jButtonPakkelisteActionPerformed
 
     private void jTextFieldRabatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldRabatActionPerformed
         // TODO add your handling code here:
@@ -1674,14 +1682,11 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonOK;
     private javax.swing.JButton jButtonOrdre;
     private javax.swing.JButton jButtonOrdre1;
-    private javax.swing.JButton jButtonOrdre2;
+    private javax.swing.JButton jButtonOrdre3;
     private javax.swing.JButton jButtonOrdrePdf;
     private javax.swing.JButton jButtonOrdreRediger;
-<<<<<<< HEAD
-    private javax.swing.JButton jButtonPakkeGenaflevering;
-=======
+    private javax.swing.JButton jButtonPakkeliste;
     private javax.swing.JButton jButtonRedigerKunde;
->>>>>>> branch 'master' of https://github.com/maanba/semesterProject.git
     private javax.swing.JButton jButtonReturGem;
     private javax.swing.JButton jButtonReturSøg;
     private javax.swing.JButton jButtonSletOrdre;
@@ -1689,7 +1694,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonStatus;
     private javax.swing.JButton jButtonTilbud;
     private javax.swing.JButton jButtonTilbud1;
-    private javax.swing.JButton jButtonTilbud2;
+    private javax.swing.JButton jButtonTilbud3;
     private javax.swing.JButton jButtonTilbudPdf;
     private javax.swing.JButton jButtonTilbudSøg;
     private javax.swing.JButton jButtonTilføj;
@@ -1741,7 +1746,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JList jListTilbudVarer;
     private javax.swing.JList jListVareliste;
     private javax.swing.JList jListVarer;
-    private static javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

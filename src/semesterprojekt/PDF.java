@@ -545,15 +545,6 @@ public class PDF {
     }
 
     public void pdfPakkeliste(Ordre currentOrder, Kunde kunde, ArrayList<Odetaljer> odetaljeArray, ArrayList<Vare> vareArray, Postnummer postnummer) throws DocumentException, FileNotFoundException {
-
-        ArrayList<Del> delliste = new ArrayList<>();
-        for (int i = 0; i < vareArray.size(); i++) {
-            delliste.add(vareArray.get(i).getDel().get(i));
-        }
-        for (int i = 0; i < delliste.size(); i++) {
-            System.out.println(delliste.get(i));
-        }
-        
         int postnr = kunde.getPostnummer();
         String adresse = kunde.getAdresse();
         String navn = "";
@@ -576,15 +567,9 @@ public class PDF {
         int knummer = currentOrder.getKnummer();
         String status = currentOrder.getStatus() + "";
 
-        double pris = currentOrder.getPris();
-        double rabat = currentOrder.getRabat();
-        double depositum = currentOrder.getDepositum();
-
         String afhentning = currentOrder.getAfhentning() + "";
         String levering = currentOrder.getLevering() + "";
         String returnering = currentOrder.getReturnering() + "";
-
-        String modtaget = currentOrder.getModtaget() + "";
 
         try {
             Document document = new Document();
@@ -602,7 +587,7 @@ public class PDF {
                 top.addCell(" ");
                 top.addCell(" ");
                 top.addCell(" ");
-                top.addCell(new Phrase("  Faktura", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                top.addCell(new Phrase("  Pakkeliste", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
                 top.addCell(" ");
                 top.addCell(" ");
 
@@ -636,61 +621,59 @@ public class PDF {
                 table1.addCell(new Phrase(" ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table1.addCell(new Phrase(" ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
 
-                PdfPTable table2 = new PdfPTable(5);
+                PdfPTable table2 = new PdfPTable(4);
                 table2.setTotalWidth(500);
                 table2.setLockedWidth(true);
-                table2.setWidths(new float[]{1, 3, 1, 1, 1});
-                table2.getDefaultCell().setBorder(1);
+                table2.setWidths(new float[]{1, 3, 1, 1});
                 table2.setSpacingAfter(100);
 
                 table2.addCell(new Phrase("Varenr:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table2.addCell(new Phrase("Beskrivelse:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
-                table2.addCell(new Phrase("Pris:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table2.addCell("Antal:");
-                table2.addCell(new Phrase("   Beløb:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table2.addCell(new Phrase("   ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
 
-                table2.addCell(" ");
                 table2.addCell(" ");
                 table2.addCell(" ");
                 table2.addCell(" ");
                 table2.addCell(" ");
                 for (int i = 0; i < vareArray.size(); i++) {
-                    table2.addCell(new Phrase(vareArray.get(i).getVnummer() + "", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
-                    table2.addCell(new Phrase(vareArray.get(i).getVnavn(), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
-                    table2.addCell(new Phrase(vareArray.get(i).getPris() + "", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
-                    table2.addCell(new Phrase(odetaljeArray.get(i).getMaengde() + "", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
-                    table2.addCell(new Phrase("   " + odetaljeArray.get(i).getMaengde() * vareArray.get(i).getPris(), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                    for (int j = 0; j < vareArray.get(i).getDel().size(); j++) {
+                        table2.addCell(new Phrase(vareArray.get(i).getDel().get(j).getVnummer() + "", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                        table2.addCell(new Phrase(vareArray.get(i).getDel().get(j).getTitel(), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                        table2.addCell(new Phrase(vareArray.get(i).getDel().get(j).getAntal() + "", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                        table2.addCell(new Phrase("   ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                    }
                 }
 
-                table2.addCell(" ");
-                table2.addCell(new Phrase("Depositum:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
-                table2.addCell(" ");
-                table2.addCell(" ");
-                table2.addCell(new Phrase("   " + depositum, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
-
-                table2.addCell(" ");
-                table2.addCell(" ");
-                table2.addCell(" ");
-                table2.addCell(" ");
-                table2.addCell(" ");
-
-                table2.addCell(" ");
-                table2.addCell(new Phrase("Sum:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
-                table2.addCell(" ");
-                table2.addCell(" ");
-                table2.addCell(new Phrase("   " + (pris + depositum), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
-
-                table2.addCell(" ");
-                table2.addCell(new Phrase("Rabat:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
-                table2.addCell(" ");
-                table2.addCell(" ");
-                table2.addCell(new Phrase("   " + rabat + " %", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
-
-                table2.addCell(" ");
-                table2.addCell(new Phrase("At betale:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
-                table2.addCell(" ");
-                table2.addCell(" ");
-                table2.addCell(new Phrase("   " + ((pris + depositum) * (1 - (rabat / 100))), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+//                table2.addCell(" ");
+//                table2.addCell(new Phrase("Depositum:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+//                table2.addCell(" ");
+//                table2.addCell(" ");
+//                table2.addCell(new Phrase("   " + depositum, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+//
+//                table2.addCell(" ");
+//                table2.addCell(" ");
+//                table2.addCell(" ");
+//                table2.addCell(" ");
+//                table2.addCell(" ");
+//
+//                table2.addCell(" ");
+//                table2.addCell(new Phrase("Sum:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+//                table2.addCell(" ");
+//                table2.addCell(" ");
+//                table2.addCell(new Phrase("   " + (pris + depositum), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+//
+//                table2.addCell(" ");
+//                table2.addCell(new Phrase("Rabat:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+//                table2.addCell(" ");
+//                table2.addCell(" ");
+//                table2.addCell(new Phrase("   " + rabat + " %", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+//
+//                table2.addCell(" ");
+//                table2.addCell(new Phrase("At betale:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+//                table2.addCell(" ");
+//                table2.addCell(" ");
+//                table2.addCell(new Phrase("   " + ((pris + depositum) * (1 - (rabat / 100))), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
 
                 PdfPTable table3 = new PdfPTable(3);
                 table3.setTotalWidth(500);
