@@ -52,7 +52,6 @@ public class Controller {
     }
 
     public Ordre createNewOrder(int knummer, double pris, double rabat, double depositum, String tidLev, String tidRet, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
-        dbFacade.startNewBusinessTransaction();
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
         String modtaget = dateFormat.format(date);
@@ -76,7 +75,7 @@ public class Controller {
         return currentOrder;
     }
 
-    public void updateOrder(int knummer, double pris, double rabat, double depositum, String tidLev,String tidRet, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
+    public void updateOrder(int knummer, double pris, double rabat, double depositum, String tidLev, String tidRet, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
         currentOrder.setAfhentning(afhentning);
         currentOrder.setKnummer(knummer);
         currentOrder.setLevering(levering);
@@ -183,23 +182,36 @@ public class Controller {
         }
         return status;
     }
-    ArrayList<Kunde> kundeArr = new ArrayList<>();
 
-    public void addKunde(int knummer, String firma, String navn, String adresse, int postnummer, int telefonnummer) {
-        Kunde kunde = new Kunde(knummer, firma, navn, adresse, postnummer, telefonnummer);
-        kundeArr.add(kunde);
+    public void addNewKunde(String firma, String navn, String adresse, int postnummer, int telefonnummer) {
+
         dbFacade.startNewBusinessTransaction();
-        dbFacade.registerNewCustomer(kunde);
-        dbFacade.commitBusinessTransaction();
-
-        System.out.println(dbFacade.getAllCustumers());
+        int newKnummer = dbFacade.getNextKnummer();
+        if (newKnummer != 0) {
+            processingOrder = true;
+            currentKunde = new Kunde(newKnummer, firma, navn, adresse, postnummer, telefonnummer);
+            dbFacade.registerNewCustomer(currentKunde);
+            dbFacade.commitBusinessTransaction();
+        } else {
+            processingOrder = false;
+        }
+        currentKunde = null;
     }
-    //       dbFacade.getNextkundeNr
-    ArrayList<Vare> vareArr = new ArrayList<>();
+    
+       public void updateKunde(int knummer, String firma, String navn, String adresse, int postnummer, int telefonnummer) {
+
+        dbFacade.startNewBusinessTransaction();
+
+  
+            
+            dbFacade.registerDirtyCustomer(currentKunde);
+            dbFacade.commitBusinessTransaction();
+ 
+        currentKunde = null;
+    }
 
     public void addRessource(int vnummer, String vnavn, int qty, double pris) {
         Vare ressource = new Vare(vnummer, vnavn, qty, pris);
-        vareArr.add(ressource);
         dbFacade.startNewBusinessTransaction();
         dbFacade.registerNewRessource(ressource);
         dbFacade.commitBusinessTransaction();
@@ -209,6 +221,10 @@ public class Controller {
 
     public int getNextVnummer() {
         return dbFacade.getNextVnummer();
+    }
+
+    public int getNextKnummer() {
+        return dbFacade.getNextKnummer();
     }
 
     public void deleteVare(Vare v) {
@@ -238,7 +254,8 @@ public class Controller {
         ArrayList<Vare> vl = dbFacade.getAllRessources();
 
         for (int i = 0; i < vl.size(); i++) {
-            if (vl.get(i).getVnummer() == vnummer && qty <= vl.get(i).getQty()) {
+            if (vl.get(i).getVnummer() == vnummer && qty <= vl.get(i).getQty()) 
+            {
                 vl.get(i).setQty(vl.get(i).getQty() - qty);
                 dbFacade.startNewBusinessTransaction();
                 dbFacade.registerDirtyRessource(vl.get(i));
