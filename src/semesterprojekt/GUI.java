@@ -1484,7 +1484,7 @@ public class GUI extends javax.swing.JFrame {
         int[] tidLev = new int[5];
         int[] tidRet = new int[5];
         jComboBox2.removeAllItems();
-        jComboBox2.addItem("Transport");
+        jComboBox2.addItem("Levering");
         jComboBox2.addItem("08:00");
         jComboBox2.addItem("10:00");
         jComboBox2.addItem("12:00");
@@ -1492,7 +1492,7 @@ public class GUI extends javax.swing.JFrame {
         jComboBox2.addItem("16:00");
         jComboBox2.addItem("Stor Order");
         jComboBox3.removeAllItems();
-        jComboBox3.addItem("Transport");
+        jComboBox3.addItem("Afhentning");
         jComboBox3.addItem("08:00");
         jComboBox3.addItem("10:00");
         jComboBox3.addItem("12:00");
@@ -1522,6 +1522,10 @@ public class GUI extends javax.swing.JFrame {
                                 if (tidLev[l - 1] >= 2) {
                                     jComboBox2.removeItemAt(l);
                                 }
+                                try {
+                                    jComboBox2.removeItemAt(6);
+                                } catch (Exception ex) {
+                                }
                             } else if (o.getTidLev().equals("Stor Order")) {
                                 jComboBox2.removeAllItems();
                                 jComboBox2.addItem("Levering");
@@ -1535,10 +1539,15 @@ public class GUI extends javax.swing.JFrame {
                                 if (tidRet[l - 1] >= 2) {
                                     jComboBox3.removeItemAt(l);
                                 }
+                                try {
+                                    jComboBox3.removeItemAt(6);
+                                } catch (Exception ex) {
+                                }
                             } else if (o.getTidRet().equals("Stor Order")) {
                                 jComboBox3.removeAllItems();
                                 jComboBox3.addItem("Afhentning");
                             }
+
                         }
                     }
                 }
