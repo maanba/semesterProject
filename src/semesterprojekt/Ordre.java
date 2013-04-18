@@ -3,34 +3,43 @@
  * and open the template in the editor.
  */
 package semesterprojekt;
-
 import java.util.ArrayList;
 
 /**
- *
- * @author Daniel Krarup Knudsen
- */
-public class Ordre {
 
+ @author Daniel Krarup Knudsen
+ */
+public class Ordre
+{
     private int onummer, fnummer, knummer, ver;
-    private String status, modtaget, levering, returnering, afhentning, tid;
+    private String status, modtaget, levering, returnering, afhentning, tidLev, tidRet;
     private double pris, depositum, rabat;
     private ArrayList<Odetaljer> od = new ArrayList();
 
-    public Ordre(int onummer, int fnummer, int knummer, double pris, double rabat, double depositum, String tid, String afhentning, String status, String modtaget, String levering, String returnering, int ver) {
+    public Ordre(int onummer, int fnummer, int knummer, double pris, double rabat, double depositum, String tidLev, String tidRet, String afhentning, String status, String modtaget, String levering, String returnering, int ver)
+    {
         this.onummer = onummer;
         this.fnummer = fnummer;
         this.knummer = knummer;
         this.pris = pris;
         this.rabat = rabat;
         this.depositum = depositum;
-        this.tid = tid;
+        this.tidLev = tidLev;
+        this.tidRet = tidRet;
         this.afhentning = afhentning;
         this.ver = ver;
         this.status = status;
         this.modtaget = modtaget;
         this.levering = levering;
         this.returnering = returnering;
+    }
+
+    public String getTidRet() {
+        return tidRet;
+    }
+
+    public void setTidRet(String tidRet) {
+        this.tidRet = tidRet;
     }
 
     public double getRabat() {
@@ -41,12 +50,12 @@ public class Ordre {
         this.rabat = rabat;
     }
 
-    public String getTid() {
-        return tid;
+    public String getTidLev() {
+        return tidLev;
     }
 
-    public void setTid(String tid) {
-        this.tid = tid;
+    public void setTidLev(String tid) {
+        this.tidLev = tid;
     }
 
     public int getFnummer() {
@@ -57,104 +66,129 @@ public class Ordre {
         this.fnummer = fnummer;
     }
 
-    public String getModtaget() {
+    public String getModtaget()
+    {
         return modtaget;
     }
 
-    public void setModtaget(String modtaget) {
+    public void setModtaget(String modtaget)
+    {
         this.modtaget = modtaget;
     }
 
-    public String getAfhentning() {
+    public String getAfhentning()
+    {
         return afhentning;
     }
 
-    public void setAfhentning(String afhentning) {
+    public void setAfhentning(String afhentning)
+    {
         this.afhentning = afhentning;
     }
 
-    public void setOd(ArrayList<Odetaljer> od) {
+    public void setOd(ArrayList<Odetaljer> od)
+    {
         this.od = od;
     }
 
-    public ArrayList<Odetaljer> getOd() {
+    public ArrayList<Odetaljer> getOd()
+    {
         return od;
     }
 
-    public void addOd(Odetaljer o) {
+    public void addOd(Odetaljer o)
+    {
         od.add(o);
     }
 
-    public int getOnummer() {
+    public int getOnummer()
+    {
         return onummer;
     }
 
-    public void setOnummer(int onummer) {
+    public void setOnummer(int onummer)
+    {
         this.onummer = onummer;
     }
 
-    public int getKnummer() {
+    public int getKnummer()
+    {
         return knummer;
     }
 
-    public void setKnummer(int knummer) {
+    public void setKnummer(int knummer)
+    {
         this.knummer = knummer;
     }
 
-    public String getStatus() {
+    public String getStatus()
+    {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(String status)
+    {
         this.status = status;
     }
 
-    public String getLevering() {
+    public String getLevering()
+    {
         return levering;
     }
 
-    public void setLevering(String levering) {
+    public void setLevering(String levering)
+    {
         this.levering = levering;
     }
 
-    public String getReturnering() {
+    public String getReturnering()
+    {
         return returnering;
     }
 
-    public void setReturnering(String returnering) {
+    public void setReturnering(String returnering)
+    {
         this.returnering = returnering;
     }
 
-    public int getVer() {
+    public int getVer()
+    {
         return ver;
     }
 
-    public void setVer(int ver) {
+    public void setVer(int ver)
+    {
         this.ver = ver;
     }
 
-    public void nuVer() {
+    public void nuVer()
+    {
         ver++;
     }
 
-    public double getPris() {
+    public double getPris()
+    {
         return pris;
     }
 
-    public void setPris(double pris) {
+    public void setPris(double pris)
+    {
         this.pris = pris;
     }
 
-    public double getDepositum() {
+    public double getDepositum()
+    {
         return depositum;
     }
 
-    public void setDepositum(double depositum) {
+    public void setDepositum(double depositum)
+    {
         this.depositum = depositum;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return knummer + ", " + onummer + ", " + status;
     }
 }

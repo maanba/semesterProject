@@ -494,7 +494,7 @@
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="7">
-                    <StringItem index="0" value="Transport"/>
+                    <StringItem index="0" value="Levering"/>
                     <StringItem index="1" value="08:00"/>
                     <StringItem index="2" value="10:00"/>
                     <StringItem index="3" value="12:00"/>
@@ -520,6 +520,26 @@
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="820" y="150" width="100" height="-1"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="jComboBox3">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="7">
+                    <StringItem index="0" value="Afhentning"/>
+                    <StringItem index="1" value="08:00"/>
+                    <StringItem index="2" value="10:00"/>
+                    <StringItem index="3" value="12:00"/>
+                    <StringItem index="4" value="14:00"/>
+                    <StringItem index="5" value="16:00"/>
+                    <StringItem index="6" value="Stor Order"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="700" y="50" width="-1" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
