@@ -49,6 +49,7 @@ public class GUI extends javax.swing.JFrame {
 
         jLabelErrorLager.setText("");
         jLabelErrorOrdre.setText("");
+        jLabelErrorKunder.setText("");
         jLabelOpretRedigerVare.setText("");
         jLabelKundenummer2.setText("");
         jLabelVarenummer1.setText("");
@@ -469,6 +470,9 @@ public class GUI extends javax.swing.JFrame {
         jLabelKundenummer2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelKundenummer2.setText("jLabelKundenummer2");
         jPanel6.add(jLabelKundenummer2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, 160, 30));
+
+        jLabelErrorKunder.setText("jLabelErrorKunder");
+        jPanel6.add(jLabelErrorKunder, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, -1, -1));
 
         jTabbedPane1.addTab("Kunder", jPanel6);
 
@@ -1012,45 +1016,52 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButtonGemKundeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGemKundeActionPerformed
         String firma = jTextFieldFirmaNavn.getText();
-        if ("".equals(jTextFieldFirmaNavn.getText())) {
-            firma = null;
-        } else {
-            firma = jTextFieldFirmaNavn.getText();
-        }
         String navn = jTextFieldFuldeNavn.getText();
         String adresse = jTextFieldAdresse.getText();
         int postnummer = Integer.parseInt(jTextFieldPostnummer.getText());
         int telefonnummer = Integer.parseInt(jTextFieldTelefonnummer.getText());
-
-        controller.addKunde(0, firma, navn, adresse, postnummer, telefonnummer);
-        update();
+        
+        if (jTextFieldFuldeNavn.getText().isEmpty() || jTextFieldAdresse.getText().isEmpty() 
+                || jTextFieldPostnummer.getText().isEmpty() || jTextFieldTelefonnummer.getText().isEmpty()) 
+        {
+            jLabelErrorKunder.setText("You need to fill in all the fields before adding a new customer.");
+        } 
+        else if (controller.getRediger() == false) 
+        {
+            controller.addNewKunde(firma, navn, adresse, postnummer, telefonnummer);
+            jLabelErrorKunder.setText("");
+            update();
+        } 
+        else if (controller.getRediger() == true) 
+        {
+            int knummer = Integer.parseInt(jLabelKundenummer2.getText());
+            Kunde kunde = new Kunde(knummer, firma, navn, adresse, postnummer, telefonnummer);
+            controller.redigerKunde(kunde);
+            jLabelErrorKunder.setText("");
+            update();
+            controller.redigerFalse();
+        }
     }//GEN-LAST:event_jButtonGemKundeActionPerformed
 
     private void jButtonRedigerKundeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRedigerKundeActionPerformed
         Kunde selected = (Kunde) jListKundeliste.getSelectedValue();
-        
+
         if (controller.getRediger() == false) {
             jLabelOpretRedigerKunde.setText("Redigerer i kunde:");
             jLabelKundenummer1.setText("Kundenummer:");
             jLabelKundenummer2.setText(selected.getKnummer() + "");
             if (jTextFieldFirmaNavn == null) {
                 jTextFieldFirmaNavn.setText("");
-            } 
-            else 
-            {
+            } else {
                 jTextFieldFirmaNavn.setText(selected.getFirma());
             }
             jTextFieldFuldeNavn.setText(selected.getNavn());
             jTextFieldAdresse.setText(selected.getAdresse() + "");
             jTextFieldPostnummer.setText(selected.getPostnummer() + "");
             jTextFieldTelefonnummer.setText(selected.getTelefonnummer() + "");
-        }
-        if (selected != null) {
-            for (int i = 0; i < listKundeliste.size(); i++) {
-                Kunde kunde = (Kunde) listKundeliste.getElementAt(i);
-            }
+            controller.redigerTrue();
         } else {
-            jLabelErrorOrdre.setText("FEJL!");
+            jLabelErrorKunder.setText("You need to finish editing the current customer before editing a new one");
         }
     }//GEN-LAST:event_jButtonRedigerKundeActionPerformed
 
@@ -1727,6 +1738,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabelErrorKunder;
     private javax.swing.JLabel jLabelErrorLager;
     private javax.swing.JLabel jLabelErrorOrdre;
     private javax.swing.JLabel jLabelKundenummer1;
