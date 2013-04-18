@@ -101,7 +101,7 @@ public class GUI extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         jTextFieldTotalPris = new javax.swing.JTextField();
         jLabel30 = new javax.swing.JLabel();
-        jButtonLastbil = new javax.swing.JButton();
+        jButtonPakkeGenaflevering = new javax.swing.JButton();
         jButtonMontoer = new javax.swing.JButton();
         jButtonStatus = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -291,7 +291,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonDepositumActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonDepositum, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 270, 100, -1));
+        jPanel1.add(jButtonDepositum, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 270, 130, -1));
 
         jButtonFaktura.setText("Faktura PDF");
         jButtonFaktura.addActionListener(new java.awt.event.ActionListener() {
@@ -299,7 +299,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonFakturaActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonFaktura, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 120, 100, -1));
+        jPanel1.add(jButtonFaktura, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 120, 130, -1));
 
         jButtonTilbudPdf.setText("Tilbud PDF");
         jButtonTilbudPdf.addActionListener(new java.awt.event.ActionListener() {
@@ -307,7 +307,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonTilbudPdfActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonTilbudPdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 180, 100, -1));
+        jPanel1.add(jButtonTilbudPdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 180, 130, -1));
 
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -345,13 +345,13 @@ public class GUI extends javax.swing.JFrame {
         jLabel30.setText(" Pris før rabat:");
         jPanel1.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 140, -1, -1));
 
-        jButtonLastbil.setText("Tilføj Lastbil");
-        jButtonLastbil.addActionListener(new java.awt.event.ActionListener() {
+        jButtonPakkeGenaflevering.setText("Lister");
+        jButtonPakkeGenaflevering.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonLastbilActionPerformed(evt);
+                jButtonPakkeGenafleveringActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonLastbil, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 210, 100, -1));
+        jPanel1.add(jButtonPakkeGenaflevering, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 210, 130, -1));
 
         jButtonMontoer.setText("Tilføj Montør");
         jButtonMontoer.addActionListener(new java.awt.event.ActionListener() {
@@ -359,7 +359,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonMontoerActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonMontoer, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 240, 100, -1));
+        jPanel1.add(jButtonMontoer, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 240, 130, -1));
 
         jButtonStatus.setText("Status");
         jButtonStatus.addActionListener(new java.awt.event.ActionListener() {
@@ -367,7 +367,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonStatusActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 300, 100, -1));
+        jPanel1.add(jButtonStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 300, 130, -1));
 
         jButton1.setText("Check Dato");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -386,7 +386,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonOrdrePdfActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonOrdrePdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 150, 100, -1));
+        jPanel1.add(jButtonOrdrePdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 150, 130, -1));
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Afhentning", "08:00", "10:00", "12:00", "14:00", "16:00", "Stor Order" }));
         jPanel1.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 50, -1, -1));
@@ -1040,9 +1040,11 @@ public class GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonMontoerActionPerformed
 
-    private void jButtonLastbilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLastbilActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonLastbilActionPerformed
+    private void jButtonPakkeGenafleveringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPakkeGenafleveringActionPerformed
+        Ordre selected = (Ordre) jList3.getSelectedValue();
+        controller.setCurrentOrder(selected);
+        controller.pdfPakkeliste();
+    }//GEN-LAST:event_jButtonPakkeGenafleveringActionPerformed
 
     private void jTextFieldRabatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldRabatActionPerformed
         // TODO add your handling code here:
@@ -1613,13 +1615,13 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonLagerGem;
     private javax.swing.JButton jButtonLagerRediger;
     private javax.swing.JButton jButtonLagerSøg;
-    private javax.swing.JButton jButtonLastbil;
     private javax.swing.JButton jButtonLevér;
     private javax.swing.JButton jButtonMontoer;
     private javax.swing.JButton jButtonOK;
     private javax.swing.JButton jButtonOrdre;
     private javax.swing.JButton jButtonOrdrePdf;
     private javax.swing.JButton jButtonOrdreRediger;
+    private javax.swing.JButton jButtonPakkeGenaflevering;
     private javax.swing.JButton jButtonReturGem;
     private javax.swing.JButton jButtonReturSøg;
     private javax.swing.JButton jButtonSletOrdre;

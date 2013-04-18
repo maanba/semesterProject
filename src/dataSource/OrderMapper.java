@@ -19,7 +19,7 @@ public class OrderMapper {
     // returns true if all elements were inserted successfully
     public boolean insertOrders(ArrayList<Ordre> ol, Connection conn) throws SQLException {
         int rowsInserted = 0;
-        String SQLString = "insert into ordrer values (?,?,?,?,?,?,?,?,?,"
+        String SQLString = "insert into ordrer values (?,?,?,?,?,?,?,?,?,?,"
                 + "to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'),"
                 + "to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'),"
                 + "to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'),"
@@ -60,7 +60,7 @@ public class OrderMapper {
 
     public boolean insertCustomer(ArrayList<Kunde> kl, Connection conn) throws SQLException {
         int rowsInserted = 0;
-        String SQLString = "insert into Kunde values (?,?,?,?,?,?)";
+        String SQLString = "insert into Kunder values (?,?,?,?,?,?)";
         PreparedStatement statement = null;
         statement = conn.prepareStatement(SQLString);
 

@@ -507,6 +507,27 @@ public class Controller {
         }
     }
 
+    public void pdfPakkeliste() {
+        ArrayList<Odetaljer> odetaljeArray = currentOrder.getOd();
+        ArrayList<Vare> vareArray = new ArrayList<>();
+        for (int i = 0; i < odetaljeArray.size(); i++) {
+            Vare vare = getVare(odetaljeArray.get(i).getVnummer());
+            vare.setQty(odetaljeArray.get(i).getMaengde());
+            vareArray.add(vare);
+        }
+        Kunde kunde = getKunde(currentOrder.getKnummer());
+        Postnummer postnummer = getPostnummer(currentKunde.getPostnummer());
+
+        PDF pdf = new PDF();
+        try {
+            pdf.pdfPakkeliste(currentOrder, kunde, odetaljeArray, vareArray, postnummer);
+        } catch (DocumentException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public void pdfFaktura() {
         ArrayList<Odetaljer> odetaljeArray = currentOrder.getOd();
         ArrayList<Vare> vareArray = new ArrayList<>();
