@@ -1524,7 +1524,7 @@ public class GUI extends javax.swing.JFrame {
                                 }
                             } else if (o.getTidLev().equals("Stor Order")) {
                                 jComboBox2.removeAllItems();
-                                jComboBox2.addItem("Transport");
+                                jComboBox2.addItem("Levering");
                             }
                         }
                     }
@@ -1537,7 +1537,7 @@ public class GUI extends javax.swing.JFrame {
                                 }
                             } else if (o.getTidRet().equals("Stor Order")) {
                                 jComboBox3.removeAllItems();
-                                jComboBox3.addItem("Transport");
+                                jComboBox3.addItem("Afhentning");
                             }
                         }
                     }
