@@ -60,7 +60,7 @@ public class OrderMapper {
 
     public boolean insertCustomer(ArrayList<Kunde> kl, Connection conn) throws SQLException {
         int rowsInserted = 0;
-        String SQLString = "insert into kunder values (?,?,?,?,?,?)";
+        String SQLString = "insert into Kunder values (?,?,?,?,?,?)";
         PreparedStatement statement = null;
         statement = conn.prepareStatement(SQLString);
 

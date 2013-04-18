@@ -49,6 +49,7 @@ public class GUI extends javax.swing.JFrame {
 
         jLabelErrorLager.setText("");
         jLabelErrorOrdre.setText("");
+        jLabelErrorKunder.setText("");
         jLabelOpretRedigerVare.setText("");
         jLabelKundenummer2.setText("");
         jLabelVarenummer1.setText("");
@@ -101,7 +102,7 @@ public class GUI extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         jTextFieldTotalPris = new javax.swing.JTextField();
         jLabel30 = new javax.swing.JLabel();
-        jButtonLastbil = new javax.swing.JButton();
+        jButtonPakkeliste = new javax.swing.JButton();
         jButtonMontoer = new javax.swing.JButton();
         jButtonStatus = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -130,6 +131,7 @@ public class GUI extends javax.swing.JFrame {
         jTextFieldKundeSøg = new javax.swing.JTextField();
         jLabelKundenummer1 = new javax.swing.JLabel();
         jLabelKundenummer2 = new javax.swing.JLabel();
+        jLabelErrorKunder = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         jListTilbudVarer = new javax.swing.JList();
@@ -296,7 +298,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonDepositumActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonDepositum, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 270, 100, -1));
+        jPanel1.add(jButtonDepositum, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 270, 130, -1));
 
         jButtonFaktura.setText("Faktura PDF");
         jButtonFaktura.addActionListener(new java.awt.event.ActionListener() {
@@ -304,7 +306,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonFakturaActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonFaktura, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 120, 100, -1));
+        jPanel1.add(jButtonFaktura, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 120, 130, -1));
 
         jButtonTilbudPdf.setText("Tilbud PDF");
         jButtonTilbudPdf.addActionListener(new java.awt.event.ActionListener() {
@@ -312,7 +314,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonTilbudPdfActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonTilbudPdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 180, 100, -1));
+        jPanel1.add(jButtonTilbudPdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 180, 130, -1));
 
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -350,13 +352,13 @@ public class GUI extends javax.swing.JFrame {
         jLabel30.setText(" Pris før rabat:");
         jPanel1.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 140, -1, -1));
 
-        jButtonLastbil.setText("Tilføj Lastbil");
-        jButtonLastbil.addActionListener(new java.awt.event.ActionListener() {
+        jButtonPakkeliste.setText("Pakkeliste");
+        jButtonPakkeliste.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonLastbilActionPerformed(evt);
+                jButtonPakkelisteActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonLastbil, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 210, 100, -1));
+        jPanel1.add(jButtonPakkeliste, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 210, 130, -1));
 
         jButtonMontoer.setText("Tilføj Montør");
         jButtonMontoer.addActionListener(new java.awt.event.ActionListener() {
@@ -364,7 +366,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonMontoerActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonMontoer, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 240, 100, -1));
+        jPanel1.add(jButtonMontoer, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 240, 130, -1));
 
         jButtonStatus.setText("Status");
         jButtonStatus.addActionListener(new java.awt.event.ActionListener() {
@@ -372,7 +374,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonStatusActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 300, 100, -1));
+        jPanel1.add(jButtonStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 300, 130, -1));
 
         jButton1.setText("Check Dato");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -391,7 +393,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonOrdrePdfActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonOrdrePdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 150, 100, -1));
+        jPanel1.add(jButtonOrdrePdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 150, 130, -1));
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Afhentning", "08:00", "10:00", "12:00", "14:00", "16:00", "Stor Order" }));
         jPanel1.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 50, -1, -1));
@@ -470,6 +472,9 @@ public class GUI extends javax.swing.JFrame {
         jLabelKundenummer2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelKundenummer2.setText("jLabelKundenummer2");
         jPanel6.add(jLabelKundenummer2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, 160, 30));
+
+        jLabelErrorKunder.setText("jLabelErrorKunder");
+        jPanel6.add(jLabelErrorKunder, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, -1, -1));
 
         jTabbedPane1.addTab("Kunder", jPanel6);
 
@@ -1021,45 +1026,52 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButtonGemKundeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGemKundeActionPerformed
         String firma = jTextFieldFirmaNavn.getText();
-        if ("".equals(jTextFieldFirmaNavn.getText())) {
-            firma = null;
-        } else {
-            firma = jTextFieldFirmaNavn.getText();
-        }
         String navn = jTextFieldFuldeNavn.getText();
         String adresse = jTextFieldAdresse.getText();
         int postnummer = Integer.parseInt(jTextFieldPostnummer.getText());
         int telefonnummer = Integer.parseInt(jTextFieldTelefonnummer.getText());
-
-        controller.addKunde(0, firma, navn, adresse, postnummer, telefonnummer);
-        update();
+        
+        if (jTextFieldFuldeNavn.getText().isEmpty() || jTextFieldAdresse.getText().isEmpty() 
+                || jTextFieldPostnummer.getText().isEmpty() || jTextFieldTelefonnummer.getText().isEmpty()) 
+        {
+            jLabelErrorKunder.setText("You need to fill in all the fields before adding a new customer.");
+        } 
+        else if (controller.getRediger() == false) 
+        {
+            controller.addNewKunde(firma, navn, adresse, postnummer, telefonnummer);
+            jLabelErrorKunder.setText("");
+            update();
+        } 
+        else if (controller.getRediger() == true) 
+        {
+            int knummer = Integer.parseInt(jLabelKundenummer2.getText());
+            Kunde kunde = new Kunde(knummer, firma, navn, adresse, postnummer, telefonnummer);
+            controller.redigerKunde(kunde);
+            jLabelErrorKunder.setText("");
+            update();
+            controller.redigerFalse();
+        }
     }//GEN-LAST:event_jButtonGemKundeActionPerformed
 
     private void jButtonRedigerKundeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRedigerKundeActionPerformed
         Kunde selected = (Kunde) jListKundeliste.getSelectedValue();
-        
+
         if (controller.getRediger() == false) {
             jLabelOpretRedigerKunde.setText("Redigerer i kunde:");
             jLabelKundenummer1.setText("Kundenummer:");
             jLabelKundenummer2.setText(selected.getKnummer() + "");
             if (jTextFieldFirmaNavn == null) {
                 jTextFieldFirmaNavn.setText("");
-            } 
-            else 
-            {
+            } else {
                 jTextFieldFirmaNavn.setText(selected.getFirma());
             }
             jTextFieldFuldeNavn.setText(selected.getNavn());
             jTextFieldAdresse.setText(selected.getAdresse() + "");
             jTextFieldPostnummer.setText(selected.getPostnummer() + "");
             jTextFieldTelefonnummer.setText(selected.getTelefonnummer() + "");
-        }
-        if (selected != null) {
-            for (int i = 0; i < listKundeliste.size(); i++) {
-                Kunde kunde = (Kunde) listKundeliste.getElementAt(i);
-            }
+            controller.redigerTrue();
         } else {
-            jLabelErrorOrdre.setText("FEJL!");
+            jLabelErrorKunder.setText("You need to finish editing the current customer before editing a new one");
         }
     }//GEN-LAST:event_jButtonRedigerKundeActionPerformed
 
@@ -1091,9 +1103,19 @@ public class GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonMontoerActionPerformed
 
-    private void jButtonLastbilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLastbilActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonLastbilActionPerformed
+    private void jButtonPakkelisteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPakkelisteActionPerformed
+        Ordre selected = (Ordre) jList3.getSelectedValue();
+        int selectedIndex = jList3.getSelectedIndex();
+        controller.setSelectedOrdre(selected);
+        if (selected.getFnummer() == 0) {
+            controller.addOrderFakturaNummer(selected);
+        }
+        controller.ordreFaktureret(selected.getOnummer());
+        update();
+        selected = (Ordre) list3.getElementAt(selectedIndex);
+        controller.setCurrentOrder(selected);
+        controller.pdfPakkeliste();
+    }//GEN-LAST:event_jButtonPakkelisteActionPerformed
 
     private void jTextFieldRabatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldRabatActionPerformed
         // TODO add your handling code here:
@@ -1443,11 +1465,12 @@ public class GUI extends javax.swing.JFrame {
         controller.quickSortOrdre(oa, 0, oa.length - 1);
         // controller.quickSortOrdre(oa, 0, oa.length - 1);
         for (int i = 0; i < oa.length; i++) {
-            if (!"Afsluttet".equals(ol.get(i).getStatus())) {
+            
+            if (!"Afsluttet".equals(oa[i].getStatus())) {
                 list3.addElement(oa[i]);
                 listHistorik.addElement(oa[i]);
                 listOrdrer.addElement(oa[i]);
-            } else if ("Afsluttet".equals(ol.get(i).getStatus())) {
+            } else if ("Afsluttet".equals(oa[i].getStatus())) {
                 listHistorik.addElement(oa[i]);
             }
         }
@@ -1684,7 +1707,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonLagerGem;
     private javax.swing.JButton jButtonLagerRediger;
     private javax.swing.JButton jButtonLagerSøg;
-    private javax.swing.JButton jButtonLastbil;
     private javax.swing.JButton jButtonLevér;
     private javax.swing.JButton jButtonMontoer;
     private javax.swing.JButton jButtonOK;
@@ -1693,6 +1715,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonOrdre3;
     private javax.swing.JButton jButtonOrdrePdf;
     private javax.swing.JButton jButtonOrdreRediger;
+    private javax.swing.JButton jButtonPakkeliste;
     private javax.swing.JButton jButtonRedigerKunde;
     private javax.swing.JButton jButtonReturGem;
     private javax.swing.JButton jButtonReturSøg;
@@ -1735,6 +1758,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabelErrorKunder;
     private javax.swing.JLabel jLabelErrorLager;
     private javax.swing.JLabel jLabelErrorOrdre;
     private javax.swing.JLabel jLabelKundenummer1;

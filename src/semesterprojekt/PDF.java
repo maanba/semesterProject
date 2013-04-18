@@ -544,6 +544,169 @@ public class PDF {
         }
     }
 
+    public void pdfPakkeliste(Ordre currentOrder, Kunde kunde, ArrayList<Odetaljer> odetaljeArray, ArrayList<Vare> vareArray, Postnummer postnummer) throws DocumentException, FileNotFoundException {
+        int postnr = kunde.getPostnummer();
+        String adresse = kunde.getAdresse();
+        String navn = "";
+        String kontaktperson = "";
+        if (kunde.getFirma() == null) {
+            navn = kunde.getNavn();
+        } else {
+            navn = kunde.getFirma();
+            kontaktperson = kunde.getNavn();
+        }
+
+        String temp = kunde.getTelefonnummer() + "";
+        String telefonnummer = temp.substring(0, 2) + " ";
+        telefonnummer += temp.substring(2, 4) + " ";
+        telefonnummer += temp.substring(4, 6) + " ";
+        telefonnummer += temp.substring(6, 8);
+        String by = postnummer.getBy();
+
+        int fnummer = currentOrder.getFnummer();
+        int knummer = currentOrder.getKnummer();
+        String status = currentOrder.getStatus() + "";
+
+        String afhentning = currentOrder.getAfhentning() + "";
+        String levering = currentOrder.getLevering() + "";
+        String returnering = currentOrder.getReturnering() + "";
+
+        try {
+            Document document = new Document();
+            browser.browser(currentOrder.getFnummer());
+            if (!(browser.getFileName() == null)) {
+                PdfWriter.getInstance(document, new FileOutputStream(browser.getFileName()));
+                document.open();
+
+                PdfPTable top = new PdfPTable(2);
+                top.setTotalWidth(500);
+                top.setWidths(new float[]{5, 3});
+                top.setLockedWidth(true);
+                top.getDefaultCell().setBorder(0);
+
+                top.addCell(" ");
+                top.addCell(" ");
+                top.addCell(" ");
+                top.addCell(new Phrase("  Pakkeliste", FontFactory.getFont(FontFactory.TIMES_BOLD, 14)));
+                top.addCell(" ");
+                top.addCell(" ");
+
+                PdfPTable table1 = new PdfPTable(3);
+                table1.setTotalWidth(500);
+                table1.setLockedWidth(true);
+                table1.setWidths(new float[]{5, 2, 2});
+                table1.getDefaultCell().setBorder(0);
+                table1.setSpacingAfter(50);
+
+                table1.addCell(new Phrase(navn, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table1.addCell(new Phrase("            Fakturanr:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table1.addCell(new Phrase(fnummer + "", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+
+                table1.addCell(new Phrase(adresse, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table1.addCell(new Phrase("            Kundenr:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table1.addCell(new Phrase(knummer + "", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+
+                table1.addCell(new Phrase(postnr + " " + by, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table1.addCell(new Phrase("            Status:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table1.addCell(new Phrase(status, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table1.addCell(new Phrase(telefonnummer, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+
+                table1.addCell(new Phrase("            Dato:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM-yyyy");
+                Date date = new Date();
+                table1.addCell(new Phrase(dateFormat.format(date), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+
+                table1.addCell(new Phrase(kontaktperson, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table1.addCell(new Phrase(" ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table1.addCell(new Phrase(" ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table1.addCell(new Phrase(" ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+
+                PdfPTable table2 = new PdfPTable(4);
+                table2.setTotalWidth(500);
+                table2.setLockedWidth(true);
+                table2.setWidths(new float[]{1, 3, 1, 1});
+                table2.setSpacingAfter(100);
+
+                table2.addCell(new Phrase("Varenr:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table2.addCell(new Phrase("Beskrivelse:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table2.addCell("Antal:");
+                table2.addCell(new Phrase("   ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+
+                table2.addCell(" ");
+                table2.addCell(" ");
+                table2.addCell(" ");
+                table2.addCell(" ");
+                for (int i = 0; i < vareArray.size(); i++) {
+                    for (int j = 0; j < vareArray.get(i).getDel().size(); j++) {
+                        table2.addCell(new Phrase(vareArray.get(i).getDel().get(j).getVnummer() + "", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                        table2.addCell(new Phrase(vareArray.get(i).getDel().get(j).getTitel(), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                        table2.addCell(new Phrase(vareArray.get(i).getDel().get(j).getAntal() + "", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                        table2.addCell(new Phrase("   ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                    }
+                }
+
+//                table2.addCell(" ");
+//                table2.addCell(new Phrase("Depositum:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+//                table2.addCell(" ");
+//                table2.addCell(" ");
+//                table2.addCell(new Phrase("   " + depositum, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+//
+//                table2.addCell(" ");
+//                table2.addCell(" ");
+//                table2.addCell(" ");
+//                table2.addCell(" ");
+//                table2.addCell(" ");
+//
+//                table2.addCell(" ");
+//                table2.addCell(new Phrase("Sum:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+//                table2.addCell(" ");
+//                table2.addCell(" ");
+//                table2.addCell(new Phrase("   " + (pris + depositum), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+//
+//                table2.addCell(" ");
+//                table2.addCell(new Phrase("Rabat:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+//                table2.addCell(" ");
+//                table2.addCell(" ");
+//                table2.addCell(new Phrase("   " + rabat + " %", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+//
+//                table2.addCell(" ");
+//                table2.addCell(new Phrase("At betale:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+//                table2.addCell(" ");
+//                table2.addCell(" ");
+//                table2.addCell(new Phrase("   " + ((pris + depositum) * (1 - (rabat / 100))), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+
+                PdfPTable table3 = new PdfPTable(3);
+                table3.setTotalWidth(500);
+                table3.setLockedWidth(true);
+                table3.setWidths(new float[]{2, 4, 6});
+                table3.getDefaultCell().setBorder(0);
+
+                table3.addCell(new Phrase("Transport:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table3.addCell(new Phrase(afhentning, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table3.addCell("");
+                table3.addCell(new Phrase("Fra dato:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table3.addCell(new Phrase(levering, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table3.addCell("");
+                table3.addCell(new Phrase("Til dato:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table3.addCell(new Phrase(returnering, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table3.addCell("");
+
+                document.add(top);
+                document.add(table1);
+                document.add(table2);
+                document.add(table3);
+                document.close();
+            } else {
+                System.out.println("Det blev ikke gemt");
+            }
+        } catch (Exception i) {
+            System.out.println(i);
+        }
+        if (!(browser.getFileName() == null)) {
+            openPDF(currentOrder);
+        }
+    }
+    
     public void openPDF(Ordre currentOrder) {
         try {
             if ((new File(browser.getFileName())).exists()) {
