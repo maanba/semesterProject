@@ -28,7 +28,6 @@ public class Controller {
     private Kunde currentKunde;
     private Postnummer currentPostnummer;
     private DBFacade dbFacade;
- 
 
     public Controller() {
         dbFacade = DBFacade.getInstance();
@@ -132,6 +131,45 @@ public class Controller {
             dbFacade.registerDirtyOrder(currentOrder);
         }
         return currentOrder;
+    }
+
+    public void ordreFaktureret(int onummer) {
+        ArrayList<Ordre> ol = dbFacade.getAllOrdres();
+        for (int i = 0; i < ol.size(); i++) {
+            if (onummer == ol.get(i).getOnummer()) {
+                ol.get(i).setStatus("Faktureret");
+                dbFacade.startNewBusinessTransaction();
+                dbFacade.registerDirtyOrder(ol.get(i));
+                dbFacade.commitBusinessTransaction();
+                break;
+            }
+        }
+    }
+
+    public void ordreOrdre(int onummer) {
+        ArrayList<Ordre> ol = dbFacade.getAllOrdres();
+        for (int i = 0; i < ol.size(); i++) {
+            if (onummer == ol.get(i).getOnummer()) {
+                ol.get(i).setStatus("Bekræftet ordre");
+                dbFacade.startNewBusinessTransaction();
+                dbFacade.registerDirtyOrder(ol.get(i));
+                dbFacade.commitBusinessTransaction();
+                break;
+            }
+        }
+    }
+
+    public void ordreTilbud(int onummer) {
+        ArrayList<Ordre> ol = dbFacade.getAllOrdres();
+        for (int i = 0; i < ol.size(); i++) {
+            if (onummer == ol.get(i).getOnummer()) {
+                ol.get(i).setStatus("Tilbud");
+                dbFacade.startNewBusinessTransaction();
+                dbFacade.registerDirtyOrder(ol.get(i));
+                dbFacade.commitBusinessTransaction();
+                break;
+            }
+        }
     }
 
     public boolean addOrderDetail(int vnummer, int qty) {
@@ -492,8 +530,8 @@ public class Controller {
     public void releaseConnection() {
         dbFacade.releaseConnection();
     }
-    
-     public void addVare(Vare vare) {
+
+    public void addVare(Vare vare) {
         dbFacade.startNewBusinessTransaction();
         dbFacade.registerNewRessource(vare);
         dbFacade.commitBusinessTransaction();
@@ -510,5 +548,4 @@ public class Controller {
     public boolean getRediger() {
         return rediger;
     }
-
 }

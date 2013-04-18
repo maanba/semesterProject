@@ -16,27 +16,27 @@ public class Vare {
     private double pris;
     private String vnavn;
     private ArrayList<Del> del = new ArrayList<>();
-    
+
     public Vare(int vnummer, String vnavn, int qty, double pris) {
         this.vnummer = vnummer;
         this.vnavn = vnavn;
         this.qty = qty;
         this.pris = pris;
     }
-    
-    public void addDel(Del del){
+
+    public void addDel(Del del) {
         del.setVnummer(vnummer);
         this.del.add(del);
     }
-    
-    public ArrayList<Del> getDel(){
+
+    public ArrayList<Del> getDel() {
         return del;
     }
-    
-    public void setDel(ArrayList<Del> del){
+
+    public void setDel(ArrayList<Del> del) {
         this.del = del;
     }
-    
+
     public int getVnummer() {
         return vnummer;
     }

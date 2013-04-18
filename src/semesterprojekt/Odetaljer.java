@@ -11,13 +11,13 @@ package semesterprojekt;
 public class Odetaljer {
 
     private int onummer, vnummer, maengde;
-    
+
     public Odetaljer(int onummer, int vnummer, int maengde) {
         this.onummer = onummer;
         this.vnummer = vnummer;
         this.maengde = maengde;
     }
-    
+
     public int getOnummer() {
         return onummer;
     }
@@ -41,6 +41,7 @@ public class Odetaljer {
     public void setMaengde(int maengde) {
         this.maengde = maengde;
     }
+
     @Override
     public String toString() {
         String navn = vnummer + "";
@@ -57,5 +58,3 @@ public class Odetaljer {
         return navn + maengde;
     }
 }
-
-

@@ -9,7 +9,7 @@ package semesterprojekt;
  * @author Daniel Krarup Knudsen
  */
 public class Postnummer {
-    
+
     private int postnummer;
     private String by;
 

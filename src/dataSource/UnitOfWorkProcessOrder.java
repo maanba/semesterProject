@@ -48,14 +48,14 @@ public class UnitOfWorkProcessOrder {
             dirtyOrders.add(o);
         }
     }
-    
-    public void registerDirtyCustomer(Kunde k){
+
+    public void registerDirtyCustomer(Kunde k) {
         if (!newCustomer.contains(k) && // if not allready registered in any list
                 !dirtyCustomer.contains(k)) {
             dirtyCustomer.add(k);
         }
     }
-    
+
     public void registerNewCustomer(Kunde k) {
         if (!newCustomer.contains(k)) {
             newCustomer.add(k);
@@ -68,57 +68,57 @@ public class UnitOfWorkProcessOrder {
             newOrderDetails.add(od);
         }
     }
-    
-    public void registerDirtyOrderDetail (Odetaljer od) {
-        if (!dirtyOrderDetails.contains(od)){
+
+    public void registerDirtyOrderDetail(Odetaljer od) {
+        if (!dirtyOrderDetails.contains(od)) {
             dirtyOrderDetails.add(od);
         }
     }
-    
+
     public void registerNewRessource(Vare v) {
         if (!newRessources.contains(v) && // if not allready registered in any list
                 !dirtyRessources.contains(v)) {
             newRessources.add(v);
         }
     }
-    
+
     public void registerDirtyRessource(Vare v) {
         if (!newRessources.contains(v) && // if not allready registered in any list
                 !dirtyRessources.contains(v)) {
             dirtyRessources.add(v);
         }
     }
-    
-    public boolean registerDeletedOrder (Ordre o){
+
+    public boolean registerDeletedOrder(Ordre o) {
         boolean status = false;
-        if(!deletedOrders.contains(o)){
+        if (!deletedOrders.contains(o)) {
             status = true;
             deletedOrders.add(o);
         }
         return status;
     }
-    
-    public boolean registerDeletedOdetail (Odetaljer od){
+
+    public boolean registerDeletedOdetail(Odetaljer od) {
         boolean status = false;
-        if(!deletedOdetails.contains(od)){
+        if (!deletedOdetails.contains(od)) {
             status = true;
             deletedOdetails.add(od);
         }
         return status;
     }
-    
-    public boolean registerDeletedCustomer (Kunde k){
+
+    public boolean registerDeletedCustomer(Kunde k) {
         boolean status = false;
-        if(!deletedCustomers.contains(k)){
+        if (!deletedCustomers.contains(k)) {
             status = true;
             deletedCustomers.add(k);
         }
         return status;
     }
-    
-    public boolean registerDeletedRessource (Vare v){
+
+    public boolean registerDeletedRessource(Vare v) {
         boolean status = false;
-        if(!deletedRessources.contains(v)){
+        if (!deletedRessources.contains(v)) {
             status = true;
             deletedRessources.add(v);
         }
@@ -132,7 +132,7 @@ public class UnitOfWorkProcessOrder {
             //=== system transaction - start
             conn.setAutoCommit(false);
             OrderMapper om = new OrderMapper();
-            
+
             status = status && om.insertOrders(newOrders, conn);
             status = status && om.updateOrders(dirtyOrders, conn);
             status = status && om.insertCustomer(newCustomer, conn);
