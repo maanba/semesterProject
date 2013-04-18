@@ -24,13 +24,13 @@ public class Browser {
         FileFilter filter = new Browser.ExtensionFileFilter(".pdf", new String[]{"PDF"});
         chooser.setFileFilter(filter);
         FileSystemView fw = chooser.getFileSystemView();
-        chooser.setSelectedFile(new File(""+nummer));
+        chooser.setSelectedFile(new File("" + nummer));
         int result = chooser.showSaveDialog(null);
         switch (result) {
             case JFileChooser.APPROVE_OPTION:
                 file = chooser.getSelectedFile();
                 fileName = file.getAbsolutePath();
-                if (!fileName.endsWith("pdf")){
+                if (!fileName.endsWith("pdf")) {
                     fileName = fileName + ".pdf";
                 }
                 if ((nummer + ".pdf").equals(file.getName())) {

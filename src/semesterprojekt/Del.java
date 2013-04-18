@@ -12,7 +12,7 @@ public class Del {
 
     private int vnummer, antal;
     private String titel;
-    
+
     public Del(int vnummer, String titel, int antal) {
         this.vnummer = vnummer;
         this.titel = titel;
@@ -42,7 +42,7 @@ public class Del {
     public void setTitel(String titel) {
         this.titel = titel;
     }
-    
+
     @Override
     public String toString() {
         String navn = titel;
@@ -59,5 +59,3 @@ public class Del {
         return navn + antal;
     }
 }
-
-
