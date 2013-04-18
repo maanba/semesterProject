@@ -262,10 +262,14 @@ public class OrderMapper {
     public boolean insertOrderDetails(ArrayList<Odetaljer> odl, Connection conn) throws SQLException {
         String SQLString = "insert into odetaljer values (?,?,?)";
         PreparedStatement statement = null;
-
+        statement = conn.prepareStatement(SQLString);
+        
         int rowsInserted = 0;
         try {
             for (int i = 0; i < odl.size(); i++) {
+                if (!statement.isClosed()) {
+                    statement.close();
+                }
                 statement = conn.prepareStatement(SQLString);
                 statement.setInt(1, odl.get(i).getOnummer());
                 statement.setInt(2, odl.get(i).getVnummer());

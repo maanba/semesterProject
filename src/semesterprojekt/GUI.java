@@ -169,8 +169,8 @@ public class GUI extends javax.swing.JFrame {
         jButtonOrdre = new javax.swing.JButton();
         jButtonTilbud1 = new javax.swing.JButton();
         jButtonOrdre1 = new javax.swing.JButton();
-        jButtonTilbud2 = new javax.swing.JButton();
-        jButtonOrdre2 = new javax.swing.JButton();
+        jButtonTilbud3 = new javax.swing.JButton();
+        jButtonOrdre3 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -190,6 +190,7 @@ public class GUI extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jButtonFjernPart = new javax.swing.JButton();
         jButtonTilføjPart = new javax.swing.JButton();
+        jToggleButton1 = new javax.swing.JToggleButton();
         jLabelOpretRedigerVare = new javax.swing.JLabel();
         jButtonLagerRediger = new javax.swing.JButton();
         jButtonLagerGem = new javax.swing.JButton();
@@ -654,21 +655,21 @@ public class GUI extends javax.swing.JFrame {
         });
         jPanel9.add(jButtonOrdre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, 80, -1));
 
-        jButtonTilbud2.setText("Tilbud");
-        jButtonTilbud2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonTilbud3.setText("Tilbud");
+        jButtonTilbud3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonTilbudActionPerformed(evt);
             }
         });
-        jPanel9.add(jButtonTilbud2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, 80, -1));
+        jPanel9.add(jButtonTilbud3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, 80, -1));
 
-        jButtonOrdre2.setText("Ordre");
-        jButtonOrdre2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonOrdre3.setText("Ordre");
+        jButtonOrdre3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonOrdreActionPerformed(evt);
             }
         });
-        jPanel9.add(jButtonOrdre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, 80, -1));
+        jPanel9.add(jButtonOrdre3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, 80, -1));
 
         jTabbedPane1.addTab("Historik", jPanel9);
 
@@ -730,6 +731,14 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         jPanel5.add(jButtonTilføjPart, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 150, 60, 50));
+
+        jToggleButton1.setText("Rediger");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 250, -1, -1));
 
         jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, 290, 360));
 
@@ -1331,6 +1340,14 @@ public class GUI extends javax.swing.JFrame {
         update();
     }//GEN-LAST:event_jButtonOrdreActionPerformed
 
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        Del del = (Del) jListParts.getSelectedValue();
+        int si = jListParts.getSelectedIndex();
+        listParts.removeElementAt(si);
+        jTextFieldPartNavn.setText(del.getTitel());
+        jTextFieldPartAntal.setText(""+del.getAntal());
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
     private void jButtonLeverActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
@@ -1673,7 +1690,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonOK;
     private javax.swing.JButton jButtonOrdre;
     private javax.swing.JButton jButtonOrdre1;
-    private javax.swing.JButton jButtonOrdre2;
+    private javax.swing.JButton jButtonOrdre3;
     private javax.swing.JButton jButtonOrdrePdf;
     private javax.swing.JButton jButtonOrdreRediger;
     private javax.swing.JButton jButtonRedigerKunde;
@@ -1684,7 +1701,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonStatus;
     private javax.swing.JButton jButtonTilbud;
     private javax.swing.JButton jButtonTilbud1;
-    private javax.swing.JButton jButtonTilbud2;
+    private javax.swing.JButton jButtonTilbud3;
     private javax.swing.JButton jButtonTilbudPdf;
     private javax.swing.JButton jButtonTilbudSøg;
     private javax.swing.JButton jButtonTilføj;
@@ -1736,7 +1753,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JList jListTilbudVarer;
     private javax.swing.JList jListVareliste;
     private javax.swing.JList jListVarer;
-    private static javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1786,5 +1803,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldVareQty;
     private javax.swing.JTextField jTextFieldÅrInd;
     private javax.swing.JTextField jTextFieldÅrUd;
+    private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 }
