@@ -49,8 +49,8 @@ public class GUI extends javax.swing.JFrame {
 
         jLabelErrorLager.setText("");
         jLabelErrorOrdre.setText("");
-        jLabelOpretRediger.setText("");
-        jLabelRedigerKunde.setText("");
+        jLabelOpretRedigerVare.setText("");
+        jLabelKundenummer2.setText("");
         jLabelVarenummer1.setText("");
         jLabelVarenummer2.setText("");
 
@@ -110,13 +110,11 @@ public class GUI extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jScrollPane10 = new javax.swing.JScrollPane();
         jListKundeliste = new javax.swing.JList();
-        jButtonTilføj1 = new javax.swing.JButton();
-        jButtonTilføj2 = new javax.swing.JButton();
-        jLabel18 = new javax.swing.JLabel();
+        jButtonRedigerKunde = new javax.swing.JButton();
+        jButtonGemKunde = new javax.swing.JButton();
+        jLabelOpretRedigerKunde = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabelRedigerKunde = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jTextFieldAdresse = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
@@ -129,6 +127,8 @@ public class GUI extends javax.swing.JFrame {
         jTextFieldTelefonnummer = new javax.swing.JTextField();
         jButtonKundeSøg = new javax.swing.JButton();
         jTextFieldKundeSøg = new javax.swing.JTextField();
+        jLabelKundenummer1 = new javax.swing.JLabel();
+        jLabelKundenummer2 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         jListTilbudVarer = new javax.swing.JList();
@@ -183,7 +183,7 @@ public class GUI extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jButtonFjernPart = new javax.swing.JButton();
         jButtonTilføjPart = new javax.swing.JButton();
-        jLabelOpretRediger = new javax.swing.JLabel();
+        jLabelOpretRedigerVare = new javax.swing.JLabel();
         jButtonLagerRediger = new javax.swing.JButton();
         jButtonLagerGem = new javax.swing.JButton();
         jButtonSletVare = new javax.swing.JButton();
@@ -393,26 +393,26 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel6.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 180, 360));
 
-        jButtonTilføj1.setText("Rediger >");
-        jButtonTilføj1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonRedigerKunde.setText("Rediger >");
+        jButtonRedigerKunde.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonTilføj1ActionPerformed(evt);
+                jButtonRedigerKundeActionPerformed(evt);
             }
         });
-        jPanel6.add(jButtonTilføj1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 210, 90, 23));
+        jPanel6.add(jButtonRedigerKunde, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 210, 90, 23));
 
-        jButtonTilføj2.setText("< Gem");
-        jButtonTilføj2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonGemKunde.setText("< Gem");
+        jButtonGemKunde.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonTilføj2ActionPerformed(evt);
+                jButtonGemKundeActionPerformed(evt);
             }
         });
-        jPanel6.add(jButtonTilføj2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 240, 90, 23));
+        jPanel6.add(jButtonGemKunde, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 240, 90, 23));
 
-        jLabel18.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel18.setText("Opret kunde:");
-        jPanel6.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, 350, 20));
+        jLabelOpretRedigerKunde.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jLabelOpretRedigerKunde.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelOpretRedigerKunde.setText("Opret kunde:");
+        jPanel6.add(jLabelOpretRedigerKunde, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, 350, 20));
 
         jLabel19.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -421,10 +421,6 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel7.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 21, 80, 30));
-
-        jLabelRedigerKunde.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel7.add(jLabelRedigerKunde, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 190, 20));
 
         jLabel22.setText("Firmanavn");
         jPanel7.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 80, 20));
@@ -456,6 +452,13 @@ public class GUI extends javax.swing.JFrame {
         });
         jPanel6.add(jButtonKundeSøg, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, -1, 22));
         jPanel6.add(jTextFieldKundeSøg, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 110, -1));
+
+        jLabelKundenummer1.setText("jLabelKundenummer1");
+        jPanel6.add(jLabelKundenummer1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 40, 120, 30));
+
+        jLabelKundenummer2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelKundenummer2.setText("jLabelKundenummer2");
+        jPanel6.add(jLabelKundenummer2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, 160, 30));
 
         jTabbedPane1.addTab("Kunder", jPanel6);
 
@@ -672,10 +675,10 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, 290, 360));
 
-        jLabelOpretRediger.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jLabelOpretRediger.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelOpretRediger.setText("Opret vare:");
-        jPanel2.add(jLabelOpretRediger, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, 290, -1));
+        jLabelOpretRedigerVare.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jLabelOpretRedigerVare.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelOpretRedigerVare.setText("Opret vare:");
+        jPanel2.add(jLabelOpretRedigerVare, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, 290, -1));
 
         jButtonLagerRediger.setText("Rediger >");
         jButtonLagerRediger.addActionListener(new java.awt.event.ActionListener() {
@@ -800,7 +803,7 @@ public class GUI extends javax.swing.JFrame {
             Vare selected = (Vare) jListVareliste.getSelectedValue();
             listVarer.removeElement(selected);
             listParts.clear();
-            jLabelOpretRediger.setText("Redigerer i vare:");
+            jLabelOpretRedigerVare.setText("Redigerer i vare:");
             jLabelVarenummer1.setText("Varenummer:");
             jLabelVarenummer2.setText(selected.getVnummer() + "");
             jTextFieldNavn.setText(selected.getVnavn());
@@ -810,9 +813,7 @@ public class GUI extends javax.swing.JFrame {
                 listParts.addElement(selected.getDel().get(i));
             }
             controller.redigerTrue();
-        }
-        else
-        {
+        } else {
             jLabelErrorLager.setText("You need to finish editing your stock before editing a new one.");
         }
     }//GEN-LAST:event_jButtonLagerRedigerActionPerformed
@@ -951,7 +952,7 @@ public class GUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonKundeSøgActionPerformed
 
-    private void jButtonTilføj2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilføj2ActionPerformed
+    private void jButtonGemKundeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGemKundeActionPerformed
         String firma = jTextFieldFirmaNavn.getText();
         if ("".equals(jTextFieldFirmaNavn.getText())) {
             firma = null;
@@ -965,24 +966,27 @@ public class GUI extends javax.swing.JFrame {
 
         controller.addKunde(0, firma, navn, adresse, postnummer, telefonnummer);
         update();
-    }//GEN-LAST:event_jButtonTilføj2ActionPerformed
+    }//GEN-LAST:event_jButtonGemKundeActionPerformed
 
-    private void jButtonTilføj1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilføj1ActionPerformed
+    private void jButtonRedigerKundeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRedigerKundeActionPerformed
         Kunde selected = (Kunde) jListKundeliste.getSelectedValue();
-
-        jLabel20.setText("Redigerer i:");
-        jLabel18.setText("Redigerer kunde oplysninger");
-        jLabelRedigerKunde.setText(selected.getKnummer() + "");
-        if (jTextFieldFirmaNavn == null) {
-            jTextFieldFirmaNavn.setText("");
-        } else {
-            jTextFieldFirmaNavn.setText(selected.getFirma());
+        
+        if (controller.getRediger() == false) {
+            jLabelOpretRedigerKunde.setText("Redigerer i kunde:");
+            jLabelKundenummer1.setText("Kundenummer:");
+            jLabelKundenummer2.setText(selected.getKnummer() + "");
+            if (jTextFieldFirmaNavn == null) {
+                jTextFieldFirmaNavn.setText("");
+            } 
+            else 
+            {
+                jTextFieldFirmaNavn.setText(selected.getFirma());
+            }
+            jTextFieldFuldeNavn.setText(selected.getNavn());
+            jTextFieldAdresse.setText(selected.getAdresse() + "");
+            jTextFieldPostnummer.setText(selected.getPostnummer() + "");
+            jTextFieldTelefonnummer.setText(selected.getTelefonnummer() + "");
         }
-        jTextFieldFuldeNavn.setText(selected.getNavn());
-        jTextFieldAdresse.setText(selected.getAdresse() + "");
-        jTextFieldPostnummer.setText(selected.getPostnummer() + "");
-        jTextFieldTelefonnummer.setText(selected.getTelefonnummer() + "");
-
         if (selected != null) {
             for (int i = 0; i < listKundeliste.size(); i++) {
                 Kunde kunde = (Kunde) listKundeliste.getElementAt(i);
@@ -990,7 +994,7 @@ public class GUI extends javax.swing.JFrame {
         } else {
             jLabelErrorOrdre.setText("FEJL!");
         }
-    }//GEN-LAST:event_jButtonTilføj1ActionPerformed
+    }//GEN-LAST:event_jButtonRedigerKundeActionPerformed
 
     private void jButtonOrdrePdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdrePdfActionPerformed
         Ordre selected = (Ordre) jList3.getSelectedValue();
@@ -1491,7 +1495,7 @@ public class GUI extends javax.swing.JFrame {
             }
 
 
-            jLabelOpretRediger.setText("Opret vare:");
+            jLabelOpretRedigerVare.setText("Opret vare:");
             jLabelVarenummer2.setText("");
             jTextFieldNavn.setText("");
             jTextFieldVarePris.setText("");
@@ -1516,9 +1520,9 @@ public class GUI extends javax.swing.JFrame {
             }
 
 
-            jLabel20.setText("");
-            jLabel18.setText("Opret kunde:");
-            jLabelRedigerKunde.setText("");
+            jLabelKundenummer1.setText("");
+            jLabelOpretRedigerKunde.setText("Opret kunde:");
+            jLabelKundenummer2.setText("");
             jTextFieldFirmaNavn.setText("");
             jTextFieldFuldeNavn.setText("");
             jTextFieldAdresse.setText("");
@@ -1538,6 +1542,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonFaktura;
     private javax.swing.JButton jButtonFjern;
     private javax.swing.JButton jButtonFjernPart;
+    private javax.swing.JButton jButtonGemKunde;
     private javax.swing.JButton jButtonGennemførOrdre;
     private javax.swing.JButton jButtonHistorikSøg;
     private javax.swing.JButton jButtonKundeSøg;
@@ -1551,6 +1556,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonOrdrePdf;
     private javax.swing.JButton jButtonOrdreRediger;
     private javax.swing.JButton jButtonPaabegynd;
+    private javax.swing.JButton jButtonRedigerKunde;
     private javax.swing.JButton jButtonReturGem;
     private javax.swing.JButton jButtonReturSøg;
     private javax.swing.JButton jButtonSletOrdre;
@@ -1559,8 +1565,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonTilbudPdf;
     private javax.swing.JButton jButtonTilbudSøg;
     private javax.swing.JButton jButtonTilføj;
-    private javax.swing.JButton jButtonTilføj1;
-    private javax.swing.JButton jButtonTilføj2;
     private javax.swing.JButton jButtonTilføjPart;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
@@ -1573,10 +1577,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
@@ -1594,8 +1596,10 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabelErrorLager;
     private javax.swing.JLabel jLabelErrorOrdre;
-    private javax.swing.JLabel jLabelOpretRediger;
-    private javax.swing.JLabel jLabelRedigerKunde;
+    private javax.swing.JLabel jLabelKundenummer1;
+    private javax.swing.JLabel jLabelKundenummer2;
+    private javax.swing.JLabel jLabelOpretRedigerKunde;
+    private javax.swing.JLabel jLabelOpretRedigerVare;
     private javax.swing.JLabel jLabelVarenummer1;
     private javax.swing.JLabel jLabelVarenummer2;
     private javax.swing.JList jList1;
