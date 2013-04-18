@@ -102,7 +102,7 @@ public class GUI extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         jTextFieldTotalPris = new javax.swing.JTextField();
         jLabel30 = new javax.swing.JLabel();
-        jButtonLastbil = new javax.swing.JButton();
+        jButtonPakkeliste = new javax.swing.JButton();
         jButtonMontoer = new javax.swing.JButton();
         jButtonStatus = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -171,8 +171,8 @@ public class GUI extends javax.swing.JFrame {
         jButtonOrdre = new javax.swing.JButton();
         jButtonTilbud1 = new javax.swing.JButton();
         jButtonOrdre1 = new javax.swing.JButton();
-        jButtonTilbud2 = new javax.swing.JButton();
-        jButtonOrdre2 = new javax.swing.JButton();
+        jButtonTilbud3 = new javax.swing.JButton();
+        jButtonOrdre3 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -297,7 +297,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonDepositumActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonDepositum, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 270, 100, -1));
+        jPanel1.add(jButtonDepositum, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 270, 130, -1));
 
         jButtonFaktura.setText("Faktura PDF");
         jButtonFaktura.addActionListener(new java.awt.event.ActionListener() {
@@ -305,7 +305,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonFakturaActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonFaktura, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 120, 100, -1));
+        jPanel1.add(jButtonFaktura, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 120, 130, -1));
 
         jButtonTilbudPdf.setText("Tilbud PDF");
         jButtonTilbudPdf.addActionListener(new java.awt.event.ActionListener() {
@@ -313,7 +313,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonTilbudPdfActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonTilbudPdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 180, 100, -1));
+        jPanel1.add(jButtonTilbudPdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 180, 130, -1));
 
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -351,13 +351,13 @@ public class GUI extends javax.swing.JFrame {
         jLabel30.setText(" Pris før rabat:");
         jPanel1.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 140, -1, -1));
 
-        jButtonLastbil.setText("Tilføj Lastbil");
-        jButtonLastbil.addActionListener(new java.awt.event.ActionListener() {
+        jButtonPakkeliste.setText("Pakkeliste");
+        jButtonPakkeliste.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonLastbilActionPerformed(evt);
+                jButtonPakkelisteActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonLastbil, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 210, 100, -1));
+        jPanel1.add(jButtonPakkeliste, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 210, 130, -1));
 
         jButtonMontoer.setText("Tilføj Montør");
         jButtonMontoer.addActionListener(new java.awt.event.ActionListener() {
@@ -365,7 +365,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonMontoerActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonMontoer, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 240, 100, -1));
+        jPanel1.add(jButtonMontoer, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 240, 130, -1));
 
         jButtonStatus.setText("Status");
         jButtonStatus.addActionListener(new java.awt.event.ActionListener() {
@@ -373,7 +373,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonStatusActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 300, 100, -1));
+        jPanel1.add(jButtonStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 300, 130, -1));
 
         jButton1.setText("Check Dato");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -392,7 +392,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonOrdrePdfActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonOrdrePdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 150, 100, -1));
+        jPanel1.add(jButtonOrdrePdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 150, 130, -1));
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Afhentning", "08:00", "10:00", "12:00", "14:00", "16:00", "Stor Order" }));
         jPanel1.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 50, -1, -1));
@@ -659,21 +659,21 @@ public class GUI extends javax.swing.JFrame {
         });
         jPanel9.add(jButtonOrdre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, 80, -1));
 
-        jButtonTilbud2.setText("Tilbud");
-        jButtonTilbud2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonTilbud3.setText("Tilbud");
+        jButtonTilbud3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonTilbudActionPerformed(evt);
             }
         });
-        jPanel9.add(jButtonTilbud2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, 80, -1));
+        jPanel9.add(jButtonTilbud3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, 80, -1));
 
-        jButtonOrdre2.setText("Ordre");
-        jButtonOrdre2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonOrdre3.setText("Ordre");
+        jButtonOrdre3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonOrdreActionPerformed(evt);
             }
         });
-        jPanel9.add(jButtonOrdre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, 80, -1));
+        jPanel9.add(jButtonOrdre3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, 80, -1));
 
         jTabbedPane1.addTab("Historik", jPanel9);
 
@@ -1094,9 +1094,19 @@ public class GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonMontoerActionPerformed
 
-    private void jButtonLastbilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLastbilActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonLastbilActionPerformed
+    private void jButtonPakkelisteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPakkelisteActionPerformed
+        Ordre selected = (Ordre) jList3.getSelectedValue();
+        int selectedIndex = jList3.getSelectedIndex();
+        controller.setSelectedOrdre(selected);
+        if (selected.getFnummer() == 0) {
+            controller.addOrderFakturaNummer(selected);
+        }
+        controller.ordreFaktureret(selected.getOnummer());
+        update();
+        selected = (Ordre) list3.getElementAt(selectedIndex);
+        controller.setCurrentOrder(selected);
+        controller.pdfPakkeliste();
+    }//GEN-LAST:event_jButtonPakkelisteActionPerformed
 
     private void jTextFieldRabatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldRabatActionPerformed
         // TODO add your handling code here:
@@ -1181,10 +1191,12 @@ public class GUI extends javax.swing.JFrame {
 
     private void jRadioButtonLeveringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonLeveringActionPerformed
         jComboBox2.setEnabled(true);
+        jComboBox3.setEnabled(true);
     }//GEN-LAST:event_jRadioButtonLeveringActionPerformed
 
     private void jRadioButtonAfhentningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAfhentningActionPerformed
         jComboBox2.setEnabled(false);
+        jComboBox3.setEnabled(false);
     }//GEN-LAST:event_jRadioButtonAfhentningActionPerformed
 
     private void jButtonGennemførOrdreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGennemførOrdreActionPerformed
@@ -1538,7 +1550,7 @@ public class GUI extends javax.swing.JFrame {
         int[] tidLev = new int[5];
         int[] tidRet = new int[5];
         jComboBox2.removeAllItems();
-        jComboBox2.addItem("Transport");
+        jComboBox2.addItem("Levering");
         jComboBox2.addItem("08:00");
         jComboBox2.addItem("10:00");
         jComboBox2.addItem("12:00");
@@ -1546,7 +1558,7 @@ public class GUI extends javax.swing.JFrame {
         jComboBox2.addItem("16:00");
         jComboBox2.addItem("Stor Order");
         jComboBox3.removeAllItems();
-        jComboBox3.addItem("Transport");
+        jComboBox3.addItem("Afhentning");
         jComboBox3.addItem("08:00");
         jComboBox3.addItem("10:00");
         jComboBox3.addItem("12:00");
@@ -1576,6 +1588,10 @@ public class GUI extends javax.swing.JFrame {
                                 if (tidLev[l - 1] >= 2) {
                                     jComboBox2.removeItemAt(l);
                                 }
+                                try {
+                                    jComboBox2.removeItemAt(6);
+                                } catch (Exception ex) {
+                                }
                             } else if (o.getTidLev().equals("Stor Order")) {
                                 jComboBox2.removeAllItems();
                                 jComboBox2.addItem("Levering");
@@ -1589,10 +1605,15 @@ public class GUI extends javax.swing.JFrame {
                                 if (tidRet[l - 1] >= 2) {
                                     jComboBox3.removeItemAt(l);
                                 }
+                                try {
+                                    jComboBox3.removeItemAt(6);
+                                } catch (Exception ex) {
+                                }
                             } else if (o.getTidRet().equals("Stor Order")) {
                                 jComboBox3.removeAllItems();
                                 jComboBox3.addItem("Afhentning");
                             }
+
                         }
                     }
                 }
@@ -1668,15 +1689,15 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonLagerGem;
     private javax.swing.JButton jButtonLagerRediger;
     private javax.swing.JButton jButtonLagerSøg;
-    private javax.swing.JButton jButtonLastbil;
     private javax.swing.JButton jButtonLevér;
     private javax.swing.JButton jButtonMontoer;
     private javax.swing.JButton jButtonOK;
     private javax.swing.JButton jButtonOrdre;
     private javax.swing.JButton jButtonOrdre1;
-    private javax.swing.JButton jButtonOrdre2;
+    private javax.swing.JButton jButtonOrdre3;
     private javax.swing.JButton jButtonOrdrePdf;
     private javax.swing.JButton jButtonOrdreRediger;
+    private javax.swing.JButton jButtonPakkeliste;
     private javax.swing.JButton jButtonRedigerKunde;
     private javax.swing.JButton jButtonReturGem;
     private javax.swing.JButton jButtonReturSøg;
@@ -1685,7 +1706,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonStatus;
     private javax.swing.JButton jButtonTilbud;
     private javax.swing.JButton jButtonTilbud1;
-    private javax.swing.JButton jButtonTilbud2;
+    private javax.swing.JButton jButtonTilbud3;
     private javax.swing.JButton jButtonTilbudPdf;
     private javax.swing.JButton jButtonTilbudSøg;
     private javax.swing.JButton jButtonTilføj;
@@ -1738,7 +1759,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JList jListTilbudVarer;
     private javax.swing.JList jListVareliste;
     private javax.swing.JList jListVarer;
-    private static javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

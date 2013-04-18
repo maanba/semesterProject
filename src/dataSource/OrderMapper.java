@@ -19,7 +19,7 @@ public class OrderMapper {
     // returns true if all elements were inserted successfully
     public boolean insertOrders(ArrayList<Ordre> ol, Connection conn) throws SQLException {
         int rowsInserted = 0;
-        String SQLString = "insert into ordrer values (?,?,?,?,?,?,?,?,?,"
+        String SQLString = "insert into ordrer values (?,?,?,?,?,?,?,?,?,?,"
                 + "to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'),"
                 + "to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'),"
                 + "to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'),"
@@ -262,11 +262,15 @@ public class OrderMapper {
     public boolean insertOrderDetails(ArrayList<Odetaljer> odl, Connection conn) throws SQLException {
         String SQLString = "insert into odetaljer values (?,?,?)";
         PreparedStatement statement = null;
-
+        statement = conn.prepareStatement(SQLString);
+        
         int rowsInserted = 0;
         try {
-            statement = conn.prepareStatement(SQLString);
             for (int i = 0; i < odl.size(); i++) {
+                if (!statement.isClosed()) {
+                    statement.close();
+                }
+                statement = conn.prepareStatement(SQLString);
                 statement.setInt(1, odl.get(i).getOnummer());
                 statement.setInt(2, odl.get(i).getVnummer());
                 statement.setInt(3, odl.get(i).getMaengde());
