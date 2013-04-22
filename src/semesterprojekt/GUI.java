@@ -1164,14 +1164,6 @@ public class GUI extends javax.swing.JFrame {
                 vare.setQty(od.get(i).getMaengde());
                 list2.addElement(vare);
             }
-
-            Kunde kunde = controller.getKunde(selected.getKnummer());
-
-            for (int i = 0; i < jComboBox1.getItemCount(); i++) {
-                if (jComboBox1.getItemAt(i) == kunde.getNavn()) {
-                    jComboBox1.setSelectedIndex(i);
-                }
-            }
             jTextFieldDagUd.setText(selected.getLevering().substring(0, 2));
             jTextFieldMånedUd.setText(selected.getLevering().substring(3, 5));
             jTextFieldÅrUd.setText(selected.getLevering().substring(6, 10));
@@ -1190,6 +1182,14 @@ public class GUI extends javax.swing.JFrame {
             controller.setCurrentOrder(selected);
         }
         update();
+
+        Kunde kunde = controller.getKunde(selected.getKnummer());
+
+        for (int i = 0; i < jComboBox1.getItemCount(); i++) {
+            if (jComboBox1.getItemAt(i).equals(kunde.getNavn())) {
+                jComboBox1.setSelectedIndex(i);
+            }
+        }
         jTextFieldRabat.setText(selected.getRabat() + "");
     }//GEN-LAST:event_jButtonOrdreRedigerActionPerformed
 
