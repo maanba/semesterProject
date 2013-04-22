@@ -724,7 +724,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonFjernPartActionPerformed(evt);
             }
         });
-        jPanel5.add(jButtonFjernPart, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 60, -1));
+        jPanel5.add(jButtonFjernPart, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 70, -1));
 
         jButtonTilføjPart.setText("Tilføj");
         jButtonTilføjPart.addActionListener(new java.awt.event.ActionListener() {
@@ -740,7 +740,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonRedigerPartActionPerformed(evt);
             }
         });
-        jPanel5.add(jButtonRedigerPart, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 250, -1, -1));
+        jPanel5.add(jButtonRedigerPart, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 250, 70, -1));
 
         jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, 290, 360));
 
