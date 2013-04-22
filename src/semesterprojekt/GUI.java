@@ -554,7 +554,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonAfslutOrdreActionPerformed(evt);
             }
         });
-        jPanel3.add(jButtonAfslutOrdre, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 80, -1, -1));
+        jPanel3.add(jButtonAfslutOrdre, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 100, -1, -1));
 
         jButtonOK.setText("OK");
         jButtonOK.addActionListener(new java.awt.event.ActionListener() {
@@ -562,7 +562,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonOKActionPerformed(evt);
             }
         });
-        jPanel3.add(jButtonOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 50, 50, -1));
+        jPanel3.add(jButtonOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 70, 50, -1));
 
         jButtonLevér.setText("Levér >");
         jButtonLevér.addActionListener(new java.awt.event.ActionListener() {
@@ -580,7 +580,7 @@ public class GUI extends javax.swing.JFrame {
         });
         jPanel3.add(jButtonReturSøg, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, -1, -1));
         jPanel3.add(jTextFieldReturSøg, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 110, -1));
-        jPanel3.add(jTextFieldReturAntal, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 50, 60, -1));
+        jPanel3.add(jTextFieldReturAntal, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 70, 60, -1));
 
         jTabbedPane1.addTab("Retur", jPanel3);
         jTabbedPane1.addTab("Kalender", jPanel8);
@@ -1100,7 +1100,7 @@ public class GUI extends javax.swing.JFrame {
             jTextFieldTelefonnummer.setText(selected.getTelefonnummer() + "");
             controller.redigerTrue();
         } else {
-            jLabelErrorKunder.setText("You need to finish editing the current customer before editing a new one");
+            jLabelErrorKunder.setText("You need to finish editing the current customer before editing a new one.");
         }
     }//GEN-LAST:event_jButtonRedigerKundeActionPerformed
 
@@ -1265,9 +1265,9 @@ public class GUI extends javax.swing.JFrame {
                         String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                         String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
                         if (jRadioButtonAfhentning.isSelected()) {
-                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), 0.00, "", "", afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), Double.parseDouble(jTextFieldTotalPris.getText()) * 0.25, "", "", afhentning, "Påbegyndt", levering, returnering, odetaljer);
                         } else {
-                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), 0.00, "" + jComboBox2.getSelectedItem(), "" + jComboBox3.getSelectedItem(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), Double.parseDouble(jTextFieldTotalPris.getText()) * 0.25, "" + jComboBox2.getSelectedItem(), "" + jComboBox3.getSelectedItem(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
                         }
                         list2.clear();
                         list3.clear();
@@ -1402,11 +1402,10 @@ public class GUI extends javax.swing.JFrame {
     private void jButtonRedigerPartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRedigerPartActionPerformed
         Object selected = (Del) jListParts.getSelectedValue();
         if (!jTextFieldPartNavn.getText().isEmpty() || !jTextFieldPartAntal.getText().isEmpty()) {
-            jLabelErrorLager.setText("You need to finish editing a part before editing a new one");
+            jLabelErrorLager.setText("You need to finish editing a part before editing a new one.");
         } else if (selected != null) {
             Del del = (Del) jListParts.getSelectedValue();
-            int si = jListParts.getSelectedIndex();
-            listParts.removeElementAt(si);
+            listParts.removeElementAt(jListParts.getSelectedIndex());
             jTextFieldPartNavn.setText(del.getTitel());
             jTextFieldPartAntal.setText("" + del.getAntal());
         }
@@ -1602,7 +1601,10 @@ public class GUI extends javax.swing.JFrame {
             controller.quickSortVare(va, 0, va.length - 1);
 
             for (int i = 0; i < va.length; i++) {
-                list1.addElement(va[i]);
+                if (va[i].getAktiv() == 1){
+                    list1.addElement(va[i]);
+                }
+                
             }
         }
 
