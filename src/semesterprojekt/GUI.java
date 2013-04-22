@@ -192,7 +192,7 @@ public class GUI extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jButtonFjernPart = new javax.swing.JButton();
         jButtonTilføjPart = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonRedigerPart = new javax.swing.JButton();
         jLabelOpretRedigerVare = new javax.swing.JLabel();
         jButtonLagerRediger = new javax.swing.JButton();
         jButtonLagerGem = new javax.swing.JButton();
@@ -737,13 +737,13 @@ public class GUI extends javax.swing.JFrame {
         });
         jPanel5.add(jButtonTilføjPart, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 150, 60, 50));
 
-        jButton2.setText("Rediger");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonRedigerPart.setText("Rediger");
+        jButtonRedigerPart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButtonRedigerPartActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 250, -1, -1));
+        jPanel5.add(jButtonRedigerPart, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 250, -1, -1));
 
         jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, 290, 360));
 
@@ -891,10 +891,16 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonLagerRedigerActionPerformed
 
     private void jButtonTilføjPartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilføjPartActionPerformed
-        int vnummer = controller.getNextVnummer();
-        String delnavn = jTextFieldPartNavn.getText();
-        int delantal = Integer.parseInt(jTextFieldPartAntal.getText());
-        listParts.addElement(new Del(vnummer, delnavn, delantal));
+        if (!jTextFieldPartNavn.getText().isEmpty() && !jTextFieldPartAntal.getText().isEmpty()) {
+            jLabelErrorLager.setText("");
+            int vnummer = controller.getNextVnummer();
+            String delnavn = jTextFieldPartNavn.getText();
+            int delantal = Integer.parseInt(jTextFieldPartAntal.getText());
+            listParts.addElement(new Del(vnummer, delnavn, delantal));
+            jTextFieldPartNavn.setText("");
+            jTextFieldPartAntal.setText("");
+            controller.redigerFalse();
+        }
     }//GEN-LAST:event_jButtonTilføjPartActionPerformed
 
     private void jButtonFjernPartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFjernPartActionPerformed
@@ -1365,15 +1371,21 @@ public class GUI extends javax.swing.JFrame {
         jTextFieldPartAntal.setText("" + del.getAntal());
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if (!jTextFieldPartNavn.getText().isEmpty() || !jTextFieldPartAntal.getText().isEmpty()) {
+    private void jButtonRedigerPartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRedigerPartActionPerformed
+        Object selected = (Del) jListParts.getSelectedValue();
+        if (jTextFieldPartNavn.getText().isEmpty() && jTextFieldPartAntal.getText().isEmpty() && selected != null) {
+            jLabelErrorLager.setText("");
             Del del = (Del) jListParts.getSelectedValue();
             int si = jListParts.getSelectedIndex();
             listParts.removeElementAt(si);
             jTextFieldPartNavn.setText(del.getTitel());
             jTextFieldPartAntal.setText("" + del.getAntal());
+            controller.redigerTrue();
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+        if (!jTextFieldPartNavn.getText().isEmpty() || !jTextFieldPartAntal.getText().isEmpty()) {
+            jLabelErrorLager.setText("You need to finish editing a part before editing a new one");
+        }
+    }//GEN-LAST:event_jButtonRedigerPartActionPerformed
 
     private void jButtonLeverActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
@@ -1698,7 +1710,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonAfslut;
     private javax.swing.JButton jButtonAfslutOrdre;
     private javax.swing.JButton jButtonDepositum;
@@ -1723,6 +1734,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonOrdreRediger;
     private javax.swing.JButton jButtonPakkeliste;
     private javax.swing.JButton jButtonRedigerKunde;
+    private javax.swing.JButton jButtonRedigerPart;
     private javax.swing.JButton jButtonReturGem;
     private javax.swing.JButton jButtonReturSøg;
     private javax.swing.JButton jButtonSletOrdre;
