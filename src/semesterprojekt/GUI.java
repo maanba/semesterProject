@@ -553,7 +553,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonAfslutOrdreActionPerformed(evt);
             }
         });
-        jPanel3.add(jButtonAfslutOrdre, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 80, -1, -1));
+        jPanel3.add(jButtonAfslutOrdre, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 100, -1, -1));
 
         jButtonOK.setText("OK");
         jButtonOK.addActionListener(new java.awt.event.ActionListener() {
@@ -561,7 +561,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonOKActionPerformed(evt);
             }
         });
-        jPanel3.add(jButtonOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 50, 50, -1));
+        jPanel3.add(jButtonOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 70, 50, -1));
 
         jButtonLevér.setText("Levér >");
         jButtonLevér.addActionListener(new java.awt.event.ActionListener() {
@@ -579,7 +579,7 @@ public class GUI extends javax.swing.JFrame {
         });
         jPanel3.add(jButtonReturSøg, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, -1, -1));
         jPanel3.add(jTextFieldReturSøg, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 110, -1));
-        jPanel3.add(jTextFieldReturAntal, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 50, 60, -1));
+        jPanel3.add(jTextFieldReturAntal, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 70, 60, -1));
 
         jTabbedPane1.addTab("Retur", jPanel3);
         jTabbedPane1.addTab("Kalender", jPanel8);
@@ -1231,9 +1231,9 @@ public class GUI extends javax.swing.JFrame {
                         String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                         String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
                         if (jRadioButtonAfhentning.isSelected()) {
-                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), 0.00, "", "", afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), Double.parseDouble(jTextFieldTotalPris.getText()) * 0.25, "", "", afhentning, "Påbegyndt", levering, returnering, odetaljer);
                         } else {
-                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), 0.00, "" + jComboBox2.getSelectedItem(), "" + jComboBox3.getSelectedItem(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), Double.parseDouble(jTextFieldTotalPris.getText()) * 0.25, "" + jComboBox2.getSelectedItem(), "" + jComboBox3.getSelectedItem(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
                         }
                         list2.clear();
                         list3.clear();
