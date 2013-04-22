@@ -22,7 +22,6 @@ public class Controller {
 
     private boolean processingOrder;	// state of business transaction
     private boolean rediger = false;
-    private String tab;
     private Ordre currentOrder;       	// Order in focus
     private Vare currentVare;
     private Kunde currentKunde;
@@ -54,6 +53,7 @@ public class Controller {
     public Ordre createNewOrder(int knummer, double pris, double rabat, double depositum, String tidLev, String tidRet, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
+        int montører = 0;
         String modtaget = dateFormat.format(date);
         dbFacade.startNewBusinessTransaction();
         int newOrderNo = dbFacade.getNextOrderNo();// DB-generated unique ID
@@ -62,7 +62,19 @@ public class Controller {
             for (int i = 0; i < odetaljer.size(); i++) {
                 odetaljer.get(i).setOnummer(newOrderNo);
             }
-            currentOrder = new Ordre(newOrderNo, 0, knummer, pris, rabat, depositum, tidLev, tidRet, afhentning, status, modtaget, levering, returnering, 0);
+            if (afhentning.equals("Afhentes af kunden")) {
+                montører = 0;
+            } else {
+                for (int i = 0; i < odetaljer.size(); i++) {
+                    if (getVare(odetaljer.get(i).getVnummer()).getVnavn().equals("Telt")) {
+                        montører = 2;
+                        break;
+                    } else {
+                        montører = 1;
+                    }
+                }
+            }
+            currentOrder = new Ordre(newOrderNo, 0, knummer, pris, rabat, depositum, tidLev, tidRet, afhentning, montører, status, modtaget, levering, returnering, 0);
             dbFacade.registerNewOrder(currentOrder);
             for (int i = 0; i < odetaljer.size(); i++) {
                 dbFacade.registerNewOrderDetail(odetaljer.get(i));
@@ -86,6 +98,20 @@ public class Controller {
         currentOrder.setTidRet(tidRet);
         currentOrder.setReturnering(returnering);
         currentOrder.setOd(odetaljer);
+        int montører = 0;
+        if (afhentning.equals("Afhentes af kunden")) {
+            montører = 0;
+        } else {
+            for (int i = 0; i < odetaljer.size(); i++) {
+                if (getVare(odetaljer.get(i).getVnummer()).getVnavn().equals("Telt")) {
+                    montører = 2;
+                    break;
+                } else {
+                    montører = 1;
+                }
+            }
+        }
+        currentOrder.setMontører(montører);
         dbFacade.startNewBusinessTransaction();
         for (int i = 0; i < odetaljer.size(); i++) {
             odetaljer.get(i).setOnummer(currentOrder.getOnummer());
@@ -197,16 +223,16 @@ public class Controller {
         }
         currentKunde = null;
     }
-    
-       public void updateKunde(int knummer, String firma, String navn, String adresse, int postnummer, int telefonnummer) {
+
+    public void updateKunde(int knummer, String firma, String navn, String adresse, int postnummer, int telefonnummer) {
 
         dbFacade.startNewBusinessTransaction();
 
-  
-            
-            dbFacade.registerDirtyCustomer(currentKunde);
-            dbFacade.commitBusinessTransaction();
- 
+
+
+        dbFacade.registerDirtyCustomer(currentKunde);
+        dbFacade.commitBusinessTransaction();
+
         currentKunde = null;
     }
 
@@ -254,8 +280,7 @@ public class Controller {
         ArrayList<Vare> vl = dbFacade.getAllRessources();
 
         for (int i = 0; i < vl.size(); i++) {
-            if (vl.get(i).getVnummer() == vnummer && qty <= vl.get(i).getQty()) 
-            {
+            if (vl.get(i).getVnummer() == vnummer && qty <= vl.get(i).getQty()) {
                 vl.get(i).setQty(vl.get(i).getQty() - qty);
                 dbFacade.startNewBusinessTransaction();
                 dbFacade.registerDirtyRessource(vl.get(i));
@@ -544,7 +569,7 @@ public class Controller {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void pdfFaktura() {
         ArrayList<Odetaljer> odetaljeArray = currentOrder.getOd();
         ArrayList<Vare> vareArray = new ArrayList<>();

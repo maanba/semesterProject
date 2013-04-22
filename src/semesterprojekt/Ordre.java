@@ -12,12 +12,12 @@ import java.util.ArrayList;
  */
 public class Ordre {
 
-    private int onummer, fnummer, knummer, ver;
+    private int onummer, fnummer, knummer, ver, montører;
     private String status, modtaget, levering, returnering, afhentning, tidLev, tidRet;
     private double pris, depositum, rabat;
     private ArrayList<Odetaljer> od = new ArrayList();
 
-    public Ordre(int onummer, int fnummer, int knummer, double pris, double rabat, double depositum, String tidLev, String tidRet, String afhentning, String status, String modtaget, String levering, String returnering, int ver) {
+    public Ordre(int onummer, int fnummer, int knummer, double pris, double rabat, double depositum, String tidLev, String tidRet, String afhentning, int montører, String status, String modtaget, String levering, String returnering, int ver) {
         this.onummer = onummer;
         this.fnummer = fnummer;
         this.knummer = knummer;
@@ -27,11 +27,20 @@ public class Ordre {
         this.tidLev = tidLev;
         this.tidRet = tidRet;
         this.afhentning = afhentning;
+        this.montører = montører;
         this.ver = ver;
         this.status = status;
         this.modtaget = modtaget;
         this.levering = levering;
         this.returnering = returnering;
+    }
+
+    public int getMontører() {
+        return montører;
+    }
+
+    public void setMontører(int montørre) {
+        this.montører = montørre;
     }
 
     public String getTidRet() {

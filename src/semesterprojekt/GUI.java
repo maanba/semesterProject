@@ -1205,10 +1205,10 @@ public class GUI extends javax.swing.JFrame {
             jTextFieldMånedInd.setText(selected.getReturnering().substring(3, 5));
             jTextFieldÅrInd.setText(selected.getReturnering().substring(6, 10));
 
-            if (selected.getAfhentning() == "Leveres af os") {
-                jRadioButtonLevering.setSelected(rootPaneCheckingEnabled);
+            if ("Leveres af os".equals(selected.getAfhentning())) {
+                jRadioButtonLevering.setSelected(true);
             } else {
-                jRadioButtonAfhentning.setSelected(rootPaneCheckingEnabled);
+                jRadioButtonAfhentning.setSelected(true);
             }
 
             jTextFieldTotalPris.setText(selected.getPris() + "");
