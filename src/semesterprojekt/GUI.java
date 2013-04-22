@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -193,7 +194,6 @@ public class GUI extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jButtonFjernPart = new javax.swing.JButton();
         jButtonTilføjPart = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jRadioAktiv = new javax.swing.JRadioButton();
         jRadioIkkeAktiv = new javax.swing.JRadioButton();
         jLabelOpretRedigerVare = new javax.swing.JLabel();
@@ -205,6 +205,7 @@ public class GUI extends javax.swing.JFrame {
         jTextFieldLagerSøg = new javax.swing.JTextField();
         jButtonLagerSøg = new javax.swing.JButton();
         jLabelErrorLager = new javax.swing.JLabel();
+	jButtonRedigerPart = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -746,7 +747,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonRedigerPartActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 250, -1, -1));
+        jPanel5.add(jButtonRedigerPart, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 250, -1, -1));
 
         buttonGroup2.add(jRadioAktiv);
         jRadioAktiv.setText("Aktiv");
