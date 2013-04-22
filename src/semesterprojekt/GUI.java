@@ -925,7 +925,6 @@ public class GUI extends javax.swing.JFrame {
             listParts.addElement(new Del(vnummer, delnavn, delantal));
             jTextFieldPartNavn.setText("");
             jTextFieldPartAntal.setText("");
-            controller.redigerFalse();
         }
     }//GEN-LAST:event_jButtonTilføjPartActionPerformed
 
@@ -1406,7 +1405,6 @@ public class GUI extends javax.swing.JFrame {
             listParts.removeElementAt(si);
             jTextFieldPartNavn.setText(del.getTitel());
             jTextFieldPartAntal.setText("" + del.getAntal());
-            controller.redigerTrue();
         }
         if (!jTextFieldPartNavn.getText().isEmpty() || !jTextFieldPartAntal.getText().isEmpty()) {
             jLabelErrorLager.setText("You need to finish editing a part before editing a new one");
