@@ -1384,7 +1384,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if (!jTextFieldPartNavn.getText().equals("") || !jTextFieldPartAntal.getText().equals("")) {
+        if (jTextFieldPartNavn.getText().equals("") || jTextFieldPartAntal.getText().equals("")) {
             Del del = (Del) jListParts.getSelectedValue();
             int si = jListParts.getSelectedIndex();
             listParts.removeElementAt(si);
