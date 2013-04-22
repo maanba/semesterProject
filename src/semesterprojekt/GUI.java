@@ -1249,9 +1249,9 @@ public class GUI extends javax.swing.JFrame {
                         String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                         String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
                         if (jRadioButtonAfhentning.isSelected()) {
-                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), ((Double.parseDouble(jTextFieldTotalPris.getText())) * (1 - (Double.parseDouble(jTextFieldRabat.getText()) / 100))), "", "", afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), Double.parseDouble(jTextFieldTotalPris.getText()) * 0.25, "", "", afhentning, "Påbegyndt", levering, returnering, odetaljer);
                         } else {
-                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), ((Double.parseDouble(jTextFieldTotalPris.getText())) * (1 - (Double.parseDouble(jTextFieldRabat.getText()) / 100))), "" + jComboBox2.getSelectedItem(), "" + jComboBox3.getSelectedItem(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), Double.parseDouble(jTextFieldTotalPris.getText()) * 0.25, "" + jComboBox2.getSelectedItem(), "" + jComboBox3.getSelectedItem(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
                         }
                         list2.clear();
                         list3.clear();

@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,7 +26,12 @@ import java.util.Date;
 public class PDF {
 
     Browser browser = new Browser();
-
+    
+    public String prisMedDecimal (Double price) {
+    DecimalFormat formatter = new DecimalFormat("###,###,###.00");
+    return formatter.format(price);
+    }
+    
     public void PdfOrdre(Ordre currentOrder, Kunde kunde, ArrayList<Odetaljer> odetaljeArray, ArrayList<Vare> vareArray, Postnummer postnummer) throws DocumentException, FileNotFoundException {
 
         int postnr = kunde.getPostnummer();
@@ -53,7 +59,9 @@ public class PDF {
         double pris = currentOrder.getPris();
         double rabat = currentOrder.getRabat();
         double depositum = currentOrder.getDepositum();
-
+        double udregnTotal = ((pris + depositum) * (1 - (rabat / 100)));
+        String totalpris = prisMedDecimal(udregnTotal);
+        
         String afhentning = currentOrder.getAfhentning() + "";
         String levering = currentOrder.getLevering() + "";
         String returnering = currentOrder.getReturnering() + "";
@@ -165,7 +173,7 @@ public class PDF {
                 table2.addCell(new Phrase("At betale:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table2.addCell(" ");
                 table2.addCell(" ");
-                table2.addCell(new Phrase("   " + ((pris + depositum) * (1 - (rabat / 100))), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table2.addCell(new Phrase("   " + totalpris, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
 
                 PdfPTable table3 = new PdfPTable(3);
                 table3.setTotalWidth(500);
@@ -226,7 +234,9 @@ public class PDF {
         double pris = currentOrder.getPris();
         double rabat = currentOrder.getRabat();
         double depositum = currentOrder.getDepositum();
-
+        double udregnTotal = ((pris + depositum) * (1 - (rabat / 100)));
+        String totalpris = prisMedDecimal(udregnTotal);
+        
         String afhentning = currentOrder.getAfhentning() + "";
         String levering = currentOrder.getLevering() + "";
         String returnering = currentOrder.getReturnering() + "";
@@ -338,7 +348,7 @@ public class PDF {
                 table2.addCell(new Phrase("At betale:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table2.addCell(" ");
                 table2.addCell(" ");
-                table2.addCell(new Phrase("   " + ((pris + depositum) * (1 - (rabat / 100))), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table2.addCell(new Phrase("   " + totalpris, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
 
                 PdfPTable table3 = new PdfPTable(3);
                 table3.setTotalWidth(500);
@@ -399,7 +409,10 @@ public class PDF {
         double pris = currentOrder.getPris();
         double rabat = currentOrder.getRabat();
         double depositum = currentOrder.getDepositum();
-
+        
+        double udregnTotal = ((pris + depositum) * (1 - (rabat / 100)));
+        String totalpris = prisMedDecimal(udregnTotal);
+        
         String afhentning = currentOrder.getAfhentning() + "";
         String levering = currentOrder.getLevering() + "";
         String returnering = currentOrder.getReturnering() + "";
@@ -510,7 +523,7 @@ public class PDF {
                 table2.addCell(new Phrase("At betale:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table2.addCell(" ");
                 table2.addCell(" ");
-                table2.addCell(new Phrase("   " + ((pris + depositum) * (1 - (rabat / 100))), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table2.addCell(new Phrase("   " + totalpris, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
 
                 PdfPTable table3 = new PdfPTable(3);
                 table3.setTotalWidth(500);
