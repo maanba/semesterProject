@@ -210,8 +210,8 @@ public class Controller {
         currentKunde = null;
     }
 
-    public void addRessource(int vnummer, String vnavn, int qty, double pris, int aktiv) {
-        Vare ressource = new Vare(vnummer, vnavn, qty, pris, aktiv);
+    public void addRessource(int vnummer, String vnavn, int qty, double pris) {
+        Vare ressource = new Vare(vnummer, vnavn, qty, pris);
         dbFacade.startNewBusinessTransaction();
         dbFacade.registerNewRessource(ressource);
         dbFacade.commitBusinessTransaction();

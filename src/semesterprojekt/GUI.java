@@ -65,7 +65,6 @@ public class GUI extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        buttonGroup2 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
@@ -194,8 +193,6 @@ public class GUI extends javax.swing.JFrame {
         jButtonFjernPart = new javax.swing.JButton();
         jButtonTilføjPart = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jRadioAktiv = new javax.swing.JRadioButton();
-        jRadioIkkeAktiv = new javax.swing.JRadioButton();
         jLabelOpretRedigerVare = new javax.swing.JLabel();
         jButtonLagerRediger = new javax.swing.JButton();
         jButtonLagerGem = new javax.swing.JButton();
@@ -696,16 +693,16 @@ public class GUI extends javax.swing.JFrame {
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel10.setText("Navn");
-        jPanel5.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 20));
-        jPanel5.add(jTextFieldVareQty, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 120, -1));
+        jPanel5.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 40, 20));
+        jPanel5.add(jTextFieldVareQty, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 120, -1));
 
         jLabel11.setText("Antal");
-        jPanel5.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 60, -1));
-        jPanel5.add(jTextFieldNavn, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 120, -1));
+        jPanel5.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 60, -1));
+        jPanel5.add(jTextFieldNavn, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 120, -1));
 
         jLabel12.setText("Pris");
-        jPanel5.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 50, -1));
-        jPanel5.add(jTextFieldVarePris, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 120, -1));
+        jPanel5.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 50, -1));
+        jPanel5.add(jTextFieldVarePris, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 120, -1));
 
         jListParts.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -748,15 +745,7 @@ public class GUI extends javax.swing.JFrame {
         });
         jPanel5.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 250, -1, -1));
 
-        buttonGroup2.add(jRadioAktiv);
-        jRadioAktiv.setText("aktiv");
-        jPanel5.add(jRadioAktiv, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
-
-        buttonGroup2.add(jRadioIkkeAktiv);
-        jRadioIkkeAktiv.setText("Ikke Aktiv");
-        jPanel5.add(jRadioIkkeAktiv, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, -1, -1));
-
-        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, 290, 360));
+        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, 290, 360));
 
         jLabelOpretRedigerVare.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabelOpretRedigerVare.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -854,33 +843,22 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButtonLagerGemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLagerGemActionPerformed
         int vnummer;
-        int aktiv;
         String vnavn = jTextFieldNavn.getText();
         double pris = Double.parseDouble(jTextFieldVarePris.getText());
         int qty = Integer.parseInt(jTextFieldVareQty.getText());
 
         if (controller.getRediger() == true) {
             vnummer = Integer.parseInt(jLabelVarenummer2.getText());
-            if (jRadioAktiv.isSelected()){
-                aktiv = 1;
-            } else {
-                aktiv = 0;
-            }
 
-            Vare vare = new Vare(vnummer, vnavn, qty, pris, aktiv);
+            Vare vare = new Vare(vnummer, vnavn, qty, pris);
             for (int i = 0; i < listParts.size(); i++) {
                 vare.addDel((Del) listParts.getElementAt(i));
             }
             controller.redigerVare(vare);
         } else {
             vnummer = controller.getNextVnummer();
-            if (jRadioAktiv.isSelected()){
-                aktiv = 1;
-            } else {
-                aktiv = 0;
-            }
 
-            Vare vare = new Vare(vnummer, vnavn, qty, pris, aktiv);
+            Vare vare = new Vare(vnummer, vnavn, qty, pris);
             for (int i = 0; i < listParts.size(); i++) {
                 vare.addDel((Del) listParts.getElementAt(i));
             }
@@ -892,7 +870,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonLagerGemActionPerformed
 
     private void jButtonLagerRedigerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLagerRedigerActionPerformed
-        if (controller.getRediger() == false && !jListVareliste.isSelectionEmpty()) {
+        if (controller.getRediger() == false) {
             jLabelErrorLager.setText("");
             Vare selected = (Vare) jListVareliste.getSelectedValue();
             listVarer.removeElement(selected);
@@ -903,11 +881,6 @@ public class GUI extends javax.swing.JFrame {
             jTextFieldNavn.setText(selected.getVnavn());
             jTextFieldVarePris.setText(selected.getPris() + "");
             jTextFieldVareQty.setText(selected.getQty() + "");
-            if(selected.getAktiv() == 1){
-                jRadioAktiv.setSelected(true);
-            } else {
-                jRadioIkkeAktiv.setSelected(true);
-            }
             for (int i = 0; i < selected.getDel().size(); i++) {
                 listParts.addElement(selected.getDel().get(i));
             }
@@ -1168,6 +1141,15 @@ public class GUI extends javax.swing.JFrame {
         controller.pdfFaktura();
     }//GEN-LAST:event_jButtonFakturaActionPerformed
 
+    private void jButtonDepositumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDepositumActionPerformed
+        Ordre selected = (Ordre) jList3.getSelectedValue();
+        double depositum = Double.parseDouble(JOptionPane.showInputDialog("Her kan Erling indtaste depositum: "));
+        selected.setDepositum(depositum);
+        System.out.println("Depositum: " + selected.getDepositum());
+        controller.setCurrentOrder(selected);
+        controller.updateOrder(selected.getKnummer(), selected.getPris(), selected.getRabat(), selected.getDepositum(), selected.getTidLev(), selected.getTidRet(), selected.getAfhentning(), selected.getStatus(), selected.getLevering(), selected.getReturnering(), selected.getOd());
+    }//GEN-LAST:event_jButtonDepositumActionPerformed
+
     private void jButtonOrdreRedigerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdreRedigerActionPerformed
         Ordre selected = (Ordre) jList3.getSelectedValue();
         int selectedIndex = jList3.getSelectedIndex();
@@ -1181,14 +1163,6 @@ public class GUI extends javax.swing.JFrame {
                 Vare vare = controller.getVare(od.get(i).getVnummer());
                 vare.setQty(od.get(i).getMaengde());
                 list2.addElement(vare);
-            }
-
-            Kunde kunde = controller.getKunde(selected.getKnummer());
-
-            for (int i = 0; i < jComboBox1.getItemCount(); i++) {
-                if (jComboBox1.getItemAt(i) == kunde.getNavn()) {
-                    jComboBox1.setSelectedIndex(i);
-                }
             }
             jTextFieldDagUd.setText(selected.getLevering().substring(0, 2));
             jTextFieldMånedUd.setText(selected.getLevering().substring(3, 5));
@@ -1208,6 +1182,14 @@ public class GUI extends javax.swing.JFrame {
             controller.setCurrentOrder(selected);
         }
         update();
+
+        Kunde kunde = controller.getKunde(selected.getKnummer());
+
+        for (int i = 0; i < jComboBox1.getItemCount(); i++) {
+            if (jComboBox1.getItemAt(i).equals(kunde.getNavn())) {
+                jComboBox1.setSelectedIndex(i);
+            }
+        }
         jTextFieldRabat.setText(selected.getRabat() + "");
     }//GEN-LAST:event_jButtonOrdreRedigerActionPerformed
 
@@ -1249,9 +1231,9 @@ public class GUI extends javax.swing.JFrame {
                         String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                         String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
                         if (jRadioButtonAfhentning.isSelected()) {
-                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), ((Double.parseDouble(jTextFieldTotalPris.getText())) * (1 - (Double.parseDouble(jTextFieldRabat.getText()) / 100))), "", "", afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), 0.00, "", "", afhentning, "Påbegyndt", levering, returnering, odetaljer);
                         } else {
-                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), ((Double.parseDouble(jTextFieldTotalPris.getText())) * (1 - (Double.parseDouble(jTextFieldRabat.getText()) / 100))), "" + jComboBox2.getSelectedItem(), "" + jComboBox3.getSelectedItem(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
+                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), 0.00, "" + jComboBox2.getSelectedItem(), "" + jComboBox3.getSelectedItem(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
                         }
                         list2.clear();
                         list3.clear();
@@ -1384,7 +1366,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if (jTextFieldPartNavn.getText().equals("") || jTextFieldPartAntal.getText().equals("")) {
+        if (!jTextFieldPartNavn.getText().isEmpty() || !jTextFieldPartAntal.getText().isEmpty()) {
             Del del = (Del) jListParts.getSelectedValue();
             int si = jListParts.getSelectedIndex();
             listParts.removeElementAt(si);
@@ -1392,15 +1374,6 @@ public class GUI extends javax.swing.JFrame {
             jTextFieldPartAntal.setText("" + del.getAntal());
         }
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButtonDepositumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDepositumActionPerformed
-        Ordre selected = (Ordre) jList3.getSelectedValue();
-        double depositum = Double.parseDouble(JOptionPane.showInputDialog("Her kan Erling indtaste depositum: "));
-        selected.setDepositum(depositum);
-        System.out.println("Depositum: " + selected.getDepositum());
-        controller.setCurrentOrder(selected);
-        controller.updateOrder(selected.getKnummer(), selected.getPris(), selected.getRabat(), selected.getDepositum(), selected.getTidLev(), selected.getTidRet(), selected.getAfhentning(), selected.getStatus(), selected.getLevering(), selected.getReturnering(), selected.getOd());
-    }//GEN-LAST:event_jButtonDepositumActionPerformed
 
     private void jButtonLeverActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
@@ -1723,7 +1696,6 @@ public class GUI extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton2;
@@ -1820,10 +1792,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JRadioButton jRadioAktiv;
     private javax.swing.JRadioButton jRadioButtonAfhentning;
     private javax.swing.JRadioButton jRadioButtonLevering;
-    private javax.swing.JRadioButton jRadioIkkeAktiv;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
