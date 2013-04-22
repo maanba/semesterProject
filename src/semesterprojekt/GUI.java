@@ -1401,18 +1401,14 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButtonRedigerPartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRedigerPartActionPerformed
         Object selected = (Del) jListParts.getSelectedValue();
-        if (controller.getRediger() == false) {
+        if (!jTextFieldPartNavn.getText().isEmpty() || !jTextFieldPartAntal.getText().isEmpty()) {
             jLabelErrorLager.setText("You need to finish editing a part before editing a new one");
-        }
-        if (controller.getRediger() == false && selected != null) {
+        } else if (selected != null) {
             Del del = (Del) jListParts.getSelectedValue();
             int si = jListParts.getSelectedIndex();
             listParts.removeElementAt(si);
             jTextFieldPartNavn.setText(del.getTitel());
             jTextFieldPartAntal.setText("" + del.getAntal());
-        }
-        if (!jTextFieldPartNavn.getText().isEmpty() || !jTextFieldPartAntal.getText().isEmpty()) {
-            jLabelErrorLager.setText("You need to finish editing a part before editing a new one");
         }
     }//GEN-LAST:event_jButtonRedigerPartActionPerformed
 
