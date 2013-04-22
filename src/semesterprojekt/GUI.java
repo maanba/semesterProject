@@ -1100,7 +1100,7 @@ public class GUI extends javax.swing.JFrame {
             jTextFieldTelefonnummer.setText(selected.getTelefonnummer() + "");
             controller.redigerTrue();
         } else {
-            jLabelErrorKunder.setText("You need to finish editing the current customer before editing a new one");
+            jLabelErrorKunder.setText("You need to finish editing the current customer before editing a new one.");
         }
     }//GEN-LAST:event_jButtonRedigerKundeActionPerformed
 
@@ -1402,11 +1402,10 @@ public class GUI extends javax.swing.JFrame {
     private void jButtonRedigerPartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRedigerPartActionPerformed
         Object selected = (Del) jListParts.getSelectedValue();
         if (!jTextFieldPartNavn.getText().isEmpty() || !jTextFieldPartAntal.getText().isEmpty()) {
-            jLabelErrorLager.setText("You need to finish editing a part before editing a new one");
+            jLabelErrorLager.setText("You need to finish editing a part before editing a new one.");
         } else if (selected != null) {
             Del del = (Del) jListParts.getSelectedValue();
-            int si = jListParts.getSelectedIndex();
-            listParts.removeElementAt(si);
+            listParts.removeElementAt(jListParts.getSelectedIndex());
             jTextFieldPartNavn.setText(del.getTitel());
             jTextFieldPartAntal.setText("" + del.getAntal());
         }
