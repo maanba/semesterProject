@@ -12,18 +12,27 @@ import java.util.ArrayList;
  */
 public class Vare {
 
-    private int vnummer, qty;
+    private int vnummer, qty, aktiv;
     private double pris;
     private String vnavn;
     private ArrayList<Del> del = new ArrayList<>();
 
-    public Vare(int vnummer, String vnavn, int qty, double pris) {
+    public Vare(int vnummer, String vnavn, int qty, double pris, int aktiv) {
         this.vnummer = vnummer;
         this.vnavn = vnavn;
         this.qty = qty;
         this.pris = pris;
+        this.aktiv = aktiv;
     }
 
+    public int getAktiv() {
+        return aktiv;
+    }
+
+    public void setAktiv(int aktiv) {
+        this.aktiv = aktiv;
+    }
+    
     public void addDel(Del del) {
         del.setVnummer(vnummer);
         this.del.add(del);

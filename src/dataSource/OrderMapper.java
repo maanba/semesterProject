@@ -89,7 +89,7 @@ public class OrderMapper {
 
     public boolean insertRessources(ArrayList<Vare> vl, Connection conn) throws SQLException {
         int rowsInserted = 0;
-        String SQLString = "insert into varer values (?,?,?,?)";
+        String SQLString = "insert into varer values (?,?,?,?,?)";
         String SQLString2 = "insert into dele values (?,?,?)";
         PreparedStatement statement = null;
         statement = conn.prepareStatement(SQLString);
@@ -105,6 +105,7 @@ public class OrderMapper {
                 statement.setString(2, v.getVnavn());
                 statement.setInt(3, v.getQty());
                 statement.setDouble(4, v.getPris());
+                statement.setInt(5, v.getAktiv());
                 rowsInserted += statement.executeUpdate();
                 statement.close();
                 for (int j = 0; j < v.getDel().size(); j++) {
@@ -210,7 +211,7 @@ public class OrderMapper {
     public boolean updateRessources(ArrayList<Vare> vl, Connection conn) throws SQLException {
         int rowsUpdated = 0;
         String SQLString = "update varer "
-                + "set vnavn = ?, qty = ?, pris = ? "
+                + "set vnavn = ?, qty = ?, pris = ?, aktiv = ? "
                 + "where vnummer = ?";
         String SQLString2 = "delete from dele "
                 + "where vnummer = ?";
@@ -232,7 +233,8 @@ public class OrderMapper {
                 statement.setString(1, v.getVnavn());
                 statement.setInt(2, v.getQty());
                 statement.setDouble(3, v.getPris());
-                statement.setInt(4, v.getVnummer());
+                statement.setInt(4, v.getAktiv());
+                statement.setInt(5, v.getVnummer());
                 int tupleUpdated = statement.executeUpdate();
                 rowsUpdated += tupleUpdated;
                 statement.close();
@@ -717,7 +719,8 @@ public class OrderMapper {
                     v = new Vare(rs.getInt(1),
                             rs.getString(2),
                             rs.getInt(3),
-                            rs.getDouble(4));
+                            rs.getDouble(4),
+                            rs.getInt(5));
                 }
                 statement.close();
                 statement = conn.prepareStatement(SQLString2);
@@ -767,7 +770,8 @@ public class OrderMapper {
                 vare = new Vare(rs.getInt(1),
                         rs.getString(2),
                         rs.getInt(3),
-                        rs.getDouble(4));
+                        rs.getDouble(4),
+                        rs.getInt(5));
             }
             statement.close();
             statement = conn.prepareStatement(SQLString2);
