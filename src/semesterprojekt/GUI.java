@@ -1602,7 +1602,10 @@ public class GUI extends javax.swing.JFrame {
             controller.quickSortVare(va, 0, va.length - 1);
 
             for (int i = 0; i < va.length; i++) {
-                list1.addElement(va[i]);
+                if (va[i].getAktiv() == 1){
+                    list1.addElement(va[i]);
+                }
+                
             }
         }
 
