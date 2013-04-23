@@ -855,7 +855,7 @@ public class GUI extends javax.swing.JFrame {
         if (selected != null) {
             controller.deleteVare(selected);
             update();
-        } 
+        }
         jLabelErrorLager.setText("");
     }//GEN-LAST:event_jButtonSletVareActionPerformed
 
@@ -1035,10 +1035,10 @@ public class GUI extends javax.swing.JFrame {
                 Kunde kunde = controller.getKunde(ol.get(i).getKnummer());
                 String firma = null;
                 String knavn = null;
-                if (kunde.getFirma() != null){
+                if (kunde.getFirma() != null) {
                     firma = kunde.getFirma().toLowerCase();
                 }
-                if (kunde.getNavn() != null){
+                if (kunde.getNavn() != null) {
                     knavn = kunde.getNavn().toLowerCase();
                 }
                 if (onummer.contains(jTextFieldReturSøg.getText())) {
@@ -1049,7 +1049,7 @@ public class GUI extends javax.swing.JFrame {
                     jListOrdrer.setSelectedIndex(i);
                 } else if (knavn != null && knavn.contains(jTextFieldReturSøg.getText().toLowerCase())) {
                     jListOrdrer.setSelectedIndex(i);
-                } else if (firma != null && firma.contains(jTextFieldReturSøg.getText().toLowerCase())){
+                } else if (firma != null && firma.contains(jTextFieldReturSøg.getText().toLowerCase())) {
                     jListOrdrer.setSelectedIndex(i);
                 } else {
                     listOrdrer.removeElementAt(i - counter);
@@ -1067,27 +1067,26 @@ public class GUI extends javax.swing.JFrame {
     private void jButtonLevérActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLevérActionPerformed
         Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
         ArrayList<Odetaljer> od = selected.getOd();
-        
-        
-        
+
+
+
         for (int i = 0; i < od.size(); i++) {
             Vare vare = controller.getVare(od.get(i).getVnummer());
             for (int j = 0; j < vare.getDel().size(); j++) {
                 listDele.addElement((Del) vare.getDel().get(j));
             }
         }
-        
-        
-        
-        
+
+
+
+
     }//GEN-LAST:event_jButtonLevérActionPerformed
 
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
         Del selected = (Del) jListDele.getSelectedValue();
         selected.setStatus(1);
     }//GEN-LAST:event_jButtonOKActionPerformed
-        
-        
+
     private void jButtonAfslutOrdreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAfslutOrdreActionPerformed
         Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
         controller.ordreAfslut(selected.getKnummer());
@@ -1130,26 +1129,7 @@ public class GUI extends javax.swing.JFrame {
                 kl.add((Kunde) listKundeliste.getElementAt(i));
             }
             for (int i = 0; i < kl.size(); i++) {
-                String firma = null;
-                String knavn = null;
-                if (kl.get(i).getFirma() != null) {
-                    firma = kl.get(i).getFirma().toLowerCase();
-                }
-                if (kl.get(i).getNavn() != null) {
-                    knavn = kl.get(i).getNavn().toLowerCase();
-                }
-                String knummer = kl.get(i).getKnummer() + "";
-                String telefonnummer = kl.get(i).getTelefonnummer() + "";
-                String postnummer = kl.get(i).getPostnummer() + "";
-                if (knavn != null && knavn.contains(jTextFieldKundeSøg.getText().toLowerCase())) {
-                    jListKundeliste.setSelectedIndex(i);
-                } else if (firma != null && firma.contains(jTextFieldKundeSøg.getText().toLowerCase()) || kl.get(i).getNavn().contains(jTextFieldKundeSøg.getText().toLowerCase())) {
-                    jListKundeliste.setSelectedIndex(i);
-                } else if (knummer.contains(jTextFieldKundeSøg.getText())) {
-                    jListKundeliste.setSelectedIndex(i);
-                } else if (telefonnummer.contains(jTextFieldKundeSøg.getText())) {
-                    jListKundeliste.setSelectedIndex(i);
-                } else if (postnummer.contains(jTextFieldKundeSøg.getText())) {
+                if (controller.kundeSøg(kl.get(i), jTextFieldKundeSøg.getText()) == true) {
                     jListKundeliste.setSelectedIndex(i);
                 } else {
                     listKundeliste.removeElementAt(i - counter);
@@ -1163,7 +1143,6 @@ public class GUI extends javax.swing.JFrame {
             update();
         }
     }//GEN-LAST:event_jButtonKundeSøgActionPerformed
-
     private void jButtonGemKundeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGemKundeActionPerformed
         String firma = jTextFieldFirmaNavn.getText();
         String navn = jTextFieldFuldeNavn.getText();
@@ -1222,13 +1201,13 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonOrdrePdfActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(jTextFieldDagUd.getText().isEmpty()  || jTextFieldMånedUd.getText().isEmpty() || jTextFieldÅrUd.getText().isEmpty() || jTextFieldDagInd.getText().isEmpty() || jTextFieldMånedInd.getText().isEmpty() || jTextFieldÅrInd.getText().isEmpty() ){
+        if (jTextFieldDagUd.getText().isEmpty() || jTextFieldMånedUd.getText().isEmpty() || jTextFieldÅrUd.getText().isEmpty() || jTextFieldDagInd.getText().isEmpty() || jTextFieldMånedInd.getText().isEmpty() || jTextFieldÅrInd.getText().isEmpty()) {
             jLabelErrorOrdre.setText("Fejl. Indtast datoer korrekt");
         } else {
             update();
         }
-        
-        
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButtonStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStatusActionPerformed
@@ -1351,8 +1330,6 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButtonGennemførOrdreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGennemførOrdreActionPerformed
         ArrayList<Odetaljer> odetaljer = new ArrayList<>();
-
-
         if (jComboBox1.getSelectedItem() != "Kunder") {
             if (list2.isEmpty() == false) {
                 if (jRadioButtonAfhentning.isSelected() || jRadioButtonLevering.isSelected()) {
@@ -1439,16 +1416,24 @@ public class GUI extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
+
+
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUI.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUI.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUI.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUI.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         java.awt.EventQueue.invokeLater(new Runnable() {

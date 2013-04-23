@@ -49,7 +49,34 @@ public class Controller {
     public void setCurrentOrder(Ordre currentOrder) {
         this.currentOrder = currentOrder;
     }
-
+    public boolean kundeSøg (Kunde kunde, String jTextFieldKundeSøg){
+            boolean result = false;
+                String firma = null;
+                String knavn = null;
+                if (kunde.getFirma() != null) {
+                    firma = kunde.getFirma().toLowerCase();
+                }
+                if (kunde.getNavn() != null) {
+                    knavn = kunde.getNavn().toLowerCase();
+                }
+                String knummer = kunde.getKnummer() + "";
+                String telefonnummer = kunde.getTelefonnummer() + "";
+                String postnummer = kunde.getPostnummer() + "";
+                if (knavn != null && knavn.contains(jTextFieldKundeSøg.toLowerCase())) {
+                    result = true;
+                } else if (firma != null && firma.contains(jTextFieldKundeSøg.toLowerCase()) || kunde.getNavn().contains(jTextFieldKundeSøg.toLowerCase())) {
+                    result = true;
+                } else if (knummer.contains(jTextFieldKundeSøg)) {
+                    result = true;
+                } else if (telefonnummer.contains(jTextFieldKundeSøg)) {
+                    result = true;
+                } else if (postnummer.contains(jTextFieldKundeSøg)) {
+                    result = true;
+                } else {
+                    result = false;
+                }
+        return result;
+    }
     public Ordre createNewOrder(int knummer, double pris, double rabat, double depositum, String tidLev, String tidRet, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
