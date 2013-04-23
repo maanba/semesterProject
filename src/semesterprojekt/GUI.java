@@ -824,7 +824,11 @@ public class GUI extends javax.swing.JFrame {
                 vl.add((Vare) Vareliste.getElementAt(i));
             }
             for (int i = 0; i < vl.size(); i++) {
-                if (vl.get(i).getVnavn().contains(jTextFieldLagerSøg.getText())) {
+                String vnummer = vl.get(i).getVnummer() + "";
+                String vnavn = vl.get(i).getVnavn().toLowerCase();
+                if (vnavn.contains(jTextFieldLagerSøg.getText().toLowerCase())) {
+                    jListVareliste.setSelectedIndex(i);
+                } else if (vnummer.contains(jTextFieldLagerSøg.getText())) {
                     jListVareliste.setSelectedIndex(i);
                 } else {
                     Vareliste.removeElementAt(i - counter);
@@ -969,9 +973,16 @@ public class GUI extends javax.swing.JFrame {
             }
             for (int i = 0; i < ol.size(); i++) {
                 String onummer = ol.get(i).getOnummer() + "";
+                String knummer = ol.get(i).getKnummer() + "";
+                String status = ol.get(i).getStatus().toLowerCase();
                 if (onummer.contains(jTextFieldHistorikSøg.getText())) {
                     jListHistorik.setSelectedIndex(i);
-                } else {
+                } else if (status.contains(jTextFieldHistorikSøg.getText().toLowerCase())){
+                    jListHistorik.setSelectedIndex(i);
+                } else if (knummer.contains(jTextFieldHistorikSøg.getText())){
+                    jListHistorik.setSelectedIndex(i);
+                }
+                    else {
                     listHistorik.removeElementAt(i - counter);
                     counter++;
                 }
@@ -1014,9 +1025,16 @@ public class GUI extends javax.swing.JFrame {
             }
             for (int i = 0; i < ol.size(); i++) {
                 String onummer = ol.get(i).getOnummer() + "";
+                String knummer = ol.get(i).getKnummer() + "";
+                String status = ol.get(i).getStatus().toLowerCase();
                 if (onummer.contains(jTextFieldReturSøg.getText())) {
                     jListOrdrer.setSelectedIndex(i);
-                } else {
+                } else if (knummer.contains(jTextFieldReturSøg.getText())){
+                    jListOrdrer.setSelectedIndex(i);
+                } else if (status.contains(jTextFieldReturSøg.getText().toLowerCase())){
+                    jListOrdrer.setSelectedIndex(i);
+                }
+                    else {
                     listOrdrer.removeElementAt(i - counter);
                     counter++;
                 }
@@ -1060,7 +1078,11 @@ public class GUI extends javax.swing.JFrame {
                 vl.add((Vare) listTilbudVarer.getElementAt(i));
             }
             for (int i = 0; i < vl.size(); i++) {
-                if (vl.get(i).getVnavn().contains(jTextFieldTilbudSøg.getText())) {
+                String vnavn = vl.get(i).getVnavn().toLowerCase();
+                String vnummer = vl.get(i).getVnummer() + "";
+                if (vnavn.contains(jTextFieldTilbudSøg.getText().toLowerCase())) {
+                    jListTilbudVarer.setSelectedIndex(i);
+                } else if (vnummer.contains(jTextFieldTilbudSøg.getText())){
                     jListTilbudVarer.setSelectedIndex(i);
                 } else {
                     listTilbudVarer.removeElementAt(i - counter);
@@ -1083,9 +1105,24 @@ public class GUI extends javax.swing.JFrame {
                 kl.add((Kunde) listKundeliste.getElementAt(i));
             }
             for (int i = 0; i < kl.size(); i++) {
-                if (kl.get(i).getFirma() == null && kl.get(i).getNavn().contains(jTextFieldKundeSøg.getText())) {
+                String firma;
+                if (kl.get(i).getFirma() != null){
+                    firma = kl.get(i).getFirma().toLowerCase();
+                } else {
+                    firma = kl.get(i).getNavn().toLowerCase();
+                }
+                String knummer = kl.get(i).getKnummer() + "";
+                String telefonnummer = kl.get(i).getTelefonnummer() + "";
+                String postnummer = kl.get(i).getPostnummer() + "";
+                if (firma == null && firma.contains(jTextFieldKundeSøg.getText().toLowerCase())) {
                     jListKundeliste.setSelectedIndex(i);
-                } else if (kl.get(i).getFirma() != null && kl.get(i).getFirma().contains(jTextFieldKundeSøg.getText()) || kl.get(i).getNavn().contains(jTextFieldKundeSøg.getText())) {
+                } else if (firma != null && firma.contains(jTextFieldKundeSøg.getText().toLowerCase()) || kl.get(i).getNavn().contains(jTextFieldKundeSøg.getText().toLowerCase())) {
+                    jListKundeliste.setSelectedIndex(i);
+                } else if (knummer.contains(jTextFieldKundeSøg.getText())){
+                    jListKundeliste.setSelectedIndex(i);
+                } else if (telefonnummer.contains(jTextFieldKundeSøg.getText())){
+                    jListKundeliste.setSelectedIndex(i);
+                } else if (postnummer.contains(jTextFieldKundeSøg.getText())){
                     jListKundeliste.setSelectedIndex(i);
                 } else {
                     listKundeliste.removeElementAt(i - counter);
