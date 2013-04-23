@@ -1246,6 +1246,7 @@ public class GUI extends javax.swing.JFrame {
             jTextFieldDagInd.setText(selected.getReturnering().substring(0, 2));
             jTextFieldMånedInd.setText(selected.getReturnering().substring(3, 5));
             jTextFieldÅrInd.setText(selected.getReturnering().substring(6, 10));
+            jTextFieldRabat.setText(selected.getRabat() + "");
 
             if ("Leveres af os".equals(selected.getAfhentning())) {
                 jRadioButtonLevering.setSelected(true);
@@ -1267,7 +1268,6 @@ public class GUI extends javax.swing.JFrame {
                 jComboBox1.setSelectedIndex(i);
             }
         }
-        jTextFieldRabat.setText(selected.getRabat() + "");
     }//GEN-LAST:event_jButtonOrdreRedigerActionPerformed
 
     private void jRadioButtonLeveringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonLeveringActionPerformed
@@ -1282,57 +1282,18 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButtonGennemførOrdreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGennemførOrdreActionPerformed
         ArrayList<Odetaljer> odetaljer = new ArrayList<>();
-        ArrayList<Kunde> kunder = controller.getAllCostumers();
-        String afhentning;
-        int kno = 0;
-        if (jRadioButtonAfhentning.isSelected()) {
-            afhentning = "Afhentes af kunden";
-        } else {
-            afhentning = "Leveres af os";
-        }
+
 
         if (jComboBox1.getSelectedItem() != "Kunder") {
-
             if (list2.isEmpty() == false) {
-                if (controller.getCurrentOrder() == null) {
+                if (jRadioButtonAfhentning.isSelected() || jRadioButtonLevering.isSelected()) {
                     for (int i = 0; i < list2.size(); i++) {
                         Vare vare = (Vare) list2.getElementAt(i);
                         odetaljer.add(new Odetaljer(0, vare.getVnummer(), vare.getQty()));
                     }
-                    if (jRadioButtonAfhentning.isSelected() || jRadioButtonLevering.isSelected()) {
-                        for (int i = 0; i < kunder.size(); i++) {
-                            if (jComboBox1.getSelectedItem().equals(kunder.get(i).getNavn())) {
-                                kno = kunder.get(i).getKnummer();
-                            }
-                        }
-                        String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
-                        String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
-                        if (jRadioButtonAfhentning.isSelected()) {
-                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), Double.parseDouble(jTextFieldTotalPris.getText()) * 0.25, "", "", afhentning, "Påbegyndt", levering, returnering, odetaljer);
-                        } else {
-                            controller.createNewOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), Double.parseDouble(jTextFieldTotalPris.getText()) * 0.25, "" + jComboBox2.getSelectedItem(), "" + jComboBox3.getSelectedItem(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
-                        }
-                        list2.clear();
-                        list3.clear();
-                        jLabelErrorOrdre.setText("");
-                    }
-                } else if (controller.getCurrentOrder() != null) {
-                    for (int i = 0; i < list2.size(); i++) {
-                        Vare vare = (Vare) list2.getElementAt(i);
-                        odetaljer.add(new Odetaljer(0, vare.getVnummer(), vare.getQty()));
-                    }
-                    for (int i = 0; i < kunder.size(); i++) {
-                        if (jComboBox1.getSelectedItem().equals(kunder.get(i).getNavn())) {
-                            kno = kunder.get(i).getKnummer();
-                        }
-                    }
-                    String levering = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
-                    String returnering = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
-                    if (jRadioButtonAfhentning.isSelected()) {
-                        controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), controller.getCurrentOrder().getDepositum(), "", "", afhentning, "Påbegyndt", levering, returnering, odetaljer);
-                    } else {
-                        controller.updateOrder(kno, Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), controller.getCurrentOrder().getDepositum(), "" + jComboBox2.getSelectedItem(), "" + jComboBox3.getSelectedItem(), afhentning, "Påbegyndt", levering, returnering, odetaljer);
-                    }
+                    String leveringDate = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
+                    String returneringDate = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
+                    controller.gennemførOrdrer(jRadioButtonAfhentning.isSelected(), "" + jComboBox1.getSelectedItem(), Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), Double.parseDouble(jTextFieldTotalPris.getText()) * 0.25, "" + jComboBox2.getSelectedItem(), "" + jComboBox3.getSelectedItem(), leveringDate, returneringDate, odetaljer);
                     list2.clear();
                     list3.clear();
                     jLabelErrorOrdre.setText("");
@@ -1348,7 +1309,7 @@ public class GUI extends javax.swing.JFrame {
                 }
             }
         } else {
-            jLabelErrorOrdre.setText("FEJL!");
+            jLabelErrorOrdre.setText("Vælg en Kunde");
         }
         controller.redigerFalse();
         update();
@@ -1640,46 +1601,93 @@ public class GUI extends javax.swing.JFrame {
             int retDay = Integer.parseInt(jTextFieldDagInd.getText());
             for (int j = 0; j < list3.size(); j++) {
                 Ordre o = (Ordre) list3.getElementAt(j);
-                int oLevYear = Integer.parseInt(o.getLevering().substring(6, 10));
-                int oLevMonth = Integer.parseInt(o.getLevering().substring(3, 5));
-                int oLevDay = Integer.parseInt(o.getLevering().substring(0, 2));
-                int oRetYear = Integer.parseInt(o.getReturnering().substring(6, 10));
-                int oRetMonth = Integer.parseInt(o.getReturnering().substring(3, 5));
-                int oRetDay = Integer.parseInt(o.getReturnering().substring(0, 2));
-                if (o.getAfhentning().equalsIgnoreCase("Leveres af os")) {
-                    if ((levDay == oLevDay && levMonth == oLevMonth && levYear == oLevYear) || (levDay == oRetDay && levMonth == oRetMonth && levYear == oRetYear)) {
-                        for (int l = 1; l < jComboBox2.getItemCount(); l++) {
-                            if (o.getTidLev().equals("" + jComboBox2.getItemAt(l))) {
-                                tidLev[l - 1]++;
-                                if (tidLev[l - 1] >= 2) {
-                                    jComboBox2.removeItemAt(l);
+                if (!controller.getRediger()) {
+                    int oLevYear = Integer.parseInt(o.getLevering().substring(6, 10));
+                    int oLevMonth = Integer.parseInt(o.getLevering().substring(3, 5));
+                    int oLevDay = Integer.parseInt(o.getLevering().substring(0, 2));
+                    int oRetYear = Integer.parseInt(o.getReturnering().substring(6, 10));
+                    int oRetMonth = Integer.parseInt(o.getReturnering().substring(3, 5));
+                    int oRetDay = Integer.parseInt(o.getReturnering().substring(0, 2));
+                    if (o.getAfhentning().equalsIgnoreCase("Leveres af os")) {
+                        if ((levDay == oLevDay && levMonth == oLevMonth && levYear == oLevYear) || (levDay == oRetDay && levMonth == oRetMonth && levYear == oRetYear)) {
+                            for (int l = 1; l < jComboBox2.getItemCount(); l++) {
+                                if (o.getTidLev().equals("" + jComboBox2.getItemAt(l))) {
+                                    tidLev[l - 1]++;
+                                    if (tidLev[l - 1] >= 2) {
+                                        jComboBox2.removeItemAt(l);
+                                    }
+                                    try {
+                                        jComboBox2.removeItemAt(6);
+                                    } catch (Exception ex) {
+                                    }
+                                } else if (o.getTidLev().equals("Stor Order")) {
+                                    jComboBox2.removeAllItems();
+                                    jComboBox2.addItem("Levering");
                                 }
-                                try {
-                                    jComboBox2.removeItemAt(6);
-                                } catch (Exception ex) {
+                            }
+                        }
+                        if ((retDay == oRetDay && retMonth == oRetMonth && retYear == oRetYear) || (retDay == oLevDay && retMonth == oLevMonth && retYear == oLevYear)) {
+                            for (int l = 1; l < jComboBox3.getItemCount(); l++) {
+                                if (o.getTidRet().equals("" + jComboBox3.getItemAt(l))) {
+                                    tidRet[l - 1]++;
+                                    if (tidRet[l - 1] >= 2) {
+                                        jComboBox3.removeItemAt(l);
+                                    }
+                                    try {
+                                        jComboBox3.removeItemAt(6);
+                                    } catch (Exception ex) {
+                                    }
+                                } else if (o.getTidRet().equals("Stor Order")) {
+                                    jComboBox3.removeAllItems();
+                                    jComboBox3.addItem("Afhentning");
                                 }
-                            } else if (o.getTidLev().equals("Stor Order")) {
-                                jComboBox2.removeAllItems();
-                                jComboBox2.addItem("Levering");
+
                             }
                         }
                     }
-                    if ((retDay == oRetDay && retMonth == oRetMonth && retYear == oRetYear) || (retDay == oLevDay && retMonth == oLevMonth && retYear == oLevYear)) {
-                        for (int l = 1; l < jComboBox3.getItemCount(); l++) {
-                            if (o.getTidRet().equals("" + jComboBox3.getItemAt(l))) {
-                                tidRet[l - 1]++;
-                                if (tidRet[l - 1] >= 2) {
-                                    jComboBox3.removeItemAt(l);
+                } else {
+                    if (o.getOnummer() != controller.getCurrentOrder().getOnummer()) {
+                        int oLevYear = Integer.parseInt(o.getLevering().substring(6, 10));
+                        int oLevMonth = Integer.parseInt(o.getLevering().substring(3, 5));
+                        int oLevDay = Integer.parseInt(o.getLevering().substring(0, 2));
+                        int oRetYear = Integer.parseInt(o.getReturnering().substring(6, 10));
+                        int oRetMonth = Integer.parseInt(o.getReturnering().substring(3, 5));
+                        int oRetDay = Integer.parseInt(o.getReturnering().substring(0, 2));
+                        if (o.getAfhentning().equalsIgnoreCase("Leveres af os")) {
+                            if ((levDay == oLevDay && levMonth == oLevMonth && levYear == oLevYear) || (levDay == oRetDay && levMonth == oRetMonth && levYear == oRetYear)) {
+                                for (int l = 1; l < jComboBox2.getItemCount(); l++) {
+                                    if (o.getTidLev().equals("" + jComboBox2.getItemAt(l))) {
+                                        tidLev[l - 1]++;
+                                        if (tidLev[l - 1] >= 2) {
+                                            jComboBox2.removeItemAt(l);
+                                        }
+                                        try {
+                                            jComboBox2.removeItemAt(6);
+                                        } catch (Exception ex) {
+                                        }
+                                    } else if (o.getTidLev().equals("Stor Order")) {
+                                        jComboBox2.removeAllItems();
+                                        jComboBox2.addItem("Levering");
+                                    }
                                 }
-                                try {
-                                    jComboBox3.removeItemAt(6);
-                                } catch (Exception ex) {
-                                }
-                            } else if (o.getTidRet().equals("Stor Order")) {
-                                jComboBox3.removeAllItems();
-                                jComboBox3.addItem("Afhentning");
                             }
-
+                            if ((retDay == oRetDay && retMonth == oRetMonth && retYear == oRetYear) || (retDay == oLevDay && retMonth == oLevMonth && retYear == oLevYear)) {
+                                for (int l = 1; l < jComboBox3.getItemCount(); l++) {
+                                    if (o.getTidRet().equals("" + jComboBox3.getItemAt(l))) {
+                                        tidRet[l - 1]++;
+                                        if (tidRet[l - 1] >= 2) {
+                                            jComboBox3.removeItemAt(l);
+                                        }
+                                        try {
+                                            jComboBox3.removeItemAt(6);
+                                        } catch (Exception ex) {
+                                        }
+                                    } else if (o.getTidRet().equals("Stor Order")) {
+                                        jComboBox3.removeAllItems();
+                                        jComboBox3.addItem("Afhentning");
+                                    }
+                                }
+                            }
                         }
                     }
                 }

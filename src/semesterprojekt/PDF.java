@@ -64,7 +64,7 @@ public class PDF {
         if(currentOrder.getMontører() == 2){
             montører = montører * 300 * 2;
         }
-        if(currentOrder.getTidLev().equals("Stor ordre")){
+        if(currentOrder.getTidLev() != null && currentOrder.getTidLev().equals("Stor ordre")){
             montører = 4;
             montører = montører * 300 * 10;
         }
@@ -260,7 +260,7 @@ public class PDF {
         
         montører = montører * 600;
         
-        if(currentOrder.getTidLev().equals("Stor ordre")){
+        if(currentOrder.getTidLev() != null && currentOrder.getTidLev().equals("Stor ordre")){
             montører = montører * 3000;
         }
         double totalpris = ((pris + depositum + montører) * (1 - (currentOrder.getRabat() / 100)));
@@ -450,7 +450,7 @@ public class PDF {
         
         montører = montører * 600;
         
-        if(currentOrder.getTidLev().equals("Stor ordre")){
+        if(currentOrder.getTidLev() != null && currentOrder.getTidLev().equals("Stor ordre")){
             montører = montører * 600 * 5;
         }
         double totalpris = ((pris + depositum + montører) * (1 - (currentOrder.getRabat() / 100)));
