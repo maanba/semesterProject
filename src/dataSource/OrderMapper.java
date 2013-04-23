@@ -91,7 +91,7 @@ public class OrderMapper {
     public boolean insertRessources(ArrayList<Vare> vl, Connection conn) throws SQLException {
         int rowsInserted = 0;
         String SQLString = "insert into varer values (?,?,?,?,?)";
-        String SQLString2 = "insert into dele values (?,?,?)";
+        String SQLString2 = "insert into dele values (?,?,?,?)";
         PreparedStatement statement = null;
         statement = conn.prepareStatement(SQLString);
 
@@ -115,6 +115,7 @@ public class OrderMapper {
                     statement.setInt(1, d.getVnummer());
                     statement.setString(2, d.getTitel());
                     statement.setInt(3, d.getAntal());
+                    statement.setInt(4, d.getStatus());
                     statement.executeUpdate();
                     statement.close();
                 }
@@ -217,7 +218,7 @@ public class OrderMapper {
                 + "where vnummer = ?";
         String SQLString2 = "delete from dele "
                 + "where vnummer = ?";
-        String SQLString3 = "insert into dele values (?,?,?)";
+        String SQLString3 = "insert into dele values (?,?,?,?)";
         PreparedStatement statement = null;
 
         statement = conn.prepareStatement(SQLString);
@@ -246,6 +247,7 @@ public class OrderMapper {
                     statement.setInt(1, d.getVnummer());
                     statement.setString(2, d.getTitel());
                     statement.setInt(3, d.getAntal());
+                    statement.setInt(4, d.getStatus());
                     statement.executeUpdate();
                     statement.close();
                 }

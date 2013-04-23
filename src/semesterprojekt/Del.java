@@ -10,14 +10,14 @@ package semesterprojekt;
  */
 public class Del {
 
-    private int vnummer, antal, hjemme;
     private String titel;
-
-    public Del(int vnummer, String titel, int antal, int hjemme) {
+    private int vnummer, antal, status;
+    
+    public Del(int vnummer, String titel, int antal, int status) {
         this.vnummer = vnummer;
         this.titel = titel;
         this.antal = antal;
-        this.hjemme = hjemme;
+        this.status = status;
     }
 
 
@@ -45,12 +45,12 @@ public class Del {
         this.titel = titel;
     }
     
-    public void setHjemme(int hjemme) {
-        this.hjemme = hjemme;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
-    public int getHjemme() {
-        return hjemme;
+    public int getStatus() {
+        return status;
     }
 
     @Override
@@ -66,15 +66,15 @@ public class Del {
                 navn += " ";
             }
         }
-        String status;
-        if (hjemme == 1)
+        String stringStatus;
+        if (status == 1)
         {
-            status = "Hjemme";
+            stringStatus = "Hjemme";
         }
         else
         {
-            status = "Ude";
+            stringStatus = "Ude";
         }
-        return navn + antal;
+        return navn + antal + ", " + stringStatus;
     }
 }
