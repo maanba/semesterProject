@@ -113,7 +113,7 @@ public class Controller {
                 }
                 if (tidRet.equalsIgnoreCase("Stor Order") || tidLev.equalsIgnoreCase("Stor Order")) {
                     montører = 4;
-                } 
+                }
             }
         }
         currentOrder.setMontører(montører);
@@ -177,15 +177,33 @@ public class Controller {
         }
     }
 
-    public void ordreOrdre(int onummer) {
+    public void bekraeftOrdre(int onummer) {
         ArrayList<Ordre> ol = dbFacade.getAllOrdres();
-        for (int i = 0; i < ol.size(); i++) {
-            if (onummer == ol.get(i).getOnummer()) {
+        ArrayList<Vare> vl = dbFacade.getAllRessources();
+        for (int i = 0; i < ol.size(); i++) 
+        {
+            if (onummer == ol.get(i).getOnummer()) 
+            {
                 ol.get(i).setStatus("Bekræftet ordre");
-                dbFacade.startNewBusinessTransaction();
-                dbFacade.registerDirtyOrder(ol.get(i));
-                dbFacade.commitBusinessTransaction();
-                break;
+                for (int j = 0; j < ol.get(i).getOd().size(); j++) // gældende odetaljers størrelse
+                {
+                    int ovnummer = ol.get(i).getOd().get(j).getVnummer();    // alle odetaljers (vares) vnummer
+                    for (int k = 0; k < vl.size(); k++) // varelistes størrelse
+                    {
+                        for (int l = 0; l < vl.get(k).getDel().size(); l++) // antal dele i gældende vareliste
+                        {
+                            if (ovnummer == vl.get(k).getDel().get(l).getVnummer())// vnummer på dele i vareliste
+                            { 
+                                vl.get(k).getDel().get(l).setStatus(0);
+                                dbFacade.startNewBusinessTransaction();
+                                dbFacade.registerDirtyOrder(ol.get(i));
+                                dbFacade.registerDirtyRessource(vl.get(k));
+                                dbFacade.commitBusinessTransaction();
+                                break;
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -345,7 +363,39 @@ public class Controller {
             }
         }
         return false;
+    }
 
+    public Boolean gennemførOrdrer(boolean afBool, String kunde, double pris, double rabat, double depositum, String tidLev, String tidRet, String lev, String ret, ArrayList<Odetaljer> odetaljer) {
+        boolean result = false;
+        ArrayList<Kunde> kunder = getAllCostumers();
+        int kno = 0;
+        String afhentning;
+        if (afBool) {
+            afhentning = "Afhentes af kunden";
+        } else {
+            afhentning = "Leveres af os";
+        }
+        for (int i = 0; i < kunder.size(); i++) {
+            if (kunde.equals(kunder.get(i).getNavn())) {
+                kno = kunder.get(i).getKnummer();
+            }
+        }
+        if (currentOrder == null) {
+            if (afBool) {
+                createNewOrder(kno, pris, rabat, depositum, "", "", afhentning, "Påbegyndt", lev, ret, odetaljer);
+            } else {
+                createNewOrder(kno, pris, rabat, depositum, tidLev, tidRet, afhentning, "Påbegyndt", lev, ret, odetaljer);
+            }
+        } else if (currentOrder != null) {
+            if (afBool) {
+                updateOrder(kno, pris, rabat, depositum, "", "", afhentning, currentOrder.getStatus(), lev, ret, odetaljer);
+            } else {
+                updateOrder(kno, pris, rabat, depositum, tidLev, tidRet, afhentning, currentOrder.getStatus(), lev, ret, odetaljer);
+            }
+        } else {
+            result = false;
+        }
+        return result;
     }
 
     private int partitionVare(Vare[] array, int left, int right, int pivotIndex) {
