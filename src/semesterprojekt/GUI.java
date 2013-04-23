@@ -921,7 +921,7 @@ public class GUI extends javax.swing.JFrame {
                 listParts.addElement(selected.getDel().get(i));
             }
             controller.redigerTrue();
-            jLabelErrorLager.setText("gg");
+            jLabelErrorLager.setText("");
         }
     }//GEN-LAST:event_jButtonLagerRedigerActionPerformed
 
@@ -1207,8 +1207,6 @@ public class GUI extends javax.swing.JFrame {
         } else {
             update();
         }
-        
-        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButtonStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStatusActionPerformed
