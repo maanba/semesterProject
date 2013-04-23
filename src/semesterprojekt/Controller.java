@@ -379,7 +379,39 @@ public class Controller {
             }
         }
         return false;
+    }
 
+    public Boolean gennemførOrdrer(boolean afBool, String kunde, double pris, double rabat, double depositum, String tidLev, String tidRet, String lev, String ret, ArrayList<Odetaljer> odetaljer) {
+        boolean result = false;
+        ArrayList<Kunde> kunder = getAllCostumers();
+        int kno = 0;
+        String afhentning;
+        if (afBool) {
+            afhentning = "Afhentes af kunden";
+        } else {
+            afhentning = "Leveres af os";
+        }
+        for (int i = 0; i < kunder.size(); i++) {
+            if (kunde.equals(kunder.get(i).getNavn())) {
+                kno = kunder.get(i).getKnummer();
+            }
+        }
+        if (currentOrder == null) {
+            if (afBool) {
+                createNewOrder(kno, pris, rabat, depositum, "", "", afhentning, "Påbegyndt", lev, ret, odetaljer);
+            } else {
+                createNewOrder(kno, pris, rabat, depositum, tidLev, tidRet, afhentning, "Påbegyndt", lev, ret, odetaljer);
+            }
+        } else if (currentOrder != null) {
+            if (afBool) {
+                updateOrder(kno, pris, rabat, depositum, "", "", afhentning, currentOrder.getStatus(), lev, ret, odetaljer);
+            } else {
+                updateOrder(kno, pris, rabat, depositum, tidLev, tidRet, afhentning, currentOrder.getStatus(), lev, ret, odetaljer);
+            }
+        } else {
+            result = false;
+        }
+        return result;
     }
 
     private int partitionVare(Vare[] array, int left, int right, int pivotIndex) {
