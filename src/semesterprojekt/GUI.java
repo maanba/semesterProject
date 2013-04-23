@@ -940,7 +940,7 @@ public class GUI extends javax.swing.JFrame {
             int vnummer = controller.getNextVnummer();
             String delnavn = jTextFieldPartNavn.getText();
             int delantal = Integer.parseInt(jTextFieldPartAntal.getText());
-            listParts.addElement(new Del(vnummer, delnavn, delantal));
+            listParts.addElement(new Del(vnummer, delnavn, delantal, 1));
             jTextFieldPartNavn.setText("");
             jTextFieldPartAntal.setText("");
         }
@@ -1057,7 +1057,6 @@ public class GUI extends javax.swing.JFrame {
                 listVarer.addElement(vare.getDel().get(j));
             }
         }
-        Del selectedpart = (Del) jListParts.getSelectedValue();
     }//GEN-LAST:event_jButtonLevérActionPerformed
 
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
@@ -1293,6 +1292,7 @@ public class GUI extends javax.swing.JFrame {
             jTextFieldTotalPris.setText(selected.getPris() + "");
             list3.removeElementAt(selectedIndex);
             controller.setCurrentOrder(selected);
+            controller.redigerTrue();
         }
         update();
 
@@ -1380,11 +1380,13 @@ public class GUI extends javax.swing.JFrame {
                     jTextFieldMånedUd.setText("");
                     jTextFieldÅrInd.setText("");
                     jTextFieldÅrUd.setText("");
+                    controller.redigerFalse();
                 }
             }
         } else {
             jLabelErrorOrdre.setText("FEJL!");
         }
+        controller.redigerFalse();
         update();
     }//GEN-LAST:event_jButtonGennemførOrdreActionPerformed
 
@@ -1584,18 +1586,40 @@ public class GUI extends javax.swing.JFrame {
             for (int i = 0; i < vl.size(); i++) {
                 for (int j = 0; j < list3.size(); j++) {
                     Ordre o = (Ordre) list3.getElementAt(j);
-                    int oLevYear = Integer.parseInt(o.getLevering().substring(6, 10));
-                    int oLevMonth = Integer.parseInt(o.getLevering().substring(3, 5));
-                    int oLevDay = Integer.parseInt(o.getLevering().substring(0, 2));
-                    int oRetYear = Integer.parseInt(o.getReturnering().substring(6, 10));
-                    int oRetMonth = Integer.parseInt(o.getReturnering().substring(3, 5));
-                    int oRetDay = Integer.parseInt(o.getReturnering().substring(0, 2));
-                    if ((levDay <= oLevDay || levDay <= oRetDay) && (retDay >= oRetDay || retDay >= oLevDay)) {
-                        if ((levMonth <= oLevMonth || levMonth <= oRetMonth) && (retMonth >= oRetMonth || retMonth >= oLevMonth)) {
-                            if ((levYear <= oLevYear || levYear <= oRetYear) && (retYear >= oRetYear || retYear >= oLevYear)) {
-                                for (int k = 0; k < o.getOd().size(); k++) {
-                                    if (vl.get(i).getVnummer() == o.getOd().get(k).getVnummer()) {
-                                        vl.get(i).setQty(vl.get(i).getQty() - o.getOd().get(k).getMaengde());
+                    if (controller.getRediger() == false) {
+                        int oLevYear = Integer.parseInt(o.getLevering().substring(6, 10));
+                        int oLevMonth = Integer.parseInt(o.getLevering().substring(3, 5));
+                        int oLevDay = Integer.parseInt(o.getLevering().substring(0, 2));
+                        int oRetYear = Integer.parseInt(o.getReturnering().substring(6, 10));
+                        int oRetMonth = Integer.parseInt(o.getReturnering().substring(3, 5));
+                        int oRetDay = Integer.parseInt(o.getReturnering().substring(0, 2));
+                        if ((levDay <= oLevDay || levDay <= oRetDay) && (retDay >= oRetDay || retDay >= oLevDay)) {
+                            if ((levMonth <= oLevMonth || levMonth <= oRetMonth) && (retMonth >= oRetMonth || retMonth >= oLevMonth)) {
+                                if ((levYear <= oLevYear || levYear <= oRetYear) && (retYear >= oRetYear || retYear >= oLevYear)) {
+                                    for (int k = 0; k < o.getOd().size(); k++) {
+                                        if (vl.get(i).getVnummer() == o.getOd().get(k).getVnummer()) {
+                                            vl.get(i).setQty(vl.get(i).getQty() - o.getOd().get(k).getMaengde());
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        if (controller.getCurrentOrder().getOnummer() != o.getOnummer()) {
+                            int oLevYear = Integer.parseInt(o.getLevering().substring(6, 10));
+                            int oLevMonth = Integer.parseInt(o.getLevering().substring(3, 5));
+                            int oLevDay = Integer.parseInt(o.getLevering().substring(0, 2));
+                            int oRetYear = Integer.parseInt(o.getReturnering().substring(6, 10));
+                            int oRetMonth = Integer.parseInt(o.getReturnering().substring(3, 5));
+                            int oRetDay = Integer.parseInt(o.getReturnering().substring(0, 2));
+                            if ((levDay <= oLevDay || levDay <= oRetDay) && (retDay >= oRetDay || retDay >= oLevDay)) {
+                                if ((levMonth <= oLevMonth || levMonth <= oRetMonth) && (retMonth >= oRetMonth || retMonth >= oLevMonth)) {
+                                    if ((levYear <= oLevYear || levYear <= oRetYear) && (retYear >= oRetYear || retYear >= oLevYear)) {
+                                        for (int k = 0; k < o.getOd().size(); k++) {
+                                            if (vl.get(i).getVnummer() == o.getOd().get(k).getVnummer()) {
+                                                vl.get(i).setQty(vl.get(i).getQty() - o.getOd().get(k).getMaengde());
+                                            }
+                                        }
                                     }
                                 }
                             }

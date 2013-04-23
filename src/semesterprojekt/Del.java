@@ -10,14 +10,16 @@ package semesterprojekt;
  */
 public class Del {
 
-    private int vnummer, antal;
+    private int vnummer, antal, hjemme;
     private String titel;
 
-    public Del(int vnummer, String titel, int antal) {
+    public Del(int vnummer, String titel, int antal, int hjemme) {
         this.vnummer = vnummer;
         this.titel = titel;
         this.antal = antal;
+        this.hjemme = hjemme;
     }
+
 
     public int getVnummer() {
         return vnummer;
@@ -42,6 +44,14 @@ public class Del {
     public void setTitel(String titel) {
         this.titel = titel;
     }
+    
+    public void setHjemme(int hjemme) {
+        this.hjemme = hjemme;
+    }
+
+    public int getHjemme() {
+        return hjemme;
+    }
 
     @Override
     public String toString() {
@@ -55,6 +65,15 @@ public class Del {
             for (int p = 0; p <= længde; p++) {
                 navn += " ";
             }
+        }
+        String status;
+        if (hjemme == 1)
+        {
+            status = "Hjemme";
+        }
+        else
+        {
+            status = "Ude";
         }
         return navn + antal;
     }
