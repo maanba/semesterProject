@@ -55,11 +55,25 @@ public class PDF {
         int onummer = currentOrder.getOnummer();
         int knummer = currentOrder.getKnummer();
         String status = currentOrder.getStatus() + "";
-
+        double montører = currentOrder.getMontører();
+        
+        if(currentOrder.getMontører() == 1){
+            
+            montører = montører *  300 * 2;
+        }
+        if(currentOrder.getMontører() == 2){
+            montører = montører * 300 * 2;
+        }
+        if(currentOrder.getTidLev().equals("Stor ordre")){
+            montører = 4;
+            montører = montører * 300 * 10;
+        }
+        
+        
         double pris = currentOrder.getPris();
         double rabat = currentOrder.getRabat();
         double depositum = currentOrder.getDepositum();
-        double totalpris = ((pris + depositum) * (1 - (currentOrder.getRabat() / 100)));
+        double totalpris = ((pris + depositum + montører) * (1 - (currentOrder.getRabat() / 100)));
 
         String afhentning = currentOrder.getAfhentning() + "";
         String levering = currentOrder.getLevering() + "";
@@ -144,12 +158,20 @@ public class PDF {
                     table2.addCell(new Phrase("   " + prisMedDecimal(odetaljeArray.get(i).getMaengde() * vareArray.get(i).getPris()), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 }
 
+                if ( currentOrder.getMontører() != 0){
+                table2.addCell(" ");
+                table2.addCell(new Phrase("Montør:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table2.addCell(new Phrase(prisMedDecimal(600.00), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table2.addCell(new Phrase("" + currentOrder.getMontører(), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table2.addCell(new Phrase("   " + prisMedDecimal(montører), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                }
+                
                 table2.addCell(" ");
                 table2.addCell(new Phrase("Depositum:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table2.addCell(" ");
                 table2.addCell(" ");
                 table2.addCell(new Phrase("   " + prisMedDecimal(depositum), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
-
+                
                 table2.addCell(" ");
                 table2.addCell(" ");
                 table2.addCell(" ");
@@ -160,7 +182,7 @@ public class PDF {
                 table2.addCell(new Phrase("Sum:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table2.addCell(" ");
                 table2.addCell(" ");
-                table2.addCell(new Phrase("   " + prisMedDecimal(pris + depositum), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table2.addCell(new Phrase("   " + prisMedDecimal(pris + depositum + montører), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
 
                 table2.addCell(" ");
                 table2.addCell(new Phrase("Rabat:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
@@ -233,7 +255,15 @@ public class PDF {
         double pris = currentOrder.getPris();
         double rabat = currentOrder.getRabat();
         double depositum = currentOrder.getDepositum();
-        double totalpris = ((pris + depositum) * (1 - (currentOrder.getRabat() / 100)));
+        
+        double montører = currentOrder.getMontører();
+        
+        montører = montører * 600;
+        
+        if(currentOrder.getTidLev().equals("Stor ordre")){
+            montører = montører * 3000;
+        }
+        double totalpris = ((pris + depositum + montører) * (1 - (currentOrder.getRabat() / 100)));
         
         String afhentning = currentOrder.getAfhentning() + "";
         String levering = currentOrder.getLevering() + "";
@@ -318,12 +348,20 @@ public class PDF {
                     table2.addCell(new Phrase("   " + prisMedDecimal(odetaljeArray.get(i).getMaengde() * vareArray.get(i).getPris()), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 }
 
+                if (currentOrder.getMontører() != 0){
+                table2.addCell(" ");
+                table2.addCell(new Phrase("Montør:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table2.addCell(new Phrase(prisMedDecimal(600.00), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table2.addCell(new Phrase("" + currentOrder.getMontører(), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table2.addCell(new Phrase("   " + prisMedDecimal(montører), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                }
+                
                 table2.addCell(" ");
                 table2.addCell(new Phrase("Depositum:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table2.addCell(" ");
                 table2.addCell(" ");
                 table2.addCell(new Phrase("   " + prisMedDecimal(depositum), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
-
+                
                 table2.addCell(" ");
                 table2.addCell(" ");
                 table2.addCell(" ");
@@ -334,7 +372,7 @@ public class PDF {
                 table2.addCell(new Phrase("Sum:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table2.addCell(" ");
                 table2.addCell(" ");
-                table2.addCell(new Phrase("   " + prisMedDecimal(pris + depositum), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table2.addCell(new Phrase("   " + prisMedDecimal(pris + depositum + montører), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
 
                 table2.addCell(" ");
                 table2.addCell(new Phrase("Rabat:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
@@ -407,8 +445,16 @@ public class PDF {
         double pris = currentOrder.getPris();
         double rabat = currentOrder.getRabat();
         double depositum = currentOrder.getDepositum();
-        double totalpris = ((pris + depositum) * (1 - (currentOrder.getRabat() / 100)));
-
+        
+        double montører = currentOrder.getMontører();
+        
+        montører = montører * 600;
+        
+        if(currentOrder.getTidLev().equals("Stor ordre")){
+            montører = montører * 600 * 5;
+        }
+        double totalpris = ((pris + depositum + montører) * (1 - (currentOrder.getRabat() / 100)));
+        
         String afhentning = currentOrder.getAfhentning() + "";
         String levering = currentOrder.getLevering() + "";
         String returnering = currentOrder.getReturnering() + "";
@@ -491,12 +537,20 @@ public class PDF {
                     table2.addCell(new Phrase("   " + prisMedDecimal(odetaljeArray.get(i).getMaengde() * vareArray.get(i).getPris()), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 }
 
+                if (currentOrder.getMontører() != 0){
+                table2.addCell(" ");
+                table2.addCell(new Phrase("Montør:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table2.addCell(new Phrase(prisMedDecimal(600.00), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table2.addCell(new Phrase("" + currentOrder.getMontører(), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table2.addCell(new Phrase("   " + prisMedDecimal(montører), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                }
+                
                 table2.addCell(" ");
                 table2.addCell(new Phrase("Depositum:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table2.addCell(" ");
                 table2.addCell(" ");
                 table2.addCell(new Phrase("   " + prisMedDecimal(depositum), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
-
+                
                 table2.addCell(" ");
                 table2.addCell(" ");
                 table2.addCell(" ");
@@ -507,7 +561,7 @@ public class PDF {
                 table2.addCell(new Phrase("Sum:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table2.addCell(" ");
                 table2.addCell(" ");
-                table2.addCell(new Phrase("   " + prisMedDecimal(pris + depositum), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table2.addCell(new Phrase("   " + prisMedDecimal(pris + depositum + montører), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
 
                 table2.addCell(" ");
                 table2.addCell(new Phrase("Rabat:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
