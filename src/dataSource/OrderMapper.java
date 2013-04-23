@@ -735,7 +735,8 @@ public class OrderMapper {
                     v.addDel(new Del(
                             v.getVnummer(),
                             rs.getString(2),
-                            rs.getInt(3)));
+                            rs.getInt(3),
+                            rs.getInt(4)));
                 }
                 vl.add(v);
                 statement.close();
@@ -786,7 +787,8 @@ public class OrderMapper {
                 vare.addDel(new Del(
                         vnummer,
                         rs.getString(2),
-                        rs.getInt(3)));
+                        rs.getInt(3),
+                        rs.getInt(4)));
             }
         } finally {
             if (!rs.isClosed()) {

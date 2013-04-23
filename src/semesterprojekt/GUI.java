@@ -155,6 +155,7 @@ public class GUI extends javax.swing.JFrame {
         jButtonLevér = new javax.swing.JButton();
         jButtonReturSøg = new javax.swing.JButton();
         jTextFieldReturSøg = new javax.swing.JTextField();
+        jLabelErrorRetur = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane9 = new javax.swing.JScrollPane();
@@ -324,7 +325,7 @@ public class GUI extends javax.swing.JFrame {
         jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, 160, -1));
 
         jLabelErrorOrdre.setText("jLabelErrorOrdre");
-        jPanel1.add(jLabelErrorOrdre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 810, 20));
+        jPanel1.add(jLabelErrorOrdre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 810, 20));
         jPanel1.add(jTextFieldAntal, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 200, 40, -1));
 
         jLabel17.setText("Antal:");
@@ -473,7 +474,7 @@ public class GUI extends javax.swing.JFrame {
         jPanel6.add(jLabelKundenummer2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, 160, 30));
 
         jLabelErrorKunder.setText("jLabelErrorKunder");
-        jPanel6.add(jLabelErrorKunder, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, -1, -1));
+        jPanel6.add(jLabelErrorKunder, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, -1, -1));
 
         jTabbedPane1.addTab("Kunder", jPanel6);
 
@@ -522,11 +523,11 @@ public class GUI extends javax.swing.JFrame {
 
         jScrollPane4.setViewportView(jListVarer);
 
-        jPanel3.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, 170, 360));
+        jPanel3.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, 170, 330));
 
         jScrollPane6.setViewportView(jListOrdrer);
 
-        jPanel3.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 170, 360));
+        jPanel3.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 170, 330));
 
         jLabel13.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -570,6 +571,7 @@ public class GUI extends javax.swing.JFrame {
         });
         jPanel3.add(jButtonReturSøg, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, -1, -1));
         jPanel3.add(jTextFieldReturSøg, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 110, -1));
+        jPanel3.add(jLabelErrorRetur, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 810, 20));
 
         jTabbedPane1.addTab("Retur", jPanel3);
         jTabbedPane1.addTab("Kalender", jPanel8);
@@ -824,7 +826,11 @@ public class GUI extends javax.swing.JFrame {
                 vl.add((Vare) Vareliste.getElementAt(i));
             }
             for (int i = 0; i < vl.size(); i++) {
-                if (vl.get(i).getVnavn().contains(jTextFieldLagerSøg.getText())) {
+                String vnummer = vl.get(i).getVnummer() + "";
+                String vnavn = vl.get(i).getVnavn().toLowerCase();
+                if (vnavn.contains(jTextFieldLagerSøg.getText().toLowerCase())) {
+                    jListVareliste.setSelectedIndex(i);
+                } else if (vnummer.contains(jTextFieldLagerSøg.getText())) {
                     jListVareliste.setSelectedIndex(i);
                 } else {
                     Vareliste.removeElementAt(i - counter);
@@ -849,7 +855,7 @@ public class GUI extends javax.swing.JFrame {
         if (selected != null) {
             controller.deleteVare(selected);
             update();
-        }
+        } 
         jLabelErrorLager.setText("");
     }//GEN-LAST:event_jButtonSletVareActionPerformed
 
@@ -915,7 +921,7 @@ public class GUI extends javax.swing.JFrame {
                 listParts.addElement(selected.getDel().get(i));
             }
             controller.redigerTrue();
-            jLabelErrorLager.setText("");
+            jLabelErrorLager.setText("gg");
         }
     }//GEN-LAST:event_jButtonLagerRedigerActionPerformed
 
@@ -936,7 +942,7 @@ public class GUI extends javax.swing.JFrame {
             int vnummer = controller.getNextVnummer();
             String delnavn = jTextFieldPartNavn.getText();
             int delantal = Integer.parseInt(jTextFieldPartAntal.getText());
-            listParts.addElement(new Del(vnummer, delnavn, delantal));
+            listParts.addElement(new Del(vnummer, delnavn, delantal, 1));
             jTextFieldPartNavn.setText("");
             jTextFieldPartAntal.setText("");
         }
@@ -969,9 +975,16 @@ public class GUI extends javax.swing.JFrame {
             }
             for (int i = 0; i < ol.size(); i++) {
                 String onummer = ol.get(i).getOnummer() + "";
+                String knummer = ol.get(i).getKnummer() + "";
+                String status = ol.get(i).getStatus().toLowerCase();
                 if (onummer.contains(jTextFieldHistorikSøg.getText())) {
                     jListHistorik.setSelectedIndex(i);
-                } else {
+                } else if (status.contains(jTextFieldHistorikSøg.getText().toLowerCase())){
+                    jListHistorik.setSelectedIndex(i);
+                } else if (knummer.contains(jTextFieldHistorikSøg.getText())){
+                    jListHistorik.setSelectedIndex(i);
+                }
+                    else {
                     listHistorik.removeElementAt(i - counter);
                     counter++;
                 }
@@ -1014,9 +1027,16 @@ public class GUI extends javax.swing.JFrame {
             }
             for (int i = 0; i < ol.size(); i++) {
                 String onummer = ol.get(i).getOnummer() + "";
+                String knummer = ol.get(i).getKnummer() + "";
+                String status = ol.get(i).getStatus().toLowerCase();
                 if (onummer.contains(jTextFieldReturSøg.getText())) {
                     jListOrdrer.setSelectedIndex(i);
-                } else {
+                } else if (knummer.contains(jTextFieldReturSøg.getText())){
+                    jListOrdrer.setSelectedIndex(i);
+                } else if (status.contains(jTextFieldReturSøg.getText().toLowerCase())){
+                    jListOrdrer.setSelectedIndex(i);
+                }
+                    else {
                     listOrdrer.removeElementAt(i - counter);
                     counter++;
                 }
@@ -1032,14 +1052,19 @@ public class GUI extends javax.swing.JFrame {
     private void jButtonLevérActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLevérActionPerformed
         Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
         ArrayList<Odetaljer> od = selected.getOd();
-
+        
+        
+        
         for (int i = 0; i < od.size(); i++) {
             Vare vare = controller.getVare(od.get(i).getVnummer());
             for (int j = 0; j < vare.getDel().size(); j++) {
                 listVarer.addElement(vare.getDel().get(j));
             }
         }
-        Del selectedpart = (Del) jListParts.getSelectedValue();
+        
+        
+        
+        
     }//GEN-LAST:event_jButtonLevérActionPerformed
 
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
@@ -1060,7 +1085,11 @@ public class GUI extends javax.swing.JFrame {
                 vl.add((Vare) listTilbudVarer.getElementAt(i));
             }
             for (int i = 0; i < vl.size(); i++) {
-                if (vl.get(i).getVnavn().contains(jTextFieldTilbudSøg.getText())) {
+                String vnavn = vl.get(i).getVnavn().toLowerCase();
+                String vnummer = vl.get(i).getVnummer() + "";
+                if (vnavn.contains(jTextFieldTilbudSøg.getText().toLowerCase())) {
+                    jListTilbudVarer.setSelectedIndex(i);
+                } else if (vnummer.contains(jTextFieldTilbudSøg.getText())){
                     jListTilbudVarer.setSelectedIndex(i);
                 } else {
                     listTilbudVarer.removeElementAt(i - counter);
@@ -1083,9 +1112,24 @@ public class GUI extends javax.swing.JFrame {
                 kl.add((Kunde) listKundeliste.getElementAt(i));
             }
             for (int i = 0; i < kl.size(); i++) {
-                if (kl.get(i).getFirma() == null && kl.get(i).getNavn().contains(jTextFieldKundeSøg.getText())) {
+                String firma;
+                if (kl.get(i).getFirma() != null){
+                    firma = kl.get(i).getFirma().toLowerCase();
+                } else {
+                    firma = kl.get(i).getNavn().toLowerCase();
+                }
+                String knummer = kl.get(i).getKnummer() + "";
+                String telefonnummer = kl.get(i).getTelefonnummer() + "";
+                String postnummer = kl.get(i).getPostnummer() + "";
+                if (firma == null && firma.contains(jTextFieldKundeSøg.getText().toLowerCase())) {
                     jListKundeliste.setSelectedIndex(i);
-                } else if (kl.get(i).getFirma() != null && kl.get(i).getFirma().contains(jTextFieldKundeSøg.getText()) || kl.get(i).getNavn().contains(jTextFieldKundeSøg.getText())) {
+                } else if (firma != null && firma.contains(jTextFieldKundeSøg.getText().toLowerCase()) || kl.get(i).getNavn().contains(jTextFieldKundeSøg.getText().toLowerCase())) {
+                    jListKundeliste.setSelectedIndex(i);
+                } else if (knummer.contains(jTextFieldKundeSøg.getText())){
+                    jListKundeliste.setSelectedIndex(i);
+                } else if (telefonnummer.contains(jTextFieldKundeSøg.getText())){
+                    jListKundeliste.setSelectedIndex(i);
+                } else if (postnummer.contains(jTextFieldKundeSøg.getText())){
                     jListKundeliste.setSelectedIndex(i);
                 } else {
                     listKundeliste.removeElementAt(i - counter);
@@ -1158,7 +1202,13 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonOrdrePdfActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        update();
+        if(jTextFieldDagUd.getText().isEmpty()  || jTextFieldMånedUd.getText().isEmpty() || jTextFieldÅrUd.getText().isEmpty() || jTextFieldDagInd.getText().isEmpty() || jTextFieldMånedInd.getText().isEmpty() || jTextFieldÅrInd.getText().isEmpty() ){
+            jLabelErrorOrdre.setText("Fejl. Indtast datoer korrekt");
+        } else {
+            update();
+        }
+        
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButtonStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStatusActionPerformed
@@ -1259,7 +1309,6 @@ public class GUI extends javax.swing.JFrame {
             controller.setCurrentOrder(selected);
             controller.redigerTrue();
         }
-        update();
 
         Kunde kunde = controller.getKunde(selected.getKnummer());
 
@@ -1820,6 +1869,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelErrorKunder;
     private javax.swing.JLabel jLabelErrorLager;
     private javax.swing.JLabel jLabelErrorOrdre;
+    private javax.swing.JLabel jLabelErrorRetur;
     private javax.swing.JLabel jLabelKundenummer1;
     private javax.swing.JLabel jLabelKundenummer2;
     private javax.swing.JLabel jLabelOpretRedigerKunde;
@@ -1836,7 +1886,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JList jListTilbudVarer;
     private javax.swing.JList jListVareliste;
     private javax.swing.JList jListVarer;
-    private javax.swing.JPanel jPanel1;
+    private static javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
