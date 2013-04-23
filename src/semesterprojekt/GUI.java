@@ -1118,7 +1118,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonHjemmeActionPerformed
 
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
-        Del selected = (Del) jListDele.getSelectedValue();
+        Del selected = (Del) jListLagerDele.getSelectedValue();
         selected.setStatus(1);
     }//GEN-LAST:event_jButtonOKActionPerformed
 
