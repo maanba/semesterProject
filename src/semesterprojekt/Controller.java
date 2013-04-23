@@ -64,9 +64,11 @@ public class Controller {
             }
             if (afhentning.equals("Afhentes af kunden")) {
                 montører = 0;
+            } else if (tidRet.equalsIgnoreCase("Stor Order") || tidLev.equalsIgnoreCase("Stor Order")) {
+                montører = 4;
             } else {
                 for (int i = 0; i < odetaljer.size(); i++) {
-                    if (getVare(odetaljer.get(i).getVnummer()).getVnavn().equals("Telt")) {
+                    if (getVare(odetaljer.get(i).getVnummer()).getVnavn().toLowerCase().contains("telt")) {
                         montører = 2;
                         break;
                     } else {
@@ -103,12 +105,15 @@ public class Controller {
             montører = 0;
         } else {
             for (int i = 0; i < odetaljer.size(); i++) {
-                if (getVare(odetaljer.get(i).getVnummer()).getVnavn().equals("Telt")) {
+                if (getVare(odetaljer.get(i).getVnummer()).getVnavn().toLowerCase().contains("telt")) {
                     montører = 2;
                     break;
                 } else {
                     montører = 1;
                 }
+                if (tidRet.equalsIgnoreCase("Stor Order") || tidLev.equalsIgnoreCase("Stor Order")) {
+                    montører = 4;
+                } 
             }
         }
         currentOrder.setMontører(montører);
