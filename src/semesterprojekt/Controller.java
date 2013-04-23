@@ -206,22 +206,6 @@ public class Controller {
                 }
             }
         }
-
-        // ArrayList<Vare> vl = new ArrayList<>();
-        //ol.get(onummer)
-
-
-        /*
-         ArrayList<Vare> vl1 = new ArrayList<>();
-         ArrayList<Vare> vl = dbFacade.getAllRessources();
-         for (int i = 0; i < vl.size(); i++) 
-         {
-         for (int j = 0; j < vl.get(i).getDel().size(); j++) 
-         {
-         vl.get(i).getDel().get(j).setStatus(0);
-         }
-         }
-         */
     }
 
     public void ordreTilbud(int onummer) {
