@@ -936,7 +936,7 @@ public class GUI extends javax.swing.JFrame {
             int vnummer = controller.getNextVnummer();
             String delnavn = jTextFieldPartNavn.getText();
             int delantal = Integer.parseInt(jTextFieldPartAntal.getText());
-            listParts.addElement(new Del(vnummer, delnavn, delantal));
+            listParts.addElement(new Del(vnummer, delnavn, delantal, 1));
             jTextFieldPartNavn.setText("");
             jTextFieldPartAntal.setText("");
         }
@@ -1039,7 +1039,6 @@ public class GUI extends javax.swing.JFrame {
                 listVarer.addElement(vare.getDel().get(j));
             }
         }
-        Del selectedpart = (Del) jListParts.getSelectedValue();
     }//GEN-LAST:event_jButtonLevérActionPerformed
 
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
