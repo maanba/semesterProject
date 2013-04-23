@@ -20,8 +20,8 @@ public class GUI extends javax.swing.JFrame {
     private DefaultListModel listKundeliste = new DefaultListModel();
     private DefaultListModel listHistorik = new DefaultListModel();
     private DefaultListModel listOrdrer = new DefaultListModel();
-    private DefaultListModel listDele = new DefaultListModel();
-    private DefaultListModel listParts = new DefaultListModel();
+    private DefaultListModel listReturDele = new DefaultListModel();
+    private DefaultListModel listLagerDele = new DefaultListModel();
     private Controller controller = new Controller();
 
     public GUI() {
@@ -45,8 +45,8 @@ public class GUI extends javax.swing.JFrame {
         jListKundeliste.setModel(listKundeliste);
         jListHistorik.setModel(listHistorik);
         jListOrdrer.setModel(listOrdrer);
-        jListDele.setModel(listDele);
-        jListParts.setModel(listParts);
+        jListReturDele.setModel(listReturDele);
+        jListLagerDele.setModel(listLagerDele);
 
         jLabelErrorLager.setText("");
         jLabelErrorOrdre.setText("");
@@ -145,17 +145,20 @@ public class GUI extends javax.swing.JFrame {
         jButtonTilbudSøg = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jListDele = new javax.swing.JList();
+        jListReturDele = new javax.swing.JList();
         jScrollPane6 = new javax.swing.JScrollPane();
         jListOrdrer = new javax.swing.JList();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jButtonAfslutOrdre = new javax.swing.JButton();
-        jButtonOK = new javax.swing.JButton();
+        jButtonHjemme = new javax.swing.JButton();
         jButtonLevér = new javax.swing.JButton();
         jButtonReturSøg = new javax.swing.JButton();
         jTextFieldReturSøg = new javax.swing.JTextField();
         jLabelErrorRetur = new javax.swing.JLabel();
+        jButtonUde = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane9 = new javax.swing.JScrollPane();
@@ -183,7 +186,7 @@ public class GUI extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jTextFieldVarePris = new javax.swing.JTextField();
         jScrollPane11 = new javax.swing.JScrollPane();
-        jListParts = new javax.swing.JList();
+        jListLagerDele = new javax.swing.JList();
         jTextFieldPartNavn = new javax.swing.JTextField();
         jTextFieldPartAntal = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -521,7 +524,7 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jScrollPane4.setViewportView(jListDele);
+        jScrollPane4.setViewportView(jListReturDele);
 
         jPanel3.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, 170, 330));
 
@@ -545,15 +548,15 @@ public class GUI extends javax.swing.JFrame {
                 jButtonAfslutOrdreActionPerformed(evt);
             }
         });
-        jPanel3.add(jButtonAfslutOrdre, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 100, -1, -1));
+        jPanel3.add(jButtonAfslutOrdre, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 130, -1, -1));
 
-        jButtonOK.setText("OK");
-        jButtonOK.addActionListener(new java.awt.event.ActionListener() {
+        jButtonHjemme.setText("Hjemme");
+        jButtonHjemme.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonOKActionPerformed(evt);
+                jButtonHjemmeActionPerformed(evt);
             }
         });
-        jPanel3.add(jButtonOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 70, 50, -1));
+        jPanel3.add(jButtonHjemme, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 70, 70, -1));
 
         jButtonLevér.setText("Levér >");
         jButtonLevér.addActionListener(new java.awt.event.ActionListener() {
@@ -572,6 +575,30 @@ public class GUI extends javax.swing.JFrame {
         jPanel3.add(jButtonReturSøg, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, -1, -1));
         jPanel3.add(jTextFieldReturSøg, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 110, -1));
         jPanel3.add(jLabelErrorRetur, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 810, 20));
+
+        jButtonUde.setText("Ude");
+        jButtonUde.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUdeActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButtonUde, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 100, 70, -1));
+
+        jButton2.setText("jButton2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 160, -1, -1));
+
+        jButton3.setText("UDE!");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 280, -1, -1));
 
         jTabbedPane1.addTab("Retur", jPanel3);
         jTabbedPane1.addTab("Kalender", jPanel8);
@@ -696,12 +723,12 @@ public class GUI extends javax.swing.JFrame {
         jPanel5.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 50, -1));
         jPanel5.add(jTextFieldVarePris, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 120, -1));
 
-        jListParts.setModel(new javax.swing.AbstractListModel() {
+        jListLagerDele.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane11.setViewportView(jListParts);
+        jScrollPane11.setViewportView(jListLagerDele);
 
         jPanel5.add(jScrollPane11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 180, 130));
         jPanel5.add(jTextFieldPartNavn, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, 120, -1));
@@ -811,9 +838,9 @@ public class GUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        Del del = (Del) jListParts.getSelectedValue();
-        int si = jListParts.getSelectedIndex();
-        listParts.removeElementAt(si);
+        Del del = (Del) jListLagerDele.getSelectedValue();
+        int si = jListLagerDele.getSelectedIndex();
+        listLagerDele.removeElementAt(si);
         jTextFieldPartNavn.setText(del.getTitel());
         jTextFieldPartAntal.setText("" + del.getAntal());
     }//GEN-LAST:event_jToggleButton1ActionPerformed
@@ -874,10 +901,10 @@ public class GUI extends javax.swing.JFrame {
                 aktiv = 0;
             }
             Vare vare = new Vare(vnummer, vnavn, qty, pris, aktiv);
-            for (int i = 0; i < listParts.size(); i++) {
-                vare.addDel((Del) listParts.getElementAt(i));
+            for (int i = 0; i < listLagerDele.size(); i++) {
+                vare.addDel((Del) listLagerDele.getElementAt(i));
             }
-            controller.redigerVare(vare);
+            controller.updateVare(vare);
             jLabelErrorLager.setText("");
         } else {
             vnummer = controller.getNextVnummer();
@@ -887,8 +914,8 @@ public class GUI extends javax.swing.JFrame {
                 aktiv = 0;
             }
             Vare vare = new Vare(vnummer, vnavn, qty, pris, aktiv);
-            for (int i = 0; i < listParts.size(); i++) {
-                vare.addDel((Del) listParts.getElementAt(i));
+            for (int i = 0; i < listLagerDele.size(); i++) {
+                vare.addDel((Del) listLagerDele.getElementAt(i));
             }
             controller.addVare(vare);
             jLabelErrorLager.setText("");
@@ -904,8 +931,8 @@ public class GUI extends javax.swing.JFrame {
         }
         if (controller.getRediger() == false && selected != null) {
 
-            listDele.removeElement(selected);
-            listParts.clear();
+            listReturDele.removeElement(selected);
+            listLagerDele.clear();
             jLabelOpretRedigerVare.setText("Redigerer i vare:");
             jLabelVarenummer1.setText("Varenummer:");
             jLabelVarenummer2.setText(selected.getVnummer() + "");
@@ -918,7 +945,7 @@ public class GUI extends javax.swing.JFrame {
                 jRadioIkkeAktiv.setSelected(false);
             }
             for (int i = 0; i < selected.getDel().size(); i++) {
-                listParts.addElement(selected.getDel().get(i));
+                listLagerDele.addElement(selected.getDel().get(i));
             }
             controller.redigerTrue();
             jLabelErrorLager.setText("gg");
@@ -926,12 +953,12 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonLagerRedigerActionPerformed
 
     private void jButtonRedigerPartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRedigerPartActionPerformed
-        Object selected = (Del) jListParts.getSelectedValue();
+        Object selected = (Del) jListLagerDele.getSelectedValue();
         if (!jTextFieldPartNavn.getText().isEmpty() || !jTextFieldPartAntal.getText().isEmpty()) {
             jLabelErrorLager.setText("You need to finish editing a part before editing a new one.");
         } else if (selected != null) {
-            Del del = (Del) jListParts.getSelectedValue();
-            listParts.removeElementAt(jListParts.getSelectedIndex());
+            Del del = (Del) jListLagerDele.getSelectedValue();
+            listLagerDele.removeElementAt(jListLagerDele.getSelectedIndex());
             jTextFieldPartNavn.setText(del.getTitel());
             jTextFieldPartAntal.setText("" + del.getAntal());
         }
@@ -942,15 +969,15 @@ public class GUI extends javax.swing.JFrame {
             int vnummer = controller.getNextVnummer();
             String delnavn = jTextFieldPartNavn.getText();
             int delantal = Integer.parseInt(jTextFieldPartAntal.getText());
-            listParts.addElement(new Del(vnummer, delnavn, delantal, 1));
+            listLagerDele.addElement(new Del(vnummer, delnavn, delantal, 1));
             jTextFieldPartNavn.setText("");
             jTextFieldPartAntal.setText("");
         }
     }//GEN-LAST:event_jButtonTilføjPartActionPerformed
 
     private void jButtonFjernPartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFjernPartActionPerformed
-        Object selected = (Del) jListParts.getSelectedValue();
-        listParts.removeElement(selected);
+        Object selected = (Del) jListLagerDele.getSelectedValue();
+        listLagerDele.removeElement(selected);
         jLabelErrorLager.setText("");
     }//GEN-LAST:event_jButtonFjernPartActionPerformed
 
@@ -1065,29 +1092,30 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonReturSøgActionPerformed
 
     private void jButtonLevérActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLevérActionPerformed
+        listReturDele.clear();
         Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
         ArrayList<Odetaljer> od = selected.getOd();
-        
-        
-        
         for (int i = 0; i < od.size(); i++) {
             Vare vare = controller.getVare(od.get(i).getVnummer());
             for (int j = 0; j < vare.getDel().size(); j++) {
-                listDele.addElement((Del) vare.getDel().get(j));
+                listReturDele.addElement((Del) vare.getDel().get(j));
             }
         }
-        
-        
-        
-        
     }//GEN-LAST:event_jButtonLevérActionPerformed
 
-    private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
-        Del selected = (Del) jListDele.getSelectedValue();
-        selected.setStatus(1);
-    }//GEN-LAST:event_jButtonOKActionPerformed
-        
-        
+    private void jButtonHjemmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHjemmeActionPerformed
+        Del selectedDel = (Del) jListReturDele.getSelectedValue();
+        selectedDel.setStatus(1);
+        listReturDele.clear();
+        Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
+        ArrayList<Odetaljer> od = selected.getOd();
+        for (int i = 0; i < od.size(); i++) {
+            Vare vare = controller.getVare(od.get(i).getVnummer());
+            for (int j = 0; j < vare.getDel().size(); j++) {
+                listReturDele.addElement((Del) vare.getDel().get(j));
+            }
+        }
+    }//GEN-LAST:event_jButtonHjemmeActionPerformed
     private void jButtonAfslutOrdreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAfslutOrdreActionPerformed
         Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
         controller.ordreAfslut(selected.getKnummer());
@@ -1181,7 +1209,7 @@ public class GUI extends javax.swing.JFrame {
         } else if (controller.getRediger() == true) {
             int knummer = Integer.parseInt(jLabelKundenummer2.getText());
             Kunde kunde = new Kunde(knummer, firma, navn, adresse, postnummer, telefonnummer);
-            controller.redigerKunde(kunde);
+            controller.updateKunde(kunde);
             jLabelErrorKunder.setText("");
             update();
             controller.redigerFalse();
@@ -1424,6 +1452,32 @@ public class GUI extends javax.swing.JFrame {
         update();
     }//GEN-LAST:event_jButtonTilføjActionPerformed
 
+    private void jButtonUdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUdeActionPerformed
+        Del selectedDel = (Del) jListReturDele.getSelectedValue();
+        selectedDel.setStatus(0);
+        
+        listReturDele.clear();
+        Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
+        ArrayList<Odetaljer> od = selected.getOd();
+        for (int i = 0; i < od.size(); i++) {
+            Vare vare = controller.getVare(od.get(i).getVnummer());
+            for (int j = 0; j < vare.getDel().size(); j++) {
+                listReturDele.addElement((Del) vare.getDel().get(j));
+            }
+        }
+    }//GEN-LAST:event_jButtonUdeActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+                Del selectedDel = (Del) jListReturDele.getSelectedValue();
+        System.out.println(selectedDel.getStatus());
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+                        Del selectedDel = (Del) jListReturDele.getSelectedValue();
+                        selectedDel.setStatus(0);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     private void jButtonLeverActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
@@ -1489,7 +1543,7 @@ public class GUI extends javax.swing.JFrame {
                 return label;
             }
         });
-        jListDele.setCellRenderer(new DefaultListCellRenderer() { // Setting the DefaultListCellRenderer
+        jListReturDele.setCellRenderer(new DefaultListCellRenderer() { // Setting the DefaultListCellRenderer
             @Override
             public Component getListCellRendererComponent(JList list, Object value, int index,
                     boolean isSelected, boolean cellHasFocus) {
@@ -1787,7 +1841,7 @@ public class GUI extends javax.swing.JFrame {
             jTextFieldVareQty.setText("");
             jTextFieldPartNavn.setText("");
             jTextFieldPartAntal.setText("");
-            listParts.clear();
+            listLagerDele.clear();
 
         }
         // Kundeliste 
@@ -1821,6 +1875,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButtonAfslut;
     private javax.swing.JButton jButtonAfslutOrdre;
     private javax.swing.JButton jButtonDepositum;
@@ -1831,13 +1887,13 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonGennemførOrdre;
     private javax.swing.JButton jButtonHistorikFaktura;
     private javax.swing.JButton jButtonHistorikSøg;
+    private javax.swing.JButton jButtonHjemme;
     private javax.swing.JButton jButtonKundeSøg;
     private javax.swing.JButton jButtonLagerGem;
     private javax.swing.JButton jButtonLagerRediger;
     private javax.swing.JButton jButtonLagerSøg;
     private javax.swing.JButton jButtonLevér;
     private javax.swing.JButton jButtonMontoer;
-    private javax.swing.JButton jButtonOK;
     private javax.swing.JButton jButtonOrdre;
     private javax.swing.JButton jButtonOrdre1;
     private javax.swing.JButton jButtonOrdre3;
@@ -1857,6 +1913,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonTilbudSøg;
     private javax.swing.JButton jButtonTilføj;
     private javax.swing.JButton jButtonTilføjPart;
+    private javax.swing.JButton jButtonUde;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JComboBox jComboBox3;
@@ -1899,11 +1956,11 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JList jList1;
     private javax.swing.JList jList2;
     private javax.swing.JList jList3;
-    private javax.swing.JList jListDele;
     private javax.swing.JList jListHistorik;
     private javax.swing.JList jListKundeliste;
+    private javax.swing.JList jListLagerDele;
     private javax.swing.JList jListOrdrer;
-    private javax.swing.JList jListParts;
+    private javax.swing.JList jListReturDele;
     private javax.swing.JList jListTilbudVarer;
     private javax.swing.JList jListVareliste;
     private javax.swing.JPanel jPanel1;

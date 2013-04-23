@@ -50,7 +50,7 @@ public class Controller {
         this.currentOrder = currentOrder;
     }
 
-    public Ordre createNewOrder(int knummer, double pris, double rabat, double depositum, String tidLev, String tidRet, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
+    public Ordre addNewOrder(int knummer, double pris, double rabat, double depositum, String tidLev, String tidRet, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
         int montører = 0;
@@ -382,9 +382,9 @@ public class Controller {
         }
         if (currentOrder == null) {
             if (afBool) {
-                createNewOrder(kno, pris, rabat, depositum, "", "", afhentning, "Påbegyndt", lev, ret, odetaljer);
+                addNewOrder(kno, pris, rabat, depositum, "", "", afhentning, "Påbegyndt", lev, ret, odetaljer);
             } else {
-                createNewOrder(kno, pris, rabat, depositum, tidLev, tidRet, afhentning, "Påbegyndt", lev, ret, odetaljer);
+                addNewOrder(kno, pris, rabat, depositum, tidLev, tidRet, afhentning, "Påbegyndt", lev, ret, odetaljer);
             }
         } else if (currentOrder != null) {
             if (afBool) {
@@ -436,13 +436,13 @@ public class Controller {
         return array;
     }
 
-    public void redigerVare(Vare vare) {
+    public void updateVare(Vare vare) {
         dbFacade.startNewBusinessTransaction();
         dbFacade.registerDirtyRessource(vare);
         dbFacade.commitBusinessTransaction();
     }
 
-    public void redigerKunde(Kunde kunde) {
+    public void updateKunde(Kunde kunde) {
         dbFacade.startNewBusinessTransaction();
         dbFacade.registerDirtyCustomer(kunde);
         dbFacade.commitBusinessTransaction();
@@ -668,3 +668,5 @@ public class Controller {
         return rediger;
     }
 }
+
+
