@@ -1906,11 +1906,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JList jListParts;
     private javax.swing.JList jListTilbudVarer;
     private javax.swing.JList jListVareliste;
-<<<<<<< HEAD
-=======
-    private javax.swing.JList jListVarer;
->>>>>>> branch 'master' of https://github.com/maanba/semesterProject.git
-    private static javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
