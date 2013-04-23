@@ -155,6 +155,7 @@ public class GUI extends javax.swing.JFrame {
         jButtonLevér = new javax.swing.JButton();
         jButtonReturSøg = new javax.swing.JButton();
         jTextFieldReturSøg = new javax.swing.JTextField();
+        jLabelErrorRetur = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane9 = new javax.swing.JScrollPane();
@@ -324,7 +325,7 @@ public class GUI extends javax.swing.JFrame {
         jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, 160, -1));
 
         jLabelErrorOrdre.setText("jLabelErrorOrdre");
-        jPanel1.add(jLabelErrorOrdre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 810, 20));
+        jPanel1.add(jLabelErrorOrdre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 810, 20));
         jPanel1.add(jTextFieldAntal, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 200, 40, -1));
 
         jLabel17.setText("Antal:");
@@ -473,7 +474,7 @@ public class GUI extends javax.swing.JFrame {
         jPanel6.add(jLabelKundenummer2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, 160, 30));
 
         jLabelErrorKunder.setText("jLabelErrorKunder");
-        jPanel6.add(jLabelErrorKunder, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, -1, -1));
+        jPanel6.add(jLabelErrorKunder, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, -1, -1));
 
         jTabbedPane1.addTab("Kunder", jPanel6);
 
@@ -522,11 +523,11 @@ public class GUI extends javax.swing.JFrame {
 
         jScrollPane4.setViewportView(jListVarer);
 
-        jPanel3.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, 170, 360));
+        jPanel3.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, 170, 330));
 
         jScrollPane6.setViewportView(jListOrdrer);
 
-        jPanel3.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 170, 360));
+        jPanel3.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 170, 330));
 
         jLabel13.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -570,6 +571,7 @@ public class GUI extends javax.swing.JFrame {
         });
         jPanel3.add(jButtonReturSøg, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, -1, -1));
         jPanel3.add(jTextFieldReturSøg, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 110, -1));
+        jPanel3.add(jLabelErrorRetur, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 810, 20));
 
         jTabbedPane1.addTab("Retur", jPanel3);
         jTabbedPane1.addTab("Kalender", jPanel8);
@@ -849,7 +851,7 @@ public class GUI extends javax.swing.JFrame {
         if (selected != null) {
             controller.deleteVare(selected);
             update();
-        }
+        } 
         jLabelErrorLager.setText("");
     }//GEN-LAST:event_jButtonSletVareActionPerformed
 
@@ -915,7 +917,7 @@ public class GUI extends javax.swing.JFrame {
                 listParts.addElement(selected.getDel().get(i));
             }
             controller.redigerTrue();
-            jLabelErrorLager.setText("");
+            jLabelErrorLager.setText("gg");
         }
     }//GEN-LAST:event_jButtonLagerRedigerActionPerformed
 
@@ -1032,13 +1034,19 @@ public class GUI extends javax.swing.JFrame {
     private void jButtonLevérActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLevérActionPerformed
         Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
         ArrayList<Odetaljer> od = selected.getOd();
-
+        
+        
+        
         for (int i = 0; i < od.size(); i++) {
             Vare vare = controller.getVare(od.get(i).getVnummer());
             for (int j = 0; j < vare.getDel().size(); j++) {
                 listVarer.addElement(vare.getDel().get(j));
             }
         }
+        
+        
+        
+        
     }//GEN-LAST:event_jButtonLevérActionPerformed
 
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
@@ -1157,7 +1165,13 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonOrdrePdfActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        update();
+        if(jTextFieldDagUd.getText().isEmpty()  || jTextFieldMånedUd.getText().isEmpty() || jTextFieldÅrUd.getText().isEmpty() || jTextFieldDagInd.getText().isEmpty() || jTextFieldMånedInd.getText().isEmpty() || jTextFieldÅrInd.getText().isEmpty() ){
+            jLabelErrorOrdre.setText("Fejl. Indtast datoer korrekt");
+        } else {
+            update();
+        }
+        
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButtonStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStatusActionPerformed
@@ -1257,7 +1271,6 @@ public class GUI extends javax.swing.JFrame {
             controller.setCurrentOrder(selected);
             controller.redigerTrue();
         }
-        update();
 
         Kunde kunde = controller.getKunde(selected.getKnummer());
 
@@ -1811,6 +1824,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelErrorKunder;
     private javax.swing.JLabel jLabelErrorLager;
     private javax.swing.JLabel jLabelErrorOrdre;
+    private javax.swing.JLabel jLabelErrorRetur;
     private javax.swing.JLabel jLabelKundenummer1;
     private javax.swing.JLabel jLabelKundenummer2;
     private javax.swing.JLabel jLabelOpretRedigerKunde;
@@ -1827,7 +1841,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JList jListTilbudVarer;
     private javax.swing.JList jListVareliste;
     private javax.swing.JList jListVarer;
-    private javax.swing.JPanel jPanel1;
+    private static javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
