@@ -113,7 +113,7 @@ public class Controller {
                 }
                 if (tidRet.equalsIgnoreCase("Stor Order") || tidLev.equalsIgnoreCase("Stor Order")) {
                     montører = 4;
-                } 
+                }
             }
         }
         currentOrder.setMontører(montører);
@@ -177,17 +177,51 @@ public class Controller {
         }
     }
 
-    public void ordreOrdre(int onummer) {
+    public void bekraeftOrdre(int onummer) {
         ArrayList<Ordre> ol = dbFacade.getAllOrdres();
-        for (int i = 0; i < ol.size(); i++) {
-            if (onummer == ol.get(i).getOnummer()) {
+        ArrayList<Vare> vl = dbFacade.getAllRessources();
+        for (int i = 0; i < ol.size(); i++) 
+        {
+            if (onummer == ol.get(i).getOnummer()) 
+            {
                 ol.get(i).setStatus("Bekræftet ordre");
-                dbFacade.startNewBusinessTransaction();
-                dbFacade.registerDirtyOrder(ol.get(i));
-                dbFacade.commitBusinessTransaction();
-                break;
+                for (int j = 0; j < ol.get(i).getOd().size(); j++) // gældende odetaljers størrelse
+                {
+                    int ovnummer = ol.get(i).getOd().get(j).getVnummer();    // alle odetaljers (vares) vnummer
+                    for (int k = 0; k < vl.size(); k++) // varelistes størrelse
+                    {
+                        for (int l = 0; l < vl.get(k).getDel().size(); l++) // antal dele i gældende vareliste
+                        {
+                            if (ovnummer == vl.get(k).getDel().get(l).getVnummer())// vnummer på dele i vareliste
+                            { 
+                                vl.get(k).getDel().get(l).setStatus(0);
+                                dbFacade.startNewBusinessTransaction();
+                                dbFacade.registerDirtyOrder(ol.get(i));
+                                dbFacade.registerDirtyRessource(vl.get(k));
+                                dbFacade.commitBusinessTransaction();
+                                break;
+                            }
+                        }
+                    }
+                }
             }
         }
+
+        // ArrayList<Vare> vl = new ArrayList<>();
+        //ol.get(onummer)
+
+
+        /*
+         ArrayList<Vare> vl1 = new ArrayList<>();
+         ArrayList<Vare> vl = dbFacade.getAllRessources();
+         for (int i = 0; i < vl.size(); i++) 
+         {
+         for (int j = 0; j < vl.get(i).getDel().size(); j++) 
+         {
+         vl.get(i).getDel().get(j).setStatus(0);
+         }
+         }
+         */
     }
 
     public void ordreTilbud(int onummer) {
