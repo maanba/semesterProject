@@ -180,10 +180,8 @@ public class Controller {
     public void bekraeftOrdre(int onummer) {
         ArrayList<Ordre> ol = dbFacade.getAllOrdres();
         ArrayList<Vare> vl = dbFacade.getAllRessources();
-        for (int i = 0; i < ol.size(); i++) 
-        {
-            if (onummer == ol.get(i).getOnummer()) 
-            {
+        for (int i = 0; i < ol.size(); i++) {
+            if (onummer == ol.get(i).getOnummer()) {
                 ol.get(i).setStatus("Bekræftet ordre");
                 for (int j = 0; j < ol.get(i).getOd().size(); j++) // gældende odetaljers størrelse
                 {
@@ -193,7 +191,7 @@ public class Controller {
                         for (int l = 0; l < vl.get(k).getDel().size(); l++) // antal dele i gældende vareliste
                         {
                             if (ovnummer == vl.get(k).getDel().get(l).getVnummer())// vnummer på dele i vareliste
-                            { 
+                            {
                                 vl.get(k).getDel().get(l).setStatus(0);
                                 dbFacade.startNewBusinessTransaction();
                                 dbFacade.registerDirtyOrder(ol.get(i));
@@ -259,7 +257,7 @@ public class Controller {
         currentKunde = null;
     }
 
-    public void addRessource(int vnummer, String vnavn, int qty, double pris, int aktiv) {
+    public void addVare(int vnummer, String vnavn, int qty, double pris, int aktiv) {
         Vare ressource = new Vare(vnummer, vnavn, qty, pris, aktiv);
         dbFacade.startNewBusinessTransaction();
         dbFacade.registerNewRessource(ressource);
@@ -668,5 +666,3 @@ public class Controller {
         return rediger;
     }
 }
-
-
