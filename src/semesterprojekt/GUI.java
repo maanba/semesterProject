@@ -855,7 +855,7 @@ public class GUI extends javax.swing.JFrame {
         if (selected != null) {
             controller.deleteVare(selected);
             update();
-        } 
+        }
         jLabelErrorLager.setText("");
     }//GEN-LAST:event_jButtonSletVareActionPerformed
 
@@ -979,12 +979,11 @@ public class GUI extends javax.swing.JFrame {
                 String status = ol.get(i).getStatus().toLowerCase();
                 if (onummer.contains(jTextFieldHistorikSøg.getText())) {
                     jListHistorik.setSelectedIndex(i);
-                } else if (status.contains(jTextFieldHistorikSøg.getText().toLowerCase())){
+                } else if (status.contains(jTextFieldHistorikSøg.getText().toLowerCase())) {
                     jListHistorik.setSelectedIndex(i);
-                } else if (knummer.contains(jTextFieldHistorikSøg.getText())){
+                } else if (knummer.contains(jTextFieldHistorikSøg.getText())) {
                     jListHistorik.setSelectedIndex(i);
-                }
-                    else {
+                } else {
                     listHistorik.removeElementAt(i - counter);
                     counter++;
                 }
@@ -1031,12 +1030,11 @@ public class GUI extends javax.swing.JFrame {
                 String status = ol.get(i).getStatus().toLowerCase();
                 if (onummer.contains(jTextFieldReturSøg.getText())) {
                     jListOrdrer.setSelectedIndex(i);
-                } else if (knummer.contains(jTextFieldReturSøg.getText())){
+                } else if (knummer.contains(jTextFieldReturSøg.getText())) {
                     jListOrdrer.setSelectedIndex(i);
-                } else if (status.contains(jTextFieldReturSøg.getText().toLowerCase())){
+                } else if (status.contains(jTextFieldReturSøg.getText().toLowerCase())) {
                     jListOrdrer.setSelectedIndex(i);
-                }
-                    else {
+                } else {
                     listOrdrer.removeElementAt(i - counter);
                     counter++;
                 }
@@ -1052,19 +1050,19 @@ public class GUI extends javax.swing.JFrame {
     private void jButtonLevérActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLevérActionPerformed
         Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
         ArrayList<Odetaljer> od = selected.getOd();
-        
-        
-        
+
+
+
         for (int i = 0; i < od.size(); i++) {
             Vare vare = controller.getVare(od.get(i).getVnummer());
             for (int j = 0; j < vare.getDel().size(); j++) {
                 listVarer.addElement(vare.getDel().get(j));
             }
         }
-        
-        
-        
-        
+
+
+
+
     }//GEN-LAST:event_jButtonLevérActionPerformed
 
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
@@ -1089,7 +1087,7 @@ public class GUI extends javax.swing.JFrame {
                 String vnummer = vl.get(i).getVnummer() + "";
                 if (vnavn.contains(jTextFieldTilbudSøg.getText().toLowerCase())) {
                     jListTilbudVarer.setSelectedIndex(i);
-                } else if (vnummer.contains(jTextFieldTilbudSøg.getText())){
+                } else if (vnummer.contains(jTextFieldTilbudSøg.getText())) {
                     jListTilbudVarer.setSelectedIndex(i);
                 } else {
                     listTilbudVarer.removeElementAt(i - counter);
@@ -1113,7 +1111,7 @@ public class GUI extends javax.swing.JFrame {
             }
             for (int i = 0; i < kl.size(); i++) {
                 String firma;
-                if (kl.get(i).getFirma() != null){
+                if (kl.get(i).getFirma() != null) {
                     firma = kl.get(i).getFirma().toLowerCase();
                 } else {
                     firma = kl.get(i).getNavn().toLowerCase();
@@ -1125,11 +1123,11 @@ public class GUI extends javax.swing.JFrame {
                     jListKundeliste.setSelectedIndex(i);
                 } else if (firma != null && firma.contains(jTextFieldKundeSøg.getText().toLowerCase()) || kl.get(i).getNavn().contains(jTextFieldKundeSøg.getText().toLowerCase())) {
                     jListKundeliste.setSelectedIndex(i);
-                } else if (knummer.contains(jTextFieldKundeSøg.getText())){
+                } else if (knummer.contains(jTextFieldKundeSøg.getText())) {
                     jListKundeliste.setSelectedIndex(i);
-                } else if (telefonnummer.contains(jTextFieldKundeSøg.getText())){
+                } else if (telefonnummer.contains(jTextFieldKundeSøg.getText())) {
                     jListKundeliste.setSelectedIndex(i);
-                } else if (postnummer.contains(jTextFieldKundeSøg.getText())){
+                } else if (postnummer.contains(jTextFieldKundeSøg.getText())) {
                     jListKundeliste.setSelectedIndex(i);
                 } else {
                     listKundeliste.removeElementAt(i - counter);
@@ -1202,13 +1200,13 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonOrdrePdfActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(jTextFieldDagUd.getText().isEmpty()  || jTextFieldMånedUd.getText().isEmpty() || jTextFieldÅrUd.getText().isEmpty() || jTextFieldDagInd.getText().isEmpty() || jTextFieldMånedInd.getText().isEmpty() || jTextFieldÅrInd.getText().isEmpty() ){
+        if (jTextFieldDagUd.getText().isEmpty() || jTextFieldMånedUd.getText().isEmpty() || jTextFieldÅrUd.getText().isEmpty() || jTextFieldDagInd.getText().isEmpty() || jTextFieldMånedInd.getText().isEmpty() || jTextFieldÅrInd.getText().isEmpty()) {
             jLabelErrorOrdre.setText("Fejl. Indtast datoer korrekt");
         } else {
             update();
         }
-        
-        
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButtonStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStatusActionPerformed
@@ -1278,7 +1276,6 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButtonOrdreRedigerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdreRedigerActionPerformed
         Ordre selected = (Ordre) jList3.getSelectedValue();
-        int selectedIndex = jList3.getSelectedIndex();
         if (list2.isEmpty() == false) {
             jLabelErrorOrdre.setText("You need to finish editing the current group before editing a new one.");
         }
@@ -1305,10 +1302,10 @@ public class GUI extends javax.swing.JFrame {
             }
 
             jTextFieldTotalPris.setText(selected.getPris() + "");
-            list3.removeElementAt(selectedIndex);
             controller.setCurrentOrder(selected);
             controller.redigerTrue();
         }
+        update();
 
         Kunde kunde = controller.getKunde(selected.getKnummer());
 
@@ -1549,70 +1546,16 @@ public class GUI extends javax.swing.JFrame {
 
         // list1:
         if (!"".equals(jTextFieldÅrUd.getText()) && !"".equals(jTextFieldDagUd.getText()) && !"".equals(jTextFieldMånedUd.getText()) && !"".equals(jTextFieldÅrInd.getText()) && !"".equals(jTextFieldDagInd.getText()) && !"".equals(jTextFieldMånedInd.getText())) {
-            int levYear = Integer.parseInt(jTextFieldÅrUd.getText());
-            int levMonth = Integer.parseInt(jTextFieldMånedUd.getText());
-            int levDay = Integer.parseInt(jTextFieldDagUd.getText());
-            int retYear = Integer.parseInt(jTextFieldÅrInd.getText());
-            int retMonth = Integer.parseInt(jTextFieldMånedInd.getText());
-            int retDay = Integer.parseInt(jTextFieldDagInd.getText());
-            ArrayList<Vare> vl = controller.getAllRessources();
-            Vare[] va = new Vare[vl.size()];
-            for (int i = 0; i < vl.size(); i++) {
-                for (int j = 0; j < list3.size(); j++) {
-                    Ordre o = (Ordre) list3.getElementAt(j);
-                    if (controller.getRediger() == false) {
-                        int oLevYear = Integer.parseInt(o.getLevering().substring(6, 10));
-                        int oLevMonth = Integer.parseInt(o.getLevering().substring(3, 5));
-                        int oLevDay = Integer.parseInt(o.getLevering().substring(0, 2));
-                        int oRetYear = Integer.parseInt(o.getReturnering().substring(6, 10));
-                        int oRetMonth = Integer.parseInt(o.getReturnering().substring(3, 5));
-                        int oRetDay = Integer.parseInt(o.getReturnering().substring(0, 2));
-                        if ((levDay <= oLevDay || levDay <= oRetDay) && (retDay >= oRetDay || retDay >= oLevDay)) {
-                            if ((levMonth <= oLevMonth || levMonth <= oRetMonth) && (retMonth >= oRetMonth || retMonth >= oLevMonth)) {
-                                if ((levYear <= oLevYear || levYear <= oRetYear) && (retYear >= oRetYear || retYear >= oLevYear)) {
-                                    for (int k = 0; k < o.getOd().size(); k++) {
-                                        if (vl.get(i).getVnummer() == o.getOd().get(k).getVnummer()) {
-                                            vl.get(i).setQty(vl.get(i).getQty() - o.getOd().get(k).getMaengde());
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    } else {
-                        if (controller.getCurrentOrder().getOnummer() != o.getOnummer()) {
-                            int oLevYear = Integer.parseInt(o.getLevering().substring(6, 10));
-                            int oLevMonth = Integer.parseInt(o.getLevering().substring(3, 5));
-                            int oLevDay = Integer.parseInt(o.getLevering().substring(0, 2));
-                            int oRetYear = Integer.parseInt(o.getReturnering().substring(6, 10));
-                            int oRetMonth = Integer.parseInt(o.getReturnering().substring(3, 5));
-                            int oRetDay = Integer.parseInt(o.getReturnering().substring(0, 2));
-                            if ((levDay <= oLevDay || levDay <= oRetDay) && (retDay >= oRetDay || retDay >= oLevDay)) {
-                                if ((levMonth <= oLevMonth || levMonth <= oRetMonth) && (retMonth >= oRetMonth || retMonth >= oLevMonth)) {
-                                    if ((levYear <= oLevYear || levYear <= oRetYear) && (retYear >= oRetYear || retYear >= oLevYear)) {
-                                        for (int k = 0; k < o.getOd().size(); k++) {
-                                            if (vl.get(i).getVnummer() == o.getOd().get(k).getVnummer()) {
-                                                vl.get(i).setQty(vl.get(i).getQty() - o.getOd().get(k).getMaengde());
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                va[i] = vl.get(i);
+            Vare[] va;
+            ArrayList<Ordre> l3 = new ArrayList();
+            ArrayList<Vare> l2 = new ArrayList();
+            for (int i = 0; i < list3.size(); i++) {
+                l3.add((Ordre) list3.getElementAt(i));
             }
-            Vare vare;
-            if (!list2.isEmpty()) {
-                for (int i = 0; i < list2.size(); i++) {
-                    vare = (Vare) list2.getElementAt(i);
-                    for (int j = 0; j < va.length; j++) {
-                        if (vare.getVnummer() == va[j].getVnummer()) {
-                            va[j].setQty(va[j].getQty() - vare.getQty());
-                        }
-                    }
-                }
+            for (int i = 0; i < list2.size(); i++) {
+                l2.add((Vare) list2.getElementAt(i));
             }
+            va = controller.updateList1(Integer.parseInt(jTextFieldÅrUd.getText()), Integer.parseInt(jTextFieldMånedUd.getText()), Integer.parseInt(jTextFieldDagUd.getText()), Integer.parseInt(jTextFieldÅrInd.getText()), Integer.parseInt(jTextFieldMånedInd.getText()), Integer.parseInt(jTextFieldDagInd.getText()), l3, l2);
             controller.quickSortVare(va, 0, va.length - 1);
 
             for (int i = 0; i < va.length; i++) {
@@ -1650,13 +1593,13 @@ public class GUI extends javax.swing.JFrame {
             int retDay = Integer.parseInt(jTextFieldDagInd.getText());
             for (int j = 0; j < list3.size(); j++) {
                 Ordre o = (Ordre) list3.getElementAt(j);
+                int oLevYear = Integer.parseInt(o.getLevering().substring(6, 10));
+                int oLevMonth = Integer.parseInt(o.getLevering().substring(3, 5));
+                int oLevDay = Integer.parseInt(o.getLevering().substring(0, 2));
+                int oRetYear = Integer.parseInt(o.getReturnering().substring(6, 10));
+                int oRetMonth = Integer.parseInt(o.getReturnering().substring(3, 5));
+                int oRetDay = Integer.parseInt(o.getReturnering().substring(0, 2));
                 if (!controller.getRediger()) {
-                    int oLevYear = Integer.parseInt(o.getLevering().substring(6, 10));
-                    int oLevMonth = Integer.parseInt(o.getLevering().substring(3, 5));
-                    int oLevDay = Integer.parseInt(o.getLevering().substring(0, 2));
-                    int oRetYear = Integer.parseInt(o.getReturnering().substring(6, 10));
-                    int oRetMonth = Integer.parseInt(o.getReturnering().substring(3, 5));
-                    int oRetDay = Integer.parseInt(o.getReturnering().substring(0, 2));
                     if (o.getAfhentning().equalsIgnoreCase("Leveres af os")) {
                         if ((levDay == oLevDay && levMonth == oLevMonth && levYear == oLevYear) || (levDay == oRetDay && levMonth == oRetMonth && levYear == oRetYear)) {
                             for (int l = 1; l < jComboBox2.getItemCount(); l++) {
@@ -1696,12 +1639,6 @@ public class GUI extends javax.swing.JFrame {
                     }
                 } else {
                     if (o.getOnummer() != controller.getCurrentOrder().getOnummer()) {
-                        int oLevYear = Integer.parseInt(o.getLevering().substring(6, 10));
-                        int oLevMonth = Integer.parseInt(o.getLevering().substring(3, 5));
-                        int oLevDay = Integer.parseInt(o.getLevering().substring(0, 2));
-                        int oRetYear = Integer.parseInt(o.getReturnering().substring(6, 10));
-                        int oRetMonth = Integer.parseInt(o.getReturnering().substring(3, 5));
-                        int oRetDay = Integer.parseInt(o.getReturnering().substring(0, 2));
                         if (o.getAfhentning().equalsIgnoreCase("Leveres af os")) {
                             if ((levDay == oLevDay && levMonth == oLevMonth && levYear == oLevYear) || (levDay == oRetDay && levMonth == oRetMonth && levYear == oRetYear)) {
                                 for (int l = 1; l < jComboBox2.getItemCount(); l++) {
