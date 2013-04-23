@@ -1258,7 +1258,6 @@ public class GUI extends javax.swing.JFrame {
             controller.redigerTrue();
         }
         update();
-        controller.redigerFalse();
 
         Kunde kunde = controller.getKunde(selected.getKnummer());
 
@@ -1350,6 +1349,7 @@ public class GUI extends javax.swing.JFrame {
         } else {
             jLabelErrorOrdre.setText("FEJL!");
         }
+        controller.redigerFalse();
         update();
     }//GEN-LAST:event_jButtonGennemførOrdreActionPerformed
 
@@ -1549,18 +1549,40 @@ public class GUI extends javax.swing.JFrame {
             for (int i = 0; i < vl.size(); i++) {
                 for (int j = 0; j < list3.size(); j++) {
                     Ordre o = (Ordre) list3.getElementAt(j);
-                    int oLevYear = Integer.parseInt(o.getLevering().substring(6, 10));
-                    int oLevMonth = Integer.parseInt(o.getLevering().substring(3, 5));
-                    int oLevDay = Integer.parseInt(o.getLevering().substring(0, 2));
-                    int oRetYear = Integer.parseInt(o.getReturnering().substring(6, 10));
-                    int oRetMonth = Integer.parseInt(o.getReturnering().substring(3, 5));
-                    int oRetDay = Integer.parseInt(o.getReturnering().substring(0, 2));
-                    if ((levDay <= oLevDay || levDay <= oRetDay) && (retDay >= oRetDay || retDay >= oLevDay)) {
-                        if ((levMonth <= oLevMonth || levMonth <= oRetMonth) && (retMonth >= oRetMonth || retMonth >= oLevMonth)) {
-                            if ((levYear <= oLevYear || levYear <= oRetYear) && (retYear >= oRetYear || retYear >= oLevYear)) {
-                                for (int k = 0; k < o.getOd().size(); k++) {
-                                    if (vl.get(i).getVnummer() == o.getOd().get(k).getVnummer()) {
-                                        vl.get(i).setQty(vl.get(i).getQty() - o.getOd().get(k).getMaengde());
+                    if (controller.getRediger() == false) {
+                        int oLevYear = Integer.parseInt(o.getLevering().substring(6, 10));
+                        int oLevMonth = Integer.parseInt(o.getLevering().substring(3, 5));
+                        int oLevDay = Integer.parseInt(o.getLevering().substring(0, 2));
+                        int oRetYear = Integer.parseInt(o.getReturnering().substring(6, 10));
+                        int oRetMonth = Integer.parseInt(o.getReturnering().substring(3, 5));
+                        int oRetDay = Integer.parseInt(o.getReturnering().substring(0, 2));
+                        if ((levDay <= oLevDay || levDay <= oRetDay) && (retDay >= oRetDay || retDay >= oLevDay)) {
+                            if ((levMonth <= oLevMonth || levMonth <= oRetMonth) && (retMonth >= oRetMonth || retMonth >= oLevMonth)) {
+                                if ((levYear <= oLevYear || levYear <= oRetYear) && (retYear >= oRetYear || retYear >= oLevYear)) {
+                                    for (int k = 0; k < o.getOd().size(); k++) {
+                                        if (vl.get(i).getVnummer() == o.getOd().get(k).getVnummer()) {
+                                            vl.get(i).setQty(vl.get(i).getQty() - o.getOd().get(k).getMaengde());
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        if (controller.getCurrentOrder().getOnummer() != o.getOnummer()) {
+                            int oLevYear = Integer.parseInt(o.getLevering().substring(6, 10));
+                            int oLevMonth = Integer.parseInt(o.getLevering().substring(3, 5));
+                            int oLevDay = Integer.parseInt(o.getLevering().substring(0, 2));
+                            int oRetYear = Integer.parseInt(o.getReturnering().substring(6, 10));
+                            int oRetMonth = Integer.parseInt(o.getReturnering().substring(3, 5));
+                            int oRetDay = Integer.parseInt(o.getReturnering().substring(0, 2));
+                            if ((levDay <= oLevDay || levDay <= oRetDay) && (retDay >= oRetDay || retDay >= oLevDay)) {
+                                if ((levMonth <= oLevMonth || levMonth <= oRetMonth) && (retMonth >= oRetMonth || retMonth >= oLevMonth)) {
+                                    if ((levYear <= oLevYear || levYear <= oRetYear) && (retYear >= oRetYear || retYear >= oLevYear)) {
+                                        for (int k = 0; k < o.getOd().size(); k++) {
+                                            if (vl.get(i).getVnummer() == o.getOd().get(k).getVnummer()) {
+                                                vl.get(i).setQty(vl.get(i).getQty() - o.getOd().get(k).getMaengde());
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -1570,7 +1592,7 @@ public class GUI extends javax.swing.JFrame {
                 va[i] = vl.get(i);
             }
             Vare vare;
-            if (!list2.isEmpty() && controller.getRediger() == false) {
+            if (!list2.isEmpty()) {
                 for (int i = 0; i < list2.size(); i++) {
                     vare = (Vare) list2.getElementAt(i);
                     for (int j = 0; j < va.length; j++) {
