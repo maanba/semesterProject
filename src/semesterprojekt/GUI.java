@@ -1256,8 +1256,10 @@ public class GUI extends javax.swing.JFrame {
             jTextFieldTotalPris.setText(selected.getPris() + "");
             list3.removeElementAt(selectedIndex);
             controller.setCurrentOrder(selected);
+            controller.redigerTrue();
         }
         update();
+        controller.redigerFalse();
 
         Kunde kunde = controller.getKunde(selected.getKnummer());
 
@@ -1343,6 +1345,7 @@ public class GUI extends javax.swing.JFrame {
                     jTextFieldMånedUd.setText("");
                     jTextFieldÅrInd.setText("");
                     jTextFieldÅrUd.setText("");
+                    controller.redigerFalse();
                 }
             }
         } else {
@@ -1568,7 +1571,7 @@ public class GUI extends javax.swing.JFrame {
                 va[i] = vl.get(i);
             }
             Vare vare;
-            if (!list2.isEmpty()) {
+            if (!list2.isEmpty() && controller.getRediger() == false) {
                 for (int i = 0; i < list2.size(); i++) {
                     vare = (Vare) list2.getElementAt(i);
                     for (int j = 0; j < va.length; j++) {
