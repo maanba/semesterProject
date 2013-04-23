@@ -1350,6 +1350,7 @@ public class GUI extends javax.swing.JFrame {
         } else {
             jLabelErrorOrdre.setText("FEJL!");
         }
+        controller.redigerFalse();
         update();
     }//GEN-LAST:event_jButtonGennemførOrdreActionPerformed
 
