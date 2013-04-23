@@ -65,7 +65,6 @@ public class PDF {
             montører = montører * 300 * 2;
         }
         if(currentOrder.getTidLev() != null && currentOrder.getTidLev().equals("Stor ordre")){
-            montører = 4;
             montører = montører * 300 * 10;
         }
         

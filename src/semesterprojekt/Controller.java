@@ -49,8 +49,37 @@ public class Controller {
     public void setCurrentOrder(Ordre currentOrder) {
         this.currentOrder = currentOrder;
     }
-
-    public Ordre addNewOrder(int knummer, double pris, double rabat, double depositum, String tidLev, String tidRet, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
+    
+    public boolean kundeSøg (Kunde kunde, String jTextFieldKundeSøg){
+            boolean result = false;
+                String firma = null;
+                String knavn = null;
+                if (kunde.getFirma() != null) {
+                    firma = kunde.getFirma().toLowerCase();
+                }
+                if (kunde.getNavn() != null) {
+                    knavn = kunde.getNavn().toLowerCase();
+                }
+                String knummer = kunde.getKnummer() + "";
+                String telefonnummer = kunde.getTelefonnummer() + "";
+                String postnummer = kunde.getPostnummer() + "";
+                if (knavn != null && knavn.contains(jTextFieldKundeSøg.toLowerCase())) {
+                    result = true;
+                } else if (firma != null && firma.contains(jTextFieldKundeSøg.toLowerCase()) || kunde.getNavn().contains(jTextFieldKundeSøg.toLowerCase())) {
+                    result = true;
+                } else if (knummer.contains(jTextFieldKundeSøg)) {
+                    result = true;
+                } else if (telefonnummer.contains(jTextFieldKundeSøg)) {
+                    result = true;
+                } else if (postnummer.contains(jTextFieldKundeSøg)) {
+                    result = true;
+                } else {
+                    result = false;
+                }
+        return result;
+    }
+    
+    public Ordre createNewOrder(int knummer, double pris, double rabat, double depositum, String tidLev, String tidRet, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
         int montører = 0;
@@ -363,6 +392,68 @@ public class Controller {
         return false;
     }
 
+    public Vare[] updateList1(int levYear, int levMonth, int levDay, int retYear, int retMonth, int retDay, ArrayList<Ordre> l3, ArrayList<Vare> l2) {
+        ArrayList<Vare> vl = getAllRessources();
+        Vare[] va = new Vare[vl.size()];
+        for (int i = 0; i < vl.size(); i++) {
+            for (int j = 0; j < l3.size(); j++) {
+                Ordre o = l3.get(j);
+                if (getRediger() == false) {
+                    int oLevYear = Integer.parseInt(o.getLevering().substring(6, 10));
+                    int oLevMonth = Integer.parseInt(o.getLevering().substring(3, 5));
+                    int oLevDay = Integer.parseInt(o.getLevering().substring(0, 2));
+                    int oRetYear = Integer.parseInt(o.getReturnering().substring(6, 10));
+                    int oRetMonth = Integer.parseInt(o.getReturnering().substring(3, 5));
+                    int oRetDay = Integer.parseInt(o.getReturnering().substring(0, 2));
+                    if ((levDay <= oLevDay || levDay <= oRetDay) && (retDay >= oRetDay || retDay >= oLevDay)) {
+                        if ((levMonth <= oLevMonth || levMonth <= oRetMonth) && (retMonth >= oRetMonth || retMonth >= oLevMonth)) {
+                            if ((levYear <= oLevYear || levYear <= oRetYear) && (retYear >= oRetYear || retYear >= oLevYear)) {
+                                for (int k = 0; k < o.getOd().size(); k++) {
+                                    if (vl.get(i).getVnummer() == o.getOd().get(k).getVnummer()) {
+                                        vl.get(i).setQty(vl.get(i).getQty() - o.getOd().get(k).getMaengde());
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    if (currentOrder.getOnummer() != o.getOnummer()) {
+                        int oLevYear = Integer.parseInt(o.getLevering().substring(6, 10));
+                        int oLevMonth = Integer.parseInt(o.getLevering().substring(3, 5));
+                        int oLevDay = Integer.parseInt(o.getLevering().substring(0, 2));
+                        int oRetYear = Integer.parseInt(o.getReturnering().substring(6, 10));
+                        int oRetMonth = Integer.parseInt(o.getReturnering().substring(3, 5));
+                        int oRetDay = Integer.parseInt(o.getReturnering().substring(0, 2));
+                        if ((levDay <= oLevDay || levDay <= oRetDay) && (retDay >= oRetDay || retDay >= oLevDay)) {
+                            if ((levMonth <= oLevMonth || levMonth <= oRetMonth) && (retMonth >= oRetMonth || retMonth >= oLevMonth)) {
+                                if ((levYear <= oLevYear || levYear <= oRetYear) && (retYear >= oRetYear || retYear >= oLevYear)) {
+                                    for (int k = 0; k < o.getOd().size(); k++) {
+                                        if (vl.get(i).getVnummer() == o.getOd().get(k).getVnummer()) {
+                                            vl.get(i).setQty(vl.get(i).getQty() - o.getOd().get(k).getMaengde());
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            va[i] = vl.get(i);
+        }
+        Vare vare;
+        if (!l2.isEmpty()) {
+            for (int i = 0; i < l2.size(); i++) {
+                vare = (Vare) l2.get(i);
+                for (int j = 0; j < va.length; j++) {
+                    if (vare.getVnummer() == va[j].getVnummer()) {
+                        va[j].setQty(va[j].getQty() - vare.getQty());
+                    }
+                }
+            }
+        }
+        return va;
+    }
+
     public Boolean gennemførOrdrer(boolean afBool, String kunde, double pris, double rabat, double depositum, String tidLev, String tidRet, String lev, String ret, ArrayList<Odetaljer> odetaljer) {
         boolean result = false;
         ArrayList<Kunde> kunder = getAllCostumers();
@@ -384,12 +475,14 @@ public class Controller {
             } else {
                 addNewOrder(kno, pris, rabat, depositum, tidLev, tidRet, afhentning, "Påbegyndt", lev, ret, odetaljer);
             }
+            result = true;
         } else if (currentOrder != null) {
             if (afBool) {
                 updateOrder(kno, pris, rabat, depositum, "", "", afhentning, currentOrder.getStatus(), lev, ret, odetaljer);
             } else {
                 updateOrder(kno, pris, rabat, depositum, tidLev, tidRet, afhentning, currentOrder.getStatus(), lev, ret, odetaljer);
             }
+            result = true;
         } else {
             result = false;
         }
