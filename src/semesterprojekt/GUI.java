@@ -883,37 +883,21 @@ public class GUI extends javax.swing.JFrame {
     private void jButtonLagerGemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLagerGemActionPerformed
         int vnummer;
         int aktiv;
+        vnummer = Integer.parseInt(jLabelVarenummer2.getText());
         String vnavn = jTextFieldNavn.getText();
         double pris = Double.parseDouble(jTextFieldVarePris.getText());
+        ArrayList<Del> vare = new ArrayList();
         int qty = Integer.parseInt(jTextFieldVareQty.getText());
-
-        if (controller.getRediger() == true) {
-            vnummer = Integer.parseInt(jLabelVarenummer2.getText());
-            if (jRadioAktiv.isSelected()) {
-                aktiv = 1;
-            } else {
-                aktiv = 0;
-            }
-            Vare vare = new Vare(vnummer, vnavn, qty, pris, aktiv);
-            for (int i = 0; i < listLagerDele.size(); i++) {
-                vare.addDel((Del) listLagerDele.getElementAt(i));
-            }
-            controller.updateVare(vare);
-            jLabelErrorLager.setText("");
+        if (jRadioAktiv.isSelected()) {
+            aktiv = 1;
         } else {
-            vnummer = controller.getNextVnummer();
-            if (jRadioAktiv.isSelected()) {
-                aktiv = 1;
-            } else {
-                aktiv = 0;
-            }
-            Vare vare = new Vare(vnummer, vnavn, qty, pris, aktiv);
-            for (int i = 0; i < listLagerDele.size(); i++) {
-                vare.addDel((Del) listLagerDele.getElementAt(i));
-            }
-            controller.addVare(vare);
-            jLabelErrorLager.setText("");
+            aktiv = 0;
         }
+        for (int i = 0; i < listLagerDele.size(); i++) {
+            vare.add((Del) listLagerDele.getElementAt(i));
+        }
+        controller.gemLager(vnummer, vnavn, qty, pris, aktiv, vare);
+        jLabelErrorLager.setText("");
         update();
         controller.redigerFalse();
     }//GEN-LAST:event_jButtonLagerGemActionPerformed
@@ -1387,11 +1371,11 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonTilføjActionPerformed
 
     private void jButtonUdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUdeActionPerformed
-        
+
         Ordre selectedOrdre = (Ordre) jListOrdrer.getSelectedValue();
         Del selectedDel = (Del) jListReturDele.getSelectedValue();
         controller.updateDelUde(selectedOrdre.getOnummer(), selectedDel.getVnummer());
-        
+
         listReturDele.clear();
         Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
         ArrayList<Odetaljer> od = selected.getOd();
