@@ -10,12 +10,21 @@ package semesterprojekt;
  */
 public class Odetaljer {
 
-    private int onummer, vnummer, maengde;
+    private int onummer, vnummer, maengde, status;
 
-    public Odetaljer(int onummer, int vnummer, int maengde) {
+    public Odetaljer(int onummer, int vnummer, int maengde, int status) {
         this.onummer = onummer;
         this.vnummer = vnummer;
         this.maengde = maengde;
+        this.status = status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public int getStatus() {
+        return status;
     }
 
     public int getOnummer() {
@@ -55,6 +64,12 @@ public class Odetaljer {
                 navn += " ";
             }
         }
-        return navn + maengde;
+        String stringStatus;
+        if (status == 1) {
+            stringStatus = "Hjemme";
+        } else {
+            stringStatus = "Ude";
+        }
+        return navn + maengde + ", " + stringStatus;
     }
 }

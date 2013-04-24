@@ -115,7 +115,6 @@ public class OrderMapper {
                     statement.setInt(1, d.getVnummer());
                     statement.setString(2, d.getTitel());
                     statement.setInt(3, d.getAntal());
-                    statement.setInt(4, d.getStatus());
                     statement.executeUpdate();
                     statement.close();
                 }
@@ -247,7 +246,6 @@ public class OrderMapper {
                     statement.setInt(1, d.getVnummer());
                     statement.setString(2, d.getTitel());
                     statement.setInt(3, d.getAntal());
-                    statement.setInt(4, d.getStatus());
                     statement.executeUpdate();
                     statement.close();
                 }
@@ -324,7 +322,7 @@ public class OrderMapper {
     public boolean updateOrderDetails(ArrayList<Odetaljer> odl, Connection conn) throws SQLException {
         int rowsUpdated = 0;
         String SQLString = "update odetaljer "
-                + "set maengde = ? "
+                + "set maengde = ?, status = ? "
                 + "where onummer = ? and vnummer = ?";
         PreparedStatement statement = null;
 
@@ -333,8 +331,9 @@ public class OrderMapper {
             for (int i = 0; i < odl.size(); i++) {
                 Odetaljer od = odl.get(i);
                 statement.setInt(1, od.getMaengde());
-                statement.setInt(2, od.getOnummer());
-                statement.setInt(3, od.getVnummer());
+                statement.setInt(2, od.getStatus());
+                statement.setInt(3, od.getOnummer());
+                statement.setInt(4, od.getVnummer());
                 int tupleUpdated = statement.executeUpdate();
                 rowsUpdated += tupleUpdated;
                 statement.close();
@@ -538,7 +537,8 @@ public class OrderMapper {
                     o.addOd(new Odetaljer(
                             ono,
                             rs.getInt(2),
-                            rs.getInt(3)));
+                            rs.getInt(3),
+                            rs.getInt(4)));
                 }
             }
         } finally {
@@ -616,7 +616,8 @@ public class OrderMapper {
                         o.addOd(new Odetaljer(
                                 o.getOnummer(),
                                 rs.getInt(2),
-                                rs.getInt(3)));
+                                rs.getInt(3),
+                                rs.getInt(4)));
                     }
                     ol.add(o);
                 }
@@ -737,8 +738,7 @@ public class OrderMapper {
                     v.addDel(new Del(
                             v.getVnummer(),
                             rs.getString(2),
-                            rs.getInt(3),
-                            rs.getInt(4)));
+                            rs.getInt(3)));
                 }
                 vl.add(v);
                 statement.close();
@@ -789,8 +789,7 @@ public class OrderMapper {
                 vare.addDel(new Del(
                         vnummer,
                         rs.getString(2),
-                        rs.getInt(3),
-                        rs.getInt(4)));
+                        rs.getInt(3)));
             }
         } finally {
             if (!rs.isClosed()) {
