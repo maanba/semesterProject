@@ -1021,7 +1021,6 @@ public class GUI extends javax.swing.JFrame {
                 ol.add((Ordre) listOrdrer.getElementAt(i));
             }
             for (int i = 0; i < ol.size(); i++) {
-
                 if (controller.returSøg(ol.get(i), jTextFieldReturSøg.getText())) {
                     jListOrdrer.setSelectedIndex(i);
                 } else {
@@ -1044,6 +1043,7 @@ public class GUI extends javax.swing.JFrame {
         for (int i = 0; i < od.size(); i++) {
             Vare vare = controller.getVare(od.get(i).getVnummer());
             for (int j = 0; j < vare.getDel().size(); j++) {
+                vare.getDel().get(j).setAntal(vare.getDel().get(i).getAntal() * od.get(i).getMaengde());
                 listReturDele.addElement((Del) vare.getDel().get(j));
             }
         }
@@ -1053,9 +1053,6 @@ public class GUI extends javax.swing.JFrame {
         Del selectedDel = (Del) jListReturDele.getSelectedValue();
         Ordre selectedOrdre = (Ordre) jListOrdrer.getSelectedValue();
         selectedDel.getVnummer();
-
-
-
         listReturDele.clear();
         Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
         ArrayList<Odetaljer> od = selected.getOd();
@@ -1199,16 +1196,10 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonMontoerActionPerformed
 
     private void jButtonPakkelisteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPakkelisteActionPerformed
-        Ordre selected = (Ordre) jList3.getSelectedValue();
         int selectedIndex = jList3.getSelectedIndex();
-        controller.setCurrentOrder(selected);
-        if (selected.getFnummer() == 0) {
-            controller.addOrderFakturaNummer(selected);
-        }
-        controller.ordreFaktureret(selected.getOnummer());
+        controller.pakkeListe((Ordre) jList3.getSelectedValue());
         update();
-        selected = (Ordre) list3.getElementAt(selectedIndex);
-        controller.setCurrentOrder(selected);
+        controller.setCurrentOrder((Ordre) list3.getElementAt(selectedIndex));
         controller.pdfPakkeliste();
     }//GEN-LAST:event_jButtonPakkelisteActionPerformed
 
@@ -1217,27 +1208,18 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldRabatActionPerformed
 
     private void jButtonTilbudPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilbudPdfActionPerformed
-        Ordre selected = (Ordre) jList3.getSelectedValue();
         int selectedIndex = jList3.getSelectedIndex();
-        controller.ordreTilbud(selected.getOnummer());
-        controller.setCurrentOrder(selected);
+        controller.tilbud((Ordre) jList3.getSelectedValue());
         update();
-        selected = (Ordre) list3.getElementAt(selectedIndex);
-        controller.setCurrentOrder(selected);
+        controller.setCurrentOrder((Ordre) list3.getElementAt(selectedIndex));
         controller.pdfTilbud();
     }//GEN-LAST:event_jButtonTilbudPdfActionPerformed
 
     private void jButtonFakturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFakturaActionPerformed
-        Ordre selected = (Ordre) jList3.getSelectedValue();
         int selectedIndex = jList3.getSelectedIndex();
-        controller.setCurrentOrder(selected);
-        if (selected.getFnummer() == 0) {
-            controller.addOrderFakturaNummer(selected);
-        }
-        controller.ordreFaktureret(selected.getOnummer());
+        controller.faktura((Ordre) jList3.getSelectedValue());
         update();
-        selected = (Ordre) list3.getElementAt(selectedIndex);
-        controller.setCurrentOrder(selected);
+        controller.setCurrentOrder((Ordre) list3.getElementAt(selectedIndex));
         controller.pdfFaktura();
     }//GEN-LAST:event_jButtonFakturaActionPerformed
 
@@ -1269,7 +1251,6 @@ public class GUI extends javax.swing.JFrame {
             jTextFieldMånedInd.setText(selected.getReturnering().substring(3, 5));
             jTextFieldÅrInd.setText(selected.getReturnering().substring(6, 10));
             jTextFieldRabat.setText(selected.getRabat() + "");
-
             if ("Leveres af os".equals(selected.getAfhentning())) {
                 jRadioButtonLevering.setSelected(true);
             } else {
@@ -1305,11 +1286,11 @@ public class GUI extends javax.swing.JFrame {
                 if (jRadioButtonAfhentning.isSelected() || jRadioButtonLevering.isSelected()) {
                     for (int i = 0; i < list2.size(); i++) {
                         Vare vare = (Vare) list2.getElementAt(i);
-                        odetaljer.add(new Odetaljer(0, vare.getVnummer(), vare.getQty(), 1));
+                        odetaljer.add(new Odetaljer(0, vare.getVnummer(), vare.getQty()));
                     }
                     String leveringDate = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                     String returneringDate = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
-                    controller.gennemførOrdrer(jRadioButtonAfhentning.isSelected(), "" + jComboBox1.getSelectedItem(), Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), Double.parseDouble(jTextFieldTotalPris.getText()) * 0.25, "" + jComboBox2.getSelectedItem(), "" + jComboBox3.getSelectedItem(), leveringDate, returneringDate, odetaljer);
+                    controller.gennemførOrdrer(jRadioButtonAfhentning.isSelected(), "" + jComboBox1.getSelectedItem(), Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), Double.parseDouble(jTextFieldTotalPris.getText()) * 0.25, "" + jComboBox2.getSelectedItem(), "" + jComboBox3.getSelectedItem(), leveringDate, returneringDate, odetaljer, "");
                     list2.clear();
                     list3.clear();
                     jLabelErrorOrdre.setText("");

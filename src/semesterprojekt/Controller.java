@@ -158,7 +158,7 @@ public class Controller {
         return result;
     }
 
-    public Ordre addNewOrder(int knummer, double pris, double rabat, double depositum, String tidLev, String tidRet, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
+    public Ordre addNewOrder(int knummer, double pris, double rabat, double depositum, String tidLev, String tidRet, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer, String kommentar) {
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
         int montører = 0;
@@ -184,7 +184,7 @@ public class Controller {
                     }
                 }
             }
-            currentOrder = new Ordre(newOrderNo, 0, knummer, pris, rabat, depositum, tidLev, tidRet, afhentning, montører, status, modtaget, levering, returnering, 0);
+            currentOrder = new Ordre(newOrderNo, 0, knummer, pris, rabat, depositum, tidLev, tidRet, afhentning, montører, status, modtaget, levering, returnering, kommentar, 0);
             dbFacade.registerNewOrder(currentOrder);
             for (int i = 0; i < odetaljer.size(); i++) {
                 dbFacade.registerNewOrderDetail(odetaljer.get(i));
@@ -322,7 +322,6 @@ public class Controller {
             if (onummer == ol.get(i).getOnummer()) {
                 ol.get(i).setStatus("Bekræftet ordre");
                 for (int j = 0; j < ol.get(i).getOd().size(); j++) {
-                    ol.get(i).getOd().get(j).setStatus(0);
                     dbFacade.registerDirtyOrderDetail(ol.get(i).getOd().get(j));
                 }
                 dbFacade.registerDirtyOrder(ol.get(i));
@@ -338,7 +337,6 @@ public class Controller {
             if (onummer == ol.get(i).getOnummer());
             for (int j = 0; j < ol.get(i).getOd().size(); j++) {
                 if (vnummer == ol.get(i).getOd().get(j).getVnummer()) {
-                    ol.get(i).getOd().get(j).setStatus(0);
                     dbFacade.registerDirtyOrderDetail(ol.get(i).getOd().get(j));
                 }
             }
@@ -362,7 +360,7 @@ public class Controller {
     public boolean addOrderDetail(int vnummer, int qty, int status) {
         boolean result = false;
         if (processingOrder) {
-            Odetaljer od = new Odetaljer(currentOrder.getOnummer(), vnummer, qty, 1);
+            Odetaljer od = new Odetaljer(currentOrder.getOnummer(), vnummer, qty);
             currentOrder.addOd(od);
             dbFacade.registerNewOrderDetail(od);
             result = true;
@@ -383,6 +381,27 @@ public class Controller {
             processingOrder = false;
         }
         currentKunde = null;
+    }
+    
+    public void pakkeListe (Ordre ordre){
+        setCurrentOrder(ordre);
+        if (ordre.getFnummer() == 0) {
+            addOrderFakturaNummer(ordre);
+        }
+        ordreFaktureret(ordre.getOnummer());
+    }
+    
+    public void tilbud (Ordre ordre){
+        setCurrentOrder(ordre);
+        ordreTilbud(ordre.getOnummer());
+    }
+    
+    public void faktura (Ordre ordre){
+        setCurrentOrder(ordre);
+        if (ordre.getFnummer() == 0) {
+            addOrderFakturaNummer(ordre);
+        }
+        ordreFaktureret(ordre.getOnummer());
     }
 
     public void updateKunde(int knummer, String firma, String navn, String adresse, int postnummer, int telefonnummer) {
@@ -584,7 +603,7 @@ public class Controller {
         return va;
     }
 
-    public Boolean gennemførOrdrer(boolean afBool, String kunde, double pris, double rabat, double depositum, String tidLev, String tidRet, String lev, String ret, ArrayList<Odetaljer> odetaljer) {
+    public Boolean gennemførOrdrer(boolean afBool, String kunde, double pris, double rabat, double depositum, String tidLev, String tidRet, String lev, String ret, ArrayList<Odetaljer> odetaljer, String kommentar) {
         boolean result = false;
         ArrayList<Kunde> kunder = getAllCostumers();
         int kno = 0;
@@ -601,9 +620,9 @@ public class Controller {
         }
         if (currentOrder == null) {
             if (afBool) {
-                addNewOrder(kno, pris, rabat, depositum, "", "", afhentning, "Påbegyndt", lev, ret, odetaljer);
+                addNewOrder(kno, pris, rabat, depositum, "", "", afhentning, "Påbegyndt", lev, ret, odetaljer, kommentar);
             } else {
-                addNewOrder(kno, pris, rabat, depositum, tidLev, tidRet, afhentning, "Påbegyndt", lev, ret, odetaljer);
+                addNewOrder(kno, pris, rabat, depositum, tidLev, tidRet, afhentning, "Påbegyndt", lev, ret, odetaljer, kommentar);
             }
             result = true;
         } else if (currentOrder != null) {

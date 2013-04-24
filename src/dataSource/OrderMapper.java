@@ -23,7 +23,7 @@ public class OrderMapper {
                 + "to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'),"
                 + "to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'),"
                 + "to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'),"
-                + "?)";
+                + "?,?)";
         PreparedStatement statement = null;
         statement = conn.prepareStatement(SQLString);
 
@@ -44,7 +44,8 @@ public class OrderMapper {
                 statement.setString(12, o.getModtaget());
                 statement.setString(13, o.getLevering());
                 statement.setString(14, o.getReturnering());
-                statement.setInt(15, o.getVer());
+                statement.setString(15, o.getKommentar());
+                statement.setInt(16, o.getVer());
                 rowsInserted += statement.executeUpdate();
                 statement.close();
             }
@@ -278,7 +279,6 @@ public class OrderMapper {
                 statement.setInt(1, odl.get(i).getOnummer());
                 statement.setInt(2, odl.get(i).getVnummer());
                 statement.setInt(3, odl.get(i).getMaengde());
-                statement.setInt(4, odl.get(i).getStatus());
                 rowsInserted += statement.executeUpdate();
                 statement.close();
             }
@@ -332,7 +332,6 @@ public class OrderMapper {
             for (int i = 0; i < odl.size(); i++) {
                 Odetaljer od = odl.get(i);
                 statement.setInt(1, od.getMaengde());
-                statement.setInt(2, od.getStatus());
                 statement.setInt(3, od.getOnummer());
                 statement.setInt(4, od.getVnummer());
                 int tupleUpdated = statement.executeUpdate();
@@ -526,7 +525,8 @@ public class OrderMapper {
                         dateFormat.format(rs.getDate(12)),
                         dateFormat.format(rs.getDate(13)),
                         dateFormat.format(rs.getDate(14)),
-                        rs.getInt(15));
+                        rs.getString(15),
+                        rs.getInt(16));
 
                 //=== get order details
                 statement.close();
@@ -538,8 +538,7 @@ public class OrderMapper {
                     o.addOd(new Odetaljer(
                             ono,
                             rs.getInt(2),
-                            rs.getInt(3),
-                            rs.getInt(4)));
+                            rs.getInt(3)));
                 }
             }
         } finally {
@@ -605,7 +604,8 @@ public class OrderMapper {
                             dateFormat.format(rs.getDate(12)),
                             dateFormat.format(rs.getDate(13)),
                             dateFormat.format(rs.getDate(14)),
-                            rs.getInt(15));
+                            rs.getString(15),
+                            rs.getInt(16));
 
                     //=== get order details
                     statement.close();
@@ -617,8 +617,7 @@ public class OrderMapper {
                         o.addOd(new Odetaljer(
                                 o.getOnummer(),
                                 rs.getInt(2),
-                                rs.getInt(3),
-                                rs.getInt(4)));
+                                rs.getInt(3)));
                     }
                     ol.add(o);
                 }
