@@ -1368,7 +1368,11 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonTilføjActionPerformed
 
     private void jButtonUdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUdeActionPerformed
+        
+        Ordre selectedOrdre = (Ordre) jListOrdrer.getSelectedValue();
         Del selectedDel = (Del) jListReturDele.getSelectedValue();
+        controller.updateDelUde(selectedOrdre.getOnummer(), selectedDel.getVnummer());
+        
         listReturDele.clear();
         Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
         ArrayList<Odetaljer> od = selected.getOd();
@@ -1408,8 +1412,6 @@ public class GUI extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-
-
 
 
 
