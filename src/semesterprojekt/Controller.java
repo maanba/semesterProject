@@ -49,6 +49,7 @@ public class Controller {
     public void setCurrentOrder(Ordre currentOrder) {
         this.currentOrder = currentOrder;
     }
+    
     public boolean kundeSøg (Kunde kunde, String jTextFieldKundeSøg){
             boolean result = false;
                 String firma = null;
@@ -77,7 +78,8 @@ public class Controller {
                 }
         return result;
     }
-    public Ordre createNewOrder(int knummer, double pris, double rabat, double depositum, String tidLev, String tidRet, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
+    
+    public Ordre addNewOrder(int knummer, double pris, double rabat, double depositum, String tidLev, String tidRet, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
         int montører = 0;
@@ -207,10 +209,8 @@ public class Controller {
     public void bekraeftOrdre(int onummer) {
         ArrayList<Ordre> ol = dbFacade.getAllOrdres();
         ArrayList<Vare> vl = dbFacade.getAllRessources();
-        for (int i = 0; i < ol.size(); i++) 
-        {
-            if (onummer == ol.get(i).getOnummer()) 
-            {
+        for (int i = 0; i < ol.size(); i++) {
+            if (onummer == ol.get(i).getOnummer()) {
                 ol.get(i).setStatus("Bekræftet ordre");
                 for (int j = 0; j < ol.get(i).getOd().size(); j++) // gældende odetaljers størrelse
                 {
@@ -220,7 +220,7 @@ public class Controller {
                         for (int l = 0; l < vl.get(k).getDel().size(); l++) // antal dele i gældende vareliste
                         {
                             if (ovnummer == vl.get(k).getDel().get(l).getVnummer())// vnummer på dele i vareliste
-                            { 
+                            {
                                 vl.get(k).getDel().get(l).setStatus(0);
                                 dbFacade.startNewBusinessTransaction();
                                 dbFacade.registerDirtyOrder(ol.get(i));
@@ -286,7 +286,7 @@ public class Controller {
         currentKunde = null;
     }
 
-    public void addRessource(int vnummer, String vnavn, int qty, double pris, int aktiv) {
+    public void addVare(int vnummer, String vnavn, int qty, double pris, int aktiv) {
         Vare ressource = new Vare(vnummer, vnavn, qty, pris, aktiv);
         dbFacade.startNewBusinessTransaction();
         dbFacade.registerNewRessource(ressource);
@@ -471,9 +471,9 @@ public class Controller {
         }
         if (currentOrder == null) {
             if (afBool) {
-                createNewOrder(kno, pris, rabat, depositum, "", "", afhentning, "Påbegyndt", lev, ret, odetaljer);
+                addNewOrder(kno, pris, rabat, depositum, "", "", afhentning, "Påbegyndt", lev, ret, odetaljer);
             } else {
-                createNewOrder(kno, pris, rabat, depositum, tidLev, tidRet, afhentning, "Påbegyndt", lev, ret, odetaljer);
+                addNewOrder(kno, pris, rabat, depositum, tidLev, tidRet, afhentning, "Påbegyndt", lev, ret, odetaljer);
             }
             result = true;
         } else if (currentOrder != null) {
@@ -527,13 +527,13 @@ public class Controller {
         return array;
     }
 
-    public void redigerVare(Vare vare) {
+    public void updateVare(Vare vare) {
         dbFacade.startNewBusinessTransaction();
         dbFacade.registerDirtyRessource(vare);
         dbFacade.commitBusinessTransaction();
     }
 
-    public void redigerKunde(Kunde kunde) {
+    public void updateKunde(Kunde kunde) {
         dbFacade.startNewBusinessTransaction();
         dbFacade.registerDirtyCustomer(kunde);
         dbFacade.commitBusinessTransaction();
