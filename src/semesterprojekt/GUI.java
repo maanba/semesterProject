@@ -1302,11 +1302,11 @@ public class GUI extends javax.swing.JFrame {
                 if (jRadioButtonAfhentning.isSelected() || jRadioButtonLevering.isSelected()) {
                     for (int i = 0; i < list2.size(); i++) {
                         Vare vare = (Vare) list2.getElementAt(i);
-                        odetaljer.add(new Odetaljer(0, vare.getVnummer(), vare.getQty(), 1));
+                        odetaljer.add(new Odetaljer(0, vare.getVnummer(), vare.getQty()));
                     }
                     String leveringDate = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                     String returneringDate = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
-                    controller.gennemførOrdrer(jRadioButtonAfhentning.isSelected(), "" + jComboBox1.getSelectedItem(), Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), Double.parseDouble(jTextFieldTotalPris.getText()) * 0.25, "" + jComboBox2.getSelectedItem(), "" + jComboBox3.getSelectedItem(), leveringDate, returneringDate, odetaljer);
+                    controller.gennemførOrdrer(jRadioButtonAfhentning.isSelected(), "" + jComboBox1.getSelectedItem(), Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), Double.parseDouble(jTextFieldTotalPris.getText()) * 0.25, "" + jComboBox2.getSelectedItem(), "" + jComboBox3.getSelectedItem(), leveringDate, returneringDate, odetaljer, "");
                     list2.clear();
                     list3.clear();
                     jLabelErrorOrdre.setText("");
