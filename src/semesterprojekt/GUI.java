@@ -1440,9 +1440,10 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonTilføjActionPerformed
 
     private void jButtonUdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUdeActionPerformed
-        Del selectedDel = (Del) jListReturDele.getSelectedValue();
-
         
+        Ordre selectedOrdre = (Ordre) jListOrdrer.getSelectedValue();
+        Del selectedDel = (Del) jListReturDele.getSelectedValue();
+        controller.updateDelUde(selectedOrdre.getOnummer(), selectedDel.getVnummer());
         
         listReturDele.clear();
         Ordre selected = (Ordre) jListOrdrer.getSelectedValue();

@@ -222,39 +222,21 @@ public class Controller {
         }
         dbFacade.commitBusinessTransaction();
     }
-    
-    /*
-    public void updateDel(int onummer) {
+
+    public void updateDelUde(int onummer, int vnummer) {
         ArrayList<Ordre> ol = dbFacade.getAllOrdres();
-        ArrayList<Vare> vl = dbFacade.getAllRessources();
-
-
+        dbFacade.startNewBusinessTransaction();
         for (int i = 0; i < ol.size(); i++) {
-            if (onummer == ol.get(i).getOnummer()) {
-                ol.get(i).setStatus("Bekræftet ordre");
-                for (int j = 0; j < ol.get(i).getOd().size(); j++) // gældende odetaljers størrelse
-                {
-                    int ovnummer = ol.get(i).getOd().get(j).getVnummer();    // alle odetaljers (vares) vnummer
-                    for (int k = 0; k < vl.size(); k++) // varelistes størrelse
-                    {
-                        for (int l = 0; l < vl.get(k).getDel().size(); l++) // antal dele i gældende vareliste
-                        {
-                            if (ovnummer == vl.get(k).getDel().get(l).getVnummer())// vnummer på dele i vareliste
-                            {
-                                dbFacade.startNewBusinessTransaction();
-                                dbFacade.registerDirtyOrder(ol.get(i));
-                                dbFacade.registerDirtyRessource(vl.get(k));
-                                dbFacade.commitBusinessTransaction();
-                                
-                            }
-                        }
-                    }
+            if (onummer == ol.get(i).getOnummer());
+            for (int j = 0; j < ol.get(i).getOd().size(); j++) {
+                if (vnummer == ol.get(i).getOd().get(j).getVnummer()) {
+                    ol.get(i).getOd().get(j).setStatus(0);
+                    dbFacade.registerDirtyOrderDetail(ol.get(i).getOd().get(j));
                 }
             }
         }
+        dbFacade.commitBusinessTransaction();
     }
-    * */
-    
 
     public void ordreTilbud(int onummer) {
         ArrayList<Ordre> ol = dbFacade.getAllOrdres();
