@@ -702,7 +702,7 @@ public class PDF {
                     for (int j = 0; j < vareArray.get(i).getDel().size(); j++) {
                         table2.addCell(new Phrase(vareArray.get(i).getDel().get(j).getVnummer() + "", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                         table2.addCell(new Phrase(vareArray.get(i).getDel().get(j).getTitel(), FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
-                        table2.addCell(new Phrase(vareArray.get(i).getDel().get(j).getAntal() + "", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                        table2.addCell(new Phrase(vareArray.get(i).getDel().get(j).getAntal() * odetaljeArray.get(i).getMaengde() + "", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                         table2.addCell(new Phrase("   ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                     }
                 }

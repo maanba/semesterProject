@@ -92,7 +92,7 @@ public class OrderMapper {
     public boolean insertRessources(ArrayList<Vare> vl, Connection conn) throws SQLException {
         int rowsInserted = 0;
         String SQLString = "insert into varer values (?,?,?,?,?)";
-        String SQLString2 = "insert into dele values (?,?,?,?)";
+        String SQLString2 = "insert into dele values (?,?,?)";
         PreparedStatement statement = null;
         statement = conn.prepareStatement(SQLString);
 
@@ -137,7 +137,7 @@ public class OrderMapper {
     public boolean updateOrders(ArrayList<Ordre> ol, Connection conn) throws SQLException {
         int rowsUpdated = 0;
         String SQLString = "update ordrer "
-                + "set fnummer = ?, knummer = ?, pris = ?, rabat = ?, depositum = ?, tidlev = ?, tidret = ?, afhentning = ?, montører = ?, status = ?, modtaget = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), levering = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), returnering = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), ver = ? "
+                + "set fnummer = ?, knummer = ?, pris = ?, rabat = ?, depositum = ?, tidlev = ?, tidret = ?, afhentning = ?, montører = ?, status = ?, modtaget = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), levering = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), returnering = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), kommentar = ?, ver = ? "
                 + "where onummer = ? and ver = ?";
         PreparedStatement statement = null;
 
@@ -158,9 +158,10 @@ public class OrderMapper {
                 statement.setString(11, o.getModtaget());
                 statement.setString(12, o.getLevering());
                 statement.setString(13, o.getReturnering());
-                statement.setInt(14, o.getVer() + 1); // next version number
-                statement.setInt(15, o.getOnummer());
-                statement.setInt(16, o.getVer());   // old version number
+                statement.setString(14, o.getKommentar());
+                statement.setInt(15, o.getVer() + 1); // next version number
+                statement.setInt(16, o.getOnummer());
+                statement.setInt(17, o.getVer());   // old version number
                 int tupleUpdated = statement.executeUpdate();
                 if (tupleUpdated == 1) {
                     o.nuVer();                       // increment version in current OrderObject
@@ -218,7 +219,7 @@ public class OrderMapper {
                 + "where vnummer = ?";
         String SQLString2 = "delete from dele "
                 + "where vnummer = ?";
-        String SQLString3 = "insert into dele values (?,?,?,?)";
+        String SQLString3 = "insert into dele values (?,?,?)";
         PreparedStatement statement = null;
 
         statement = conn.prepareStatement(SQLString);
@@ -323,7 +324,7 @@ public class OrderMapper {
     public boolean updateOrderDetails(ArrayList<Odetaljer> odl, Connection conn) throws SQLException {
         int rowsUpdated = 0;
         String SQLString = "update odetaljer "
-                + "set maengde = ?, status = ? "
+                + "set maengde = ? "
                 + "where onummer = ? and vnummer = ?";
         PreparedStatement statement = null;
 
@@ -332,8 +333,8 @@ public class OrderMapper {
             for (int i = 0; i < odl.size(); i++) {
                 Odetaljer od = odl.get(i);
                 statement.setInt(1, od.getMaengde());
-                statement.setInt(3, od.getOnummer());
-                statement.setInt(4, od.getVnummer());
+                statement.setInt(2, od.getOnummer());
+                statement.setInt(3, od.getVnummer());
                 int tupleUpdated = statement.executeUpdate();
                 rowsUpdated += tupleUpdated;
                 statement.close();
