@@ -224,7 +224,7 @@ public class Controller {
     }
     
     
-    /*public void updateDel(int onummer) {
+    public void updateDel(int onummer) {
         ArrayList<Ordre> ol = dbFacade.getAllOrdres();
         ArrayList<Vare> vl = dbFacade.getAllRessources();
 
@@ -246,7 +246,7 @@ public class Controller {
                                 dbFacade.registerDirtyOrder(ol.get(i));
                                 dbFacade.registerDirtyRessource(vl.get(k));
                                 dbFacade.commitBusinessTransaction();
-                                break;
+                                
                             }
                         }
                     }
@@ -254,7 +254,7 @@ public class Controller {
             }
         }
     }
-    * */
+    
 
     public void ordreTilbud(int onummer) {
         ArrayList<Ordre> ol = dbFacade.getAllOrdres();

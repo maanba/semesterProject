@@ -1443,6 +1443,7 @@ public class GUI extends javax.swing.JFrame {
         Del selectedDel = (Del) jListReturDele.getSelectedValue();
 
         
+        
         listReturDele.clear();
         Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
         ArrayList<Odetaljer> od = selected.getOd();

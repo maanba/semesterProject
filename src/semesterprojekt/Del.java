@@ -11,21 +11,12 @@ package semesterprojekt;
 public class Del {
 
     private String titel;
-    private int vnummer, antal, status;
+    private int vnummer, antal;
 
     public Del(int vnummer, String titel, int antal) {
         this.vnummer = vnummer;
         this.titel = titel;
         this.antal = antal;
-        this.status = status;
-    }
-
-    public void setDelStatus(int delStatus) {
-        this.status = delStatus;
-    }
-
-    public int getDelStatus() {
-        return status;
     }
 
     public int getVnummer() {
@@ -65,12 +56,7 @@ public class Del {
                 navn += " ";
             }
         }
-        String stringStatus;
-        if (status == 1) {
-            stringStatus = "Hjemme";
-        } else {
-            stringStatus = "Ude";
-        }
-        return navn + antal + ", " + stringStatus;
+
+        return navn + antal;
     }
 }
