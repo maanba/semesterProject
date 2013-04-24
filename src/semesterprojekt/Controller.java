@@ -49,36 +49,115 @@ public class Controller {
     public void setCurrentOrder(Ordre currentOrder) {
         this.currentOrder = currentOrder;
     }
-    
-    public boolean kundeSøg (Kunde kunde, String jTextFieldKundeSøg){
-            boolean result = false;
-                String firma = null;
-                String knavn = null;
-                if (kunde.getFirma() != null) {
-                    firma = kunde.getFirma().toLowerCase();
-                }
-                if (kunde.getNavn() != null) {
-                    knavn = kunde.getNavn().toLowerCase();
-                }
-                String knummer = kunde.getKnummer() + "";
-                String telefonnummer = kunde.getTelefonnummer() + "";
-                String postnummer = kunde.getPostnummer() + "";
-                if (knavn != null && knavn.contains(jTextFieldKundeSøg.toLowerCase())) {
-                    result = true;
-                } else if (firma != null && firma.contains(jTextFieldKundeSøg.toLowerCase()) || kunde.getNavn().contains(jTextFieldKundeSøg.toLowerCase())) {
-                    result = true;
-                } else if (knummer.contains(jTextFieldKundeSøg)) {
-                    result = true;
-                } else if (telefonnummer.contains(jTextFieldKundeSøg)) {
-                    result = true;
-                } else if (postnummer.contains(jTextFieldKundeSøg)) {
-                    result = true;
-                } else {
-                    result = false;
-                }
+
+    public boolean kundeSøg(Kunde kunde, String jTextFieldKundeSøg) {
+        boolean result = false;
+        String firma = null;
+        String knavn = null;
+        if (kunde.getFirma() != null) {
+            firma = kunde.getFirma().toLowerCase();
+        }
+        if (kunde.getNavn() != null) {
+            knavn = kunde.getNavn().toLowerCase();
+        }
+        String knummer = kunde.getKnummer() + "";
+        String telefonnummer = kunde.getTelefonnummer() + "";
+        String postnummer = kunde.getPostnummer() + "";
+        if (knavn != null && knavn.contains(jTextFieldKundeSøg.toLowerCase())) {
+            result = true;
+        } else if (firma != null && firma.contains(jTextFieldKundeSøg.toLowerCase()) || kunde.getNavn().contains(jTextFieldKundeSøg.toLowerCase())) {
+            result = true;
+        } else if (knummer.contains(jTextFieldKundeSøg)) {
+            result = true;
+        } else if (telefonnummer.contains(jTextFieldKundeSøg)) {
+            result = true;
+        } else if (postnummer.contains(jTextFieldKundeSøg)) {
+            result = true;
+        } else {
+            result = false;
+        }
         return result;
     }
-    
+
+    public boolean tilbudSøg(Vare vare, String jTextFieldTilbudSøg) {
+        boolean result = false;
+        String vnavn = vare.getVnavn().toLowerCase();
+        String vnummer = vare.getVnummer() + "";
+        if (vnavn.contains(jTextFieldTilbudSøg.toLowerCase())) {
+            result = true;
+        } else if (vnummer.contains(jTextFieldTilbudSøg)) {
+            result = true;
+        } else {
+            result = false;
+        }
+        return result;
+    }
+
+    public boolean historikSøg(Ordre ordre, String jTextFieldHistorikSøg) {
+        boolean result = false;
+        String onummer = ordre.getOnummer() + "";
+        String knummer = ordre.getKnummer() + "";
+        String status = ordre.getStatus().toLowerCase();
+        Kunde kunde = getKunde(ordre.getKnummer());
+        String knavn = kunde.getNavn().toLowerCase();
+        if (onummer.contains(jTextFieldHistorikSøg)) {
+            result = true;
+        } else if (status.contains(jTextFieldHistorikSøg.toLowerCase())) {
+            result = true;
+        } else if (knummer.contains(jTextFieldHistorikSøg)) {
+            result = true;
+        } else if (knavn.contains(jTextFieldHistorikSøg.toLowerCase())) {
+            result = true;
+        } else {
+            result = false;
+        }
+        return result;
+    }
+
+    public boolean lagerSøg(Vare vare, String jTextFieldLagerSøg) {
+        boolean result = false;
+        String vnummer = vare.getVnummer() + "";
+        String vnavn = vare.getVnavn().toLowerCase();
+        if (vnavn.contains(jTextFieldLagerSøg.toLowerCase())) {
+            result = true;
+        } else if (vnummer.contains(jTextFieldLagerSøg)) {
+            result = true;
+        } else {
+            result = true;
+        }
+        return result;
+    }
+
+    public boolean returSøg(Ordre ordre, String jTextFieldReturSøg) {
+        boolean result = false;
+        String onummer = ordre.getOnummer() + "";
+        String knummer = ordre.getKnummer() + "";
+        String status = ordre.getStatus().toLowerCase();
+        Kunde kunde = getKunde(ordre.getKnummer());
+        String firma = null;
+        String knavn = null;
+        if (kunde.getFirma() != null) {
+            firma = kunde.getFirma().toLowerCase();
+        }
+        if (kunde.getNavn() != null) {
+            knavn = kunde.getNavn().toLowerCase();
+        }
+        if (onummer.contains(jTextFieldReturSøg)) {
+            result = true;
+        } else if (knummer.contains(jTextFieldReturSøg)) {
+            result = true;
+        } else if (status.contains(jTextFieldReturSøg.toLowerCase())) {
+            result = true;
+        } else if (knavn != null && knavn.contains(jTextFieldReturSøg.toLowerCase())) {
+            result = true;
+        } else if (firma != null && firma.contains(jTextFieldReturSøg.toLowerCase())) {
+            result = true;
+        } else {
+            result = false;
+        }
+        return result;
+    }
+
     public Ordre addNewOrder(int knummer, double pris, double rabat, double depositum, String tidLev, String tidRet, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer) {
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
@@ -648,9 +727,19 @@ public class Controller {
         ArrayList<Vare> vl = dbFacade.getAllRessources();
         return vl;
     }
-
-    public void setSelectedOrdre(Ordre ordre) {
-        this.currentOrder = ordre;
+    
+    public boolean gemKunde(String firma, String navn, String adresse, int postnummer, int telefonnummer, int knummer){
+        boolean result = false;
+        if (getRediger() == false) {
+            addNewKunde(firma, navn, adresse, postnummer, telefonnummer);
+            result = false;
+        } else if (getRediger() == true) {
+            Kunde kunde = new Kunde(knummer, firma, navn, adresse, postnummer, telefonnummer);
+            updateKunde(kunde);
+            redigerFalse();
+            result = true;
+        }
+        return result;
     }
 
     public void pdfOrdre() {
