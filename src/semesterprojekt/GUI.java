@@ -969,7 +969,7 @@ public class GUI extends javax.swing.JFrame {
             int vnummer = controller.getNextVnummer();
             String delnavn = jTextFieldPartNavn.getText();
             int delantal = Integer.parseInt(jTextFieldPartAntal.getText());
-            listLagerDele.addElement(new Del(vnummer, delnavn, delantal, 1));
+            listLagerDele.addElement(new Del(vnummer, delnavn, delantal));
             jTextFieldPartNavn.setText("");
             jTextFieldPartAntal.setText("");
         }
@@ -1105,7 +1105,11 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButtonHjemmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHjemmeActionPerformed
         Del selectedDel = (Del) jListReturDele.getSelectedValue();
-        selectedDel.setStatus(1);
+        Ordre selectedOrdre = (Ordre) jListOrdrer.getSelectedValue();
+        selectedDel.getVnummer();
+      
+        
+        
         listReturDele.clear();
         Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
         ArrayList<Odetaljer> od = selected.getOd();
@@ -1119,7 +1123,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
         Del selected = (Del) jListLagerDele.getSelectedValue();
-        selected.setStatus(1);
+
     }//GEN-LAST:event_jButtonOKActionPerformed
 
     private void jButtonAfslutOrdreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAfslutOrdreActionPerformed
@@ -1369,7 +1373,7 @@ public class GUI extends javax.swing.JFrame {
                 if (jRadioButtonAfhentning.isSelected() || jRadioButtonLevering.isSelected()) {
                     for (int i = 0; i < list2.size(); i++) {
                         Vare vare = (Vare) list2.getElementAt(i);
-                        odetaljer.add(new Odetaljer(0, vare.getVnummer(), vare.getQty()));
+                        odetaljer.add(new Odetaljer(0, vare.getVnummer(), vare.getQty(), 1));
                     }
                     String leveringDate = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                     String returneringDate = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
@@ -1437,7 +1441,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButtonUdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUdeActionPerformed
         Del selectedDel = (Del) jListReturDele.getSelectedValue();
-        selectedDel.setStatus(0);
+
         
         listReturDele.clear();
         Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
@@ -1451,14 +1455,19 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonUdeActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-                Del selectedDel = (Del) jListReturDele.getSelectedValue();
-        System.out.println(selectedDel.getStatus());
+                Ordre selectedOrdre = (Ordre) jListOrdrer.getSelectedValue();
+                for (int i = 0; i < selectedOrdre.getOd().size(); i++) {
+            System.out.println(selectedOrdre.getOd().get(i));
+        }
+        
+        
+       
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
                         Del selectedDel = (Del) jListReturDele.getSelectedValue();
-                        selectedDel.setStatus(0);
+                   
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButtonLeverActionPerformed(java.awt.event.ActionEvent evt) {

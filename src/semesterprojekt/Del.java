@@ -13,11 +13,10 @@ public class Del {
     private String titel;
     private int vnummer, antal, status;
     
-    public Del(int vnummer, String titel, int antal, int status) {
+    public Del(int vnummer, String titel, int antal) {
         this.vnummer = vnummer;
         this.titel = titel;
         this.antal = antal;
-        this.status = status;
     }
 
 
@@ -44,14 +43,7 @@ public class Del {
     public void setTitel(String titel) {
         this.titel = titel;
     }
-    
-    public void setStatus(int status) {
-        this.status = status;
-    }
 
-    public int getStatus() {
-        return status;
-    }
 
     @Override
     public String toString() {
@@ -66,15 +58,6 @@ public class Del {
                 navn += " ";
             }
         }
-        String stringStatus;
-        if (status == 1)
-        {
-            stringStatus = "Hjemme";
-        }
-        else
-        {
-            stringStatus = "Ude";
-        }
-        return navn + antal + ", " + stringStatus;
+       return navn + antal;
     }
 }
