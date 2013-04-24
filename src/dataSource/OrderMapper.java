@@ -278,6 +278,7 @@ public class OrderMapper {
                 statement.setInt(1, odl.get(i).getOnummer());
                 statement.setInt(2, odl.get(i).getVnummer());
                 statement.setInt(3, odl.get(i).getMaengde());
+                statement.setInt(4, odl.get(i).getStatus());
                 rowsInserted += statement.executeUpdate();
                 statement.close();
             }
