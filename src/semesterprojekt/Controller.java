@@ -223,7 +223,7 @@ public class Controller {
         dbFacade.commitBusinessTransaction();
     }
     
-    
+    /*
     public void updateDel(int onummer) {
         ArrayList<Ordre> ol = dbFacade.getAllOrdres();
         ArrayList<Vare> vl = dbFacade.getAllRessources();
@@ -241,7 +241,6 @@ public class Controller {
                         {
                             if (ovnummer == vl.get(k).getDel().get(l).getVnummer())// vnummer på dele i vareliste
                             {
-                                vl.get(k).getDel().get(l).setStatus(0);
                                 dbFacade.startNewBusinessTransaction();
                                 dbFacade.registerDirtyOrder(ol.get(i));
                                 dbFacade.registerDirtyRessource(vl.get(k));
@@ -254,6 +253,7 @@ public class Controller {
             }
         }
     }
+    * */
     
 
     public void ordreTilbud(int onummer) {
