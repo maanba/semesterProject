@@ -1067,19 +1067,12 @@ public class GUI extends javax.swing.JFrame {
     private void jButtonLevérActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLevérActionPerformed
         Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
         ArrayList<Odetaljer> od = selected.getOd();
-
-
-
         for (int i = 0; i < od.size(); i++) {
             Vare vare = controller.getVare(od.get(i).getVnummer());
             for (int j = 0; j < vare.getDel().size(); j++) {
                 listDele.addElement((Del) vare.getDel().get(j));
             }
         }
-
-
-
-
     }//GEN-LAST:event_jButtonLevérActionPerformed
 
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
