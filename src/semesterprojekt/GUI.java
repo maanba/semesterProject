@@ -52,8 +52,6 @@ public class GUI extends javax.swing.JFrame {
         jLabelErrorOrdre.setText("");
         jLabelErrorKunder.setText("");
         jLabelOpretRedigerVare.setText("");
-
-
         jLabelErrorOrdre.setText(null);
         update();
     }
@@ -853,11 +851,7 @@ public class GUI extends javax.swing.JFrame {
                 vl.add((Vare) Vareliste.getElementAt(i));
             }
             for (int i = 0; i < vl.size(); i++) {
-                String vnummer = vl.get(i).getVnummer() + "";
-                String vnavn = vl.get(i).getVnavn().toLowerCase();
-                if (vnavn.contains(jTextFieldLagerSøg.getText().toLowerCase())) {
-                    jListVareliste.setSelectedIndex(i);
-                } else if (vnummer.contains(jTextFieldLagerSøg.getText())) {
+                if (controller.lagerSøg(vl.get(i), jTextFieldLagerSøg.getText())) {
                     jListVareliste.setSelectedIndex(i);
                 } else {
                     Vareliste.removeElementAt(i - counter);
@@ -930,7 +924,6 @@ public class GUI extends javax.swing.JFrame {
             jLabelErrorLager.setText("You need to finish editing your stock before editing a new one.");
         }
         if (controller.getRediger() == false && selected != null) {
-
             listReturDele.removeElement(selected);
             listLagerDele.clear();
             jLabelOpretRedigerVare.setText("Redigerer i vare:");
@@ -1001,18 +994,7 @@ public class GUI extends javax.swing.JFrame {
                 ol.add((Ordre) listHistorik.getElementAt(i));
             }
             for (int i = 0; i < ol.size(); i++) {
-                String onummer = ol.get(i).getOnummer() + "";
-                String knummer = ol.get(i).getKnummer() + "";
-                String status = ol.get(i).getStatus().toLowerCase();
-                Kunde kunde = controller.getKunde(ol.get(i).getKnummer());
-                String knavn = kunde.getNavn().toLowerCase();
-                if (onummer.contains(jTextFieldHistorikSøg.getText())) {
-                    jListHistorik.setSelectedIndex(i);
-                } else if (status.contains(jTextFieldHistorikSøg.getText().toLowerCase())) {
-                    jListHistorik.setSelectedIndex(i);
-                } else if (knummer.contains(jTextFieldHistorikSøg.getText())) {
-                    jListHistorik.setSelectedIndex(i);
-                } else if (knavn.contains(jTextFieldHistorikSøg.getText().toLowerCase())) {
+                if (controller.historikSøg(ol.get(i), jTextFieldHistorikSøg.getText())) {
                     jListHistorik.setSelectedIndex(i);
                 } else {
                     listHistorik.removeElementAt(i - counter);
@@ -1051,32 +1033,12 @@ public class GUI extends javax.swing.JFrame {
         if (!jTextFieldReturSøg.getText().equals("")) {
             int counter = 0;
             ArrayList<Ordre> ol = new ArrayList<>();
-
             for (int i = 0; i < listOrdrer.size(); i++) {
                 ol.add((Ordre) listOrdrer.getElementAt(i));
             }
             for (int i = 0; i < ol.size(); i++) {
-                String onummer = ol.get(i).getOnummer() + "";
-                String knummer = ol.get(i).getKnummer() + "";
-                String status = ol.get(i).getStatus().toLowerCase();
-                Kunde kunde = controller.getKunde(ol.get(i).getKnummer());
-                String firma = null;
-                String knavn = null;
-                if (kunde.getFirma() != null) {
-                    firma = kunde.getFirma().toLowerCase();
-                }
-                if (kunde.getNavn() != null) {
-                    knavn = kunde.getNavn().toLowerCase();
-                }
-                if (onummer.contains(jTextFieldReturSøg.getText())) {
-                    jListOrdrer.setSelectedIndex(i);
-                } else if (knummer.contains(jTextFieldReturSøg.getText())) {
-                    jListOrdrer.setSelectedIndex(i);
-                } else if (status.contains(jTextFieldReturSøg.getText().toLowerCase())) {
-                    jListOrdrer.setSelectedIndex(i);
-                } else if (knavn != null && knavn.contains(jTextFieldReturSøg.getText().toLowerCase())) {
-                    jListOrdrer.setSelectedIndex(i);
-                } else if (firma != null && firma.contains(jTextFieldReturSøg.getText().toLowerCase())) {
+
+                if (controller.returSøg(ol.get(i), jTextFieldReturSøg.getText())) {
                     jListOrdrer.setSelectedIndex(i);
                 } else {
                     listOrdrer.removeElementAt(i - counter);
@@ -1107,9 +1069,9 @@ public class GUI extends javax.swing.JFrame {
         Del selectedDel = (Del) jListReturDele.getSelectedValue();
         Ordre selectedOrdre = (Ordre) jListOrdrer.getSelectedValue();
         selectedDel.getVnummer();
-      
-        
-        
+
+
+
         listReturDele.clear();
         Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
         ArrayList<Odetaljer> od = selected.getOd();
@@ -1136,16 +1098,11 @@ public class GUI extends javax.swing.JFrame {
         if (!jTextFieldTilbudSøg.getText().equals("")) {
             int counter = 0;
             ArrayList<Vare> vl = new ArrayList<>();
-
             for (int i = 0; i < listTilbudVarer.size(); i++) {
                 vl.add((Vare) listTilbudVarer.getElementAt(i));
             }
             for (int i = 0; i < vl.size(); i++) {
-                String vnavn = vl.get(i).getVnavn().toLowerCase();
-                String vnummer = vl.get(i).getVnummer() + "";
-                if (vnavn.contains(jTextFieldTilbudSøg.getText().toLowerCase())) {
-                    jListTilbudVarer.setSelectedIndex(i);
-                } else if (vnummer.contains(jTextFieldTilbudSøg.getText())) {
+                if (controller.tilbudSøg(vl.get(i), jTextFieldTilbudSøg.getText()) == true) {
                     jListTilbudVarer.setSelectedIndex(i);
                 } else {
                     listTilbudVarer.removeElementAt(i - counter);
@@ -1183,32 +1140,29 @@ public class GUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonKundeSøgActionPerformed
     private void jButtonGemKundeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGemKundeActionPerformed
-        String firma = jTextFieldFirmaNavn.getText();
-        String navn = jTextFieldFuldeNavn.getText();
-        String adresse = jTextFieldAdresse.getText();
-        int postnummer = Integer.parseInt(jTextFieldPostnummer.getText());
-        int telefonnummer = Integer.parseInt(jTextFieldTelefonnummer.getText());
-
         if (jTextFieldFuldeNavn.getText().isEmpty() || jTextFieldAdresse.getText().isEmpty()
                 || jTextFieldPostnummer.getText().isEmpty() || jTextFieldTelefonnummer.getText().isEmpty()) {
             jLabelErrorKunder.setText("You need to fill in all the fields before adding a new customer.");
-        } else if (controller.getRediger() == false) {
-            controller.addNewKunde(firma, navn, adresse, postnummer, telefonnummer);
+        } else if (jLabelKundenummer2.getText().isEmpty() && !controller.gemKunde(jTextFieldFirmaNavn.getText(),
+                jTextFieldFuldeNavn.getText(),
+                jTextFieldAdresse.getText(),
+                Integer.parseInt(jTextFieldPostnummer.getText()),
+                Integer.parseInt(jTextFieldTelefonnummer.getText()),
+                0)) {
             jLabelErrorKunder.setText("");
             update();
-        } else if (controller.getRediger() == true) {
-            int knummer = Integer.parseInt(jLabelKundenummer2.getText());
-            Kunde kunde = new Kunde(knummer, firma, navn, adresse, postnummer, telefonnummer);
-            controller.updateKunde(kunde);
+        } else if (!jLabelKundenummer2.getText().isEmpty() && controller.gemKunde(jTextFieldFirmaNavn.getText(),
+                jTextFieldFuldeNavn.getText(),
+                jTextFieldAdresse.getText(),
+                Integer.parseInt(jTextFieldPostnummer.getText()),
+                Integer.parseInt(jTextFieldTelefonnummer.getText()),
+                Integer.parseInt(jLabelKundenummer2.getText())) == true) {
             jLabelErrorKunder.setText("");
             update();
-            controller.redigerFalse();
         }
     }//GEN-LAST:event_jButtonGemKundeActionPerformed
-
     private void jButtonRedigerKundeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRedigerKundeActionPerformed
         Kunde selected = (Kunde) jListKundeliste.getSelectedValue();
-
         if (controller.getRediger() == false) {
             jLabelOpretRedigerKunde.setText("Redigerer i kunde:");
             jLabelKundenummer1.setText("Kundenummer:");
@@ -1232,7 +1186,7 @@ public class GUI extends javax.swing.JFrame {
         Ordre selected = (Ordre) jList3.getSelectedValue();
         int selectedIndex = jList3.getSelectedIndex();
         controller.bekraeftOrdre(selected.getOnummer());
-        controller.setSelectedOrdre(selected);
+        controller.setCurrentOrder(selected);
         update();
         selected = (Ordre) list3.getElementAt(selectedIndex);
         controller.setCurrentOrder(selected);
@@ -1245,8 +1199,6 @@ public class GUI extends javax.swing.JFrame {
         } else {
             update();
         }
-
-
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButtonStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStatusActionPerformed
@@ -1265,7 +1217,7 @@ public class GUI extends javax.swing.JFrame {
     private void jButtonPakkelisteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPakkelisteActionPerformed
         Ordre selected = (Ordre) jList3.getSelectedValue();
         int selectedIndex = jList3.getSelectedIndex();
-        controller.setSelectedOrdre(selected);
+        controller.setCurrentOrder(selected);
         if (selected.getFnummer() == 0) {
             controller.addOrderFakturaNummer(selected);
         }
@@ -1284,7 +1236,7 @@ public class GUI extends javax.swing.JFrame {
         Ordre selected = (Ordre) jList3.getSelectedValue();
         int selectedIndex = jList3.getSelectedIndex();
         controller.ordreTilbud(selected.getOnummer());
-        controller.setSelectedOrdre(selected);
+        controller.setCurrentOrder(selected);
         update();
         selected = (Ordre) list3.getElementAt(selectedIndex);
         controller.setCurrentOrder(selected);
@@ -1294,7 +1246,7 @@ public class GUI extends javax.swing.JFrame {
     private void jButtonFakturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFakturaActionPerformed
         Ordre selected = (Ordre) jList3.getSelectedValue();
         int selectedIndex = jList3.getSelectedIndex();
-        controller.setSelectedOrdre(selected);
+        controller.setCurrentOrder(selected);
         if (selected.getFnummer() == 0) {
             controller.addOrderFakturaNummer(selected);
         }
@@ -1321,7 +1273,6 @@ public class GUI extends javax.swing.JFrame {
         }
         if (selected != null && list2.isEmpty() == true) {
             ArrayList<Odetaljer> od = selected.getOd();
-
             for (int i = 0; i < od.size(); i++) {
                 Vare vare = controller.getVare(od.get(i).getVnummer());
                 vare.setQty(od.get(i).getMaengde());
@@ -1340,15 +1291,12 @@ public class GUI extends javax.swing.JFrame {
             } else {
                 jRadioButtonAfhentning.setSelected(true);
             }
-
             jTextFieldTotalPris.setText(selected.getPris() + "");
             controller.setCurrentOrder(selected);
             controller.redigerTrue();
         }
         update();
-
         Kunde kunde = controller.getKunde(selected.getKnummer());
-
         for (int i = 0; i < jComboBox1.getItemCount(); i++) {
             if (jComboBox1.getItemAt(i).equals(kunde.getNavn())) {
                 jComboBox1.setSelectedIndex(i);
@@ -1403,7 +1351,6 @@ public class GUI extends javax.swing.JFrame {
         Vare selected = (Vare) jList2.getSelectedValue();
         if (selected != null && selected.getQty() >= Integer.parseInt(jTextFieldAntal.getText())) {
             list2.removeElement(selected);
-            //controller.undoQty(selected.getVnavn(), Integer.parseInt(jTextFieldAntal.getText()));
             selected.setQty(selected.getQty() - (Integer.parseInt(jTextFieldAntal.getText())));
             list2.addElement(selected);
             if (selected.getQty() == 0) {
@@ -1457,19 +1404,16 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonUdeActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-                Ordre selectedOrdre = (Ordre) jListOrdrer.getSelectedValue();
-                for (int i = 0; i < selectedOrdre.getOd().size(); i++) {
+        Del selectedDel = (Del) jListReturDele.getSelectedValue();
+        Ordre selectedOrdre = (Ordre) jListOrdrer.getSelectedValue();
+        for (int i = 0; i < selectedOrdre.getOd().size(); i++) {
             System.out.println(selectedOrdre.getOd().get(i));
         }
-        
-        
-       
-        
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-                        Del selectedDel = (Del) jListReturDele.getSelectedValue();
-                   
+        Del selectedDel = (Del) jListReturDele.getSelectedValue();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButtonLeverActionPerformed(java.awt.event.ActionEvent evt) {
@@ -1575,7 +1519,6 @@ public class GUI extends javax.swing.JFrame {
         controller.quickSortOrdre(oa, 0, oa.length - 1);
         // controller.quickSortOrdre(oa, 0, oa.length - 1);
         for (int i = 0; i < oa.length; i++) {
-
             if (!"Afsluttet".equals(oa[i].getStatus())) {
                 list3.addElement(oa[i]);
                 listHistorik.addElement(oa[i]);
@@ -1592,7 +1535,6 @@ public class GUI extends javax.swing.JFrame {
             ka[i] = kl.get(i);
         }
         controller.quickSortKunde(ka, 0, ka.length - 1);
-
         for (int i = 0; i < ka.length; i++) {
             jComboBox1.addItem(ka[i].getNavn());
         }
@@ -1636,7 +1578,6 @@ public class GUI extends javax.swing.JFrame {
             }
             va = controller.updateList1(Integer.parseInt(jTextFieldÅrUd.getText()), Integer.parseInt(jTextFieldMånedUd.getText()), Integer.parseInt(jTextFieldDagUd.getText()), Integer.parseInt(jTextFieldÅrInd.getText()), Integer.parseInt(jTextFieldMånedInd.getText()), Integer.parseInt(jTextFieldDagInd.getText()), l3, l2);
             controller.quickSortVare(va, 0, va.length - 1);
-
             for (int i = 0; i < va.length; i++) {
                 if (va[i].getAktiv() == 1) {
                     list1.addElement(va[i]);
@@ -1712,7 +1653,6 @@ public class GUI extends javax.swing.JFrame {
                                     jComboBox3.removeAllItems();
                                     jComboBox3.addItem("Afhentning");
                                 }
-
                             }
                         }
                     }
@@ -1771,8 +1711,6 @@ public class GUI extends javax.swing.JFrame {
             for (int j = 0; j < va5.length; j++) {
                 Vareliste.addElement(va5[j]);
             }
-
-
             jLabelOpretRedigerVare.setText("Opret vare:");
             jLabelKundenummer1.setText("");
             jLabelKundenummer2.setText("");
@@ -1784,7 +1722,6 @@ public class GUI extends javax.swing.JFrame {
             jTextFieldPartNavn.setText("");
             jTextFieldPartAntal.setText("");
             listLagerDele.clear();
-
         }
         // Kundeliste 
         ArrayList<Kunde> kl9 = controller.getAllCostumers();
@@ -1793,13 +1730,11 @@ public class GUI extends javax.swing.JFrame {
             ka9[i] = kl9.get(i);
         }
         for (int i = 0; i < kl9.size(); i++) {
-
             controller.quickSortKunde(ka9, 0, ka9.length - 1);
             listKundeliste.clear();
             for (int j = 0; j < ka9.length; j++) {
                 listKundeliste.addElement(ka9[j]);
             }
-
             jLabelOpretRedigerKunde.setText("Opret kunde:");
             jLabelKundenummer1.setText("");
             jLabelKundenummer2.setText("");
@@ -1808,8 +1743,6 @@ public class GUI extends javax.swing.JFrame {
             jTextFieldAdresse.setText("");
             jTextFieldPostnummer.setText("");
             jTextFieldTelefonnummer.setText("");
-
-
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
