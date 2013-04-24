@@ -78,7 +78,7 @@ public class Controller {
         }
         return result;
     }
-    
+
     public boolean tilbudSøg(Vare vare, String jTextFieldTilbudSøg) {
         boolean result = false;
         String vnavn = vare.getVnavn().toLowerCase();
@@ -521,6 +521,24 @@ public class Controller {
         }
         return false;
     }
+    
+    public void gemLager(int vnummer, String vnavn, int qty, double pris, int aktiv, ArrayList<Del> vd) {
+        if (getRediger() == true) {
+            
+            Vare vare = new Vare(vnummer, vnavn, qty, pris, aktiv);
+            for (int i = 0; i < vd.size(); i++) {
+                vare.addDel(vd.get(i));
+            }
+            updateVare(vare);
+        } else {
+            vnummer = getNextVnummer();
+            Vare vare = new Vare(vnummer, vnavn, qty, pris, aktiv);
+            for (int i = 0; i < vd.size(); i++) {
+                vare.addDel(vd.get(i));
+            }
+            addVare(vare);
+        }
+    }
 
     public Vare[] updateList1(int levYear, int levMonth, int levDay, int retYear, int retMonth, int retDay, ArrayList<Ordre> l3, ArrayList<Vare> l2) {
         ArrayList<Vare> vl = getAllRessources();
@@ -535,15 +553,16 @@ public class Controller {
                     int oRetYear = Integer.parseInt(o.getReturnering().substring(6, 10));
                     int oRetMonth = Integer.parseInt(o.getReturnering().substring(3, 5));
                     int oRetDay = Integer.parseInt(o.getReturnering().substring(0, 2));
-                    if ((levDay <= oLevDay || levDay <= oRetDay) && (retDay >= oRetDay || retDay >= oLevDay)) {
-                        if ((levMonth <= oLevMonth || levMonth <= oRetMonth) && (retMonth >= oRetMonth || retMonth >= oLevMonth)) {
-                            if ((levYear <= oLevYear || levYear <= oRetYear) && (retYear >= oRetYear || retYear >= oLevYear)) {
-                                for (int k = 0; k < o.getOd().size(); k++) {
+                    for (int k = 0; k < o.getOd().size(); k++) {
+                        if ((levDay <= oLevDay || levDay <= oRetDay) && (retDay >= oRetDay || retDay >= oLevDay)) {
+                            if ((levMonth <= oLevMonth || levMonth <= oRetMonth) && (retMonth >= oRetMonth || retMonth >= oLevMonth)) {
+                                if ((levYear <= oLevYear || levYear <= oRetYear) && (retYear >= oRetYear || retYear >= oLevYear)) {
                                     if (vl.get(i).getVnummer() == o.getOd().get(k).getVnummer()) {
                                         vl.get(i).setQty(vl.get(i).getQty() - o.getOd().get(k).getMaengde());
                                     }
                                 }
                             }
+
                         }
                     }
                 } else {
@@ -554,10 +573,10 @@ public class Controller {
                         int oRetYear = Integer.parseInt(o.getReturnering().substring(6, 10));
                         int oRetMonth = Integer.parseInt(o.getReturnering().substring(3, 5));
                         int oRetDay = Integer.parseInt(o.getReturnering().substring(0, 2));
+                        for (int k = 0; k < o.getOd().size(); k++) {
                         if ((levDay <= oLevDay || levDay <= oRetDay) && (retDay >= oRetDay || retDay >= oLevDay)) {
                             if ((levMonth <= oLevMonth || levMonth <= oRetMonth) && (retMonth >= oRetMonth || retMonth >= oLevMonth)) {
                                 if ((levYear <= oLevYear || levYear <= oRetYear) && (retYear >= oRetYear || retYear >= oLevYear)) {
-                                    for (int k = 0; k < o.getOd().size(); k++) {
                                         if (vl.get(i).getVnummer() == o.getOd().get(k).getVnummer()) {
                                             vl.get(i).setQty(vl.get(i).getQty() - o.getOd().get(k).getMaengde());
                                         }
@@ -778,8 +797,8 @@ public class Controller {
         ArrayList<Vare> vl = dbFacade.getAllRessources();
         return vl;
     }
-    
-    public boolean gemKunde(String firma, String navn, String adresse, int postnummer, int telefonnummer, int knummer){
+
+    public boolean gemKunde(String firma, String navn, String adresse, int postnummer, int telefonnummer, int knummer) {
         boolean result = false;
         if (getRediger() == false) {
             addNewKunde(firma, navn, adresse, postnummer, telefonnummer);
