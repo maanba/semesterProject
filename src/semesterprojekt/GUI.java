@@ -881,9 +881,11 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSletVareActionPerformed
 
     private void jButtonLagerGemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLagerGemActionPerformed
-        int vnummer;
+        int vnummer = 0;
         int aktiv;
-        vnummer = Integer.parseInt(jLabelVarenummer2.getText());
+        if(!jLabelVarenummer2.getText().isEmpty()){
+            vnummer = Integer.parseInt(jLabelVarenummer2.getText());
+        }
         String vnavn = jTextFieldNavn.getText();
         double pris = Double.parseDouble(jTextFieldVarePris.getText());
         ArrayList<Del> vare = new ArrayList();

@@ -554,9 +554,9 @@ public class Controller {
                     int oRetMonth = Integer.parseInt(o.getReturnering().substring(3, 5));
                     int oRetDay = Integer.parseInt(o.getReturnering().substring(0, 2));
                     for (int k = 0; k < o.getOd().size(); k++) {
-                        if ((levDay <= oLevDay || levDay <= oRetDay) && ((retDay >= oRetDay || retDay >= oLevDay) || o.getOd().get(k).getStatus() == 0)) {
-                            if ((levMonth <= oLevMonth || levMonth <= oRetMonth) && ((retMonth >= oRetMonth || retMonth >= oLevMonth) || o.getOd().get(k).getStatus() == 0)) {
-                                if ((levYear <= oLevYear || levYear <= oRetYear) && ((retYear >= oRetYear || retYear >= oLevYear) || o.getOd().get(k).getStatus() == 0)) {
+                        if ((levDay <= oLevDay || levDay <= oRetDay) && (retDay >= oRetDay || retDay >= oLevDay)) {
+                            if ((levMonth <= oLevMonth || levMonth <= oRetMonth) && (retMonth >= oRetMonth || retMonth >= oLevMonth)) {
+                                if ((levYear <= oLevYear || levYear <= oRetYear) && (retYear >= oRetYear || retYear >= oLevYear)) {
                                     if (vl.get(i).getVnummer() == o.getOd().get(k).getVnummer()) {
                                         vl.get(i).setQty(vl.get(i).getQty() - o.getOd().get(k).getMaengde());
                                     }
@@ -574,9 +574,9 @@ public class Controller {
                         int oRetMonth = Integer.parseInt(o.getReturnering().substring(3, 5));
                         int oRetDay = Integer.parseInt(o.getReturnering().substring(0, 2));
                         for (int k = 0; k < o.getOd().size(); k++) {
-                        if ((levDay <= oLevDay || levDay <= oRetDay) && ((retDay >= oRetDay || retDay >= oLevDay) || o.getOd().get(k).getStatus() == 0)) {
-                            if ((levMonth <= oLevMonth || levMonth <= oRetMonth) && ((retMonth >= oRetMonth || retMonth >= oLevMonth) || o.getOd().get(k).getStatus() == 0)) {
-                                if ((levYear <= oLevYear || levYear <= oRetYear) && ((retYear >= oRetYear || retYear >= oLevYear) || o.getOd().get(k).getStatus() == 0)) {
+                        if ((levDay <= oLevDay || levDay <= oRetDay) && (retDay >= oRetDay || retDay >= oLevDay)) {
+                            if ((levMonth <= oLevMonth || levMonth <= oRetMonth) && (retMonth >= oRetMonth || retMonth >= oLevMonth)) {
+                                if ((levYear <= oLevYear || levYear <= oRetYear) && (retYear >= oRetYear || retYear >= oLevYear)) {
                                         if (vl.get(i).getVnummer() == o.getOd().get(k).getVnummer()) {
                                             vl.get(i).setQty(vl.get(i).getQty() - o.getOd().get(k).getMaengde());
                                         }

@@ -92,7 +92,7 @@ public class OrderMapper {
     public boolean insertRessources(ArrayList<Vare> vl, Connection conn) throws SQLException {
         int rowsInserted = 0;
         String SQLString = "insert into varer values (?,?,?,?,?)";
-        String SQLString2 = "insert into dele values (?,?,?,?)";
+        String SQLString2 = "insert into dele values (?,?,?)";
         PreparedStatement statement = null;
         statement = conn.prepareStatement(SQLString);
 
