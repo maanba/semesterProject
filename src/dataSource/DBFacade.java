@@ -270,7 +270,7 @@ public class DBFacade {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             con = DriverManager.getConnection(
-                    "jdbc:oracle:thin:@delfi.lyngbyes.dk:1521:KNORD", "cphmb15", "cphmb15");
+                    "jdbc:oracle:thin:@delfi.lyngbyes.dk:1521:KNORD", "CLDATB12E6", "CLDATB12E6");
         } catch (Exception e) {
             System.out.println("fejl i DBFacade.getConnection()");
             System.out.println(e);

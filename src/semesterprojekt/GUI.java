@@ -1069,9 +1069,9 @@ public class GUI extends javax.swing.JFrame {
         Del selectedDel = (Del) jListReturDele.getSelectedValue();
         Ordre selectedOrdre = (Ordre) jListOrdrer.getSelectedValue();
         selectedDel.getVnummer();
-      
-        
-        
+
+
+
         listReturDele.clear();
         Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
         ArrayList<Odetaljer> od = selected.getOd();
@@ -1143,15 +1143,15 @@ public class GUI extends javax.swing.JFrame {
         if (jTextFieldFuldeNavn.getText().isEmpty() || jTextFieldAdresse.getText().isEmpty()
                 || jTextFieldPostnummer.getText().isEmpty() || jTextFieldTelefonnummer.getText().isEmpty()) {
             jLabelErrorKunder.setText("You need to fill in all the fields before adding a new customer.");
-        } else if (controller.gemKunde(jTextFieldFirmaNavn.getText(),
+        } else if (jLabelKundenummer2.getText().isEmpty() && !controller.gemKunde(jTextFieldFirmaNavn.getText(),
                 jTextFieldFuldeNavn.getText(),
                 jTextFieldAdresse.getText(),
                 Integer.parseInt(jTextFieldPostnummer.getText()),
                 Integer.parseInt(jTextFieldTelefonnummer.getText()),
-                Integer.parseInt(jLabelKundenummer2.getText())) == false) {
+                0)) {
             jLabelErrorKunder.setText("");
             update();
-        } else if (controller.gemKunde(jTextFieldFirmaNavn.getText(),
+        } else if (!jLabelKundenummer2.getText().isEmpty() && controller.gemKunde(jTextFieldFirmaNavn.getText(),
                 jTextFieldFuldeNavn.getText(),
                 jTextFieldAdresse.getText(),
                 Integer.parseInt(jTextFieldPostnummer.getText()),
@@ -1401,11 +1401,11 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         Del selectedDel = (Del) jListReturDele.getSelectedValue();
-                Ordre selectedOrdre = (Ordre) jListOrdrer.getSelectedValue();
-                for (int i = 0; i < selectedOrdre.getOd().size(); i++) {
+        Ordre selectedOrdre = (Ordre) jListOrdrer.getSelectedValue();
+        for (int i = 0; i < selectedOrdre.getOd().size(); i++) {
             System.out.println(selectedOrdre.getOd().get(i));
         }
-        
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
