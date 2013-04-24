@@ -78,8 +78,7 @@ public class Controller {
         }
         return result;
     }
-
-<<<<<<< HEAD
+    
     public boolean tilbudSøg(Vare vare, String jTextFieldTilbudSøg) {
         boolean result = false;
         String vnavn = vare.getVnavn().toLowerCase();
