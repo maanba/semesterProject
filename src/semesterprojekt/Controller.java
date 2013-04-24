@@ -400,6 +400,27 @@ public class Controller {
         }
         currentKunde = null;
     }
+    
+    public void pakkeListe (Ordre ordre){
+        setCurrentOrder(ordre);
+        if (ordre.getFnummer() == 0) {
+            addOrderFakturaNummer(ordre);
+        }
+        ordreFaktureret(ordre.getOnummer());
+    }
+    
+    public void tilbud (Ordre ordre){
+        setCurrentOrder(ordre);
+        ordreTilbud(ordre.getOnummer());
+    }
+    
+    public void faktura (Ordre ordre){
+        setCurrentOrder(ordre);
+        if (ordre.getFnummer() == 0) {
+            addOrderFakturaNummer(ordre);
+        }
+        ordreFaktureret(ordre.getOnummer());
+    }
 
     public void updateKunde(int knummer, String firma, String navn, String adresse, int postnummer, int telefonnummer) {
 
