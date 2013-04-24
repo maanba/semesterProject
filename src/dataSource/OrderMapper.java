@@ -218,7 +218,7 @@ public class OrderMapper {
                 + "where vnummer = ?";
         String SQLString2 = "delete from dele "
                 + "where vnummer = ?";
-        String SQLString3 = "insert into dele values (?,?,?,?)";
+        String SQLString3 = "insert into dele values (?,?,?)";
         PreparedStatement statement = null;
 
         statement = conn.prepareStatement(SQLString);
