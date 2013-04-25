@@ -562,7 +562,7 @@ public class GUI extends javax.swing.JFrame {
                 jButtonLevérActionPerformed(evt);
             }
         });
-        jPanel3.add(jButtonLevér, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, -1, -1));
+        jPanel3.add(jButtonLevér, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, -1, 30));
 
         jButtonReturSøg.setText("Søg");
         jButtonReturSøg.addActionListener(new java.awt.event.ActionListener() {
@@ -1283,16 +1283,20 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButtonGennemførOrdreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGennemførOrdreActionPerformed
         ArrayList<Odetaljer> odetaljer = new ArrayList<>();
+        ArrayList<DelOrdre> delordre = new ArrayList<>();
         if (jComboBox1.getSelectedItem() != "Kunder") {
             if (list2.isEmpty() == false) {
                 if (jRadioButtonAfhentning.isSelected() || jRadioButtonLevering.isSelected()) {
                     for (int i = 0; i < list2.size(); i++) {
                         Vare vare = (Vare) list2.getElementAt(i);
                         odetaljer.add(new Odetaljer(0, vare.getVnummer(), vare.getQty()));
+                        for (int j = 0; j < vare.getDel().size(); j++) {
+                            delordre.add(new DelOrdre(vare.getDel().get(j).getTitel(), vare.getVnummer(), 0, 1,vare.getDel().get(j).getAntal()));
+                        }
                     }
                     String leveringDate = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                     String returneringDate = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
-                    controller.gennemførOrdrer(jRadioButtonAfhentning.isSelected(), "" + jComboBox1.getSelectedItem(), Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), Double.parseDouble(jTextFieldTotalPris.getText()) * 0.25, "" + jComboBox2.getSelectedItem(), "" + jComboBox3.getSelectedItem(), leveringDate, returneringDate, odetaljer, "");
+                    controller.gennemførOrdrer(jRadioButtonAfhentning.isSelected(), "" + jComboBox1.getSelectedItem(), Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), Double.parseDouble(jTextFieldTotalPris.getText()) * 0.25, "" + jComboBox2.getSelectedItem(), "" + jComboBox3.getSelectedItem(), leveringDate, returneringDate, odetaljer, "", delordre);
                     list2.clear();
                     list3.clear();
                     jLabelErrorOrdre.setText("");

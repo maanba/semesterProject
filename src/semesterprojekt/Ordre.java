@@ -16,6 +16,7 @@ public class Ordre {
     private String status, modtaget, levering, returnering, afhentning, tidLev, tidRet, kommentar;
     private double pris, depositum, rabat;
     private ArrayList<Odetaljer> od = new ArrayList();
+    private ArrayList<DelOrdre> delo = new ArrayList();
 
     public Ordre(int onummer, int fnummer, int knummer, double pris, double rabat, double depositum, String tidLev, String tidRet, String afhentning, int montører, String status, String modtaget, String levering, String returnering, String kommentar, int ver) {
         this.onummer = onummer;
@@ -72,6 +73,14 @@ public class Ordre {
         return tidLev;
     }
 
+    public ArrayList<DelOrdre> getDelo() {
+        return delo;
+    }
+
+    public void setDelo(ArrayList<DelOrdre> delo) {
+        this.delo = delo;
+    }
+
     public void setTidLev(String tid) {
         this.tidLev = tid;
     }
@@ -111,7 +120,11 @@ public class Ordre {
     public void addOd(Odetaljer o) {
         od.add(o);
     }
-
+    
+    public void addDelo(DelOrdre delo){
+        this.delo.add(delo);
+    }
+            
     public int getOnummer() {
         return onummer;
     }

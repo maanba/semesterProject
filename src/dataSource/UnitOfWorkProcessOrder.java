@@ -177,6 +177,8 @@ public class UnitOfWorkProcessOrder {
             status = status && om.updateKunder(dirtyKunde, conn);
             status = status && om.insertOdetaljer(newOdetaljer, conn);
             status = status && om.updateOdetaljer(dirtyOdetaljer, conn);
+            status = status && om.insertDelOrdrer(newDelOrdre, conn);
+            status = status && om.updateDelOrdre(dirtyDelOrdre, conn);
             status = status && om.insertVarer(newVare, conn);
             status = status && om.updateVarer(dirtyVare, conn);
             status = status && om.deleteOrdrer(deletedOrdre, conn);

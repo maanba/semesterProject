@@ -922,6 +922,37 @@ public class OrderMapper {
         return rowsInserted == delOrdre.size();
     }
 
+     public boolean updateDelOrdre(ArrayList<DelOrdre> dol, Connection conn) throws SQLException {
+        int rowsUpdated = 0;
+        String SQLString = "update delo "
+                + "set maengde = ?, title = ?, status = ? "
+                + "where onummer = ? and vnummer = ?";
+        PreparedStatement statement = null;
+
+        statement = conn.prepareStatement(SQLString);
+        try {
+            for (int i = 0; i < dol.size(); i++) {
+                DelOrdre delo = dol.get(i);
+                statement.setString(1, delo.getTitle());
+                statement.setInt(2, delo.getVnummer());
+                statement.setInt(1, delo.getOnummer());
+                statement.setInt(2, delo.getStatus());
+                statement.setInt(3, delo.getMaengde());
+                int tupleUpdated = statement.executeUpdate();
+                rowsUpdated += tupleUpdated;
+                statement.close();
+            }
+        } finally {
+            if (!statement.isClosed()) {
+                statement.close();
+            }
+        }
+        if (testRun) {
+            System.out.println("updateOrdrer: " + (rowsUpdated == dol.size())); // for test
+        }
+        return (rowsUpdated == dol.size());
+    }
+    
     public Postnummer getPostnummer(Connection conn, int postnr) throws SQLException {
         String SQLString = "select * from postnummer where postnummer = ?";
         PreparedStatement statement = null;
