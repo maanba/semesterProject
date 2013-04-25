@@ -27,7 +27,6 @@ public class DBFacade {
     }
 
     // Ordre
-    
     public void registerNewOrdre(Ordre o) {
         if (uow != null) {
             uow.registerNewOrdre(o);
@@ -80,9 +79,8 @@ public class DBFacade {
         }
         return nextOno;
     }
-    
-    // Kunde
 
+    // Kunde
     public void registerNewKunde(Kunde k) {
         if (uow != null) {
             uow.registerNewKunde(k);
@@ -136,7 +134,6 @@ public class DBFacade {
     }
 
     // Vare
-    
     public void registerNewVare(Vare v) {
         if (uow != null) {
             uow.registerNewVare(v);
@@ -188,9 +185,8 @@ public class DBFacade {
         }
         return nextVno;
     }
-    
+
     // Odetalje
-    
     public void registerNewOdetalje(Odetaljer od) {
         if (uow != null) {
             uow.registerNewOdetalje(od);
@@ -203,17 +199,39 @@ public class DBFacade {
         }
     }
 
-    public boolean deleteOdetalje(Odetaljer od) {
+    public boolean deleteOdetalje(int ono) {
         boolean status = false;
-
-        if (uow != null) {
-            status = uow.registerDeletedOdetalje(od);
+        try {
+            status = new OrderMapper().deleteOdetalje(ono, con);
+        } catch (SQLException ex) {
+            System.out.println("fail in deleteOdetaljer");
         }
         return status;
     }
 
-    
-    
+    // Del
+    // DelOrdre
+    public void registerNewDelOrdre(DelOrdre delo) {
+        if (uow != null) {
+            uow.registerDelOrdre(delo);
+        }
+    }
+
+    public void registerDirtyDelOrdre(DelOrdre delo) {
+        if (uow != null) {
+            uow.registerDirtyDelOrdre(delo);
+        }
+    }
+
+    public boolean deleteDelOrdre(DelOrdre delo) {
+        boolean status = false;
+
+        if (uow != null) {
+            status = uow.registerDeletedDelOrdre(delo);
+        }
+        return status;
+    }
+
     public Postnummer getPostnummer(int postnr) {
         Postnummer p = null;
         try {
@@ -236,7 +254,6 @@ public class DBFacade {
     }
 
     // Comitting & Connection
-    
     public void startNewBusinessTransaction() {
         uow = new UnitOfWorkProcessOrder();
     }

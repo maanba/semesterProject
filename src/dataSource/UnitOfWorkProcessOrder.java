@@ -136,6 +136,8 @@ public class UnitOfWorkProcessOrder {
         return status;
     }
 
+    // Del
+    
     // DelOrdre
     
     public void registerDelOrdre(DelOrdre delo) {
