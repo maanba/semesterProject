@@ -1231,7 +1231,7 @@ public class GUI extends javax.swing.JFrame {
         selected.setDepositum(depositum);
         System.out.println("Depositum: " + selected.getDepositum());
         controller.setCurrentOrder(selected);
-        controller.updateOrder(selected.getKnummer(), selected.getPris(), selected.getRabat(), selected.getDepositum(), selected.getTidLev(), selected.getTidRet(), selected.getAfhentning(), selected.getStatus(), selected.getLevering(), selected.getReturnering(), selected.getOd());
+        controller.updateOrder(selected.getKnummer(), selected.getPris(), selected.getRabat(), selected.getDepositum(), selected.getTidLev(), selected.getTidRet(), selected.getAfhentning(), selected.getStatus(), selected.getLevering(), selected.getReturnering(), selected.getOd(), selected.getDelo());
     }//GEN-LAST:event_jButtonDepositumActionPerformed
 
     private void jButtonOrdreRedigerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdreRedigerActionPerformed
