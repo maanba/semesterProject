@@ -8,14 +8,15 @@ import semesterprojekt.*;
 //	encapsulates connection handling
 //	implemented as a Singleton to restrict the number of Unit of Work objects to 1.
 //	2010/hau
+
 public class DBFacade {
 
     private UnitOfWorkProcessOrder uow;
-    ;
 	  
-	  //=====	Singleton
+    //=====	Singleton
 	  
-	  private static DBFacade instance;
+    private static DBFacade instance;
+    
     private Connection con = null;
 
     private DBFacade() {
@@ -29,11 +30,12 @@ public class DBFacade {
         return instance;
     }
 
-    //======	Methods to retrieve data 
-    public Ordre getOrder(int ono) {
+    //=====     Methods to retrieve data 
+    
+    public Ordre getOrdre(int ono) {
         Ordre o = null;
         try {
-            o = new OrderMapper().getOrder(ono, con);
+            o = new OrderMapper().getOrdre(ono, con);
         } catch (Exception e) {
             System.out.println("Fail in OrderMapper - getOrder");
             System.out.println(e.getMessage());
@@ -71,10 +73,10 @@ public class DBFacade {
         return p;
     }
 
-    public ArrayList<Ordre> getAllOrdres() {
+    public ArrayList<Ordre> getAllOrdrer() {
         ArrayList<Ordre> o = null;
         try {
-            o = new OrderMapper().getAllOrders(con);
+            o = new OrderMapper().getAllOrdrer(con);
         } catch (Exception e) {
             System.out.println("Fail in OrderMapper - getAllOrders");
             System.out.println(e.getMessage());
@@ -82,10 +84,10 @@ public class DBFacade {
         return o;
     }
 
-    public ArrayList<Kunde> getAllCustumers() {
+    public ArrayList<Kunde> getAllKunder() {
         ArrayList<Kunde> o = null;
         try {
-            o = new OrderMapper().getAllCostumers(con);
+            o = new OrderMapper().getAllKunder(con);
         } catch (Exception e) {
             System.out.println("Fail in OrderMapper - getAllCostumers");
             System.out.println(e.getMessage());
@@ -93,10 +95,10 @@ public class DBFacade {
         return o;
     }
 
-    public ArrayList<Vare> getAllRessources() {
+    public ArrayList<Vare> getAllVarer() {
         ArrayList<Vare> o = null;
         try {
-            o = new OrderMapper().getAllRessources(con);
+            o = new OrderMapper().getAllVarer(con);
         } catch (Exception e) {
             System.out.println("Fail in OrderMapper - getAllRessources");
             System.out.println(e.getMessage());
@@ -104,10 +106,10 @@ public class DBFacade {
         return o;
     }
 
-    public int getNextOrderNo() {
+    public int getNextOnummer() {
         int nextOno = 0;
         try {
-            nextOno = new OrderMapper().getNextOrderNo(con);
+            nextOno = new OrderMapper().getNextOnummer(con);
         } catch (Exception e) {
             System.out.println("Fail in OrderMapper - getNextFnummer");
             System.out.println(e.getMessage());
@@ -125,8 +127,8 @@ public class DBFacade {
         }
         return nextVno;
     }
-    
-        public int getNextKnummer() {
+
+    public int getNextKnummer() {
         int nextKno = 0;
         try {
             nextKno = new OrderMapper().getNextKnummer(con);
@@ -137,18 +139,7 @@ public class DBFacade {
         return nextKno;
     }
 
-    public int getNextCustomerNo() {
-        int nextCusNo = 0;
-        try {
-            nextCusNo = new OrderMapper().getNextKnummer(con);
-        } catch (Exception e) {
-            System.out.println("Fail in OrderMapper - getNextCnummer");
-            System.out.println(e.getMessage());
-        }
-        return nextCusNo;
-    }
-
-    public int getNextFNo() {
+    public int getNextFnummer() {
         int nextFnummer = 0;
         try {
             nextFnummer = new OrderMapper().getNextFnummer(con);
@@ -159,57 +150,91 @@ public class DBFacade {
         return nextFnummer;
     }
 
-    //=====	Methods to register changes	in UnitOfWork  
-    public void registerNewOrder(Ordre o) {
+    //=====     Methods to register change in UnitOfWork  
+    
+    public void registerNewOrdre(Ordre o) {
         if (uow != null) {
-            uow.registerNewOrder(o);
+            uow.registerNewOrdre(o);
         }
     }
 
-    public void registerDirtyOrder(Ordre o) {
+    public void registerDirtyOrdre(Ordre o) {
         if (uow != null) {
-            uow.registerDirtyOrder(o);
+            uow.registerDirtyOrdre(o);
         }
     }
 
-    public void registerNewRessource(Vare v) {
+    public boolean deleteOrdre(Ordre o) {
+        boolean status = false;
         if (uow != null) {
-            uow.registerNewRessource(v);
+            status = uow.registerDeletedOrder(o);
+        }
+        return status;
+    }
+
+    public void registerNewVare(Vare v) {
+        if (uow != null) {
+            uow.registerNewVare(v);
         }
     }
 
-    public void registerDirtyRessource(Vare v) {
+    public void registerDirtyVare(Vare v) {
         if (uow != null) {
-            uow.registerDirtyRessource(v);
+            uow.registerDirtyVare(v);
+        }
+    }
+    
+    public boolean deleteVare(Vare v) {
+        boolean status = false;
+        if (uow != null) {
+            status = uow.registerDeletedVare(v);
+        }
+        return status;
+    }
+
+    public void registerNewKunde(Kunde k) {
+        if (uow != null) {
+            uow.registerNewKunde(k);
         }
     }
 
-    public void registerNewCustomer(Kunde k) {
+    public void registerDirtyKunde(Kunde k) {
         if (uow != null) {
-            uow.registerNewCustomer(k);
+            uow.registerDirtyKunde(k);
+        }
+    }
+    
+    public boolean deleteKunde(Kunde k) {
+        boolean status = false;
+        if (uow != null) {
+            status = uow.registerDeletedKunde(k);
+        }
+        return status;
+    }
+
+    public void registerNewOdetalje(Odetaljer od) {
+        if (uow != null) {
+            uow.registerNewOdetalje(od);
         }
     }
 
-    public void registerDirtyCustomer(Kunde k) {
+    public void registerDirtyOdetalje(Odetaljer od) {
         if (uow != null) {
-            uow.registerDirtyCustomer(k);
+            uow.registerDirtyOdetalje(od);
         }
     }
-
-    public void registerNewOrderDetail(Odetaljer od) {
+    
+    public boolean deleteOdetalje(Odetaljer od) {
+        boolean status = false;
+        
         if (uow != null) {
-            uow.registerNewOrderDetail(od);
+            status = uow.registerDeletedOdetalje(od);
         }
+        return status;
     }
 
-    public void registerDirtyOrderDetail(Odetaljer od) {
-        if (uow != null) {
-            uow.registerDirtyOrderDetail(od);
-        }
-    }
-
-    //=== Methods to handle business transactions
-    //=====	Ignore changes after last commit
+    //=====     Methods to handle business transactions
+    
     public void startNewBusinessTransaction() {
         uow = new UnitOfWorkProcessOrder();
     }
@@ -229,42 +254,7 @@ public class DBFacade {
         return status;
     }
 
-    //=== delete order
-    public boolean deleteOrder(Ordre o) {
-        boolean status = false;
-        if (uow != null) {
-            status = uow.registerDeletedOrder(o);
-        }
-        return status;
-    }
-
-    public boolean deleteCustomer(Kunde k) {
-        boolean status = false;
-        if (uow != null) {
-            status = uow.registerDeletedCustomer(k);
-        }
-        return status;
-    }
-
-    public boolean deleteOdetail(int ono) {
-        boolean status = true;
-        try {
-            status = new OrderMapper().deleteOrderDetails(ono, con);
-        } catch (SQLException ex) {
-            System.out.println("fail i deleteOdetail");
-        }
-        return status;
-    }
-
-    public boolean deleteRessource(Vare v) {
-        boolean status = false;
-        if (uow != null) {
-            status = uow.registerDeletedRessource(v);
-        }
-        return status;
-    }
-
-    //=== connection specifics
+    //=====     Connection specifics
     private Connection getConnection() {
         Connection con = null;
         try {

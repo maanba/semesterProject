@@ -38,7 +38,7 @@ public class Controller {
         }
         dbFacade.startNewBusinessTransaction();
         processingOrder = true;
-        currentOrder = dbFacade.getOrder(onummer);
+        currentOrder = dbFacade.getOrdre(onummer);
         return currentOrder;
     }
 
@@ -164,7 +164,7 @@ public class Controller {
         int montører = 0;
         String modtaget = dateFormat.format(date);
         dbFacade.startNewBusinessTransaction();
-        int newOrderNo = dbFacade.getNextOrderNo();// DB-generated unique ID
+        int newOrderNo = dbFacade.getNextOnummer();// DB-generated unique ID
         if (newOrderNo != 0) {
             processingOrder = true;
             for (int i = 0; i < odetaljer.size(); i++) {
@@ -185,9 +185,9 @@ public class Controller {
                 }
             }
             currentOrder = new Ordre(newOrderNo, 0, knummer, pris, rabat, depositum, tidLev, tidRet, afhentning, montører, status, modtaget, levering, returnering, kommentar, 0);
-            dbFacade.registerNewOrder(currentOrder);
+            dbFacade.registerNewOrdre(currentOrder);
             for (int i = 0; i < odetaljer.size(); i++) {
-                dbFacade.registerNewOrderDetail(odetaljer.get(i));
+                dbFacade.registerNewOdetalje(odetaljer.get(i));
             }
             dbFacade.commitBusinessTransaction();
         } else {
@@ -229,10 +229,10 @@ public class Controller {
         for (int i = 0; i < odetaljer.size(); i++) {
             odetaljer.get(i).setOnummer(currentOrder.getOnummer());
         }
-        dbFacade.deleteOdetail(currentOrder.getOnummer());
-        dbFacade.registerDirtyOrder(currentOrder);
+        dbFacade.deleteOdetalje(currentOrder.getOnummer());
+        dbFacade.registerDirtyOrdre(currentOrder);
         for (int i = 0; i < odetaljer.size(); i++) {
-            dbFacade.registerNewOrderDetail(odetaljer.get(i));
+            dbFacade.registerNewOdetalje(odetaljer.get(i));
         }
         dbFacade.commitBusinessTransaction();
         currentOrder = null;
@@ -241,7 +241,7 @@ public class Controller {
     public boolean deleteOrder(Ordre o) {
         boolean result = false;
         dbFacade.startNewBusinessTransaction();
-        result = dbFacade.deleteOrder(o);
+        result = dbFacade.deleteOrdre(o);
         dbFacade.commitBusinessTransaction();
         return result;
     }
@@ -249,16 +249,16 @@ public class Controller {
     public void addOrderFakturaNummer(Ordre o) {
         setCurrentOrder(o);
         ArrayList<Odetaljer> odetaljer = o.getOd();
-        currentOrder.setFnummer(dbFacade.getNextFNo());
+        currentOrder.setFnummer(dbFacade.getNextFnummer());
 
         dbFacade.startNewBusinessTransaction();
         for (int i = 0; i < odetaljer.size(); i++) {
             odetaljer.get(i).setOnummer(currentOrder.getOnummer());
         }
-        dbFacade.deleteOdetail(currentOrder.getOnummer());
-        dbFacade.registerDirtyOrder(currentOrder);
+        dbFacade.deleteOdetalje(currentOrder.getOnummer());
+        dbFacade.registerDirtyOrdre(currentOrder);
         for (int i = 0; i < odetaljer.size(); i++) {
-            dbFacade.registerNewOrderDetail(odetaljer.get(i));
+            dbFacade.registerNewOdetalje(odetaljer.get(i));
         }
         dbFacade.commitBusinessTransaction();
         currentOrder = null;
@@ -267,18 +267,18 @@ public class Controller {
     public Ordre changeCnoForOrder(int knummer) {
         if (processingOrder) {
             currentOrder.setKnummer(knummer);
-            dbFacade.registerDirtyOrder(currentOrder);
+            dbFacade.registerDirtyOrdre(currentOrder);
         }
         return currentOrder;
     }
 
     public void ordreFaktureret(int onummer) {
-        ArrayList<Ordre> ol = dbFacade.getAllOrdres();
+        ArrayList<Ordre> ol = dbFacade.getAllOrdrer();
         for (int i = 0; i < ol.size(); i++) {
             if (onummer == ol.get(i).getOnummer()) {
                 ol.get(i).setStatus("Faktureret");
                 dbFacade.startNewBusinessTransaction();
-                dbFacade.registerDirtyOrder(ol.get(i));
+                dbFacade.registerDirtyOrdre(ol.get(i));
                 dbFacade.commitBusinessTransaction();
                 break;
             }
@@ -286,8 +286,8 @@ public class Controller {
     }
 
     /*public void bekraeftOrdre(int onummer) {
-     ArrayList<Ordre> ol = dbFacade.getAllOrdres();
-     ArrayList<Vare> vl = dbFacade.getAllRessources();
+     ArrayList<Ordre> ol = dbFacade.getAllOrdrer();
+     ArrayList<Vare> vl = dbFacade.getAllVarer();
      for (int i = 0; i < ol.size(); i++) {
      if (onummer == ol.get(i).getOnummer()) {
      ol.get(i).setStatus("Bekræftet ordre");
@@ -302,8 +302,8 @@ public class Controller {
      {
      vl.get(k).getDel().get(l).setStatus(0);
      dbFacade.startNewBusinessTransaction();
-     dbFacade.registerDirtyOrder(ol.get(i));
-     dbFacade.registerDirtyRessource(vl.get(k));
+     dbFacade.registerDirtyOrdre(ol.get(i));
+     dbFacade.registerDirtyVare(vl.get(k));
      dbFacade.commitBusinessTransaction();
      break;
      }
@@ -315,29 +315,29 @@ public class Controller {
      }
      * */
     public void bekraeftOrdre(int onummer) {
-        ArrayList<Ordre> ol = dbFacade.getAllOrdres();
+        ArrayList<Ordre> ol = dbFacade.getAllOrdrer();
         dbFacade.startNewBusinessTransaction();
 
         for (int i = 0; i < ol.size(); i++) {
             if (onummer == ol.get(i).getOnummer()) {
                 ol.get(i).setStatus("Bekræftet ordre");
                 for (int j = 0; j < ol.get(i).getOd().size(); j++) {
-                    dbFacade.registerDirtyOrderDetail(ol.get(i).getOd().get(j));
+                    dbFacade.registerDirtyOdetalje(ol.get(i).getOd().get(j));
                 }
-                dbFacade.registerDirtyOrder(ol.get(i));
+                dbFacade.registerDirtyOrdre(ol.get(i));
             }
         }
         dbFacade.commitBusinessTransaction();
     }
 
     public void updateDelUde(int onummer, int vnummer) {
-        ArrayList<Ordre> ol = dbFacade.getAllOrdres();
+        ArrayList<Ordre> ol = dbFacade.getAllOrdrer();
         dbFacade.startNewBusinessTransaction();
         for (int i = 0; i < ol.size(); i++) {
             if (onummer == ol.get(i).getOnummer());
             for (int j = 0; j < ol.get(i).getOd().size(); j++) {
                 if (vnummer == ol.get(i).getOd().get(j).getVnummer()) {
-                    dbFacade.registerDirtyOrderDetail(ol.get(i).getOd().get(j));
+                    dbFacade.registerDirtyOdetalje(ol.get(i).getOd().get(j));
                 }
             }
         }
@@ -345,12 +345,12 @@ public class Controller {
     }
 
     public void ordreTilbud(int onummer) {
-        ArrayList<Ordre> ol = dbFacade.getAllOrdres();
+        ArrayList<Ordre> ol = dbFacade.getAllOrdrer();
         for (int i = 0; i < ol.size(); i++) {
             if (onummer == ol.get(i).getOnummer()) {
                 ol.get(i).setStatus("Tilbud");
                 dbFacade.startNewBusinessTransaction();
-                dbFacade.registerDirtyOrder(ol.get(i));
+                dbFacade.registerDirtyOrdre(ol.get(i));
                 dbFacade.commitBusinessTransaction();
                 break;
             }
@@ -362,7 +362,7 @@ public class Controller {
         if (processingOrder) {
             Odetaljer od = new Odetaljer(currentOrder.getOnummer(), vnummer, qty);
             currentOrder.addOd(od);
-            dbFacade.registerNewOrderDetail(od);
+            dbFacade.registerNewOdetalje(od);
             result = true;
         }
         return result;
@@ -375,7 +375,7 @@ public class Controller {
         if (newKnummer != 0) {
             processingOrder = true;
             currentKunde = new Kunde(newKnummer, firma, navn, adresse, postnummer, telefonnummer);
-            dbFacade.registerNewCustomer(currentKunde);
+            dbFacade.registerNewKunde(currentKunde);
             dbFacade.commitBusinessTransaction();
         } else {
             processingOrder = false;
@@ -410,7 +410,7 @@ public class Controller {
 
 
 
-        dbFacade.registerDirtyCustomer(currentKunde);
+        dbFacade.registerDirtyKunde(currentKunde);
         dbFacade.commitBusinessTransaction();
 
         currentKunde = null;
@@ -419,10 +419,10 @@ public class Controller {
     public void addVare(int vnummer, String vnavn, int qty, double pris, int aktiv) {
         Vare ressource = new Vare(vnummer, vnavn, qty, pris, aktiv);
         dbFacade.startNewBusinessTransaction();
-        dbFacade.registerNewRessource(ressource);
+        dbFacade.registerNewVare(ressource);
         dbFacade.commitBusinessTransaction();
 
-        System.out.println(dbFacade.getAllCustumers());
+        System.out.println(dbFacade.getAllKunder());
     }
 
     public int getNextVnummer() {
@@ -435,7 +435,7 @@ public class Controller {
 
     public void deleteVare(Vare v) {
         dbFacade.startNewBusinessTransaction();
-        dbFacade.deleteRessource(v);
+        dbFacade.deleteVare(v);
         dbFacade.commitBusinessTransaction();
     }
 
@@ -457,13 +457,13 @@ public class Controller {
     }
 
     public void setQty(int vnummer, int qty) {
-        ArrayList<Vare> vl = dbFacade.getAllRessources();
+        ArrayList<Vare> vl = dbFacade.getAllVarer();
 
         for (int i = 0; i < vl.size(); i++) {
             if (vl.get(i).getVnummer() == vnummer && qty <= vl.get(i).getQty()) {
                 vl.get(i).setQty(vl.get(i).getQty() - qty);
                 dbFacade.startNewBusinessTransaction();
-                dbFacade.registerDirtyRessource(vl.get(i));
+                dbFacade.registerDirtyVare(vl.get(i));
                 dbFacade.commitBusinessTransaction();
                 break;
             }
@@ -472,13 +472,13 @@ public class Controller {
     }
 
     public void undoQty(String vnavn, int qty) {
-        ArrayList<Vare> vl = dbFacade.getAllRessources();
+        ArrayList<Vare> vl = dbFacade.getAllVarer();
 
         for (int i = 0; i < vl.size(); i++) {
             if (vl.get(i).getVnavn().equals(vnavn)) {
                 vl.get(i).setQty(vl.get(i).getQty() + qty);
                 dbFacade.startNewBusinessTransaction();
-                dbFacade.registerDirtyRessource(vl.get(i));
+                dbFacade.registerDirtyVare(vl.get(i));
                 dbFacade.commitBusinessTransaction();
                 break;
             }
@@ -486,12 +486,12 @@ public class Controller {
     }
 
     public void ordreAfslut(int knummer) {
-        ArrayList<Ordre> ol = dbFacade.getAllOrdres();
+        ArrayList<Ordre> ol = dbFacade.getAllOrdrer();
         for (int i = 0; i < ol.size(); i++) {
             if (knummer == ol.get(i).getKnummer()) {
                 ol.get(i).setStatus("Afsluttet");
                 dbFacade.startNewBusinessTransaction();
-                dbFacade.registerDirtyOrder(ol.get(i));
+                dbFacade.registerDirtyOrdre(ol.get(i));
                 dbFacade.commitBusinessTransaction();
                 break;
             }
@@ -499,12 +499,12 @@ public class Controller {
     }
 
     public void ordrePaabegynd(int knummer) {
-        ArrayList<Ordre> ol = dbFacade.getAllOrdres();
+        ArrayList<Ordre> ol = dbFacade.getAllOrdrer();
         for (int i = 0; i < ol.size(); i++) {
             if (knummer == ol.get(i).getKnummer()) {
                 ol.get(i).setStatus("Påbegyndt");
                 dbFacade.startNewBusinessTransaction();
-                dbFacade.registerDirtyOrder(ol.get(i));
+                dbFacade.registerDirtyOrdre(ol.get(i));
                 dbFacade.commitBusinessTransaction();
                 break;
             }
@@ -512,7 +512,7 @@ public class Controller {
     }
 
     public boolean checkQty(int vnummer, int qty) {
-        ArrayList<Vare> vl = dbFacade.getAllRessources();
+        ArrayList<Vare> vl = dbFacade.getAllVarer();
 
         for (int i = 0; i < vl.size(); i++) {
             if (vl.get(i).getVnummer() == vnummer && qty <= vl.get(i).getQty()) {
@@ -678,13 +678,13 @@ public class Controller {
 
     public void updateVare(Vare vare) {
         dbFacade.startNewBusinessTransaction();
-        dbFacade.registerDirtyRessource(vare);
+        dbFacade.registerDirtyVare(vare);
         dbFacade.commitBusinessTransaction();
     }
 
     public void updateKunde(Kunde kunde) {
         dbFacade.startNewBusinessTransaction();
-        dbFacade.registerDirtyCustomer(kunde);
+        dbFacade.registerDirtyKunde(kunde);
         dbFacade.commitBusinessTransaction();
     }
 
@@ -784,17 +784,17 @@ public class Controller {
     }
 
     public ArrayList<Ordre> getAllOrdres() {
-        ArrayList<Ordre> ol = dbFacade.getAllOrdres();
+        ArrayList<Ordre> ol = dbFacade.getAllOrdrer();
         return ol;
     }
 
     public ArrayList<Kunde> getAllCostumers() {
-        ArrayList<Kunde> kl = dbFacade.getAllCustumers();
+        ArrayList<Kunde> kl = dbFacade.getAllKunder();
         return kl;
     }
 
     public ArrayList<Vare> getAllRessources() {
-        ArrayList<Vare> vl = dbFacade.getAllRessources();
+        ArrayList<Vare> vl = dbFacade.getAllVarer();
         return vl;
     }
 
@@ -902,7 +902,7 @@ public class Controller {
 
     public void addVare(Vare vare) {
         dbFacade.startNewBusinessTransaction();
-        dbFacade.registerNewRessource(vare);
+        dbFacade.registerNewVare(vare);
         dbFacade.commitBusinessTransaction();
     }
 

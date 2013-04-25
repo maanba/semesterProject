@@ -6,121 +6,149 @@ import semesterprojekt.*;
 
 public class UnitOfWorkProcessOrder {
 
-    private ArrayList<Ordre> newOrders;
-    private ArrayList<Ordre> dirtyOrders;
-    private ArrayList<Kunde> newCustomer;
-    private ArrayList<Kunde> dirtyCustomer;
-    private ArrayList<Odetaljer> newOrderDetails;
-    private ArrayList<Odetaljer> dirtyOrderDetails;
-    private ArrayList<Vare> newRessources;
-    private ArrayList<Vare> dirtyRessources;
-    private ArrayList<Ordre> deletedOrders;
-    private ArrayList<Odetaljer> deletedOdetails;
-    private ArrayList<Kunde> deletedCustomers;
-    private ArrayList<Vare> deletedRessources;
+    private ArrayList<Ordre> newORdre;
+    private ArrayList<Ordre> dirtyOrdre;
+    private ArrayList<Ordre> deletedOrdre;
+    private ArrayList<Kunde> newKunde;
+    private ArrayList<Kunde> dirtyKunde;
+    private ArrayList<Kunde> deletedKunde;
+    private ArrayList<Odetaljer> newOdetaljer;
+    private ArrayList<Odetaljer> dirtyOdetaljer;
+    private ArrayList<Odetaljer> deletedOdetaljer;
+    private ArrayList<Vare> newVare;
+    private ArrayList<Vare> dirtyVare;
+    private ArrayList<Vare> deletedVare;
+    private ArrayList<DelOrdre> newDelOrdre;
+    private ArrayList<DelOrdre> dirtyDelOrdre;
+    private ArrayList<DelOrdre> deletedDelOrdre;
 
     public UnitOfWorkProcessOrder() {
-        newOrders = new ArrayList<>(); // will never exceed 1 element
-        dirtyOrders = new ArrayList<Ordre>(); // will never exceed 1 element
-        newCustomer = new ArrayList<Kunde>();
-        dirtyCustomer = new ArrayList<Kunde>();
-        newOrderDetails = new ArrayList<Odetaljer>();
-        dirtyOrderDetails = new ArrayList<Odetaljer>();
-        newRessources = new ArrayList<Vare>();
-        dirtyRessources = new ArrayList<Vare>();
-        deletedOrders = new ArrayList<Ordre>();
-        deletedOdetails = new ArrayList<Odetaljer>();
-        deletedCustomers = new ArrayList<Kunde>();
-        deletedRessources = new ArrayList<Vare>();
+        newORdre = new ArrayList<>();
+        dirtyOrdre = new ArrayList<>();
+        deletedOrdre = new ArrayList<>();
+        newKunde = new ArrayList<>();
+        dirtyKunde = new ArrayList<>();
+        deletedKunde = new ArrayList<>();
+        newOdetaljer = new ArrayList<>();
+        dirtyOdetaljer = new ArrayList<>();
+        deletedOdetaljer = new ArrayList<>();
+        newVare = new ArrayList<>();
+        dirtyVare = new ArrayList<>();
+        deletedVare = new ArrayList<>();
+        newDelOrdre = new ArrayList<>();
+        dirtyDelOrdre = new ArrayList<>();
+        deletedDelOrdre = new ArrayList<>();
     }
     //====== Methods to register changes ==========================
 
-    public void registerNewOrder(Ordre o) {
-        if (!newOrders.contains(o) && // if not allready registered in any list
-                !dirtyOrders.contains(o)) {
-            newOrders.add(o);
+    public void registerNewOrdre(Ordre o) {
+        if (!newORdre.contains(o)
+                && !dirtyOrdre.contains(o)) {
+            newORdre.add(o);
         }
     }
 
-    public void registerDirtyOrder(Ordre o) {
-        if (!newOrders.contains(o) && // if not allready registered in any list
-                !dirtyOrders.contains(o)) {
-            dirtyOrders.add(o);
-        }
-    }
-
-    public void registerDirtyCustomer(Kunde k) {
-        if (!newCustomer.contains(k) && // if not allready registered in any list
-                !dirtyCustomer.contains(k)) {
-            dirtyCustomer.add(k);
-        }
-    }
-
-    public void registerNewCustomer(Kunde k) {
-        if (!newCustomer.contains(k)) {
-            newCustomer.add(k);
-        }
-    }
-
-    public void registerNewOrderDetail(Odetaljer od) {
-        if (!newOrderDetails.contains(od)) // if not allready registered in list
-        {
-            newOrderDetails.add(od);
-        }
-    }
-
-    public void registerDirtyOrderDetail(Odetaljer od) {
-        if (!dirtyOrderDetails.contains(od)) {
-            dirtyOrderDetails.add(od);
-        }
-    }
-
-    public void registerNewRessource(Vare v) {
-        if (!newRessources.contains(v) && // if not allready registered in any list
-                !dirtyRessources.contains(v)) {
-            newRessources.add(v);
-        }
-    }
-
-    public void registerDirtyRessource(Vare v) {
-        if (!newRessources.contains(v) && // if not allready registered in any list
-                !dirtyRessources.contains(v)) {
-            dirtyRessources.add(v);
+    public void registerDirtyOrdre(Ordre o) {
+        if (!newORdre.contains(o)
+                && !dirtyOrdre.contains(o)) {
+            dirtyOrdre.add(o);
         }
     }
 
     public boolean registerDeletedOrder(Ordre o) {
         boolean status = false;
-        if (!deletedOrders.contains(o)) {
+        if (!deletedOrdre.contains(o)) {
             status = true;
-            deletedOrders.add(o);
+            deletedOrdre.add(o);
         }
         return status;
     }
 
-    public boolean registerDeletedOdetail(Odetaljer od) {
+    public void registerNewKunde(Kunde k) {
+        if (!newKunde.contains(k)) {
+            newKunde.add(k);
+        }
+    }
+
+    public void registerDirtyKunde(Kunde k) {
+        if (!newKunde.contains(k)
+                && !dirtyKunde.contains(k)) {
+            dirtyKunde.add(k);
+        }
+    }
+
+    public boolean registerDeletedKunde(Kunde k) {
         boolean status = false;
-        if (!deletedOdetails.contains(od)) {
+        if (!deletedKunde.contains(k)) {
             status = true;
-            deletedOdetails.add(od);
+            deletedKunde.add(k);
         }
         return status;
     }
 
-    public boolean registerDeletedCustomer(Kunde k) {
+    public void registerNewOdetalje(Odetaljer od) {
+        if (!newOdetaljer.contains(od)) {
+            newOdetaljer.add(od);
+        }
+    }
+
+    public void registerDirtyOdetalje(Odetaljer od) {
+        if (!dirtyOdetaljer.contains(od)) {
+            dirtyOdetaljer.add(od);
+        }
+    }
+
+    public boolean registerDeletedOdetalje(Odetaljer od) {
         boolean status = false;
-        if (!deletedCustomers.contains(k)) {
+        if (!deletedOdetaljer.contains(od)) {
             status = true;
-            deletedCustomers.add(k);
+            deletedOdetaljer.add(od);
         }
         return status;
     }
 
-    public boolean registerDeletedRessource(Vare v) {
+    public void registerNewVare(Vare v) {
+        if (!newVare.contains(v)
+                && !dirtyVare.contains(v)) {
+            newVare.add(v);
+        }
+    }
+
+    public void registerDirtyVare(Vare v) {
+        if (!newVare.contains(v)
+                && !dirtyVare.contains(v)) {
+            dirtyVare.add(v);
+        }
+    }
+
+    public boolean registerDeletedVare(Vare v) {
         boolean status = false;
-        if (!deletedRessources.contains(v)) {
+        if (!deletedVare.contains(v)) {
             status = true;
-            deletedRessources.add(v);
+            deletedVare.add(v);
+        }
+        return status;
+    }
+
+    public void registerDelOrdre(DelOrdre delo) {
+        if (!newDelOrdre.contains(delo)
+                && !dirtyDelOrdre.contains(delo)) {
+            newDelOrdre.add(delo);
+        }
+    }
+
+    public void registerDirtyDelOrdre(DelOrdre delo) {
+        if (!newDelOrdre.contains(delo)
+                && !dirtyDelOrdre.contains(delo)) {
+            dirtyDelOrdre.add(delo);
+        }
+    }
+
+    public boolean registerDeletedDelOrdre(DelOrdre delo) {
+        boolean status = false;
+        if (!deletedDelOrdre.contains(delo)) {
+            status = true;
+            deletedDelOrdre.add(delo);
         }
         return status;
     }
@@ -133,17 +161,17 @@ public class UnitOfWorkProcessOrder {
             conn.setAutoCommit(false);
             OrderMapper om = new OrderMapper();
 
-            status = status && om.insertOrders(newOrders, conn);
-            status = status && om.updateOrders(dirtyOrders, conn);
-            status = status && om.insertCustomer(newCustomer, conn);
-            status = status && om.updateCustomer(dirtyCustomer, conn);
-            status = status && om.insertOrderDetails(newOrderDetails, conn);
-            status = status && om.updateOrderDetails(dirtyOrderDetails, conn);
-            status = status && om.insertRessources(newRessources, conn);
-            status = status && om.updateRessources(dirtyRessources, conn);
-            status = status && om.deleteOrders(deletedOrders, conn);
-            status = status && om.deleteCustomers(deletedCustomers, conn);
-            status = status && om.deleteRessources(deletedRessources, conn);
+            status = status && om.insertOrdrer(newORdre, conn);
+            status = status && om.updateOrdrer(dirtyOrdre, conn);
+            status = status && om.insertKunder(newKunde, conn);
+            status = status && om.updateKunder(dirtyKunde, conn);
+            status = status && om.insertOdetaljer(newOdetaljer, conn);
+            status = status && om.updateOdetaljer(dirtyOdetaljer, conn);
+            status = status && om.insertVarer(newVare, conn);
+            status = status && om.updateVarer(dirtyVare, conn);
+            status = status && om.deleteOrdrer(deletedOrdre, conn);
+            status = status && om.deleteKunder(deletedKunde, conn);
+            status = status && om.deleteVarer(deletedVare, conn);
             if (!status) {
                 throw new Exception("Business Transaction aborted");
             }
@@ -163,7 +191,7 @@ public class UnitOfWorkProcessOrder {
     public Ordre getOrder(int ono, Connection con) {
         Ordre o = null;
         try {
-            o = new OrderMapper().getOrder(ono, con);
+            o = new OrderMapper().getOrdre(ono, con);
         } catch (Exception e) {
             System.out.println("fail in UnitOfWork - getOrder()");
             System.err.println(e);

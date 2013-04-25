@@ -17,7 +17,7 @@ public class OrderMapper {
     //====== Methods to save to DB =========================================================
     // Insert a list of new orders
     // returns true if all elements were inserted successfully
-    public boolean insertOrders(ArrayList<Ordre> ol, Connection conn) throws SQLException {
+    public boolean insertOrdrer(ArrayList<Ordre> ol, Connection conn) throws SQLException {
         int rowsInserted = 0;
         String SQLString = "insert into ordrer values (?,?,?,?,?,?,?,?,?,?,?,"
                 + "to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'),"
@@ -60,7 +60,7 @@ public class OrderMapper {
         return (rowsInserted == ol.size());
     }
 
-    public boolean insertCustomer(ArrayList<Kunde> kl, Connection conn) throws SQLException {
+    public boolean insertKunder(ArrayList<Kunde> kl, Connection conn) throws SQLException {
         int rowsInserted = 0;
         String SQLString = "insert into Kunder values (?,?,?,?,?,?)";
         PreparedStatement statement = null;
@@ -89,7 +89,7 @@ public class OrderMapper {
         return (rowsInserted == kl.size());
     }
 
-    public boolean insertRessources(ArrayList<Vare> vl, Connection conn) throws SQLException {
+    public boolean insertVarer(ArrayList<Vare> vl, Connection conn) throws SQLException {
         int rowsInserted = 0;
         String SQLString = "insert into varer values (?,?,?,?,?)";
         String SQLString2 = "insert into dele values (?,?,?)";
@@ -134,7 +134,7 @@ public class OrderMapper {
     // Update a list of orders 
     // using optimistic offline lock (version no)
     // Returns true if any conflict in version number
-    public boolean updateOrders(ArrayList<Ordre> ol, Connection conn) throws SQLException {
+    public boolean updateOrdrer(ArrayList<Ordre> ol, Connection conn) throws SQLException {
         int rowsUpdated = 0;
         String SQLString = "update ordrer "
                 + "set fnummer = ?, knummer = ?, pris = ?, rabat = ?, depositum = ?, tidlev = ?, tidret = ?, afhentning = ?, montører = ?, status = ?, modtaget = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), levering = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), returnering = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), kommentar = ?, ver = ? "
@@ -180,7 +180,7 @@ public class OrderMapper {
         return (rowsUpdated == ol.size());    // false if any conflict in version number             
     }
 
-    public boolean updateCustomer(ArrayList<Kunde> kl, Connection conn) throws SQLException {
+    public boolean updateKunder(ArrayList<Kunde> kl, Connection conn) throws SQLException {
         int rowsUpdated = 0;
         String SQLString = "update Kunder "
                 + "set firma = ?, navn = ?, addresse = ?, postnummer = ?, telefonnummer = ? "
@@ -212,7 +212,7 @@ public class OrderMapper {
         return (rowsUpdated == kl.size());    // false if any conflict in version number             
     }
 
-    public boolean updateRessources(ArrayList<Vare> vl, Connection conn) throws SQLException {
+    public boolean updateVarer(ArrayList<Vare> vl, Connection conn) throws SQLException {
         int rowsUpdated = 0;
         String SQLString = "update varer "
                 + "set vnavn = ?, qty = ?, pris = ?, aktiv = ? "
@@ -265,7 +265,7 @@ public class OrderMapper {
 
     // Insert a list of new order details
     // Returns true if all elements were inserted successfully
-    public boolean insertOrderDetails(ArrayList<Odetaljer> odl, Connection conn) throws SQLException {
+    public boolean insertOdetaljer(ArrayList<Odetaljer> odl, Connection conn) throws SQLException {
         String SQLString = "insert into odetaljer values (?,?,?)";
         PreparedStatement statement = null;
         statement = conn.prepareStatement(SQLString);
@@ -294,7 +294,7 @@ public class OrderMapper {
         return rowsInserted == odl.size();
     }
 
-    public boolean insertVareDel(ArrayList<Del> delListe, Connection conn) throws SQLException {
+    public boolean insertDel(ArrayList<Del> delListe, Connection conn) throws SQLException {
         String SQLString = "insert into odetaljer values (?,?,?)";
         PreparedStatement statement = null;
 
@@ -320,8 +320,37 @@ public class OrderMapper {
         }
         return rowsInserted == delListe.size();
     }
+    
+     public boolean insertDelOrdrer(ArrayList<DelOrdre> delOrdre, Connection conn) throws SQLException {
+        String SQLString = "insert into delordre values (?,?,?,?,?)";
+        PreparedStatement statement = null;
 
-    public boolean updateOrderDetails(ArrayList<Odetaljer> odl, Connection conn) throws SQLException {
+        int rowsInserted = 0;
+        try {
+            if (0 < delOrdre.size()) {
+                statement = conn.prepareStatement(SQLString);
+                for (int i = 0; i < delOrdre.size(); i++) {
+                    statement.setString(1, delOrdre.get(i).getTitle());
+                    statement.setInt(2, delOrdre.get(i).getVnummer());
+                    statement.setInt(3, delOrdre.get(i).getOnummer());
+                    statement.setInt(4, delOrdre.get(i).getMaengde());
+                    statement.setInt(5, delOrdre.get(i).getStatus());
+                    rowsInserted += statement.executeUpdate();
+                    statement.close();
+                }
+            }
+        } finally {
+            if (!statement.isClosed()) {
+                statement.close();
+            }
+        }
+        if (testRun) {
+            System.out.println("insertVareDel:" + (rowsInserted == delOrdre.size())); // for test
+        }
+        return rowsInserted == delOrdre.size();
+    }
+     
+    public boolean updateOdetaljer(ArrayList<Odetaljer> odl, Connection conn) throws SQLException {
         int rowsUpdated = 0;
         String SQLString = "update odetaljer "
                 + "set maengde = ? "
@@ -350,7 +379,7 @@ public class OrderMapper {
         return (rowsUpdated == odl.size());
     }
 
-    public boolean updateVareDel(ArrayList<Del> delListe, Connection conn) throws SQLException {
+    public boolean updateDele(ArrayList<Del> delListe, Connection conn) throws SQLException {
         int rowsUpdated = 0;
         String SQLString = "update del "
                 + "set antal = ? "
@@ -379,7 +408,7 @@ public class OrderMapper {
         return (rowsUpdated == delListe.size());
     }
 
-    public boolean deleteOrderDetails(int ono, Connection conn) throws SQLException {
+    public boolean deleteOdetalje(int ono, Connection conn) throws SQLException {
         int ordersDeleted = 0;
         String SQLString = "delete from odetaljer "
                 + "where onummer = ?";
@@ -396,7 +425,7 @@ public class OrderMapper {
         return (ordersDeleted == 1);
     }
 
-    public boolean deleteVareDel(int vnummer, Connection conn) throws SQLException {
+    public boolean deleteDel(int vnummer, Connection conn) throws SQLException {
         int delDeleted = 0;
         String SQLString = "delete from del "
                 + "where vnummer = ?";
@@ -413,7 +442,7 @@ public class OrderMapper {
         return (delDeleted == 1);
     }
 
-    public boolean deleteCustomers(ArrayList<Kunde> kl, Connection conn) throws SQLException {
+    public boolean deleteKunder(ArrayList<Kunde> kl, Connection conn) throws SQLException {
         int ordersDeleted = 0;
         String SQLString = "delete from kunder "
                 + "where knummer = ?";
@@ -434,7 +463,7 @@ public class OrderMapper {
         return (ordersDeleted == kl.size());
     }
 
-    public boolean deleteOrders(ArrayList<Ordre> ol, Connection conn) throws SQLException {
+    public boolean deleteOrdrer(ArrayList<Ordre> ol, Connection conn) throws SQLException {
         int ordersDeleted = 0;
         String SQLString1 = "delete from ordrer "
                 + "where onummer = ? and ver = ? ";
@@ -468,7 +497,7 @@ public class OrderMapper {
         return (ordersDeleted == ol.size());
     }
 
-    public boolean deleteRessources(ArrayList<Vare> vl, Connection conn) throws SQLException {
+    public boolean deleteVarer(ArrayList<Vare> vl, Connection conn) throws SQLException {
         int ordersDeleted = 0;
         String SQLString = "delete from varer "
                 + "where vnummer = ?";
@@ -492,7 +521,7 @@ public class OrderMapper {
     //======  Methods to read from DB =======================================================
     // Retrieve a specific order and related order details
     // Returns the Order-object
-    public Ordre getOrder(int ono, Connection conn) throws SQLException {
+    public Ordre getOrdre(int ono, Connection conn) throws SQLException {
         Ordre o = null;
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
         String SQLString1 = // get order
@@ -556,7 +585,7 @@ public class OrderMapper {
         return o;
     }
 
-    public ArrayList<Ordre> getAllOrders(Connection conn) throws SQLException {
+    public ArrayList<Ordre> getAllOrdrer(Connection conn) throws SQLException {
         Ordre o = null;
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
         ArrayList<Ordre> ol = new ArrayList();
@@ -639,7 +668,7 @@ public class OrderMapper {
         return ol;
     }
 
-    public ArrayList<Kunde> getAllCostumers(Connection conn) throws SQLException {
+    public ArrayList<Kunde> getAllKunder(Connection conn) throws SQLException {
         Kunde k = null;
         ArrayList<Kunde> kl = new ArrayList();
         ArrayList kno = new ArrayList();
@@ -692,7 +721,7 @@ public class OrderMapper {
         return kl;
     }
 
-    public ArrayList<Vare> getAllRessources(Connection conn) throws SQLException {
+    public ArrayList<Vare> getAllVarer(Connection conn) throws SQLException {
         Vare v = null;
         ArrayList<Vare> vl = new ArrayList();
         ArrayList vno = new ArrayList();
@@ -860,7 +889,7 @@ public class OrderMapper {
     }
     // Retrieves the next unique order number from DB
 
-    public int getNextOrderNo(Connection conn) throws SQLException {
+    public int getNextOnummer(Connection conn) throws SQLException {
         int nextOno = 0;
         String SQLString = "select orderseq.nextval  " + "from dual";
         PreparedStatement statement = null;
