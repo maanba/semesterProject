@@ -39,8 +39,9 @@ public class UnitOfWorkProcessOrder {
         dirtyDelOrdre = new ArrayList<>();
         deletedDelOrdre = new ArrayList<>();
     }
-    //====== Methods to register changes ==========================
-
+    
+    // Ordre
+    
     public void registerNewOrdre(Ordre o) {
         if (!newORdre.contains(o)
                 && !dirtyOrdre.contains(o)) {
@@ -64,6 +65,7 @@ public class UnitOfWorkProcessOrder {
         return status;
     }
 
+    // Kunde
     public void registerNewKunde(Kunde k) {
         if (!newKunde.contains(k)) {
             newKunde.add(k);
@@ -86,27 +88,8 @@ public class UnitOfWorkProcessOrder {
         return status;
     }
 
-    public void registerNewOdetalje(Odetaljer od) {
-        if (!newOdetaljer.contains(od)) {
-            newOdetaljer.add(od);
-        }
-    }
-
-    public void registerDirtyOdetalje(Odetaljer od) {
-        if (!dirtyOdetaljer.contains(od)) {
-            dirtyOdetaljer.add(od);
-        }
-    }
-
-    public boolean registerDeletedOdetalje(Odetaljer od) {
-        boolean status = false;
-        if (!deletedOdetaljer.contains(od)) {
-            status = true;
-            deletedOdetaljer.add(od);
-        }
-        return status;
-    }
-
+    // Vare
+    
     public void registerNewVare(Vare v) {
         if (!newVare.contains(v)
                 && !dirtyVare.contains(v)) {
@@ -129,7 +112,32 @@ public class UnitOfWorkProcessOrder {
         }
         return status;
     }
+    
+    // Odetalje
+    
+    public void registerNewOdetalje(Odetaljer od) {
+        if (!newOdetaljer.contains(od)) {
+            newOdetaljer.add(od);
+        }
+    }
 
+    public void registerDirtyOdetalje(Odetaljer od) {
+        if (!dirtyOdetaljer.contains(od)) {
+            dirtyOdetaljer.add(od);
+        }
+    }
+
+    public boolean registerDeletedOdetalje(Odetaljer od) {
+        boolean status = false;
+        if (!deletedOdetaljer.contains(od)) {
+            status = true;
+            deletedOdetaljer.add(od);
+        }
+        return status;
+    }
+
+    // DelOrdre
+    
     public void registerDelOrdre(DelOrdre delo) {
         if (!newDelOrdre.contains(delo)
                 && !dirtyDelOrdre.contains(delo)) {
@@ -153,7 +161,7 @@ public class UnitOfWorkProcessOrder {
         return status;
     }
 
-    //====== Method to save changes to DB ===============================
+    // Commit
     public boolean commit(Connection conn) throws SQLException {
         boolean status = true;
         try {
@@ -187,7 +195,7 @@ public class UnitOfWorkProcessOrder {
         return status;
     }
 
-    //====== Methods to read from DB ===================================================
+    // ???
     public Ordre getOrder(int ono, Connection con) {
         Ordre o = null;
         try {

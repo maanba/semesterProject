@@ -6,17 +6,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import semesterprojekt.*;
 
-//==== 	encapsulates SQL 
-//	maps between classes and tables
-//	implements Optimistic Offline Lock (version number attribute in the order table)
-//	2010/hau
 public class OrderMapper {
 
     static boolean testRun = false;
 
-    //====== Methods to save to DB =========================================================
-    // Insert a list of new orders
-    // returns true if all elements were inserted successfully
+    // Ordre
+    
     public boolean insertOrdrer(ArrayList<Ordre> ol, Connection conn) throws SQLException {
         int rowsInserted = 0;
         String SQLString = "insert into ordrer values (?,?,?,?,?,?,?,?,?,?,?,"
@@ -55,85 +50,11 @@ public class OrderMapper {
             }
         }
         if (testRun) {
-            System.out.println("insertOrders(): " + (rowsInserted == ol.size())); // for test
+            System.out.println("insertOrdrer(): " + (rowsInserted == ol.size())); // for test
         }
         return (rowsInserted == ol.size());
     }
-
-    public boolean insertKunder(ArrayList<Kunde> kl, Connection conn) throws SQLException {
-        int rowsInserted = 0;
-        String SQLString = "insert into Kunder values (?,?,?,?,?,?)";
-        PreparedStatement statement = null;
-        statement = conn.prepareStatement(SQLString);
-
-        try {
-            for (int i = 0; i < kl.size(); i++) {
-                Kunde k = kl.get(i);
-                statement.setInt(1, k.getKnummer());
-                statement.setString(2, k.getFirma());
-                statement.setString(3, k.getNavn());
-                statement.setString(4, k.getAdresse());
-                statement.setInt(5, k.getPostnummer());
-                statement.setInt(6, k.getTelefonnummer());
-                rowsInserted += statement.executeUpdate();
-                statement.close();
-            }
-        } finally {
-            if (!statement.isClosed()) {
-                statement.close();
-            }
-        }
-        if (testRun) {
-            System.out.println("insertOrders(): " + (rowsInserted == kl.size())); // for test
-        }
-        return (rowsInserted == kl.size());
-    }
-
-    public boolean insertVarer(ArrayList<Vare> vl, Connection conn) throws SQLException {
-        int rowsInserted = 0;
-        String SQLString = "insert into varer values (?,?,?,?,?)";
-        String SQLString2 = "insert into dele values (?,?,?)";
-        PreparedStatement statement = null;
-        statement = conn.prepareStatement(SQLString);
-
-        try {
-            for (int i = 0; i < vl.size(); i++) {
-                if (!statement.isClosed()) {
-                    statement.close();
-                }
-                statement = conn.prepareStatement(SQLString);
-                Vare v = vl.get(i);
-                statement.setInt(1, v.getVnummer());
-                statement.setString(2, v.getVnavn());
-                statement.setInt(3, v.getQty());
-                statement.setDouble(4, v.getPris());
-                statement.setInt(5, v.getAktiv());
-                rowsInserted += statement.executeUpdate();
-                statement.close();
-                for (int j = 0; j < v.getDel().size(); j++) {
-                    statement = conn.prepareStatement(SQLString2);
-                    Del d = v.getDel().get(j);
-                    statement.setInt(1, d.getVnummer());
-                    statement.setString(2, d.getTitel());
-                    statement.setInt(3, d.getAntal());
-                    statement.executeUpdate();
-                    statement.close();
-                }
-            }
-        } finally {
-            if (!statement.isClosed()) {
-                statement.close();
-            }
-        }
-        if (testRun) {
-            System.out.println("insertOrders(): " + (rowsInserted == vl.size())); // for test
-        }
-        return (rowsInserted == vl.size());
-    }
-
-    // Update a list of orders 
-    // using optimistic offline lock (version no)
-    // Returns true if any conflict in version number
+    
     public boolean updateOrdrer(ArrayList<Ordre> ol, Connection conn) throws SQLException {
         int rowsUpdated = 0;
         String SQLString = "update ordrer "
@@ -175,9 +96,243 @@ public class OrderMapper {
             }
         }
         if (testRun) {
-            System.out.println("updateOrders: " + (rowsUpdated == ol.size())); // for test
+            System.out.println("updateOrdrer: " + (rowsUpdated == ol.size())); // for test
         }
         return (rowsUpdated == ol.size());    // false if any conflict in version number             
+    }
+    
+    public boolean deleteOrdrer(ArrayList<Ordre> ol, Connection conn) throws SQLException {
+        int deletedOrdrer = 0;
+        String SQLString1 = "delete from ordrer "
+                + "where onummer = ? and ver = ? ";
+        String SQLString2 = "delete from odetaljer "
+                + "where onummer = ? and vnummer = ? ";
+
+        PreparedStatement statement1 = conn.prepareStatement(SQLString2);
+        PreparedStatement statement2 = conn.prepareStatement(SQLString1);
+        try {
+            for (int i = 0; i < ol.size(); i++) {
+                Ordre o = (Ordre) ol.get(i);
+                for (int j = 0; j < o.getOd().size(); j++) {
+                    statement1.setInt(1, o.getOnummer());
+                    statement1.setInt(2, o.getOd().get(j).getVnummer());
+                    statement1.executeUpdate();
+                    statement1.close();
+                }
+                statement2.setInt(1, o.getOnummer());
+                statement2.setInt(2, o.getVer());
+                deletedOrdrer += statement2.executeUpdate();
+                statement2.close();
+            }
+        } finally {
+            if (!statement1.isClosed()) {
+                statement1.close();
+            }
+            if (!statement2.isClosed()) {
+                statement2.close();
+            }
+        }
+        return (deletedOrdrer == ol.size());
+    }
+    
+    public ArrayList<Ordre> getAllOrdrer(Connection conn) throws SQLException {
+        Ordre o = null;
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
+        ArrayList<Ordre> ol = new ArrayList();
+        ArrayList ono = new ArrayList();
+        String SQLString1 = // get ordre
+                "select * "
+                + "from ordrer "
+                + "where onummer = ?";
+        String SQLString2 = // get Odetaljer
+                "select * "
+                + "from odetaljer "
+                + "where onummer = ? ";
+        String SQLString3 = // get ordre
+                "select * "
+                + "from ordrer ";
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try {
+
+            statement = conn.prepareStatement(SQLString3);
+            rs = statement.executeQuery();
+            int i = 1;
+            while (rs.next()) {
+                ono.add(rs.getInt(i));
+            }
+            statement.close();
+            rs.close();
+            //=== get ordre
+            for (int j = 0; j < ono.size(); j++) {
+                statement = conn.prepareStatement(SQLString1);
+                statement.setInt(1, (int) ono.get(j));
+                rs = statement.executeQuery();
+                if (rs.next()) {
+                    o = new Ordre(rs.getInt(1),
+                            rs.getInt(2),
+                            rs.getInt(3),
+                            rs.getDouble(4),
+                            rs.getDouble(5),
+                            rs.getDouble(6),
+                            rs.getString(7),
+                            rs.getString(8),
+                            rs.getString(9),
+                            rs.getInt(10),
+                            rs.getString(11),
+                            dateFormat.format(rs.getDate(12)),
+                            dateFormat.format(rs.getDate(13)),
+                            dateFormat.format(rs.getDate(14)),
+                            rs.getString(15),
+                            rs.getInt(16));
+
+                    //=== get ordre details
+                    statement.close();
+                    statement = conn.prepareStatement(SQLString2);
+                    statement.setInt(1, o.getOnummer());
+                    rs.close();
+                    rs = statement.executeQuery();
+                    while (rs.next()) {
+                        o.addOd(new Odetaljer(
+                                o.getOnummer(),
+                                rs.getInt(2),
+                                rs.getInt(3)));
+                    }
+                    ol.add(o);
+                }
+                statement.close();
+                rs.close();
+            }
+        } finally {
+            if (!rs.isClosed()) {
+                rs.close();
+            }
+            if (!statement.isClosed()) {
+                statement.close();
+            }
+        }
+        if (testRun) {
+            System.out.println("Retrieved ordrer: " + o);
+        }
+        return ol;
+    }
+    
+    public Ordre getOrdre(int ono, Connection conn) throws SQLException {
+        Ordre o = null;
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
+        String SQLString1 = // get ordre
+                "select * "
+                + "from ordrer "
+                + "where onummer = ?";
+        String SQLString2 = // get ordre details
+                "select * "
+                + "from odetaljer "
+                + "where onummer = ? ";
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try {
+            //=== get ordre
+            statement = conn.prepareStatement(SQLString1);
+            statement.setInt(1, ono);
+            rs = statement.executeQuery();
+            if (rs.next()) {
+                o = new Ordre(ono,
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getDouble(4),
+                        rs.getDouble(5),
+                        rs.getDouble(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getInt(10),
+                        rs.getString(11),
+                        dateFormat.format(rs.getDate(12)),
+                        dateFormat.format(rs.getDate(13)),
+                        dateFormat.format(rs.getDate(14)),
+                        rs.getString(15),
+                        rs.getInt(16));
+
+                //=== get ordre details
+                statement.close();
+                statement = conn.prepareStatement(SQLString2);
+                statement.setInt(1, ono);
+                rs.close();
+                rs = statement.executeQuery();
+                while (rs.next()) {
+                    o.addOd(new Odetaljer(
+                            ono,
+                            rs.getInt(2),
+                            rs.getInt(3)));
+                }
+            }
+        } finally {
+            if (!rs.isClosed()) {
+                rs.close();
+            }
+            if (!statement.isClosed()) {
+                statement.close();
+            }
+        }
+        if (testRun) {
+            System.out.println("Retrieved ordre: " + o);
+        }
+        return o;
+    }
+
+    public int getNextOnummer(Connection conn) throws SQLException {
+        int nextOno = 0;
+        String SQLString = "select ordreseq.nextval  " + "from dual";
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+        try {
+            statement = conn.prepareStatement(SQLString);
+            rs = statement.executeQuery();
+            if (rs.next()) {
+                nextOno = rs.getInt(1);
+            }
+        } finally {
+            if (!rs.isClosed()) {
+                rs.close();
+            }
+            if (!statement.isClosed()) {
+                statement.close();
+            }
+        }
+        return nextOno;
+    }
+        
+    // Kunde
+    
+    public boolean insertKunder(ArrayList<Kunde> kl, Connection conn) throws SQLException {
+        int rowsInserted = 0;
+        String SQLString = "insert into Kunder values (?,?,?,?,?,?)";
+        PreparedStatement statement = null;
+        statement = conn.prepareStatement(SQLString);
+
+        try {
+            for (int i = 0; i < kl.size(); i++) {
+                Kunde k = kl.get(i);
+                statement.setInt(1, k.getKnummer());
+                statement.setString(2, k.getFirma());
+                statement.setString(3, k.getNavn());
+                statement.setString(4, k.getAdresse());
+                statement.setInt(5, k.getPostnummer());
+                statement.setInt(6, k.getTelefonnummer());
+                rowsInserted += statement.executeUpdate();
+                statement.close();
+            }
+        } finally {
+            if (!statement.isClosed()) {
+                statement.close();
+            }
+        }
+        if (testRun) {
+            System.out.println("insertOrdrer(): " + (rowsInserted == kl.size())); // for test
+        }
+        return (rowsInserted == kl.size());
     }
 
     public boolean updateKunder(ArrayList<Kunde> kl, Connection conn) throws SQLException {
@@ -207,11 +362,180 @@ public class OrderMapper {
             }
         }
         if (testRun) {
-            System.out.println("updateOrders: " + (rowsUpdated == kl.size())); // for test
+            System.out.println("updateOrdrer: " + (rowsUpdated == kl.size())); // for test
         }
         return (rowsUpdated == kl.size());    // false if any conflict in version number             
     }
+    
+    public boolean deleteKunder(ArrayList<Kunde> kl, Connection conn) throws SQLException {
+        int deletedOrdrer = 0;
+        String SQLString = "delete from kunder "
+                + "where knummer = ?";
 
+        PreparedStatement statement = conn.prepareStatement(SQLString);
+        try {
+            for (int i = 0; i < kl.size(); i++) {
+                Kunde k = kl.get(i);
+                statement.setInt(1, k.getKnummer());
+                statement.executeUpdate();
+                statement.close();
+            }
+        } finally {
+            if (!statement.isClosed()) {
+                statement.close();
+            }
+        }
+        return (deletedOrdrer == kl.size());
+    }
+        
+    public ArrayList<Kunde> getAllKunder(Connection conn) throws SQLException {
+        Kunde k = null;
+        ArrayList<Kunde> kl = new ArrayList();
+        ArrayList kno = new ArrayList();
+        String SQLString1 = // get ordre
+                "select * "
+                + "from kunder "
+                + "where knummer = ?";
+        String SQLString3 = // get ordre
+                "select * "
+                + "from kunder ";
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try {
+
+            statement = conn.prepareStatement(SQLString3);
+            rs = statement.executeQuery();
+            int i = 1;
+            while (rs.next()) {
+                kno.add(rs.getInt(i));
+            }
+            //=== get ordre
+            for (int j = 0; j < kno.size(); j++) {
+                statement = conn.prepareStatement(SQLString1);
+                statement.setInt(1, (int) kno.get(j));
+                rs = statement.executeQuery();
+                if (rs.next()) {
+                    k = new Kunde(rs.getInt(1),
+                            rs.getString(2),
+                            rs.getString(3),
+                            rs.getString(4),
+                            rs.getInt(5),
+                            rs.getInt(6));
+                }
+                kl.add(k);
+                statement.close();
+                rs.close();
+            }
+        } finally {
+            if (!rs.isClosed()) {
+                rs.close();
+            }
+            if (!statement.isClosed()) {
+                statement.close();
+            }
+        }
+        if (testRun) {
+            System.out.println("Retrieved ordrer: " + k);
+        }
+        return kl;
+    }
+      
+    public Kunde getKunde(Connection conn, int knummer) throws SQLException {
+        String SQLString = "select * from kunder where knummer = ?";
+        PreparedStatement statement = null;
+        Kunde kunde = null;
+        ResultSet rs = null;
+        try {
+            statement = conn.prepareStatement(SQLString);
+            statement.setInt(1, knummer);
+            rs = statement.executeQuery();
+            if (rs.next()) {
+                kunde = new Kunde(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getInt(6));
+            }
+
+        } finally {
+            if (!rs.isClosed()) {
+                rs.close();
+            }
+            if (!statement.isClosed()) {
+                statement.close();
+            }
+        }
+        return kunde;
+    }
+    
+    public int getNextKnummer(Connection conn) throws SQLException {
+        int nextKno = 0;
+        String SQLString = "select kundeseq.nextval  " + "from dual";
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+        try {
+            statement = conn.prepareStatement(SQLString);
+            rs = statement.executeQuery();
+            if (rs.next()) {
+                nextKno = rs.getInt(1);
+            }
+        } finally {
+            if (!rs.isClosed()) {
+                rs.close();
+            }
+            if (!statement.isClosed()) {
+                statement.close();
+            }
+        }
+        return nextKno;
+    }
+    
+    // Varer
+    
+    public boolean insertVarer(ArrayList<Vare> vl, Connection conn) throws SQLException {
+        int rowsInserted = 0;
+        String SQLString = "insert into varer values (?,?,?,?,?)";
+        String SQLString2 = "insert into dele values (?,?,?)";
+        PreparedStatement statement = null;
+        statement = conn.prepareStatement(SQLString);
+
+        try {
+            for (int i = 0; i < vl.size(); i++) {
+                if (!statement.isClosed()) {
+                    statement.close();
+                }
+                statement = conn.prepareStatement(SQLString);
+                Vare v = vl.get(i);
+                statement.setInt(1, v.getVnummer());
+                statement.setString(2, v.getVnavn());
+                statement.setInt(3, v.getQty());
+                statement.setDouble(4, v.getPris());
+                statement.setInt(5, v.getAktiv());
+                rowsInserted += statement.executeUpdate();
+                statement.close();
+                for (int j = 0; j < v.getDel().size(); j++) {
+                    statement = conn.prepareStatement(SQLString2);
+                    Del d = v.getDel().get(j);
+                    statement.setInt(1, d.getVnummer());
+                    statement.setString(2, d.getTitel());
+                    statement.setInt(3, d.getAntal());
+                    statement.executeUpdate();
+                    statement.close();
+                }
+            }
+        } finally {
+            if (!statement.isClosed()) {
+                statement.close();
+            }
+        }
+        if (testRun) {
+            System.out.println("insertOrdrer(): " + (rowsInserted == vl.size())); // for test
+        }
+        return (rowsInserted == vl.size());
+    }
+    
     public boolean updateVarer(ArrayList<Vare> vl, Connection conn) throws SQLException {
         int rowsUpdated = 0;
         String SQLString = "update varer "
@@ -258,247 +582,13 @@ public class OrderMapper {
             }
         }
         if (testRun) {
-            System.out.println("updateOrders: " + (rowsUpdated == vl.size())); // for test
+            System.out.println("updateOrdrer: " + (rowsUpdated == vl.size())); // for test
         }
         return (rowsUpdated == vl.size());    // false if any conflict in version number             
     }
-
-    // Insert a list of new order details
-    // Returns true if all elements were inserted successfully
-    public boolean insertOdetaljer(ArrayList<Odetaljer> odl, Connection conn) throws SQLException {
-        String SQLString = "insert into odetaljer values (?,?,?)";
-        PreparedStatement statement = null;
-        statement = conn.prepareStatement(SQLString);
-        
-        int rowsInserted = 0;
-        try {
-            for (int i = 0; i < odl.size(); i++) {
-                if (!statement.isClosed()) {
-                    statement.close();
-                }
-                statement = conn.prepareStatement(SQLString);
-                statement.setInt(1, odl.get(i).getOnummer());
-                statement.setInt(2, odl.get(i).getVnummer());
-                statement.setInt(3, odl.get(i).getMaengde());
-                rowsInserted += statement.executeUpdate();
-                statement.close();
-            }
-        } finally {
-            if (!statement.isClosed()) {
-                statement.close();
-            }
-        }
-        if (testRun) {
-            System.out.println("insertOrderDetails:" + (rowsInserted == odl.size())); // for test
-        }
-        return rowsInserted == odl.size();
-    }
-
-    public boolean insertDel(ArrayList<Del> delListe, Connection conn) throws SQLException {
-        String SQLString = "insert into odetaljer values (?,?,?)";
-        PreparedStatement statement = null;
-
-        int rowsInserted = 0;
-        try {
-            if (0 < delListe.size()) {
-                statement = conn.prepareStatement(SQLString);
-                for (int i = 0; i < delListe.size(); i++) {
-                    statement.setInt(1, delListe.get(i).getVnummer());
-                    statement.setString(2, delListe.get(i).getTitel());
-                    statement.setInt(3, delListe.get(i).getAntal());
-                    rowsInserted += statement.executeUpdate();
-                    statement.close();
-                }
-            }
-        } finally {
-            if (!statement.isClosed()) {
-                statement.close();
-            }
-        }
-        if (testRun) {
-            System.out.println("insertVareDel:" + (rowsInserted == delListe.size())); // for test
-        }
-        return rowsInserted == delListe.size();
-    }
     
-     public boolean insertDelOrdrer(ArrayList<DelOrdre> delOrdre, Connection conn) throws SQLException {
-        String SQLString = "insert into delordre values (?,?,?,?,?)";
-        PreparedStatement statement = null;
-
-        int rowsInserted = 0;
-        try {
-            if (0 < delOrdre.size()) {
-                statement = conn.prepareStatement(SQLString);
-                for (int i = 0; i < delOrdre.size(); i++) {
-                    statement.setString(1, delOrdre.get(i).getTitle());
-                    statement.setInt(2, delOrdre.get(i).getVnummer());
-                    statement.setInt(3, delOrdre.get(i).getOnummer());
-                    statement.setInt(4, delOrdre.get(i).getMaengde());
-                    statement.setInt(5, delOrdre.get(i).getStatus());
-                    rowsInserted += statement.executeUpdate();
-                    statement.close();
-                }
-            }
-        } finally {
-            if (!statement.isClosed()) {
-                statement.close();
-            }
-        }
-        if (testRun) {
-            System.out.println("insertVareDel:" + (rowsInserted == delOrdre.size())); // for test
-        }
-        return rowsInserted == delOrdre.size();
-    }
-     
-    public boolean updateOdetaljer(ArrayList<Odetaljer> odl, Connection conn) throws SQLException {
-        int rowsUpdated = 0;
-        String SQLString = "update odetaljer "
-                + "set maengde = ? "
-                + "where onummer = ? and vnummer = ?";
-        PreparedStatement statement = null;
-
-        statement = conn.prepareStatement(SQLString);
-        try {
-            for (int i = 0; i < odl.size(); i++) {
-                Odetaljer od = odl.get(i);
-                statement.setInt(1, od.getMaengde());
-                statement.setInt(2, od.getOnummer());
-                statement.setInt(3, od.getVnummer());
-                int tupleUpdated = statement.executeUpdate();
-                rowsUpdated += tupleUpdated;
-                statement.close();
-            }
-        } finally {
-            if (!statement.isClosed()) {
-                statement.close();
-            }
-        }
-        if (testRun) {
-            System.out.println("updateOrders: " + (rowsUpdated == odl.size())); // for test
-        }
-        return (rowsUpdated == odl.size());
-    }
-
-    public boolean updateDele(ArrayList<Del> delListe, Connection conn) throws SQLException {
-        int rowsUpdated = 0;
-        String SQLString = "update del "
-                + "set antal = ? "
-                + "where vnummer = ?";
-        PreparedStatement statement = null;
-
-        statement = conn.prepareStatement(SQLString);
-        try {
-            for (int i = 0; i < delListe.size(); i++) {
-                Del od = delListe.get(i);
-                statement.setInt(1, od.getVnummer());
-                statement.setString(2, od.getTitel());
-                statement.setInt(3, od.getAntal());
-                int tupleUpdated = statement.executeUpdate();
-                rowsUpdated += tupleUpdated;
-                statement.close();
-            }
-        } finally {
-            if (!statement.isClosed()) {
-                statement.close();
-            }
-        }
-        if (testRun) {
-            System.out.println("updateDel: " + (rowsUpdated == delListe.size())); // for test
-        }
-        return (rowsUpdated == delListe.size());
-    }
-
-    public boolean deleteOdetalje(int ono, Connection conn) throws SQLException {
-        int ordersDeleted = 0;
-        String SQLString = "delete from odetaljer "
-                + "where onummer = ?";
-
-        PreparedStatement statement = conn.prepareStatement(SQLString);
-        try {
-            statement.setInt(1, ono);
-            statement.executeUpdate();
-        } finally {
-            if (!statement.isClosed()) {
-                statement.close();
-            }
-        }
-        return (ordersDeleted == 1);
-    }
-
-    public boolean deleteDel(int vnummer, Connection conn) throws SQLException {
-        int delDeleted = 0;
-        String SQLString = "delete from del "
-                + "where vnummer = ?";
-
-        PreparedStatement statement = conn.prepareStatement(SQLString);
-        try {
-            statement.setInt(1, vnummer);
-            statement.executeUpdate();
-        } finally {
-            if (!statement.isClosed()) {
-                statement.close();
-            }
-        }
-        return (delDeleted == 1);
-    }
-
-    public boolean deleteKunder(ArrayList<Kunde> kl, Connection conn) throws SQLException {
-        int ordersDeleted = 0;
-        String SQLString = "delete from kunder "
-                + "where knummer = ?";
-
-        PreparedStatement statement = conn.prepareStatement(SQLString);
-        try {
-            for (int i = 0; i < kl.size(); i++) {
-                Kunde k = kl.get(i);
-                statement.setInt(1, k.getKnummer());
-                statement.executeUpdate();
-                statement.close();
-            }
-        } finally {
-            if (!statement.isClosed()) {
-                statement.close();
-            }
-        }
-        return (ordersDeleted == kl.size());
-    }
-
-    public boolean deleteOrdrer(ArrayList<Ordre> ol, Connection conn) throws SQLException {
-        int ordersDeleted = 0;
-        String SQLString1 = "delete from ordrer "
-                + "where onummer = ? and ver = ? ";
-        String SQLString2 = "delete from odetaljer "
-                + "where onummer = ? and vnummer = ? ";
-
-        PreparedStatement statement1 = conn.prepareStatement(SQLString2);
-        PreparedStatement statement2 = conn.prepareStatement(SQLString1);
-        try {
-            for (int i = 0; i < ol.size(); i++) {
-                Ordre o = (Ordre) ol.get(i);
-                for (int j = 0; j < o.getOd().size(); j++) {
-                    statement1.setInt(1, o.getOnummer());
-                    statement1.setInt(2, o.getOd().get(j).getVnummer());
-                    statement1.executeUpdate();
-                    statement1.close();
-                }
-                statement2.setInt(1, o.getOnummer());
-                statement2.setInt(2, o.getVer());
-                ordersDeleted += statement2.executeUpdate();
-                statement2.close();
-            }
-        } finally {
-            if (!statement1.isClosed()) {
-                statement1.close();
-            }
-            if (!statement2.isClosed()) {
-                statement2.close();
-            }
-        }
-        return (ordersDeleted == ol.size());
-    }
-
     public boolean deleteVarer(ArrayList<Vare> vl, Connection conn) throws SQLException {
-        int ordersDeleted = 0;
+        int ordrerDeleted = 0;
         String SQLString = "delete from varer "
                 + "where vnummer = ?";
 
@@ -515,225 +605,22 @@ public class OrderMapper {
                 statement.close();
             }
         }
-        return (ordersDeleted == vl.size());
+        return (ordrerDeleted == vl.size());
     }
-
-    //======  Methods to read from DB =======================================================
-    // Retrieve a specific order and related order details
-    // Returns the Order-object
-    public Ordre getOrdre(int ono, Connection conn) throws SQLException {
-        Ordre o = null;
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
-        String SQLString1 = // get order
-                "select * "
-                + "from ordrer "
-                + "where onummer = ?";
-        String SQLString2 = // get order details
-                "select * "
-                + "from odetaljer "
-                + "where onummer = ? ";
-        PreparedStatement statement = null;
-        ResultSet rs = null;
-
-        try {
-            //=== get order
-            statement = conn.prepareStatement(SQLString1);
-            statement.setInt(1, ono);
-            rs = statement.executeQuery();
-            if (rs.next()) {
-                o = new Ordre(ono,
-                        rs.getInt(2),
-                        rs.getInt(3),
-                        rs.getDouble(4),
-                        rs.getDouble(5),
-                        rs.getDouble(6),
-                        rs.getString(7),
-                        rs.getString(8),
-                        rs.getString(9),
-                        rs.getInt(10),
-                        rs.getString(11),
-                        dateFormat.format(rs.getDate(12)),
-                        dateFormat.format(rs.getDate(13)),
-                        dateFormat.format(rs.getDate(14)),
-                        rs.getString(15),
-                        rs.getInt(16));
-
-                //=== get order details
-                statement.close();
-                statement = conn.prepareStatement(SQLString2);
-                statement.setInt(1, ono);
-                rs.close();
-                rs = statement.executeQuery();
-                while (rs.next()) {
-                    o.addOd(new Odetaljer(
-                            ono,
-                            rs.getInt(2),
-                            rs.getInt(3)));
-                }
-            }
-        } finally {
-            if (!rs.isClosed()) {
-                rs.close();
-            }
-            if (!statement.isClosed()) {
-                statement.close();
-            }
-        }
-        if (testRun) {
-            System.out.println("Retrieved Order: " + o);
-        }
-        return o;
-    }
-
-    public ArrayList<Ordre> getAllOrdrer(Connection conn) throws SQLException {
-        Ordre o = null;
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
-        ArrayList<Ordre> ol = new ArrayList();
-        ArrayList ono = new ArrayList();
-        String SQLString1 = // get order
-                "select * "
-                + "from ordrer "
-                + "where onummer = ?";
-        String SQLString2 = // get order details
-                "select * "
-                + "from odetaljer "
-                + "where onummer = ? ";
-        String SQLString3 = // get order
-                "select * "
-                + "from ordrer ";
-        PreparedStatement statement = null;
-        ResultSet rs = null;
-
-        try {
-
-            statement = conn.prepareStatement(SQLString3);
-            rs = statement.executeQuery();
-            int i = 1;
-            while (rs.next()) {
-                ono.add(rs.getInt(i));
-            }
-            statement.close();
-            rs.close();
-            //=== get order
-            for (int j = 0; j < ono.size(); j++) {
-                statement = conn.prepareStatement(SQLString1);
-                statement.setInt(1, (int) ono.get(j));
-                rs = statement.executeQuery();
-                if (rs.next()) {
-                    o = new Ordre(rs.getInt(1),
-                            rs.getInt(2),
-                            rs.getInt(3),
-                            rs.getDouble(4),
-                            rs.getDouble(5),
-                            rs.getDouble(6),
-                            rs.getString(7),
-                            rs.getString(8),
-                            rs.getString(9),
-                            rs.getInt(10),
-                            rs.getString(11),
-                            dateFormat.format(rs.getDate(12)),
-                            dateFormat.format(rs.getDate(13)),
-                            dateFormat.format(rs.getDate(14)),
-                            rs.getString(15),
-                            rs.getInt(16));
-
-                    //=== get order details
-                    statement.close();
-                    statement = conn.prepareStatement(SQLString2);
-                    statement.setInt(1, o.getOnummer());
-                    rs.close();
-                    rs = statement.executeQuery();
-                    while (rs.next()) {
-                        o.addOd(new Odetaljer(
-                                o.getOnummer(),
-                                rs.getInt(2),
-                                rs.getInt(3)));
-                    }
-                    ol.add(o);
-                }
-                statement.close();
-                rs.close();
-            }
-        } finally {
-            if (!rs.isClosed()) {
-                rs.close();
-            }
-            if (!statement.isClosed()) {
-                statement.close();
-            }
-        }
-        if (testRun) {
-            System.out.println("Retrieved Order: " + o);
-        }
-        return ol;
-    }
-
-    public ArrayList<Kunde> getAllKunder(Connection conn) throws SQLException {
-        Kunde k = null;
-        ArrayList<Kunde> kl = new ArrayList();
-        ArrayList kno = new ArrayList();
-        String SQLString1 = // get order
-                "select * "
-                + "from kunder "
-                + "where knummer = ?";
-        String SQLString3 = // get order
-                "select * "
-                + "from kunder ";
-        PreparedStatement statement = null;
-        ResultSet rs = null;
-
-        try {
-
-            statement = conn.prepareStatement(SQLString3);
-            rs = statement.executeQuery();
-            int i = 1;
-            while (rs.next()) {
-                kno.add(rs.getInt(i));
-            }
-            //=== get order
-            for (int j = 0; j < kno.size(); j++) {
-                statement = conn.prepareStatement(SQLString1);
-                statement.setInt(1, (int) kno.get(j));
-                rs = statement.executeQuery();
-                if (rs.next()) {
-                    k = new Kunde(rs.getInt(1),
-                            rs.getString(2),
-                            rs.getString(3),
-                            rs.getString(4),
-                            rs.getInt(5),
-                            rs.getInt(6));
-                }
-                kl.add(k);
-                statement.close();
-                rs.close();
-            }
-        } finally {
-            if (!rs.isClosed()) {
-                rs.close();
-            }
-            if (!statement.isClosed()) {
-                statement.close();
-            }
-        }
-        if (testRun) {
-            System.out.println("Retrieved Order: " + k);
-        }
-        return kl;
-    }
-
+    
     public ArrayList<Vare> getAllVarer(Connection conn) throws SQLException {
         Vare v = null;
         ArrayList<Vare> vl = new ArrayList();
         ArrayList vno = new ArrayList();
-        String SQLString1 = // get order
+        String SQLString1 = // get ordre
                 "select * "
                 + "from varer "
                 + "where vnummer = ?";
-        String SQLString2 = // get order details
+        String SQLString2 = // get ordre details
                 "select * "
                 + "from dele "
                 + "where vnummer = ? ";
-        String SQLString3 = // get order
+        String SQLString3 = // get ordre
                 "select * "
                 + "from varer ";
         PreparedStatement statement = null;
@@ -747,7 +634,7 @@ public class OrderMapper {
             while (rs.next()) {
                 vno.add(rs.getInt(i));
             }
-            //=== get order
+            //=== get ordre
             for (int j = 0; j < vno.size(); j++) {
                 statement = conn.prepareStatement(SQLString1);
                 statement.setInt(1, (int) vno.get(j));
@@ -783,11 +670,11 @@ public class OrderMapper {
             }
         }
         if (testRun) {
-            System.out.println("Retrieved Order: " + v);
+            System.out.println("Retrieved ordre: " + v);
         }
         return vl;
     }
-
+    
     public Vare getVare(Connection conn, int vnummer) throws SQLException {
         String SQLString = "select * from varer where vnummer = ?";
         PreparedStatement statement = null;
@@ -834,25 +721,18 @@ public class OrderMapper {
         }
         return vare;
     }
-
-    public Kunde getKunde(Connection conn, int knummer) throws SQLException {
-        String SQLString = "select * from kunder where knummer = ?";
+        
+    public int getNextVnummer(Connection conn) throws SQLException {
+        int nextVno = 0;
+        String SQLString = "select varerseq.nextval  " + "from dual";
         PreparedStatement statement = null;
-        Kunde kunde = null;
         ResultSet rs = null;
         try {
             statement = conn.prepareStatement(SQLString);
-            statement.setInt(1, knummer);
             rs = statement.executeQuery();
             if (rs.next()) {
-                kunde = new Kunde(rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getInt(5),
-                        rs.getInt(6));
+                nextVno = rs.getInt(1);
             }
-
         } finally {
             if (!rs.isClosed()) {
                 rs.close();
@@ -861,10 +741,198 @@ public class OrderMapper {
                 statement.close();
             }
         }
-        return kunde;
+        return nextVno;
+    }
+    
+    // Odetaljer
+    
+    public boolean updateOdetaljer(ArrayList<Odetaljer> odl, Connection conn) throws SQLException {
+        int rowsUpdated = 0;
+        String SQLString = "update odetaljer "
+                + "set maengde = ? "
+                + "where onummer = ? and vnummer = ?";
+        PreparedStatement statement = null;
+
+        statement = conn.prepareStatement(SQLString);
+        try {
+            for (int i = 0; i < odl.size(); i++) {
+                Odetaljer od = odl.get(i);
+                statement.setInt(1, od.getMaengde());
+                statement.setInt(2, od.getOnummer());
+                statement.setInt(3, od.getVnummer());
+                int tupleUpdated = statement.executeUpdate();
+                rowsUpdated += tupleUpdated;
+                statement.close();
+            }
+        } finally {
+            if (!statement.isClosed()) {
+                statement.close();
+            }
+        }
+        if (testRun) {
+            System.out.println("updateOrdrer: " + (rowsUpdated == odl.size())); // for test
+        }
+        return (rowsUpdated == odl.size());
+    }
+    
+    public boolean insertOdetaljer(ArrayList<Odetaljer> odl, Connection conn) throws SQLException {
+     
+        String SQLString = "insert into odetaljer values (?,?,?)";
+        PreparedStatement statement = null;
+        statement = conn.prepareStatement(SQLString);
+        
+        int rowsInserted = 0;
+        try {
+            for (int i = 0; i < odl.size(); i++) {
+                if (!statement.isClosed()) {
+                    statement.close();
+                }
+                statement = conn.prepareStatement(SQLString);
+                statement.setInt(1, odl.get(i).getOnummer());
+                statement.setInt(2, odl.get(i).getVnummer());
+                statement.setInt(3, odl.get(i).getMaengde());
+                rowsInserted += statement.executeUpdate();
+                statement.close();
+            }
+        } finally {
+            if (!statement.isClosed()) {
+                statement.close();
+            }
+        }
+        if (testRun) {
+            System.out.println("insertOdetaljer:" + (rowsInserted == odl.size())); // for test
+        }
+        return rowsInserted == odl.size();
+    }
+    
+    public boolean deleteOdetalje(ArrayList<Odetaljer> odl, Connection conn) throws SQLException {
+        int deletedOrdrer = 0;
+        String SQLString = "delete from odetaljer "
+                + "where onummer = ?";
+
+        PreparedStatement statement = conn.prepareStatement(SQLString);
+        try {
+            for (int i = 0; i < odl.size(); i++) {
+                Odetaljer od = odl.get(i);
+                statement.setInt(1, od.getOnummer());
+                statement.executeUpdate();
+                statement.close();
+            }
+        } finally {
+            if (!statement.isClosed()) {
+                statement.close();
+            }
+        }
+        return (deletedOrdrer == odl.size());
     }
 
-    public Postnummer getPostnummer(Connection conn, int postnr) throws SQLException {
+    // Del
+
+    public boolean insertDel(ArrayList<Del> delListe, Connection conn) throws SQLException {
+        String SQLString = "insert into odetaljer values (?,?,?)";
+        PreparedStatement statement = null;
+
+        int rowsInserted = 0;
+        try {
+            if (0 < delListe.size()) {
+                statement = conn.prepareStatement(SQLString);
+                for (int i = 0; i < delListe.size(); i++) {
+                    statement.setInt(1, delListe.get(i).getVnummer());
+                    statement.setString(2, delListe.get(i).getTitel());
+                    statement.setInt(3, delListe.get(i).getAntal());
+                    rowsInserted += statement.executeUpdate();
+                    statement.close();
+                }
+            }
+        } finally {
+            if (!statement.isClosed()) {
+                statement.close();
+            }
+        }
+        if (testRun) {
+            System.out.println("insertVareDel:" + (rowsInserted == delListe.size())); // for test
+        }
+        return rowsInserted == delListe.size();
+    }
+    
+    public boolean updateDele(ArrayList<Del> delListe, Connection conn) throws SQLException {
+        int rowsUpdated = 0;
+        String SQLString = "update del "
+                + "set antal = ? "
+                + "where vnummer = ?";
+        PreparedStatement statement = null;
+
+        statement = conn.prepareStatement(SQLString);
+        try {
+            for (int i = 0; i < delListe.size(); i++) {
+                Del od = delListe.get(i);
+                statement.setInt(1, od.getVnummer());
+                statement.setString(2, od.getTitel());
+                statement.setInt(3, od.getAntal());
+                int tupleUpdated = statement.executeUpdate();
+                rowsUpdated += tupleUpdated;
+                statement.close();
+            }
+        } finally {
+            if (!statement.isClosed()) {
+                statement.close();
+            }
+        }
+        if (testRun) {
+            System.out.println("updateDel: " + (rowsUpdated == delListe.size())); // for test
+        }
+        return (rowsUpdated == delListe.size());
+    } 
+    
+    public boolean deleteDel(int vnummer, Connection conn) throws SQLException {
+        int delDeleted = 0;
+        String SQLString = "delete from del "
+                + "where vnummer = ?";
+
+        PreparedStatement statement = conn.prepareStatement(SQLString);
+        try {
+            statement.setInt(1, vnummer);
+            statement.executeUpdate();
+        } finally {
+            if (!statement.isClosed()) {
+                statement.close();
+            }
+        }
+        return (delDeleted == 1);
+    }
+    
+    // DelOrdrer
+    
+     public boolean insertDelOrdrer(ArrayList<DelOrdre> delOrdre, Connection conn) throws SQLException {
+        String SQLString = "insert into delordre values (?,?,?,?,?)";
+        PreparedStatement statement = null;
+
+        int rowsInserted = 0;
+        try {
+            if (0 < delOrdre.size()) {
+                statement = conn.prepareStatement(SQLString);
+                for (int i = 0; i < delOrdre.size(); i++) {
+                    statement.setString(1, delOrdre.get(i).getTitle());
+                    statement.setInt(2, delOrdre.get(i).getVnummer());
+                    statement.setInt(3, delOrdre.get(i).getOnummer());
+                    statement.setInt(4, delOrdre.get(i).getMaengde());
+                    statement.setInt(5, delOrdre.get(i).getStatus());
+                    rowsInserted += statement.executeUpdate();
+                    statement.close();
+                }
+            }
+        } finally {
+            if (!statement.isClosed()) {
+                statement.close();
+            }
+        }
+        if (testRun) {
+            System.out.println("insertVareDel:" + (rowsInserted == delOrdre.size())); // for test
+        }
+        return rowsInserted == delOrdre.size();
+    }
+    
+     public Postnummer getPostnummer(Connection conn, int postnr) throws SQLException {
         String SQLString = "select * from postnummer where postnummer = ?";
         PreparedStatement statement = null;
         Postnummer postnummer = null;
@@ -887,53 +955,8 @@ public class OrderMapper {
         }
         return postnummer;
     }
-    // Retrieves the next unique order number from DB
 
-    public int getNextOnummer(Connection conn) throws SQLException {
-        int nextOno = 0;
-        String SQLString = "select orderseq.nextval  " + "from dual";
-        PreparedStatement statement = null;
-        ResultSet rs = null;
-        try {
-            statement = conn.prepareStatement(SQLString);
-            rs = statement.executeQuery();
-            if (rs.next()) {
-                nextOno = rs.getInt(1);
-            }
-        } finally {
-            if (!rs.isClosed()) {
-                rs.close();
-            }
-            if (!statement.isClosed()) {
-                statement.close();
-            }
-        }
-        return nextOno;
-    }
-
-    public int getNextVnummer(Connection conn) throws SQLException {
-        int nextVno = 0;
-        String SQLString = "select varerseq.nextval  " + "from dual";
-        PreparedStatement statement = null;
-        ResultSet rs = null;
-        try {
-            statement = conn.prepareStatement(SQLString);
-            rs = statement.executeQuery();
-            if (rs.next()) {
-                nextVno = rs.getInt(1);
-            }
-        } finally {
-            if (!rs.isClosed()) {
-                rs.close();
-            }
-            if (!statement.isClosed()) {
-                statement.close();
-            }
-        }
-        return nextVno;
-    }
-
-    public int getNextFnummer(Connection conn) throws SQLException {
+     public int getNextFnummer(Connection conn) throws SQLException {
         int nextFnummer = 0;
         String SQLString = "select fakturaseq.nextval  " + "from dual";
         PreparedStatement statement = null;
@@ -953,27 +976,5 @@ public class OrderMapper {
             }
         }
         return nextFnummer;
-    }
-
-    public int getNextKnummer(Connection conn) throws SQLException {
-        int nextKno = 0;
-        String SQLString = "select kundeseq.nextval  " + "from dual";
-        PreparedStatement statement = null;
-        ResultSet rs = null;
-        try {
-            statement = conn.prepareStatement(SQLString);
-            rs = statement.executeQuery();
-            if (rs.next()) {
-                nextKno = rs.getInt(1);
-            }
-        } finally {
-            if (!rs.isClosed()) {
-                rs.close();
-            }
-            if (!statement.isClosed()) {
-                statement.close();
-            }
-        }
-        return nextKno;
     }
 }
