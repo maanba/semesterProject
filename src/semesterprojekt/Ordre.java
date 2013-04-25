@@ -45,7 +45,7 @@ public class Ordre {
         this.kommentar = kommentar;
     }
 
-    public int getMontører() {
+    public int getMontoerer() {
         return montører;
     }
 

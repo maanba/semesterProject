@@ -33,7 +33,7 @@ public class OrderMapper {
                 statement.setString(7, o.getTidLev());
                 statement.setString(8, o.getTidRet());
                 statement.setString(9, o.getAfhentning());
-                statement.setInt(10, o.getMontører());
+                statement.setInt(10, o.getMontoerer());
                 statement.setString(11, o.getStatus());
                 statement.setString(12, o.getModtaget());
                 statement.setString(13, o.getLevering());
@@ -57,7 +57,7 @@ public class OrderMapper {
     public boolean updateOrdrer(ArrayList<Ordre> ol, Connection conn) throws SQLException {
         int rowsUpdated = 0;
         String SQLString = "update ordrer "
-                + "set fnummer = ?, knummer = ?, pris = ?, rabat = ?, depositum = ?, tidlev = ?, tidret = ?, afhentning = ?, montører = ?, status = ?, modtaget = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), levering = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), returnering = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), kommentar = ?, ver = ? "
+                + "set fnummer = ?, knummer = ?, pris = ?, rabat = ?, depositum = ?, tidlev = ?, tidret = ?, afhentning = ?, montoerer = ?, status = ?, modtaget = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), levering = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), returnering = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), kommentar = ?, ver = ? "
                 + "where onummer = ? and ver = ?";
         PreparedStatement statement = null;
 
@@ -73,7 +73,7 @@ public class OrderMapper {
                 statement.setString(6, o.getTidLev());
                 statement.setString(7, o.getTidRet());
                 statement.setString(8, o.getAfhentning());
-                statement.setInt(9, o.getMontører());
+                statement.setInt(9, o.getMontoerer());
                 statement.setString(10, o.getStatus());
                 statement.setString(11, o.getModtaget());
                 statement.setString(12, o.getLevering());
@@ -893,20 +893,20 @@ public class OrderMapper {
     }
 
     // DelOrdrer
-    public boolean insertDelOrdrer(ArrayList<DelOrdre> delOrdre, Connection conn) throws SQLException {
+    public boolean insertDelOrdrer(ArrayList<DelOrdre> delordre, Connection conn) throws SQLException {
         String SQLString = "insert into delordre values (?,?,?,?,?)";
         PreparedStatement statement = null;
 
         int rowsInserted = 0;
         try {
-            if (0 < delOrdre.size()) {
-                statement = conn.prepareStatement(SQLString);
-                for (int i = 0; i < delOrdre.size(); i++) {
-                    statement.setString(1, delOrdre.get(i).getTitle());
-                    statement.setInt(2, delOrdre.get(i).getVnummer());
-                    statement.setInt(3, delOrdre.get(i).getOnummer());
-                    statement.setInt(4, delOrdre.get(i).getMaengde());
-                    statement.setInt(5, delOrdre.get(i).getStatus());
+            if (0 < delordre.size()) {
+                for (int i = 0; i < delordre.size(); i++) {
+                    statement = conn.prepareStatement(SQLString);
+                    statement.setString(1, delordre.get(i).getTitle());
+                    statement.setInt(2, delordre.get(i).getVnummer());
+                    statement.setInt(3, delordre.get(i).getOnummer());
+                    statement.setInt(4, delordre.get(i).getStatus());
+                    statement.setInt(5, delordre.get(i).getMaengde());
                     rowsInserted += statement.executeUpdate();
                     statement.close();
                 }
@@ -917,9 +917,9 @@ public class OrderMapper {
             }
         }
         if (testRun) {
-            System.out.println("insertVareDel:" + (rowsInserted == delOrdre.size())); // for test
+            System.out.println("insertVareDel:" + (rowsInserted == delordre.size())); // for test
         }
-        return rowsInserted == delOrdre.size();
+        return rowsInserted == delordre.size();
     }
 
      public boolean updateDelOrdre(ArrayList<DelOrdre> dol, Connection conn) throws SQLException {
