@@ -896,11 +896,15 @@ public class OrderMapper {
     public boolean insertDelOrdrer(ArrayList<DelOrdre> delordre, Connection conn) throws SQLException {
         String SQLString = "insert into delordre values (?,?,?,?,?)";
         PreparedStatement statement = null;
+        statement = conn.prepareStatement(SQLString);
 
         int rowsInserted = 0;
         try {
             if (0 < delordre.size()) {
                 for (int i = 0; i < delordre.size(); i++) {
+                    if (!statement.isClosed()) {
+                        statement.close();
+                    }
                     statement = conn.prepareStatement(SQLString);
                     statement.setString(1, delordre.get(i).getTitle());
                     statement.setInt(2, delordre.get(i).getVnummer());
@@ -922,7 +926,7 @@ public class OrderMapper {
         return rowsInserted == delordre.size();
     }
 
-     public boolean updateDelOrdre(ArrayList<DelOrdre> dol, Connection conn) throws SQLException {
+    public boolean updateDelOrdre(ArrayList<DelOrdre> dol, Connection conn) throws SQLException {
         int rowsUpdated = 0;
         String SQLString = "update delo "
                 + "set maengde = ?, title = ?, status = ? "
@@ -952,7 +956,7 @@ public class OrderMapper {
         }
         return (rowsUpdated == dol.size());
     }
-    
+
     public Postnummer getPostnummer(Connection conn, int postnr) throws SQLException {
         String SQLString = "select * from postnummer where postnummer = ?";
         PreparedStatement statement = null;
