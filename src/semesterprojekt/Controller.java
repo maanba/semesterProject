@@ -297,35 +297,6 @@ public class Controller {
         }
     }
 
-    /*public void bekraeftOrdre(int onummer) {
-     ArrayList<Ordre> ol = dbFacade.getAllOrdrer();
-     ArrayList<Vare> vl = dbFacade.getAllVarer();
-     for (int i = 0; i < ol.size(); i++) {
-     if (onummer == ol.get(i).getOnummer()) {
-     ol.get(i).setStatus("Bekræftet ordre");
-     for (int j = 0; j < ol.get(i).getOd().size(); j++) // gældende odetaljers størrelse
-     {
-     int ovnummer = ol.get(i).getOd().get(j).getVnummer();    // alle odetaljers (vares) vnummer
-     for (int k = 0; k < vl.size(); k++) // varelistes størrelse
-     {
-     for (int l = 0; l < vl.get(k).getDel().size(); l++) // antal dele i gældende vareliste
-     {
-     if (ovnummer == vl.get(k).getDel().get(l).getVnummer())// vnummer på dele i vareliste
-     {
-     vl.get(k).getDel().get(l).setStatus(0);
-     dbFacade.startNewBusinessTransaction();
-     dbFacade.registerDirtyOrdre(ol.get(i));
-     dbFacade.registerDirtyVare(vl.get(k));
-     dbFacade.commitBusinessTransaction();
-     break;
-     }
-     }
-     }
-     }
-     }
-     }
-     }
-     * */
     public void bekraeftOrdre(int onummer) {
         ArrayList<Ordre> ol = dbFacade.getAllOrdrer();
         dbFacade.startNewBusinessTransaction();
@@ -697,6 +668,13 @@ public class Controller {
     public void updateKunde(Kunde kunde) {
         dbFacade.startNewBusinessTransaction();
         dbFacade.registerDirtyKunde(kunde);
+        dbFacade.commitBusinessTransaction();
+    }
+    
+    public void updateDelOrdre(DelOrdre delordre)
+    {
+        dbFacade.startNewBusinessTransaction();
+        dbFacade.registerDirtyDelOrdre(delordre);
         dbFacade.commitBusinessTransaction();
     }
 
