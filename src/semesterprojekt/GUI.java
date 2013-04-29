@@ -1097,12 +1097,16 @@ public final class GUI extends javax.swing.JFrame {
     private void jButtonOrdrePDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdrePDFActionPerformed
         Ordre selected = (Ordre) jList3.getSelectedValue();
         int selectedIndex = jList3.getSelectedIndex();
+        if(jList3.getSelectedValue() != null){
         controller.bekraeftOrdre(selected.getOnummer());
         controller.setCurrentOrder(selected);
         update();
         selected = (Ordre) list3.getElementAt(selectedIndex);
         controller.setCurrentOrder(selected);
         controller.pdfOrdre();
+        }else{
+            jLabelErrorOrdre.setText("Vælg en ordre som der skal laves en PDF ud fra");
+        }
     }//GEN-LAST:event_jButtonOrdrePDFActionPerformed
 
     private void jButtonCheckDatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCheckDatoActionPerformed
@@ -1110,6 +1114,7 @@ public final class GUI extends javax.swing.JFrame {
             jLabelErrorOrdre.setText("Fejl. Indtast datoer korrekt");
         } else {
             update();
+            jLabelErrorOrdre.setText("");
         }
     }//GEN-LAST:event_jButtonCheckDatoActionPerformed
 
@@ -1124,10 +1129,14 @@ public final class GUI extends javax.swing.JFrame {
 
     private void jButtonPakkelisteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPakkelisteActionPerformed
         int selectedIndex = jList3.getSelectedIndex();
+        if(jList3.getSelectedValue() != null){
         controller.pakkeListe((Ordre) jList3.getSelectedValue());
         update();
         controller.setCurrentOrder((Ordre) list3.getElementAt(selectedIndex));
         controller.pdfPakkeliste();
+        } else{
+            jLabelErrorOrdre.setText("Vælg en ordre som der skal laves en PDF ud fra");
+        }
     }//GEN-LAST:event_jButtonPakkelisteActionPerformed
 
     private void jTextFieldRabatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldRabatActionPerformed
@@ -1136,18 +1145,26 @@ public final class GUI extends javax.swing.JFrame {
 
     private void jButtonTilbudPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilbudPDFActionPerformed
         int selectedIndex = jList3.getSelectedIndex();
+        if(jList3.getSelectedValue() != null){
         controller.tilbud((Ordre) jList3.getSelectedValue());
         update();
         controller.setCurrentOrder((Ordre) list3.getElementAt(selectedIndex));
         controller.pdfTilbud();
+        } else{
+            jLabelErrorOrdre.setText("Vælg en ordre som der skal laves en PDF ud fra");
+        }
     }//GEN-LAST:event_jButtonTilbudPDFActionPerformed
 
     private void jButtonFakturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFakturaActionPerformed
         int selectedIndex = jList3.getSelectedIndex();
+        if(jList3.getSelectedValue() != null){
         controller.faktura((Ordre) jList3.getSelectedValue());
         update();
         controller.setCurrentOrder((Ordre) list3.getElementAt(selectedIndex));
         controller.pdfFaktura();
+        } else{
+            jLabelErrorOrdre.setText("Vælg en ordre som der skal laves en PDF ud fra");
+        }
     }//GEN-LAST:event_jButtonFakturaActionPerformed
 
     private void jButtonDepositumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDepositumActionPerformed
@@ -1234,7 +1251,10 @@ public final class GUI extends javax.swing.JFrame {
                     jTextFieldÅrInd.setText("");
                     jTextFieldÅrUd.setText("");
                     controller.redigerFalse();
+                } else {
+                    jLabelErrorOrdre.setText("vælg afhentning eller levering!");
                 }
+                
             }
         } else {
             jLabelErrorOrdre.setText("Vælg en Kunde");
