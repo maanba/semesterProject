@@ -74,7 +74,7 @@ public class DBFacade {
         try {
             nextOno = new OrderMapper().getNextOnummer(con);
         } catch (Exception e) {
-            System.out.println("Fail in OrderMapper - getNextFnummer");
+            System.out.println("Fail in OrderMapper - getNextOnummer");
             System.out.println(e.getMessage());
         }
         return nextOno;
