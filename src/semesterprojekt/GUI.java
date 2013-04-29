@@ -1234,6 +1234,8 @@ public final class GUI extends javax.swing.JFrame {
                     jTextFieldÅrInd.setText("");
                     jTextFieldÅrUd.setText("");
                     controller.redigerFalse();
+                } else {
+                    jLabelErrorOrdre.setText("vælg afhentning eller levering!");
                 }
             }
         } else {
