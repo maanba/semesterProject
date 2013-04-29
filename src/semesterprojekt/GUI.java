@@ -1008,6 +1008,11 @@ public final class GUI extends javax.swing.JFrame {
             controller.updateDelOrdre(selectedDelOrdre);
         }
         System.out.println(selectedDelOrdre.getStatus());
+        listReturDele.clear();
+        Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
+        for (int i = 0; i < selected.getDelo().size(); i++) {
+            listReturDele.addElement(selected.getDelo().get(i));
+        }
     }//GEN-LAST:event_jButtonHjemmeActionPerformed
 
     private void jButtonAfslutOrdreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAfslutOrdreActionPerformed
