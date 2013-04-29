@@ -246,6 +246,10 @@ public class OrderMapper {
                 "select * "
                 + "from odetaljer "
                 + "where onummer = ? ";
+        String SQLString3 = 
+                "select * "
+                + "from delordre "
+                + "where onummer = ?";
         PreparedStatement statement = null;
         ResultSet rs = null;
 
@@ -284,6 +288,20 @@ public class OrderMapper {
                             rs.getInt(2),
                             rs.getInt(3)));
                 }
+                //=== get del ordre
+                    statement.close();
+                    statement = conn.prepareStatement(SQLString3);
+                    statement.setInt(1, o.getOnummer());
+                    rs.close();
+                    rs = statement.executeQuery();
+                    while (rs.next()) {
+                        o.addDelo(new DelOrdre(
+                                rs.getString(1),
+                                rs.getInt(2),
+                                rs.getInt(3),
+                                rs.getInt(4),
+                                rs.getInt(5)));
+                    }
             }
         } finally {
             if (!rs.isClosed()) {
