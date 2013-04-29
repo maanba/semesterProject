@@ -246,6 +246,10 @@ public class OrderMapper {
                 "select * "
                 + "from odetaljer "
                 + "where onummer = ? ";
+        String SQLString3 = 
+                "select * "
+                + "from delordre "
+                + "where onummer = ?";
         PreparedStatement statement = null;
         ResultSet rs = null;
 
@@ -284,6 +288,20 @@ public class OrderMapper {
                             rs.getInt(2),
                             rs.getInt(3)));
                 }
+                //=== get del ordre
+                    statement.close();
+                    statement = conn.prepareStatement(SQLString3);
+                    statement.setInt(1, o.getOnummer());
+                    rs.close();
+                    rs = statement.executeQuery();
+                    while (rs.next()) {
+                        o.addDelo(new DelOrdre(
+                                rs.getString(1),
+                                rs.getInt(2),
+                                rs.getInt(3),
+                                rs.getInt(4),
+                                rs.getInt(5)));
+                    }
             }
         } finally {
             if (!rs.isClosed()) {
@@ -947,8 +965,8 @@ public class OrderMapper {
     public boolean updateDelOrdre(ArrayList<DelOrdre> dol, Connection conn) throws SQLException {
         int rowsUpdated = 0;
         String SQLString = "update delo "
-                + "set maengde = ?, title = ?, status = ? "
-                + "where onummer = ? and vnummer = ?";
+                + "set title = ?, status = ?, maengde = ? "
+                + "where vnummer = ? and onummer = ?";
         PreparedStatement statement = null;
 
         statement = conn.prepareStatement(SQLString);
@@ -956,10 +974,10 @@ public class OrderMapper {
             for (int i = 0; i < dol.size(); i++) {
                 DelOrdre delo = dol.get(i);
                 statement.setString(1, delo.getTitle());
-                statement.setInt(2, delo.getVnummer());
-                statement.setInt(1, delo.getOnummer());
                 statement.setInt(2, delo.getStatus());
                 statement.setInt(3, delo.getMaengde());
+                statement.setInt(4, delo.getVnummer());
+                statement.setInt(5, delo.getOnummer());
                 int tupleUpdated = statement.executeUpdate();
                 rowsUpdated += tupleUpdated;
                 statement.close();
