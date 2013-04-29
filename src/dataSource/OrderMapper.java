@@ -964,7 +964,7 @@ public class OrderMapper {
 
     public boolean updateDelOrdre(ArrayList<DelOrdre> dol, Connection conn) throws SQLException {
         int rowsUpdated = 0;
-        String SQLString = "update delo "
+        String SQLString = "update delordre "
                 + "set title = ?, status = ?, maengde = ? "
                 + "where vnummer = ? and onummer = ?";
         PreparedStatement statement = null;
