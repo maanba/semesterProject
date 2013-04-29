@@ -965,21 +965,20 @@ public class OrderMapper {
     public boolean updateDelOrdre(ArrayList<DelOrdre> dol, Connection conn) throws SQLException {
         int rowsUpdated = 0;
         String SQLString = "update delordre "
-                + "set title = ?, status = ?, maengde = ? "
-                + "where vnummer = ? and onummer = ?";
+                + "set status = ?, maengde = ? "
+                + "where title = ? and vnummer = ? and onummer = ?";
         PreparedStatement statement = null;
 
         statement = conn.prepareStatement(SQLString);
         try {
             for (int i = 0; i < dol.size(); i++) {
                 DelOrdre delo = dol.get(i);
-                statement.setString(1, delo.getTitle());
-                statement.setInt(2, delo.getStatus());
-                statement.setInt(3, delo.getMaengde());
+                statement.setInt(1, delo.getStatus());
+                statement.setInt(2, delo.getMaengde());
+                statement.setString(3, delo.getTitle());
                 statement.setInt(4, delo.getVnummer());
                 statement.setInt(5, delo.getOnummer());
-                int tupleUpdated = statement.executeUpdate();
-                rowsUpdated += tupleUpdated;
+                rowsUpdated += statement.executeUpdate();
                 statement.close();
             }
         } finally {
