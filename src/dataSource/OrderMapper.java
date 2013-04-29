@@ -965,8 +965,8 @@ public class OrderMapper {
     public boolean updateDelOrdre(ArrayList<DelOrdre> dol, Connection conn) throws SQLException {
         int rowsUpdated = 0;
         String SQLString = "update delo "
-                + "set maengde = ?, title = ?, status = ? "
-                + "where onummer = ? and vnummer = ?";
+                + "set title = ?, status = ?, maengde = ? "
+                + "where vnummer = ? and onummer = ?";
         PreparedStatement statement = null;
 
         statement = conn.prepareStatement(SQLString);
@@ -974,10 +974,10 @@ public class OrderMapper {
             for (int i = 0; i < dol.size(); i++) {
                 DelOrdre delo = dol.get(i);
                 statement.setString(1, delo.getTitle());
-                statement.setInt(2, delo.getVnummer());
-                statement.setInt(1, delo.getOnummer());
                 statement.setInt(2, delo.getStatus());
                 statement.setInt(3, delo.getMaengde());
+                statement.setInt(4, delo.getVnummer());
+                statement.setInt(5, delo.getOnummer());
                 int tupleUpdated = statement.executeUpdate();
                 rowsUpdated += tupleUpdated;
                 statement.close();
