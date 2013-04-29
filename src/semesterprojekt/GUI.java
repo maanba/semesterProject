@@ -489,7 +489,7 @@ public final class GUI extends javax.swing.JFrame {
                 jButtonHjemmeActionPerformed(evt);
             }
         });
-        jPanel3.add(jButtonHjemme, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 70, 70, -1));
+        jPanel3.add(jButtonHjemme, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 70, 80, -1));
 
         jButtonLevér.setText("Levér >");
         jButtonLevér.addActionListener(new java.awt.event.ActionListener() {
@@ -515,7 +515,7 @@ public final class GUI extends javax.swing.JFrame {
                 jButtonUdeActionPerformed(evt);
             }
         });
-        jPanel3.add(jButtonUde, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 100, 70, -1));
+        jPanel3.add(jButtonUde, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 100, 80, -1));
 
         jButton2.setText("jButton2");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -954,19 +954,18 @@ public final class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButtonUdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUdeActionPerformed
-
-        Ordre selectedOrdre = (Ordre) jListOrdrer.getSelectedValue();
-        Del selectedDel = (Del) jListReturDele.getSelectedValue();
-        controller.updateDelUde(selectedOrdre.getOnummer(), selectedDel.getVnummer());
-
+        DelOrdre selectedDelOrdre = (DelOrdre) jListReturDele.getSelectedValue();
+        int index = jListOrdrer.getSelectedIndex();
+        if (selectedDelOrdre != null) {
+            selectedDelOrdre.setStatus(0);
+            controller.updateDelOrdre(selectedDelOrdre);
+        }
+        update();
+        jListOrdrer.setSelectedIndex(index);
         listReturDele.clear();
-        Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
-        ArrayList<Odetaljer> od = selected.getOd();
-        for (int i = 0; i < od.size(); i++) {
-            Vare vare = controller.getVare(od.get(i).getVnummer());
-            for (int j = 0; j < vare.getDel().size(); j++) {
-                listReturDele.addElement((Del) vare.getDel().get(j));
-            }
+        Ordre selectedOrdre = (Ordre) jListOrdrer.getSelectedValue();
+        for (int i = 0; i < selectedOrdre.getDelo().size(); i++) {
+            listReturDele.addElement(selectedOrdre.getDelo().get(i));
         }
     }//GEN-LAST:event_jButtonUdeActionPerformed
 
@@ -1003,22 +1002,36 @@ public final class GUI extends javax.swing.JFrame {
 
     private void jButtonHjemmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHjemmeActionPerformed
         DelOrdre selectedDelOrdre = (DelOrdre) jListReturDele.getSelectedValue();
+        int index = jListOrdrer.getSelectedIndex();
         if (selectedDelOrdre != null) {
             selectedDelOrdre.setStatus(1);
             controller.updateDelOrdre(selectedDelOrdre);
         }
-        System.out.println(selectedDelOrdre.getStatus());
+        update();
+        jListOrdrer.setSelectedIndex(index);
         listReturDele.clear();
-        Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
-        for (int i = 0; i < selected.getDelo().size(); i++) {
-            listReturDele.addElement(selected.getDelo().get(i));
+        Ordre selectedOrdre = (Ordre) jListOrdrer.getSelectedValue();
+        for (int i = 0; i < selectedOrdre.getDelo().size(); i++) {
+            listReturDele.addElement(selectedOrdre.getDelo().get(i));
         }
     }//GEN-LAST:event_jButtonHjemmeActionPerformed
 
     private void jButtonAfslutOrdreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAfslutOrdreActionPerformed
         Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
-        controller.ordreAfslut(selected.getKnummer());
+        int index = jListOrdrer.getSelectedIndex();
+        boolean status = true;
+        for (int i = 0; i < listReturDele.size(); i++) {
+            DelOrdre delordre = (DelOrdre) listReturDele.get(i);
+            status = status && delordre.getStatus() == 1;
+        }
+        if (status) {
+            controller.ordreAfslut(selected.getOnummer());
+            listReturDele.clear();
+            System.out.println("hephey!");
+        }
         update();
+        jListOrdrer.setSelectedIndex(index);
+
     }//GEN-LAST:event_jButtonAfslutOrdreActionPerformed
 
     private void jButtonKundeSøgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKundeSøgActionPerformed

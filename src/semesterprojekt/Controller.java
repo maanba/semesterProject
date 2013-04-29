@@ -468,10 +468,10 @@ public class Controller {
         }
     }
 
-    public void ordreAfslut(int knummer) {
+    public void ordreAfslut(int onummer) {
         ArrayList<Ordre> ol = dbFacade.getAllOrdrer();
         for (int i = 0; i < ol.size(); i++) {
-            if (knummer == ol.get(i).getKnummer()) {
+            if (onummer == ol.get(i).getOnummer()) {
                 ol.get(i).setStatus("Afsluttet");
                 dbFacade.startNewBusinessTransaction();
                 dbFacade.registerDirtyOrdre(ol.get(i));
