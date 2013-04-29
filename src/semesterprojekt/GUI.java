@@ -86,7 +86,7 @@ public final class GUI extends javax.swing.JFrame {
         jList3 = new javax.swing.JList();
         jButtonDepositum = new javax.swing.JButton();
         jButtonFaktura = new javax.swing.JButton();
-        jButtonTilbudPdf = new javax.swing.JButton();
+        jButtonTilbudPDF = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
         jLabelErrorOrdre = new javax.swing.JLabel();
@@ -99,9 +99,9 @@ public final class GUI extends javax.swing.JFrame {
         jLabel30 = new javax.swing.JLabel();
         jButtonPakkeliste = new javax.swing.JButton();
         jButtonStatus = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jButtonCheckDato = new javax.swing.JButton();
         jComboBox2 = new javax.swing.JComboBox();
-        jButtonOrdrePdf = new javax.swing.JButton();
+        jButtonOrdrePDF = new javax.swing.JButton();
         jComboBox3 = new javax.swing.JComboBox();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane10 = new javax.swing.JScrollPane();
@@ -293,13 +293,13 @@ public final class GUI extends javax.swing.JFrame {
         });
         jPanel1.add(jButtonFaktura, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 120, 130, -1));
 
-        jButtonTilbudPdf.setText("Tilbud PDF");
-        jButtonTilbudPdf.addActionListener(new java.awt.event.ActionListener() {
+        jButtonTilbudPDF.setText("Tilbud PDF");
+        jButtonTilbudPDF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonTilbudPdfActionPerformed(evt);
+                jButtonTilbudPDFActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonTilbudPdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 180, 130, -1));
+        jPanel1.add(jButtonTilbudPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 180, 130, -1));
 
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -353,24 +353,24 @@ public final class GUI extends javax.swing.JFrame {
         });
         jPanel1.add(jButtonStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 270, 130, -1));
 
-        jButton1.setText("Check Dato");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCheckDato.setText("Check Dato");
+        jButtonCheckDato.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonCheckDatoActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 50, -1, -1));
+        jPanel1.add(jButtonCheckDato, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 50, -1, -1));
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Levering", "08:00", "10:00", "12:00", "14:00", "16:00", "Stor Order" }));
         jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 50, -1, -1));
 
-        jButtonOrdrePdf.setText("Ordre PDF");
-        jButtonOrdrePdf.addActionListener(new java.awt.event.ActionListener() {
+        jButtonOrdrePDF.setText("Ordre PDF");
+        jButtonOrdrePDF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonOrdrePdfActionPerformed(evt);
+                jButtonOrdrePDFActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonOrdrePdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 150, 130, -1));
+        jPanel1.add(jButtonOrdrePDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 150, 130, -1));
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Afhentning", "08:00", "10:00", "12:00", "14:00", "16:00", "Stor Order" }));
         jPanel1.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 50, -1, -1));
@@ -769,19 +769,6 @@ public final class GUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        Del del = (Del) jListLagerDele.getSelectedValue();
-        int si = jListLagerDele.getSelectedIndex();
-        listLagerDele.removeElementAt(si);
-        jTextFieldPartNavn.setText(del.getTitel());
-        jTextFieldPartAntal.setText("" + del.getAntal());
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
-
-    private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
-        Del selected = (Del) jListLagerDele.getSelectedValue();
-
-    }//GEN-LAST:event_jButtonOKActionPerformed
-
     private void jButtonLagerSøgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLagerSøgActionPerformed
         if (!jTextFieldLagerSøg.getText().equals("")) {
             int counter = 0;
@@ -1107,7 +1094,7 @@ public final class GUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonRedigerKundeActionPerformed
 
-    private void jButtonOrdrePdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdrePdfActionPerformed
+    private void jButtonOrdrePDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdrePDFActionPerformed
         Ordre selected = (Ordre) jList3.getSelectedValue();
         int selectedIndex = jList3.getSelectedIndex();
         controller.bekraeftOrdre(selected.getOnummer());
@@ -1116,15 +1103,15 @@ public final class GUI extends javax.swing.JFrame {
         selected = (Ordre) list3.getElementAt(selectedIndex);
         controller.setCurrentOrder(selected);
         controller.pdfOrdre();
-    }//GEN-LAST:event_jButtonOrdrePdfActionPerformed
+    }//GEN-LAST:event_jButtonOrdrePDFActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonCheckDatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCheckDatoActionPerformed
         if (jTextFieldDagUd.getText().isEmpty() || jTextFieldMånedUd.getText().isEmpty() || jTextFieldÅrUd.getText().isEmpty() || jTextFieldDagInd.getText().isEmpty() || jTextFieldMånedInd.getText().isEmpty() || jTextFieldÅrInd.getText().isEmpty()) {
             jLabelErrorOrdre.setText("Fejl. Indtast datoer korrekt");
         } else {
             update();
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonCheckDatoActionPerformed
 
     private void jButtonStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStatusActionPerformed
         Ordre selected = (Ordre) jList3.getSelectedValue();
@@ -1147,13 +1134,13 @@ public final class GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldRabatActionPerformed
 
-    private void jButtonTilbudPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilbudPdfActionPerformed
+    private void jButtonTilbudPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilbudPDFActionPerformed
         int selectedIndex = jList3.getSelectedIndex();
         controller.tilbud((Ordre) jList3.getSelectedValue());
         update();
         controller.setCurrentOrder((Ordre) list3.getElementAt(selectedIndex));
         controller.pdfTilbud();
-    }//GEN-LAST:event_jButtonTilbudPdfActionPerformed
+    }//GEN-LAST:event_jButtonTilbudPDFActionPerformed
 
     private void jButtonFakturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFakturaActionPerformed
         int selectedIndex = jList3.getSelectedIndex();
@@ -1627,11 +1614,11 @@ public final class GUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButtonAfslut;
     private javax.swing.JButton jButtonAfslutOrdre;
+    private javax.swing.JButton jButtonCheckDato;
     private javax.swing.JButton jButtonDepositum;
     private javax.swing.JButton jButtonFaktura;
     private javax.swing.JButton jButtonFjern;
@@ -1649,7 +1636,7 @@ public final class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonOrdre;
     private javax.swing.JButton jButtonOrdre1;
     private javax.swing.JButton jButtonOrdre3;
-    private javax.swing.JButton jButtonOrdrePdf;
+    private javax.swing.JButton jButtonOrdrePDF;
     private javax.swing.JButton jButtonOrdreRediger;
     private javax.swing.JButton jButtonPakkeliste;
     private javax.swing.JButton jButtonRedigerKunde;
@@ -1661,7 +1648,7 @@ public final class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonTilbud;
     private javax.swing.JButton jButtonTilbud1;
     private javax.swing.JButton jButtonTilbud3;
-    private javax.swing.JButton jButtonTilbudPdf;
+    private javax.swing.JButton jButtonTilbudPDF;
     private javax.swing.JButton jButtonTilføj;
     private javax.swing.JButton jButtonTilføjPart;
     private javax.swing.JButton jButtonUde;
@@ -1710,7 +1697,7 @@ public final class GUI extends javax.swing.JFrame {
     private javax.swing.JList jListOrdrer;
     private javax.swing.JList jListReturDele;
     private javax.swing.JList jListVareliste;
-    private javax.swing.JPanel jPanel1;
+    private static javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
@@ -1730,7 +1717,7 @@ public final class GUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private static javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextFieldAdresse;
     private javax.swing.JTextField jTextFieldAntal;
     private javax.swing.JTextField jTextFieldDagInd;
