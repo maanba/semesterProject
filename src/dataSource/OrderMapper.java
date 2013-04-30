@@ -1,10 +1,12 @@
 package dataSource;
 
+import domain.DelOrdre;
+import domain.Odetaljer;
+import domain.Ordre;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import semesterprojekt.*;
 
 public class OrderMapper {
 

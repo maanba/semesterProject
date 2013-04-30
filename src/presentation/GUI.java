@@ -1,5 +1,12 @@
-package semesterprojekt;
+package presentation;
 
+import domain.Controller;
+import domain.DelOrdre;
+import domain.Kunde;
+import domain.Odetaljer;
+import domain.Ordre;
+import domain.Del;
+import domain.Vare;
 import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.DefaultListCellRenderer;

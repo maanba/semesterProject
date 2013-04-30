@@ -1,8 +1,12 @@
 package dataSource;
 
+import domain.DelOrdre;
+import domain.Kunde;
+import domain.Odetaljer;
+import domain.Ordre;
+import domain.Vare;
 import java.sql.*;
 import java.util.ArrayList;
-import semesterprojekt.*;
 
 public class UnitOfWorkProcessOrder {
 
