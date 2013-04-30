@@ -1034,7 +1034,6 @@ public final class GUI extends javax.swing.JFrame {
         if (status) {
             controller.ordreAfslut(selected.getOnummer());
             listReturDele.clear();
-            System.out.println("hephey!");
         }
         update();
         jListOrdrer.setSelectedIndex(index);

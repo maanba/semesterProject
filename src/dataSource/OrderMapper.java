@@ -25,6 +25,10 @@ public class OrderMapper {
 
         try {
             for (int i = 0; i < ol.size(); i++) {
+                if (!statement.isClosed()) {
+                    statement.close();
+                }
+                statement = conn.prepareStatement(SQLString);
                 Ordre o = ol.get(i);
                 statement.setInt(1, o.getOnummer());
                 statement.setInt(2, o.getFnummer());
@@ -66,6 +70,10 @@ public class OrderMapper {
         statement = conn.prepareStatement(SQLString);
         try {
             for (int i = 0; i < ol.size(); i++) {
+                if (!statement.isClosed()) {
+                    statement.close();
+                }
+                statement = conn.prepareStatement(SQLString);
                 Ordre o = ol.get(i);
                 statement.setInt(1, o.getFnummer());
                 statement.setInt(2, o.getKnummer());
@@ -105,7 +113,7 @@ public class OrderMapper {
     public boolean deleteOrdrer(ArrayList<Ordre> ol, Connection conn) throws SQLException {
         int deletedOrdrer = 0;
         String SQLString1 = "delete from ordrer "
-                + "where onummer = ? and ver = ? ";
+                + "where onummer = ?";
         String SQLString2 = "delete from odetaljer "
                 + "where onummer = ? and vnummer = ? ";
 
@@ -113,6 +121,14 @@ public class OrderMapper {
         PreparedStatement statement2 = conn.prepareStatement(SQLString1);
         try {
             for (int i = 0; i < ol.size(); i++) {
+                if (!statement1.isClosed()) {
+                    statement1.close();
+                }
+                if (!statement2.isClosed()) {
+                    statement2.close();
+                }
+                statement1 = conn.prepareStatement(SQLString2);
+                statement2 = conn.prepareStatement(SQLString1);
                 Ordre o = (Ordre) ol.get(i);
                 for (int j = 0; j < o.getOd().size(); j++) {
                     statement1.setInt(1, o.getOnummer());
@@ -121,7 +137,6 @@ public class OrderMapper {
                     statement1.close();
                 }
                 statement2.setInt(1, o.getOnummer());
-                statement2.setInt(2, o.getVer());
                 deletedOrdrer += statement2.executeUpdate();
                 statement2.close();
             }
@@ -152,7 +167,7 @@ public class OrderMapper {
         String SQLString3 = // get ordre
                 "select * "
                 + "from ordrer ";
-        String SQLString4 = 
+        String SQLString4 =
                 "select * "
                 + "from delordre "
                 + "where onummer = ?";
@@ -248,7 +263,7 @@ public class OrderMapper {
                 "select * "
                 + "from odetaljer "
                 + "where onummer = ? ";
-        String SQLString3 = 
+        String SQLString3 =
                 "select * "
                 + "from delordre "
                 + "where onummer = ?";
@@ -291,19 +306,19 @@ public class OrderMapper {
                             rs.getInt(3)));
                 }
                 //=== get del ordre
-                    statement.close();
-                    statement = conn.prepareStatement(SQLString3);
-                    statement.setInt(1, o.getOnummer());
-                    rs.close();
-                    rs = statement.executeQuery();
-                    while (rs.next()) {
-                        o.addDelo(new DelOrdre(
-                                rs.getString(1),
-                                rs.getInt(2),
-                                rs.getInt(3),
-                                rs.getInt(4),
-                                rs.getInt(5)));
-                    }
+                statement.close();
+                statement = conn.prepareStatement(SQLString3);
+                statement.setInt(1, o.getOnummer());
+                rs.close();
+                rs = statement.executeQuery();
+                while (rs.next()) {
+                    o.addDelo(new DelOrdre(
+                            rs.getString(1),
+                            rs.getInt(2),
+                            rs.getInt(3),
+                            rs.getInt(4),
+                            rs.getInt(5)));
+                }
             }
         } finally {
             if (!rs.isClosed()) {
@@ -340,7 +355,7 @@ public class OrderMapper {
         }
         return nextOno;
     }
-    
+
     public int getNextFnummer(Connection conn) throws SQLException {
         int nextFnummer = 0;
         String SQLString = "select fakturaseq.nextval  " + "from dual";
