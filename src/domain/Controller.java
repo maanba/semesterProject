@@ -365,21 +365,21 @@ public class Controller {
         }
         currentKunde = null;
     }
-    
-    public void pakkeListe (Ordre ordre){
+
+    public void pakkeListe(Ordre ordre) {
         setCurrentOrder(ordre);
         if (ordre.getFnummer() == 0) {
             addOrderFakturaNummer(ordre);
         }
         ordreFaktureret(ordre.getOnummer());
     }
-    
-    public void tilbud (Ordre ordre){
+
+    public void tilbud(Ordre ordre) {
         setCurrentOrder(ordre);
         ordreTilbud(ordre.getOnummer());
     }
-    
-    public void faktura (Ordre ordre){
+
+    public void faktura(Ordre ordre) {
         setCurrentOrder(ordre);
         if (ordre.getFnummer() == 0) {
             addOrderFakturaNummer(ordre);
@@ -504,10 +504,10 @@ public class Controller {
         }
         return false;
     }
-    
+
     public void gemLager(int vnummer, String vnavn, int qty, double pris, int aktiv, ArrayList<Del> vd) {
         if (getRediger() == true) {
-            
+
             Vare vare = new Vare(vnummer, vnavn, qty, pris, aktiv);
             for (int i = 0; i < vd.size(); i++) {
                 vare.addDel(vd.get(i));
@@ -557,9 +557,9 @@ public class Controller {
                         int oRetMonth = Integer.parseInt(o.getReturnering().substring(3, 5));
                         int oRetDay = Integer.parseInt(o.getReturnering().substring(0, 2));
                         for (int k = 0; k < o.getOd().size(); k++) {
-                        if ((levDay <= oLevDay || levDay <= oRetDay) && (retDay >= oRetDay || retDay >= oLevDay)) {
-                            if ((levMonth <= oLevMonth || levMonth <= oRetMonth) && (retMonth >= oRetMonth || retMonth >= oLevMonth)) {
-                                if ((levYear <= oLevYear || levYear <= oRetYear) && (retYear >= oRetYear || retYear >= oLevYear)) {
+                            if ((levDay <= oLevDay || levDay <= oRetDay) && (retDay >= oRetDay || retDay >= oLevDay)) {
+                                if ((levMonth <= oLevMonth || levMonth <= oRetMonth) && (retMonth >= oRetMonth || retMonth >= oLevMonth)) {
+                                    if ((levYear <= oLevYear || levYear <= oRetYear) && (retYear >= oRetYear || retYear >= oLevYear)) {
                                         if (vl.get(i).getVnummer() == o.getOd().get(k).getVnummer()) {
                                             vl.get(i).setQty(vl.get(i).getQty() - o.getOd().get(k).getMaengde());
                                         }
@@ -670,9 +670,8 @@ public class Controller {
         dbFacade.registerDirtyKunde(kunde);
         dbFacade.commitBusinessTransaction();
     }
-    
-    public void updateDelOrdre(DelOrdre delordre)
-    {
+
+    public void updateDelOrdre(DelOrdre delordre) {
         dbFacade.startNewBusinessTransaction();
         dbFacade.registerDirtyDelOrdre(delordre);
         dbFacade.commitBusinessTransaction();
@@ -788,18 +787,15 @@ public class Controller {
         return vl;
     }
 
-    public boolean gemKunde(String firma, String navn, String adresse, int postnummer, int telefonnummer, int knummer) {
-        boolean result = false;
-        if (getRediger() == false) {
-            addNewKunde(firma, navn, adresse, postnummer, telefonnummer);
-            result = false;
-        } else if (getRediger() == true) {
+    public void gemKunde(String firma, String navn, String adresse, int postnummer, int telefonnummer, int knummer) {
+        if (getRediger() == true) {
             Kunde kunde = new Kunde(knummer, firma, navn, adresse, postnummer, telefonnummer);
             updateKunde(kunde);
             redigerFalse();
-            result = true;
         }
-        return result;
+        if (getRediger() == false) {
+            addNewKunde(firma, navn, adresse, postnummer, telefonnummer);
+        }
     }
 
     public void pdfOrdre() {
@@ -844,7 +840,7 @@ public class Controller {
         }
     }
 
-    public void pdfPakkeliste() {
+    public void PDFPakkeliste() {
         ArrayList<Odetaljer> odetaljeArray = currentOrder.getOd();
         ArrayList<Vare> vareArray = new ArrayList<>();
         for (int i = 0; i < odetaljeArray.size(); i++) {
