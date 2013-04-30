@@ -162,9 +162,9 @@ public final class GUI extends javax.swing.JFrame {
         jListVareliste = new javax.swing.JList();
         jPanel5 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        jTextFieldVareQty = new javax.swing.JTextField();
+        jTextFieldVareAntal = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jTextFieldNavn = new javax.swing.JTextField();
+        jTextFieldVareNavn = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jTextFieldVarePris = new javax.swing.JTextField();
         jScrollPane11 = new javax.swing.JScrollPane();
@@ -645,11 +645,11 @@ public final class GUI extends javax.swing.JFrame {
 
         jLabel10.setText("Navn");
         jPanel5.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 20));
-        jPanel5.add(jTextFieldVareQty, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 120, -1));
+        jPanel5.add(jTextFieldVareAntal, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 120, -1));
 
         jLabel11.setText("Antal");
         jPanel5.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 60, -1));
-        jPanel5.add(jTextFieldNavn, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 120, -1));
+        jPanel5.add(jTextFieldVareNavn, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 120, -1));
 
         jLabel12.setText("Pris");
         jPanel5.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 50, -1));
@@ -809,23 +809,29 @@ public final class GUI extends javax.swing.JFrame {
     private void jButtonLagerGemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLagerGemActionPerformed
         int vnummer = 0;
         int aktiv;
-        if (!jLabelVarenummer2.getText().isEmpty()) {
-            vnummer = Integer.parseInt(jLabelVarenummer2.getText());
+        if (!jTextFieldVareNavn.getText().isEmpty() && !jTextFieldVarePris.getText().isEmpty() && !jTextFieldVareAntal.getText().isEmpty()) {
+            if (!jLabelVarenummer2.getText().isEmpty()) {
+                vnummer = Integer.parseInt(jLabelVarenummer2.getText());
+            }
+            String vnavn = jTextFieldVareNavn.getText();
+            double pris = Double.parseDouble(jTextFieldVarePris.getText());
+            ArrayList<Del> vare = new ArrayList();
+            int qty = Integer.parseInt(jTextFieldVareAntal.getText());
+            if (jRadioAktiv.isSelected()) {
+                aktiv = 1;
+            } else {
+                aktiv = 0;
+            }
+            for (int i = 0; i < listLagerDele.size(); i++) {
+                vare.add((Del) listLagerDele.getElementAt(i));
+            }
+            controller.gemLager(vnummer, vnavn, qty, pris, aktiv, vare);
+            jLabelErrorLager.setText("");
         }
-        String vnavn = jTextFieldNavn.getText();
-        double pris = Double.parseDouble(jTextFieldVarePris.getText());
-        ArrayList<Del> vare = new ArrayList();
-        int qty = Integer.parseInt(jTextFieldVareQty.getText());
-        if (jRadioAktiv.isSelected()) {
-            aktiv = 1;
-        } else {
-            aktiv = 0;
+        else
+        {
+            jLabelErrorLager.setText("Du skal udfylde alle tekstfelterne for at gemme en vare.");
         }
-        for (int i = 0; i < listLagerDele.size(); i++) {
-            vare.add((Del) listLagerDele.getElementAt(i));
-        }
-        controller.gemLager(vnummer, vnavn, qty, pris, aktiv, vare);
-        jLabelErrorLager.setText("");
         update();
         controller.redigerFalse();
     }//GEN-LAST:event_jButtonLagerGemActionPerformed
@@ -841,9 +847,9 @@ public final class GUI extends javax.swing.JFrame {
             jLabelOpretRedigerVare.setText("Redigerer i vare:");
             jLabelVarenummer1.setText("Varenummer:");
             jLabelVarenummer2.setText(selected.getVnummer() + "");
-            jTextFieldNavn.setText(selected.getVnavn());
+            jTextFieldVareNavn.setText(selected.getVnavn());
             jTextFieldVarePris.setText(selected.getPris() + "");
-            jTextFieldVareQty.setText(selected.getQty() + "");
+            jTextFieldVareAntal.setText(selected.getQty() + "");
             if (selected.getAktiv() == 1) {
                 jRadioAktiv.setSelected(true);
             } else {
@@ -1609,9 +1615,9 @@ public final class GUI extends javax.swing.JFrame {
             jLabelKundenummer2.setText("");
             jLabelVarenummer1.setText("");
             jLabelVarenummer2.setText("");
-            jTextFieldNavn.setText("");
+            jTextFieldVareNavn.setText("");
             jTextFieldVarePris.setText("");
-            jTextFieldVareQty.setText("");
+            jTextFieldVareAntal.setText("");
             jTextFieldPartNavn.setText("");
             jTextFieldPartAntal.setText("");
             listLagerDele.clear();
@@ -1756,7 +1762,6 @@ public final class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldLagerSøg;
     private javax.swing.JTextField jTextFieldMånedInd;
     private javax.swing.JTextField jTextFieldMånedUd;
-    private javax.swing.JTextField jTextFieldNavn;
     private javax.swing.JTextField jTextFieldPartAntal;
     private javax.swing.JTextField jTextFieldPartNavn;
     private javax.swing.JTextField jTextFieldPostnummer;
@@ -1764,8 +1769,9 @@ public final class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldReturSøg;
     private javax.swing.JTextField jTextFieldTelefonnummer;
     private javax.swing.JTextField jTextFieldTotalPris;
+    private javax.swing.JTextField jTextFieldVareAntal;
+    private javax.swing.JTextField jTextFieldVareNavn;
     private javax.swing.JTextField jTextFieldVarePris;
-    private javax.swing.JTextField jTextFieldVareQty;
     private javax.swing.JTextField jTextFieldÅrInd;
     private javax.swing.JTextField jTextFieldÅrUd;
     // End of variables declaration//GEN-END:variables
