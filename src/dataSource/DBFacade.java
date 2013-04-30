@@ -1,8 +1,13 @@
 package dataSource;
 
+import domain.DelOrdre;
+import domain.Kunde;
+import domain.Odetaljer;
+import domain.Postnummer;
+import domain.Ordre;
+import domain.Vare;
 import java.sql.*;
 import java.util.ArrayList;
-import semesterprojekt.*;
 
 //==	facade to the Data Source Layer
 //	encapsulates connection handling

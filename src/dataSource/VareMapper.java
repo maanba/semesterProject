@@ -9,8 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import semesterprojekt.Del;
-import semesterprojekt.Vare;
+import domain.Del;
+import domain.Vare;
 
 /**
  *

@@ -1,4 +1,4 @@
-package semesterprojekt;
+package domain;
 public class DelOrdre
 {
     private String title;
