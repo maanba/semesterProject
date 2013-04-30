@@ -147,8 +147,6 @@ public final class GUI extends javax.swing.JFrame {
         jTextFieldReturSøg = new javax.swing.JTextField();
         jLabelErrorRetur = new javax.swing.JLabel();
         jButtonUde = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane9 = new javax.swing.JScrollPane();
         jListHistorik = new javax.swing.JList();
@@ -523,22 +521,6 @@ public final class GUI extends javax.swing.JFrame {
         });
         jPanel3.add(jButtonUde, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 100, 80, -1));
 
-        jButton2.setText("jButton2");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 160, -1, -1));
-
-        jButton3.setText("UDE!");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 280, -1, -1));
-
         jTabbedPane1.addTab("Retur", jPanel3);
 
         jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -877,8 +859,10 @@ public final class GUI extends javax.swing.JFrame {
 
     private void jButtonFjernDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFjernDelActionPerformed
         Object selected = (Del) jListLagerDele.getSelectedValue();
-        listLagerDele.removeElement(selected);
-        jLabelErrorLager.setText("");
+        if (selected != null) {
+            listLagerDele.removeElement(selected);
+            jLabelErrorLager.setText("");
+        }
     }//GEN-LAST:event_jButtonFjernDelActionPerformed
 
     private void jButtonOrdreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdreActionPerformed
@@ -930,27 +914,19 @@ public final class GUI extends javax.swing.JFrame {
 
     private void jButtonHistorikFakturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHistorikFakturaActionPerformed
         Ordre selected = (Ordre) jListHistorik.getSelectedValue();
-        controller.ordreFaktureret(selected.getOnummer());
-        update();
+        if (selected != null) {
+            controller.ordreFaktureret(selected.getOnummer());
+            update();
+        }
     }//GEN-LAST:event_jButtonHistorikFakturaActionPerformed
 
     private void jButtonAfslutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAfslutActionPerformed
         Ordre selected = (Ordre) jListHistorik.getSelectedValue();
-        controller.ordreAfslut(selected.getKnummer());
-        update();
-    }//GEN-LAST:event_jButtonAfslutActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        Del selectedDel = (Del) jListReturDele.getSelectedValue();
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        Del selectedDel = (Del) jListReturDele.getSelectedValue();
-        Ordre selectedOrdre = (Ordre) jListOrdrer.getSelectedValue();
-        for (int i = 0; i < selectedOrdre.getOd().size(); i++) {
-            System.out.println(selectedOrdre.getOd().get(i));
+        if (selected != null) {
+            controller.ordreAfslut(selected.getKnummer());
+            update();
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButtonAfslutActionPerformed
 
     private void jButtonUdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUdeActionPerformed
         DelOrdre selectedDelOrdre = (DelOrdre) jListReturDele.getSelectedValue();
@@ -965,6 +941,16 @@ public final class GUI extends javax.swing.JFrame {
         Ordre selectedOrdre = (Ordre) jListOrdrer.getSelectedValue();
         for (int i = 0; i < selectedOrdre.getDelo().size(); i++) {
             listReturDele.addElement(selectedOrdre.getDelo().get(i));
+        }
+        boolean status = true;
+        for (int i = 0; i < listReturDele.size(); i++) {
+            DelOrdre delordre = (DelOrdre) listReturDele.get(i);
+            status = status && delordre.getStatus() == 1;
+        }
+        if (status) {
+            jButtonAfslutOrdre.setEnabled(true);
+        } else {
+            jButtonAfslutOrdre.setEnabled(false);
         }
     }//GEN-LAST:event_jButtonUdeActionPerformed
 
@@ -994,8 +980,20 @@ public final class GUI extends javax.swing.JFrame {
     private void jButtonLevérActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLevérActionPerformed
         listReturDele.clear();
         Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
-        for (int i = 0; i < selected.getDelo().size(); i++) {
-            listReturDele.addElement(selected.getDelo().get(i));
+        if (selected != null) {
+            for (int i = 0; i < selected.getDelo().size(); i++) {
+                listReturDele.addElement(selected.getDelo().get(i));
+            }
+        }
+        boolean status = true;
+        for (int i = 0; i < listReturDele.size(); i++) {
+            DelOrdre delordre = (DelOrdre) listReturDele.get(i);
+            status = status && delordre.getStatus() == 1;
+        }
+        if (status) {
+            jButtonAfslutOrdre.setEnabled(true);
+        } else {
+            jButtonAfslutOrdre.setEnabled(false);
         }
     }//GEN-LAST:event_jButtonLevérActionPerformed
 
@@ -1005,13 +1003,23 @@ public final class GUI extends javax.swing.JFrame {
         if (selectedDelOrdre != null) {
             selectedDelOrdre.setStatus(1);
             controller.updateDelOrdre(selectedDelOrdre);
-        }
-        update();
-        jListOrdrer.setSelectedIndex(index);
-        listReturDele.clear();
-        Ordre selectedOrdre = (Ordre) jListOrdrer.getSelectedValue();
-        for (int i = 0; i < selectedOrdre.getDelo().size(); i++) {
-            listReturDele.addElement(selectedOrdre.getDelo().get(i));
+            update();
+            jListOrdrer.setSelectedIndex(index);
+            listReturDele.clear();
+            Ordre selectedOrdre = (Ordre) jListOrdrer.getSelectedValue();
+            for (int i = 0; i < selectedOrdre.getDelo().size(); i++) {
+                listReturDele.addElement(selectedOrdre.getDelo().get(i));
+            }
+            boolean status = true;
+            for (int i = 0; i < listReturDele.size(); i++) {
+                DelOrdre delordre = (DelOrdre) listReturDele.get(i);
+                status = status && delordre.getStatus() == 1;
+            }
+            if (status) {
+                jButtonAfslutOrdre.setEnabled(true);
+            } else {
+                jButtonAfslutOrdre.setEnabled(false);
+            }
         }
     }//GEN-LAST:event_jButtonHjemmeActionPerformed
 
@@ -1030,7 +1038,6 @@ public final class GUI extends javax.swing.JFrame {
         }
         update();
         jListOrdrer.setSelectedIndex(index);
-
     }//GEN-LAST:event_jButtonAfslutOrdreActionPerformed
 
     private void jButtonKundeSøgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKundeSøgActionPerformed
@@ -1081,22 +1088,24 @@ public final class GUI extends javax.swing.JFrame {
 
     private void jButtonRedigerKundeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRedigerKundeActionPerformed
         Kunde selected = (Kunde) jListKundeliste.getSelectedValue();
-        if (controller.getRediger() == false) {
-            jLabelOpretRedigerKunde.setText("Redigerer i kunde:");
-            jLabelKundenummer1.setText("Kundenummer:");
-            jLabelKundenummer2.setText(selected.getKnummer() + "");
-            if (jTextFieldFirmaNavn == null) {
-                jTextFieldFirmaNavn.setText("");
+        if (selected != null) {
+            if (controller.getRediger() == false) {
+                jLabelOpretRedigerKunde.setText("Redigerer i kunde:");
+                jLabelKundenummer1.setText("Kundenummer:");
+                jLabelKundenummer2.setText(selected.getKnummer() + "");
+                if (jTextFieldFirmaNavn == null) {
+                    jTextFieldFirmaNavn.setText("");
+                } else {
+                    jTextFieldFirmaNavn.setText(selected.getFirma());
+                }
+                jTextFieldFuldeNavn.setText(selected.getNavn());
+                jTextFieldAdresse.setText(selected.getAdresse() + "");
+                jTextFieldPostnummer.setText(selected.getPostnummer() + "");
+                jTextFieldTelefonnummer.setText(selected.getTelefonnummer() + "");
+                controller.redigerTrue();
             } else {
-                jTextFieldFirmaNavn.setText(selected.getFirma());
+                jLabelErrorKunder.setText("You need to finish editing the current customer before editing a new one.");
             }
-            jTextFieldFuldeNavn.setText(selected.getNavn());
-            jTextFieldAdresse.setText(selected.getAdresse() + "");
-            jTextFieldPostnummer.setText(selected.getPostnummer() + "");
-            jTextFieldTelefonnummer.setText(selected.getTelefonnummer() + "");
-            controller.redigerTrue();
-        } else {
-            jLabelErrorKunder.setText("You need to finish editing the current customer before editing a new one.");
         }
     }//GEN-LAST:event_jButtonRedigerKundeActionPerformed
 
@@ -1640,8 +1649,6 @@ public final class GUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButtonAfslut;
     private javax.swing.JButton jButtonAfslutOrdre;
     private javax.swing.JButton jButtonCheckDato;
