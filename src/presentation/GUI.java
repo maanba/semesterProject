@@ -141,7 +141,6 @@ public final class GUI extends javax.swing.JFrame {
         jButtonReturLevrér = new javax.swing.JButton();
         jButtonReturSøg = new javax.swing.JButton();
         jTextFieldReturSøg = new javax.swing.JTextField();
-        jLabelErrorRetur = new javax.swing.JLabel();
         jButtonReturUde = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane9 = new javax.swing.JScrollPane();
@@ -499,7 +498,6 @@ public final class GUI extends javax.swing.JFrame {
         });
         jPanel3.add(jButtonReturSøg, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, -1, -1));
         jPanel3.add(jTextFieldReturSøg, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 110, -1));
-        jPanel3.add(jLabelErrorRetur, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 810, 20));
 
         jButtonReturUde.setText("Ude");
         jButtonReturUde.addActionListener(new java.awt.event.ActionListener() {
@@ -654,7 +652,7 @@ public final class GUI extends javax.swing.JFrame {
                 jButtonLagerFjernActionPerformed(evt);
             }
         });
-        jPanel5.add(jButtonLagerFjern, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 70, -1));
+        jPanel5.add(jButtonLagerFjern, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 80, -1));
 
         jButtonLagerTilføj.setText("Tilføj");
         jButtonLagerTilføj.addActionListener(new java.awt.event.ActionListener() {
@@ -670,17 +668,17 @@ public final class GUI extends javax.swing.JFrame {
                 jButtonLagerRedigerDelActionPerformed(evt);
             }
         });
-        jPanel5.add(jButtonLagerRedigerDel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 250, 70, -1));
+        jPanel5.add(jButtonLagerRedigerDel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 250, 80, -1));
 
         buttonGroup2.add(jRadioAktiv);
         jRadioAktiv.setText("Aktiv");
-        jPanel5.add(jRadioAktiv, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
+        jPanel5.add(jRadioAktiv, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, -1, -1));
 
         buttonGroup2.add(jRadioIkkeAktiv);
         jRadioIkkeAktiv.setText("Ikke Aktiv");
-        jPanel5.add(jRadioIkkeAktiv, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, -1, -1));
+        jPanel5.add(jRadioIkkeAktiv, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, -1, -1));
 
-        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, 290, 360));
+        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, 300, 360));
 
         jLabelOpretRedigerVare.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabelOpretRedigerVare.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -738,6 +736,7 @@ public final class GUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonLagerSøgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLagerSøgActionPerformed
+        jLabelErrorLager.setText("");
         if (!jTextFieldLagerSøg.getText().equals("")) {
             int counter = 0;
             ArrayList<Vare> vl = new ArrayList<>();
@@ -758,7 +757,6 @@ public final class GUI extends javax.swing.JFrame {
         } else {
             update();
         }
-        jLabelErrorLager.setText("");
     }//GEN-LAST:event_jButtonLagerSøgActionPerformed
 
     private void jTextFieldLagerSøgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldLagerSøgActionPerformed
@@ -766,6 +764,7 @@ public final class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldLagerSøgActionPerformed
 
     private void jButtonLagerGemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLagerGemActionPerformed
+        jLabelErrorLager.setText("");
         int vnummer = 0;
         int aktiv = 1;
         if (!jTextFieldVareNavn.getText().isEmpty() && !jTextFieldVarePris.getText().isEmpty() && !jTextFieldVareAntal.getText().isEmpty()) {
@@ -786,7 +785,6 @@ public final class GUI extends javax.swing.JFrame {
                 vare.add((Del) listLagerDele.getElementAt(i));
             }
             controller.gemLager(vnummer, vnavn, qty, pris, aktiv, vare);
-            jLabelErrorLager.setText("");
             update();
             controller.redigerFalse();
         } else {
@@ -796,6 +794,7 @@ public final class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonLagerGemActionPerformed
 
     private void jButtonLagerRedigerVareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLagerRedigerVareActionPerformed
+        jLabelErrorLager.setText("");
         Vare selected = (Vare) jListVareliste.getSelectedValue();
         if (selected != null) {
             if (controller.getRediger() == false) {
@@ -816,7 +815,6 @@ public final class GUI extends javax.swing.JFrame {
                     listLagerDele.addElement(selected.getDel().get(i));
                 }
                 controller.redigerTrue();
-                jLabelErrorLager.setText("");
             } else {
                 jLabelErrorLager.setText("Du skal redigere varen færdig før du redigerer en ny.");
             }
@@ -824,9 +822,9 @@ public final class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonLagerRedigerVareActionPerformed
 
     private void jButtonLagerRedigerDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLagerRedigerDelActionPerformed
+        jLabelErrorLager.setText("");
         Object selected = (Del) jListLagerDele.getSelectedValue();
-        if (selected != null) 
-        {
+        if (selected != null) {
             if (!jTextFieldPartNavn.getText().isEmpty() || !jTextFieldPartAntal.getText().isEmpty()) {
                 Del del = (Del) jListLagerDele.getSelectedValue();
                 listLagerDele.removeElementAt(jListLagerDele.getSelectedIndex());
@@ -838,6 +836,7 @@ public final class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonLagerRedigerDelActionPerformed
 
     private void jButtonLagerTilføjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLagerTilføjActionPerformed
+        jLabelErrorLager.setText("");
         if (!jTextFieldPartNavn.getText().isEmpty() && !jTextFieldPartAntal.getText().isEmpty()) {
             int vnummer = controller.getNextVnummer();
             String delnavn = jTextFieldPartNavn.getText();
@@ -849,10 +848,10 @@ public final class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonLagerTilføjActionPerformed
 
     private void jButtonLagerFjernActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLagerFjernActionPerformed
+        jLabelErrorLager.setText("");
         Object selected = (Del) jListLagerDele.getSelectedValue();
         if (selected != null) {
             listLagerDele.removeElement(selected);
-            jLabelErrorLager.setText("");
         }
     }//GEN-LAST:event_jButtonLagerFjernActionPerformed
 
@@ -983,7 +982,6 @@ public final class GUI extends javax.swing.JFrame {
                 jButtonReturAfslutOrdre.setEnabled(false);
             }
         }
-
     }//GEN-LAST:event_jButtonReturLevrérActionPerformed
 
     private void jButtonReturHjemmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReturHjemmeActionPerformed
@@ -1028,6 +1026,7 @@ public final class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonReturAfslutOrdreActionPerformed
 
     private void jButtonKundeSøgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKundeSøgActionPerformed
+        jLabelErrorKunder.setText("");
         if (!jTextFieldKundeSøg.getText().equals("")) {
             ArrayList<Kunde> kl = new ArrayList<>();
             int counter = 0;
@@ -1051,6 +1050,7 @@ public final class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonKundeSøgActionPerformed
 
     private void jButtonKundeGemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKundeGemActionPerformed
+        jLabelErrorKunder.setText("");
         String firmanavn = jTextFieldFirmaNavn.getText();
         String navn = jTextFieldFuldeNavn.getText();
         String adresse = jTextFieldAdresse.getText();
@@ -1065,14 +1065,14 @@ public final class GUI extends javax.swing.JFrame {
         }
         if (!navn.isEmpty() || !adresse.isEmpty() || !postnummer.isEmpty() || !telefonnummer.isEmpty()) {
             controller.gemKunde(firmanavn, navn, adresse, Integer.parseInt(postnummer), Integer.parseInt(telefonnummer), knummer);
-            jLabelErrorKunder.setText("");
             update();
         } else {
-            jLabelErrorKunder.setText("Mangler navn/adresse/postnummer/telefonnummer");
+            jLabelErrorKunder.setText("Mangler navn / adresse / postnummer / telefonnummer");
         }
     }//GEN-LAST:event_jButtonKundeGemActionPerformed
 
     private void jButtonKundeRedigerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKundeRedigerActionPerformed
+        jLabelErrorKunder.setText("");
         Kunde selected = (Kunde) jListKundeliste.getSelectedValue();
         if (selected != null) {
             if (controller.getRediger() == false) {
@@ -1089,7 +1089,6 @@ public final class GUI extends javax.swing.JFrame {
                 jTextFieldPostnummer.setText(selected.getPostnummer() + "");
                 jTextFieldTelefonnummer.setText(selected.getTelefonnummer() + "");
                 controller.redigerTrue();
-                jLabelErrorKunder.setText("");
             } else {
                 jLabelErrorKunder.setText("Du skal redigere kunden færdig før du redigerer en ny.");
             }
@@ -1097,6 +1096,7 @@ public final class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonKundeRedigerActionPerformed
 
     private void jButtonOrdreOrdrePDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdreOrdrePDFActionPerformed
+        jLabelErrorOrdre.setText("");
         Ordre selected = (Ordre) jList3.getSelectedValue();
         if (jList3.getSelectedValue() != null) {
             int selectedIndex = jList3.getSelectedIndex();
@@ -1110,22 +1110,24 @@ public final class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonOrdreOrdrePDFActionPerformed
 
     private void jButtonOrdreCheckDatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdreCheckDatoActionPerformed
+        jLabelErrorOrdre.setText("");
         if (jTextFieldDagUd.getText().isEmpty() || jTextFieldMånedUd.getText().isEmpty() || jTextFieldÅrUd.getText().isEmpty() || jTextFieldDagInd.getText().isEmpty() || jTextFieldMånedInd.getText().isEmpty() || jTextFieldÅrInd.getText().isEmpty()) {
             jLabelErrorOrdre.setText("Datoer mangler.");
         } else {
             update();
-            jLabelErrorOrdre.setText("");
         }
     }//GEN-LAST:event_jButtonOrdreCheckDatoActionPerformed
 
     private void jButtonOrdreStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdreStatusActionPerformed
+        jLabelErrorOrdre.setText("");
         Ordre selected = (Ordre) jList3.getSelectedValue();
-        if (selected == null) {
+        if (selected != null) {
             JOptionPane.showMessageDialog(rootPane, selected.getStatus(), "Status for ordre: " + selected.getOnummer(), WIDTH);
         }
     }//GEN-LAST:event_jButtonOrdreStatusActionPerformed
 
     private void jButtonOrdrePakkelisteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdrePakkelisteActionPerformed
+        jLabelErrorOrdre.setText("");
         int selectedIndex = jList3.getSelectedIndex();
         if (jList3.getSelectedValue() != null) {
             controller.pakkeListe((Ordre) jList3.getSelectedValue());
@@ -1140,6 +1142,7 @@ public final class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldRabatActionPerformed
 
     private void jButtonOrdreTilbudPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdreTilbudPDFActionPerformed
+        jLabelErrorOrdre.setText("");
         int selectedIndex = jList3.getSelectedIndex();
         if (jList3.getSelectedValue() != null) {
             controller.tilbud((Ordre) jList3.getSelectedValue());
@@ -1150,6 +1153,7 @@ public final class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonOrdreTilbudPDFActionPerformed
 
     private void jButtonOrdreFakturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdreFakturaActionPerformed
+        jLabelErrorOrdre.setText("");
         int selectedIndex = jList3.getSelectedIndex();
         if (jList3.getSelectedValue() != null) {
             controller.faktura((Ordre) jList3.getSelectedValue());
@@ -1160,6 +1164,7 @@ public final class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonOrdreFakturaActionPerformed
 
     private void jButtonOrdreRedigerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdreRedigerActionPerformed
+        jLabelErrorOrdre.setText("");
         Ordre selected = (Ordre) jList3.getSelectedValue();
         if (selected != null) {
             if (list2.isEmpty() == false) {
@@ -1191,7 +1196,6 @@ public final class GUI extends javax.swing.JFrame {
                         jComboBoxKunder.setSelectedIndex(i);
                     }
                 }
-                jLabelErrorOrdre.setText("");
             } else {
                 jLabelErrorOrdre.setText("Du skal redigere ordren færdig før du redigerer en ny.");
             }
@@ -1209,53 +1213,56 @@ public final class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButtonAfhentningActionPerformed
 
     private void jButtonOrdreGennemførOrdreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdreGennemførOrdreActionPerformed
+        jLabelErrorOrdre.setText("");
         ArrayList<Odetaljer> odetaljer = new ArrayList<>();
         ArrayList<DelOrdre> delordre = new ArrayList<>();
-        if (jComboBoxKunder.getSelectedItem() != "Kunder") {
-            if (list2.isEmpty() == false) {
-                if (jRadioButtonAfhentning.isSelected() || jRadioButtonLevering.isSelected()) {
-                    for (int i = 0; i < list2.size(); i++) {
-                        Vare vare = (Vare) list2.getElementAt(i);
-                        odetaljer.add(new Odetaljer(0, vare.getVnummer(), vare.getQty()));
-                        for (int j = 0; j < vare.getDel().size(); j++) {
-                            delordre.add(new DelOrdre(vare.getDel().get(j).getTitel(), vare.getVnummer(), 0, 1, vare.getDel().get(j).getAntal()));
+        if (!list2.isEmpty()) {
+            if (jComboBoxKunder.getSelectedItem() != "Kunder") {
+                if (list2.isEmpty() == false) {
+                    if (jRadioButtonAfhentning.isSelected() || jRadioButtonLevering.isSelected()) {
+                        for (int i = 0; i < list2.size(); i++) {
+                            Vare vare = (Vare) list2.getElementAt(i);
+                            odetaljer.add(new Odetaljer(0, vare.getVnummer(), vare.getQty()));
+                            for (int j = 0; j < vare.getDel().size(); j++) {
+                                delordre.add(new DelOrdre(vare.getDel().get(j).getTitel(), vare.getVnummer(), 0, 1, vare.getDel().get(j).getAntal()));
+                            }
                         }
+                        String leveringDate = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
+                        String returneringDate = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
+                        controller.gennemførOrdrer(jRadioButtonAfhentning.isSelected(), "" + jComboBoxKunder.getSelectedItem(), Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), Double.parseDouble(jTextFieldTotalPris.getText()) * 0.25, "" + jComboBoxLevering.getSelectedItem(), "" + jComboBoxAfhentning.getSelectedItem(), leveringDate, returneringDate, odetaljer, "", delordre);
+                        list2.clear();
+                        list3.clear();
+                        jLabelErrorOrdre.setText("");
+                        jTextFieldTotalPris.setText("");
+                        jTextFieldRabat.setText("");
+                        jTextFieldDagInd.setText("");
+                        jTextFieldDagUd.setText("");
+                        jTextFieldMånedInd.setText("");
+                        jTextFieldMånedUd.setText("");
+                        jTextFieldÅrInd.setText("");
+                        jTextFieldÅrUd.setText("");
+                        controller.redigerFalse();
+
+                    } else {
+                        jLabelErrorOrdre.setText("Vælg afhentning eller levering.");
                     }
-                    String leveringDate = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
-                    String returneringDate = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
-                    controller.gennemførOrdrer(jRadioButtonAfhentning.isSelected(), "" + jComboBoxKunder.getSelectedItem(), Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), Double.parseDouble(jTextFieldTotalPris.getText()) * 0.25, "" + jComboBoxLevering.getSelectedItem(), "" + jComboBoxAfhentning.getSelectedItem(), leveringDate, returneringDate, odetaljer, "", delordre);
-                    list2.clear();
-                    list3.clear();
-                    jLabelErrorOrdre.setText("");
-                    jTextFieldTotalPris.setText("");
-                    jTextFieldRabat.setText("");
-                    jTextFieldDagInd.setText("");
-                    jTextFieldDagUd.setText("");
-                    jTextFieldMånedInd.setText("");
-                    jTextFieldMånedUd.setText("");
-                    jTextFieldÅrInd.setText("");
-                    jTextFieldÅrUd.setText("");
-                    controller.redigerFalse();
-                    jLabelErrorOrdre.setText("");
-                } else {
-                    jLabelErrorOrdre.setText("vælg afhentning eller levering.");
                 }
+            } else {
+                jLabelErrorOrdre.setText("Vælg en kunde.");
             }
-        } else {
-            jLabelErrorOrdre.setText("Vælg en kunde.");
+            controller.redigerFalse();
+            update();
         }
-        controller.redigerFalse();
-        update();
     }//GEN-LAST:event_jButtonOrdreGennemførOrdreActionPerformed
 
     private void jButtonOrdreFjernActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdreFjernActionPerformed
+        jLabelErrorOrdre.setText("");
         Vare selected = (Vare) jList2.getSelectedValue();
         if (selected != null) {
             if (selected.getQty() >= Integer.parseInt(jTextFieldAntal.getText())) {
                 list2.removeElement(selected);
                 selected.setQty(selected.getQty() - (Integer.parseInt(jTextFieldAntal.getText())));
                 list2.addElement(selected);
-                jLabelErrorOrdre.setText("");
             } else {
                 jLabelErrorOrdre.setText("Du kan ikke fjerne flere varer fra ordren end den indeholder.");
             }
@@ -1268,8 +1275,8 @@ public final class GUI extends javax.swing.JFrame {
     private void jButtonOrdreTilføjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdreTilføjActionPerformed
         boolean check = false;
         Vare selected = (Vare) jList1.getSelectedValue();
-        selected.setQty(Integer.parseInt(jTextFieldAntal.getText()));
         if (selected != null) {
+            selected.setQty(Integer.parseInt(jTextFieldAntal.getText()));
             if (controller.checkQty(selected.getVnummer(), Integer.parseInt(jTextFieldAntal.getText()))) {
                 for (int i = 0; i < list2.size(); i++) {
                     Vare vare = (Vare) list2.getElementAt(i);
@@ -1288,8 +1295,8 @@ public final class GUI extends javax.swing.JFrame {
             } else {
                 jLabelErrorOrdre.setText("Der er ikke nok varer på lager til ordren.");
             }
+            update();
         }
-        update();
     }//GEN-LAST:event_jButtonOrdreTilføjActionPerformed
 
     private void jButtonLeverActionPerformed(java.awt.event.ActionEvent evt) {
@@ -1689,7 +1696,6 @@ public final class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelErrorKunder;
     private javax.swing.JLabel jLabelErrorLager;
     private javax.swing.JLabel jLabelErrorOrdre;
-    private javax.swing.JLabel jLabelErrorRetur;
     private javax.swing.JLabel jLabelKundenummer1;
     private javax.swing.JLabel jLabelKundenummer2;
     private javax.swing.JLabel jLabelOpretRedigerKunde;
