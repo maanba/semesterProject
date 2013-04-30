@@ -104,7 +104,7 @@ public class DBFacade {
     public ArrayList<Kunde> getAllKunder() {
         ArrayList<Kunde> o = null;
         try {
-            o = new OrderMapper().getAllKunder(con);
+            o = new KundeMapper().getAllKunder(con);
         } catch (Exception e) {
             System.out.println("Fail in OrderMapper - getAllCostumers");
             System.out.println(e.getMessage());
@@ -115,7 +115,7 @@ public class DBFacade {
     public Kunde getKunde(int knummer) {
         Kunde k = null;
         try {
-            k = new OrderMapper().getKunde(con, knummer);
+            k = new KundeMapper().getKunde(con, knummer);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -125,7 +125,7 @@ public class DBFacade {
     public int getNextKnummer() {
         int nextKno = 0;
         try {
-            nextKno = new OrderMapper().getNextKnummer(con);
+            nextKno = new KundeMapper().getNextKnummer(con);
         } catch (Exception e) {
             System.out.println("Fail in OrderMapper - getNextKnummer");
             System.out.println(e.getMessage());
@@ -133,7 +133,7 @@ public class DBFacade {
         return nextKno;
     }
 
-    // Vare
+    // VaresS
     public void registerNewVare(Vare v) {
         if (uow != null) {
             uow.registerNewVare(v);
@@ -157,7 +157,7 @@ public class DBFacade {
     public ArrayList<Vare> getAllVarer() {
         ArrayList<Vare> o = null;
         try {
-            o = new OrderMapper().getAllVarer(con);
+            o = new VareMapper().getAllVarer(con);
         } catch (Exception e) {
             System.out.println("Fail in OrderMapper - getAllRessources");
             System.out.println(e.getMessage());
@@ -168,7 +168,7 @@ public class DBFacade {
     public Vare getVare(int vnummer) {
         Vare v = null;
         try {
-            v = new OrderMapper().getVare(con, vnummer);
+            v = new VareMapper().getVare(con, vnummer);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -178,7 +178,7 @@ public class DBFacade {
     public int getNextVnummer() {
         int nextVno = 0;
         try {
-            nextVno = new OrderMapper().getNextVnummer(con);
+            nextVno = new VareMapper().getNextVnummer(con);
         } catch (Exception e) {
             System.out.println("Fail in OrderMapper - getNextVnummer");
             System.out.println(e.getMessage());
@@ -202,7 +202,7 @@ public class DBFacade {
     public boolean deleteOdetalje(int ono) {
         boolean status = false;
         try {
-            status = new OrderMapper().deleteOdetalje(ono, con);
+            status = new OdetaljeMapper().deleteOdetalje(ono, con);
         } catch (SQLException ex) {
             System.out.println("fail in deleteOdetaljer");
         }
@@ -235,7 +235,7 @@ public class DBFacade {
     public Postnummer getPostnummer(int postnr) {
         Postnummer p = null;
         try {
-            p = new OrderMapper().getPostnummer(con, postnr);
+            p = new PostnummerMapper().getPostnummer(con, postnr);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

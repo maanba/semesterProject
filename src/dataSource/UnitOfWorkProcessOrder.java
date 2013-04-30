@@ -170,20 +170,24 @@ public class UnitOfWorkProcessOrder {
             //=== system transaction - start
             conn.setAutoCommit(false);
             OrderMapper om = new OrderMapper();
+            KundeMapper km = new KundeMapper();
+            DelOrdreMapper dom = new DelOrdreMapper();
+            VareMapper vm = new VareMapper();
+            OdetaljeMapper odm = new OdetaljeMapper();
 
             status = status && om.insertOrdrer(newORdre, conn);
             status = status && om.updateOrdrer(dirtyOrdre, conn);
-            status = status && om.insertKunder(newKunde, conn);
-            status = status && om.updateKunder(dirtyKunde, conn);
-            status = status && om.insertOdetaljer(newOdetaljer, conn);
-            status = status && om.updateOdetaljer(dirtyOdetaljer, conn);
-            status = status && om.insertDelOrdrer(newDelOrdre, conn);
-            status = status && om.updateDelOrdre(dirtyDelOrdre, conn);
-            status = status && om.insertVarer(newVare, conn);
-            status = status && om.updateVarer(dirtyVare, conn);
+            status = status && km.insertKunder(newKunde, conn);
+            status = status && km.updateKunder(dirtyKunde, conn);
+            status = status && odm.insertOdetaljer(newOdetaljer, conn);
+            status = status && odm.updateOdetaljer(dirtyOdetaljer, conn);
+            status = status && dom.insertDelOrdrer(newDelOrdre, conn);
+            status = status && dom.updateDelOrdre(dirtyDelOrdre, conn);
+            status = status && vm.insertVarer(newVare, conn);
+            status = status && vm.updateVarer(dirtyVare, conn);
             status = status && om.deleteOrdrer(deletedOrdre, conn);
-            status = status && om.deleteKunder(deletedKunde, conn);
-            status = status && om.deleteVarer(deletedVare, conn);
+            status = status && km.deleteKunder(deletedKunde, conn);
+            status = status && vm.deleteVarer(deletedVare, conn);
             if (!status) {
                 throw new Exception("Business Transaction aborted");
             }
