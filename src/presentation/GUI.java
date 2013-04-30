@@ -32,9 +32,7 @@ public final class GUI extends javax.swing.JFrame {
     public GUI() {
         initComponents();
         cellRenderer();
-
         setTitle("Semesterprojekt");
-
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -52,12 +50,11 @@ public final class GUI extends javax.swing.JFrame {
         jListOrdrer.setModel(listOrdrer);
         jListReturDele.setModel(listReturDele);
         jListLagerDele.setModel(listLagerDele);
-
         jLabelErrorLager.setText("");
         jLabelErrorOrdre.setText("");
         jLabelErrorKunder.setText("");
+        jLabelErrorOrdre.setText("");
         jLabelOpretRedigerVare.setText("");
-        jLabelErrorOrdre.setText(null);
         update();
     }
 
@@ -828,13 +825,15 @@ public final class GUI extends javax.swing.JFrame {
 
     private void jButtonLagerRedigerDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLagerRedigerDelActionPerformed
         Object selected = (Del) jListLagerDele.getSelectedValue();
-        if (!jTextFieldPartNavn.getText().isEmpty() || !jTextFieldPartAntal.getText().isEmpty()) {
+        if (selected != null) 
+        {
+            if (!jTextFieldPartNavn.getText().isEmpty() || !jTextFieldPartAntal.getText().isEmpty()) {
+                Del del = (Del) jListLagerDele.getSelectedValue();
+                listLagerDele.removeElementAt(jListLagerDele.getSelectedIndex());
+                jTextFieldPartNavn.setText(del.getTitel());
+                jTextFieldPartAntal.setText("" + del.getAntal());
+            }
             jLabelErrorLager.setText("Du skal redigere delen færdig før du redigerer en ny.");
-        } else if (selected != null) {
-            Del del = (Del) jListLagerDele.getSelectedValue();
-            listLagerDele.removeElementAt(jListLagerDele.getSelectedIndex());
-            jTextFieldPartNavn.setText(del.getTitel());
-            jTextFieldPartAntal.setText("" + del.getAntal());
         }
     }//GEN-LAST:event_jButtonLagerRedigerDelActionPerformed
 
@@ -1022,7 +1021,6 @@ public final class GUI extends javax.swing.JFrame {
             if (status) {
                 controller.ordreAfslut(selected.getOnummer());
                 listReturDele.clear();
-                System.out.println("hephey!");
             }
             update();
             jListOrdrer.setSelectedIndex(index);
@@ -1059,20 +1057,18 @@ public final class GUI extends javax.swing.JFrame {
         String postnummer = jTextFieldPostnummer.getText();
         String telefonnummer = jTextFieldTelefonnummer.getText();
         int knummer;
-        
+
         if (jLabelKundenummer2.getText().isEmpty()) {
             knummer = 0;
         } else {
             knummer = Integer.parseInt(jLabelKundenummer2.getText());
         }
-        if (!navn.isEmpty() || !adresse.isEmpty() || !adresse.isEmpty() || !postnummer.isEmpty() || !telefonnummer.isEmpty()) 
-        {
+        if (!navn.isEmpty() || !adresse.isEmpty() || !postnummer.isEmpty() || !telefonnummer.isEmpty()) {
             controller.gemKunde(firmanavn, navn, adresse, Integer.parseInt(postnummer), Integer.parseInt(telefonnummer), knummer);
             jLabelErrorKunder.setText("");
             update();
-        } else 
-        {
-            jLabelErrorKunder.setText("You need to fill in all the fields before adding a new customer.");
+        } else {
+            jLabelErrorKunder.setText("Mangler navn/adresse/postnummer/telefonnummer");
         }
     }//GEN-LAST:event_jButtonKundeGemActionPerformed
 
