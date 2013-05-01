@@ -610,9 +610,9 @@ public class Controller {
             result = true;
         } else if (currentOrder != null) {
             if (afBool) {
-                updateOrder(kno, pris, rabat, depositum, "", "", afhentning, currentOrder.getStatus(), lev, ret, odetaljer, delordre);
+                updateOrder(kno, pris, rabat, depositum, "", "", afhentning, currentOrder.getStatus(), lev, ret, odetaljer, kommentar, delordre);
             } else {
-                updateOrder(kno, pris, rabat, depositum, tidLev, tidRet, afhentning, currentOrder.getStatus(), lev, ret, odetaljer, delordre);
+                updateOrder(kno, pris, rabat, depositum, tidLev, tidRet, afhentning, currentOrder.getStatus(), lev, ret, odetaljer, kommentar, delordre);
             }
             result = true;
         } else {
