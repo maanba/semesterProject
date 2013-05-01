@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class UnitOfWorkProcessOrder {
 
-    private ArrayList<Ordre> newORdre;
+    private ArrayList<Ordre> newOrdre;
     private ArrayList<Ordre> dirtyOrdre;
     private ArrayList<Ordre> deletedOrdre;
     private ArrayList<Kunde> newKunde;
@@ -27,7 +27,7 @@ public class UnitOfWorkProcessOrder {
     private ArrayList<DelOrdre> deletedDelOrdre;
 
     public UnitOfWorkProcessOrder() {
-        newORdre = new ArrayList<>();
+        newOrdre = new ArrayList<>();
         dirtyOrdre = new ArrayList<>();
         deletedOrdre = new ArrayList<>();
         newKunde = new ArrayList<>();
@@ -47,14 +47,14 @@ public class UnitOfWorkProcessOrder {
     // Ordre
     
     public void registerNewOrdre(Ordre o) {
-        if (!newORdre.contains(o)
+        if (!newOrdre.contains(o)
                 && !dirtyOrdre.contains(o)) {
-            newORdre.add(o);
+            newOrdre.add(o);
         }
     }
 
     public void registerDirtyOrdre(Ordre o) {
-        if (!newORdre.contains(o)
+        if (!newOrdre.contains(o)
                 && !dirtyOrdre.contains(o)) {
             dirtyOrdre.add(o);
         }
@@ -179,7 +179,7 @@ public class UnitOfWorkProcessOrder {
             VareMapper vm = new VareMapper();
             OdetaljeMapper odm = new OdetaljeMapper();
 
-            status = status && om.insertOrdrer(newORdre, conn);
+            status = status && om.insertOrdrer(newOrdre, conn);
             status = status && om.updateOrdrer(dirtyOrdre, conn);
             status = status && km.insertKunder(newKunde, conn);
             status = status && km.updateKunder(dirtyKunde, conn);
