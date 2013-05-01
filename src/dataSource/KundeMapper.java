@@ -17,7 +17,7 @@ import domain.Kunde;
  */
 public class KundeMapper {
     
-        public boolean insertKunder(ArrayList<Kunde> kl, Connection conn) throws SQLException {
+    public boolean insertKunder(ArrayList<Kunde> kl, Connection conn) throws SQLException {
         int rowsInserted = 0;
         String SQLString = "insert into Kunder values (?,?,?,?,?,?)";
         PreparedStatement statement = null;

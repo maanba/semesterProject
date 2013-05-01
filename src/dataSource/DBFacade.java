@@ -237,6 +237,7 @@ public class DBFacade {
         return status;
     }
 
+    // Postnummer
     public Postnummer getPostnummer(int postnr) {
         Postnummer p = null;
         try {
@@ -247,6 +248,7 @@ public class DBFacade {
         return p;
     }
 
+    // Fakturanummer
     public int getNextFnummer() {
         int nextFnummer = 0;
         try {

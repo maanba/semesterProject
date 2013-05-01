@@ -366,7 +366,7 @@ public class Controller {
         currentKunde = null;
     }
 
-    public void pakkeListe(Ordre ordre) {
+    public void pakkeliste(Ordre ordre) {
         setCurrentOrder(ordre);
         if (ordre.getFnummer() == 0) {
             addOrderFakturaNummer(ordre);
@@ -519,7 +519,7 @@ public class Controller {
             for (int i = 0; i < vd.size(); i++) {
                 vare.addDel(vd.get(i));
             }
-            addVare(vare);
+            tilføjVare(vare);
         }
     }
 
@@ -586,9 +586,9 @@ public class Controller {
         return va;
     }
 
-    public Boolean gennemførOrdrer(boolean afBool, String kunde, double pris, double rabat, double depositum, String tidLev, String tidRet, String lev, String ret, ArrayList<Odetaljer> odetaljer, String kommentar, ArrayList<DelOrdre> delordre) {
+    public boolean gennemførOrdrer(boolean afBool, String kunde, double pris, double rabat, double depositum, String tidLev, String tidRet, String lev, String ret, ArrayList<Odetaljer> odetaljer, String kommentar, ArrayList<DelOrdre> delordre) {
         boolean result = false;
-        ArrayList<Kunde> kunder = getAllCostumers();
+        ArrayList<Kunde> kunder = getAllCustomers();
         int kno = 0;
         String afhentning;
         if (afBool) {
@@ -665,7 +665,7 @@ public class Controller {
         dbFacade.commitBusinessTransaction();
     }
 
-    public void updateKunde(Kunde kunde) {
+    public void tilføjKunder(Kunde kunde) {
         dbFacade.startNewBusinessTransaction();
         dbFacade.registerDirtyKunde(kunde);
         dbFacade.commitBusinessTransaction();
@@ -777,7 +777,7 @@ public class Controller {
         return ol;
     }
 
-    public ArrayList<Kunde> getAllCostumers() {
+    public ArrayList<Kunde> getAllCustomers() {
         ArrayList<Kunde> kl = dbFacade.getAllKunder();
         return kl;
     }
@@ -790,7 +790,7 @@ public class Controller {
     public void gemKunde(String firma, String navn, String adresse, int postnummer, int telefonnummer, int knummer) {
         if (getRediger() == true) {
             Kunde kunde = new Kunde(knummer, firma, navn, adresse, postnummer, telefonnummer);
-            updateKunde(kunde);
+            tilføjKunder(kunde);
             redigerFalse();
         }
         if (getRediger() == false) {
@@ -886,7 +886,7 @@ public class Controller {
         dbFacade.releaseConnection();
     }
 
-    public void addVare(Vare vare) {
+    public void tilføjVare(Vare vare) {
         dbFacade.startNewBusinessTransaction();
         dbFacade.registerNewVare(vare);
         dbFacade.commitBusinessTransaction();

@@ -159,19 +159,6 @@ public final class GUI extends javax.swing.JFrame {
         jLabelErrorLager = new javax.swing.JLabel();
         jLabelOpretRedigerVare = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
-        jPanelRetur = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jListReturDele = new javax.swing.JList();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        jListOrdrer = new javax.swing.JList();
-        jButtonReturAfslutOrdre = new javax.swing.JButton();
-        jButtonReturHjemme = new javax.swing.JButton();
-        jButtonReturLevrér = new javax.swing.JButton();
-        jButtonReturSøg = new javax.swing.JButton();
-        jTextFieldReturSøg = new javax.swing.JTextField();
-        jButtonReturUde = new javax.swing.JButton();
-        jLabel32 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
         jPanelHistorik = new javax.swing.JPanel();
         jScrollPane9 = new javax.swing.JScrollPane();
         jListHistorik = new javax.swing.JList();
@@ -187,6 +174,19 @@ public final class GUI extends javax.swing.JFrame {
         jButtonTilbud3 = new javax.swing.JButton();
         jButtonOrdre3 = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
+        jPanelRetur = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jListReturDele = new javax.swing.JList();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jListOrdrer = new javax.swing.JList();
+        jButtonReturAfslutOrdre = new javax.swing.JButton();
+        jButtonReturHjemme = new javax.swing.JButton();
+        jButtonReturLevrér = new javax.swing.JButton();
+        jButtonReturSøg = new javax.swing.JButton();
+        jTextFieldReturSøg = new javax.swing.JTextField();
+        jButtonReturUde = new javax.swing.JButton();
+        jLabel32 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -574,69 +574,6 @@ public final class GUI extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Lager", jPanelLager);
 
-        jPanelRetur.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jScrollPane4.setViewportView(jListReturDele);
-
-        jPanelRetur.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 70, 220, 320));
-
-        jScrollPane6.setViewportView(jListOrdrer);
-
-        jPanelRetur.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 220, 320));
-
-        jButtonReturAfslutOrdre.setText("Afslut ordre");
-        jButtonReturAfslutOrdre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonReturAfslutOrdreActionPerformed(evt);
-            }
-        });
-        jPanelRetur.add(jButtonReturAfslutOrdre, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 130, -1, -1));
-
-        jButtonReturHjemme.setText("Hjemme");
-        jButtonReturHjemme.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonReturHjemmeActionPerformed(evt);
-            }
-        });
-        jPanelRetur.add(jButtonReturHjemme, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 70, 80, -1));
-
-        jButtonReturLevrér.setText("Levér >");
-        jButtonReturLevrér.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonReturLevrérActionPerformed(evt);
-            }
-        });
-        jPanelRetur.add(jButtonReturLevrér, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 213, 90, 23));
-
-        jButtonReturSøg.setText("Søg");
-        jButtonReturSøg.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonReturSøgActionPerformed(evt);
-            }
-        });
-        jPanelRetur.add(jButtonReturSøg, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, -1, 20));
-        jPanelRetur.add(jTextFieldReturSøg, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 110, 20));
-
-        jButtonReturUde.setText("Ude");
-        jButtonReturUde.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonReturUdeActionPerformed(evt);
-            }
-        });
-        jPanelRetur.add(jButtonReturUde, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 100, 80, -1));
-
-        jLabel32.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel32.setText("Retur:");
-        jPanelRetur.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 220, 40));
-
-        jLabel21.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel21.setText("Ordre:");
-        jPanelRetur.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 220, 40));
-
-        jTabbedPane1.addTab("Retur", jPanelRetur);
-
         jPanelHistorik.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jListHistorik.setModel(new javax.swing.AbstractListModel() {
@@ -735,6 +672,69 @@ public final class GUI extends javax.swing.JFrame {
         jPanelHistorik.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 220, 40));
 
         jTabbedPane1.addTab("Historik", jPanelHistorik);
+
+        jPanelRetur.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jScrollPane4.setViewportView(jListReturDele);
+
+        jPanelRetur.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 70, 220, 320));
+
+        jScrollPane6.setViewportView(jListOrdrer);
+
+        jPanelRetur.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 220, 320));
+
+        jButtonReturAfslutOrdre.setText("Afslut ordre");
+        jButtonReturAfslutOrdre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonReturAfslutOrdreActionPerformed(evt);
+            }
+        });
+        jPanelRetur.add(jButtonReturAfslutOrdre, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 130, -1, -1));
+
+        jButtonReturHjemme.setText("Hjemme");
+        jButtonReturHjemme.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonReturHjemmeActionPerformed(evt);
+            }
+        });
+        jPanelRetur.add(jButtonReturHjemme, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 70, 80, -1));
+
+        jButtonReturLevrér.setText("Levér >");
+        jButtonReturLevrér.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonReturLevrérActionPerformed(evt);
+            }
+        });
+        jPanelRetur.add(jButtonReturLevrér, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 213, 90, 23));
+
+        jButtonReturSøg.setText("Søg");
+        jButtonReturSøg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonReturSøgActionPerformed(evt);
+            }
+        });
+        jPanelRetur.add(jButtonReturSøg, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, -1, 20));
+        jPanelRetur.add(jTextFieldReturSøg, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 110, 20));
+
+        jButtonReturUde.setText("Ude");
+        jButtonReturUde.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonReturUdeActionPerformed(evt);
+            }
+        });
+        jPanelRetur.add(jButtonReturUde, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 100, 80, -1));
+
+        jLabel32.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel32.setText("Retur:");
+        jPanelRetur.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 220, 40));
+
+        jLabel21.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel21.setText("Ordre:");
+        jPanelRetur.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 220, 40));
+
+        jTabbedPane1.addTab("Retur", jPanelRetur);
 
         getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 470));
 
@@ -970,26 +970,6 @@ public final class GUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonReturSøgActionPerformed
 
-    private void jButtonReturLevrérActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReturLevrérActionPerformed
-        listReturDele.clear();
-        Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
-        if (selected != null) {
-            for (int i = 0; i < selected.getDelo().size(); i++) {
-                listReturDele.addElement(selected.getDelo().get(i));
-            }
-            boolean status = true;
-            for (int i = 0; i < listReturDele.size(); i++) {
-                DelOrdre delordre = (DelOrdre) listReturDele.get(i);
-                status = status && delordre.getStatus() == 1;
-            }
-            if (status) {
-                jButtonReturAfslutOrdre.setEnabled(true);
-            } else {
-                jButtonReturAfslutOrdre.setEnabled(false);
-            }
-        }
-    }//GEN-LAST:event_jButtonReturLevrérActionPerformed
-
     private void jButtonReturHjemmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReturHjemmeActionPerformed
         DelOrdre selectedDelOrdre = (DelOrdre) jListReturDele.getSelectedValue();
         int index = jListOrdrer.getSelectedIndex();
@@ -1136,7 +1116,7 @@ public final class GUI extends javax.swing.JFrame {
         jLabelErrorOrdre.setText("");
         int selectedIndex = jList3.getSelectedIndex();
         if (jList3.getSelectedValue() != null) {
-            controller.pakkeListe((Ordre) jList3.getSelectedValue());
+            controller.pakkeliste((Ordre) jList3.getSelectedValue());
             update();
             controller.setCurrentOrder((Ordre) list3.getElementAt(selectedIndex));
             controller.PDFPakkeliste();
@@ -1305,9 +1285,25 @@ public final class GUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonOrdreTilføjActionPerformed
 
-    private void jButtonLeverActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
+    private void jButtonReturLevrérActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReturLevrérActionPerformed
+        listReturDele.clear();
+        Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
+        if (selected != null) {
+            for (int i = 0; i < selected.getDelo().size(); i++) {
+                listReturDele.addElement(selected.getDelo().get(i));
+            }
+            boolean status = true;
+            for (int i = 0; i < listReturDele.size(); i++) {
+                DelOrdre delordre = (DelOrdre) listReturDele.get(i);
+                status = status && delordre.getStatus() == 1;
+            }
+            if (status) {
+                jButtonReturAfslutOrdre.setEnabled(true);
+            } else {
+                jButtonReturAfslutOrdre.setEnabled(false);
+            }
+        }
+    }//GEN-LAST:event_jButtonReturLevrérActionPerformed
 
     public static void main(String args[]) {
 
@@ -1420,7 +1416,7 @@ public final class GUI extends javax.swing.JFrame {
         }
 
         // jComboBox1:
-        ArrayList<Kunde> kl = controller.getAllCostumers();
+        ArrayList<Kunde> kl = controller.getAllCustomers();
         Kunde[] ka = new Kunde[kl.size()];
         for (int i = 0; i < kl.size(); i++) {
             ka[i] = kl.get(i);
@@ -1615,7 +1611,7 @@ public final class GUI extends javax.swing.JFrame {
             listLagerDele.clear();
         }
         // Kundeliste 
-        ArrayList<Kunde> kl9 = controller.getAllCostumers();
+        ArrayList<Kunde> kl9 = controller.getAllCustomers();
         Kunde[] ka9 = new Kunde[kl9.size()];
         for (int i = 0; i < kl9.size(); i++) {
             ka9[i] = kl9.get(i);
