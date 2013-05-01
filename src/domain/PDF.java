@@ -32,7 +32,7 @@ public class PDF {
     return formatter.format(price);
     }
     
-    public void PdfOrdre(Ordre currentOrder, Kunde kunde, ArrayList<Odetaljer> odetaljeArray, ArrayList<Vare> vareArray, Postnummer postnummer) throws DocumentException, FileNotFoundException {
+    public void pdfOrdre(Ordre currentOrder, Kunde kunde, ArrayList<Odetaljer> odetaljeArray, ArrayList<Vare> vareArray, Postnummer postnummer) throws DocumentException, FileNotFoundException {
 
         int postnr = kunde.getPostnummer();
         String adresse = kunde.getAdresse();
@@ -417,7 +417,7 @@ public class PDF {
         }
     }
 
-    public void PdfFaktura(Ordre currentOrder, Kunde kunde, ArrayList<Odetaljer> odetaljeArray, ArrayList<Vare> vareArray, Postnummer postnummer) throws DocumentException, FileNotFoundException {
+    public void pdfFaktura(Ordre currentOrder, Kunde kunde, ArrayList<Odetaljer> odetaljeArray, ArrayList<Vare> vareArray, Postnummer postnummer) throws DocumentException, FileNotFoundException {
 
         int postnr = kunde.getPostnummer();
         String adresse = kunde.getAdresse();

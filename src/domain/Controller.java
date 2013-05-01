@@ -811,7 +811,7 @@ public class Controller {
 
         PDF pdf = new PDF();
         try {
-            pdf.PdfOrdre(currentOrder, kunde, odetaljeArray, vareArray, postnummer);
+            pdf.pdfOrdre(currentOrder, kunde, odetaljeArray, vareArray, postnummer);
         } catch (DocumentException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         } catch (FileNotFoundException ex) {
@@ -874,7 +874,7 @@ public class Controller {
 
         PDF pdf = new PDF();
         try {
-            pdf.PdfFaktura(currentOrder, kunde, odetaljeArray, vareArray, postnummer);
+            pdf.pdfFaktura(currentOrder, kunde, odetaljeArray, vareArray, postnummer);
         } catch (DocumentException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         } catch (FileNotFoundException ex) {
