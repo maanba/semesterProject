@@ -16,8 +16,6 @@ import domain.Del;
  */
 public class DelMapper {
 
-    static boolean testRun = false;
-
     public boolean insertDel(ArrayList<Del> delListe, Connection conn) throws SQLException {
         String SQLString = "insert into odetaljer values (?,?,?)";
         PreparedStatement statement = null;
@@ -38,9 +36,6 @@ public class DelMapper {
             if (!statement.isClosed()) {
                 statement.close();
             }
-        }
-        if (testRun) {
-            System.out.println("insertVareDel:" + (rowsInserted == delListe.size())); // for test
         }
         return rowsInserted == delListe.size();
     }
@@ -67,9 +62,6 @@ public class DelMapper {
             if (!statement.isClosed()) {
                 statement.close();
             }
-        }
-        if (testRun) {
-            System.out.println("updateDel: " + (rowsUpdated == delListe.size())); // for test
         }
         return (rowsUpdated == delListe.size());
     }

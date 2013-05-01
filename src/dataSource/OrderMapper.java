@@ -10,8 +10,6 @@ import java.util.ArrayList;
 
 public class OrderMapper {
 
-    static boolean testRun = false;
-
     // Ordre
     public boolean insertOrdrer(ArrayList<Ordre> ol, Connection conn) throws SQLException {
         int rowsInserted = 0;
@@ -53,9 +51,6 @@ public class OrderMapper {
             if (!statement.isClosed()) {
                 statement.close();
             }
-        }
-        if (testRun) {
-            System.out.println("insertOrdrer(): " + (rowsInserted == ol.size())); // for test
         }
         return (rowsInserted == ol.size());
     }
@@ -103,9 +98,6 @@ public class OrderMapper {
             if (!statement.isClosed()) {
                 statement.close();
             }
-        }
-        if (testRun) {
-            System.out.println("updateOrdrer: " + (rowsUpdated == ol.size())); // for test
         }
         return (rowsUpdated == ol.size());    // false if any conflict in version number             
     }
@@ -246,9 +238,6 @@ public class OrderMapper {
                 statement.close();
             }
         }
-        if (testRun) {
-            System.out.println("Retrieved ordrer: " + o);
-        }
         return ol;
     }
 
@@ -327,9 +316,6 @@ public class OrderMapper {
             if (!statement.isClosed()) {
                 statement.close();
             }
-        }
-        if (testRun) {
-            System.out.println("Retrieved ordre: " + o);
         }
         return o;
     }
