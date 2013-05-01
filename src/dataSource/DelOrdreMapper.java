@@ -16,8 +16,6 @@ import domain.DelOrdre;
  */
 public class DelOrdreMapper {
     
-    static boolean testRun = false;
-    
     public boolean insertDelOrdrer(ArrayList<DelOrdre> delordre, Connection conn) throws SQLException {
         String SQLString = "insert into delordre values (?,?,?,?,?)";
         PreparedStatement statement = null;
@@ -45,9 +43,6 @@ public class DelOrdreMapper {
                 statement.close();
             }
         }
-        if (testRun) {
-            System.out.println("insertVareDel:" + (rowsInserted == delordre.size())); // for test
-        }
         return rowsInserted == delordre.size();
     }
 
@@ -74,9 +69,6 @@ public class DelOrdreMapper {
             if (!statement.isClosed()) {
                 statement.close();
             }
-        }
-        if (testRun) {
-            System.out.println("updateOrdrer: " + (rowsUpdated == dol.size())); // for test
         }
         return (rowsUpdated == dol.size());
     }

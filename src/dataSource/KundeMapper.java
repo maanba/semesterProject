@@ -17,8 +17,6 @@ import domain.Kunde;
  */
 public class KundeMapper {
     
-    static boolean testRun = false;
-    
         public boolean insertKunder(ArrayList<Kunde> kl, Connection conn) throws SQLException {
         int rowsInserted = 0;
         String SQLString = "insert into Kunder values (?,?,?,?,?,?)";
@@ -41,9 +39,6 @@ public class KundeMapper {
             if (!statement.isClosed()) {
                 statement.close();
             }
-        }
-        if (testRun) {
-            System.out.println("insertOrdrer(): " + (rowsInserted == kl.size())); // for test
         }
         return (rowsInserted == kl.size());
     }
@@ -73,9 +68,6 @@ public class KundeMapper {
             if (!statement.isClosed()) {
                 statement.close();
             }
-        }
-        if (testRun) {
-            System.out.println("updateOrdrer: " + (rowsUpdated == kl.size())); // for test
         }
         return (rowsUpdated == kl.size());    // false if any conflict in version number             
     }
@@ -147,9 +139,6 @@ public class KundeMapper {
             if (!statement.isClosed()) {
                 statement.close();
             }
-        }
-        if (testRun) {
-            System.out.println("Retrieved ordrer: " + k);
         }
         return kl;
     }

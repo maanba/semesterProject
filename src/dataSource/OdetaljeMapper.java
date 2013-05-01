@@ -16,8 +16,6 @@ import domain.Odetaljer;
  */
 public class OdetaljeMapper {
     
-    static boolean testRun = false; 
-    
     public boolean updateOdetaljer(ArrayList<Odetaljer> odl, Connection conn) throws SQLException {
         int rowsUpdated = 0;
         String SQLString = "update odetaljer "
@@ -40,9 +38,6 @@ public class OdetaljeMapper {
             if (!statement.isClosed()) {
                 statement.close();
             }
-        }
-        if (testRun) {
-            System.out.println("updateOrdrer: " + (rowsUpdated == odl.size())); // for test
         }
         return (rowsUpdated == odl.size());
     }
@@ -70,9 +65,6 @@ public class OdetaljeMapper {
             if (!statement.isClosed()) {
                 statement.close();
             }
-        }
-        if (testRun) {
-            System.out.println("insertOdetaljer:" + (rowsInserted == odl.size())); // for test
         }
         return rowsInserted == odl.size();
     }

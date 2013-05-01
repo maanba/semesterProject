@@ -18,8 +18,6 @@ import domain.Vare;
  */
 public class VareMapper {
     
-    static boolean testRun = false;
-    
     public boolean insertVarer(ArrayList<Vare> vl, Connection conn) throws SQLException {
         int rowsInserted = 0;
         String SQLString = "insert into varer values (?,?,?,?,?)";
@@ -55,9 +53,6 @@ public class VareMapper {
             if (!statement.isClosed()) {
                 statement.close();
             }
-        }
-        if (testRun) {
-            System.out.println("insertOrdrer(): " + (rowsInserted == vl.size())); // for test
         }
         return (rowsInserted == vl.size());
     }
@@ -106,9 +101,6 @@ public class VareMapper {
             if (!statement.isClosed()) {
                 statement.close();
             }
-        }
-        if (testRun) {
-            System.out.println("updateOrdrer: " + (rowsUpdated == vl.size())); // for test
         }
         return (rowsUpdated == vl.size());    // false if any conflict in version number             
     }
@@ -195,9 +187,6 @@ public class VareMapper {
                 statement.close();
             }
         }
-        if (testRun) {
-            System.out.println("Retrieved ordre: " + v);
-        }
         return vl;
     }
 
@@ -241,9 +230,6 @@ public class VareMapper {
             if (!statement.isClosed()) {
                 statement.close();
             }
-        }
-        if (testRun) {
-            System.out.println("Retrieved Varer: " + vare);
         }
         return vare;
     }
