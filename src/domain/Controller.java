@@ -203,7 +203,7 @@ public class Controller {
         return currentOrder;
     }
 
-    public void updateOrder(int knummer, double pris, double rabat, double depositum, String tidLev, String tidRet, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer, ArrayList<DelOrdre> delordre) {
+    public void updateOrder(int knummer, double pris, double rabat, double depositum, String tidLev, String tidRet, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer, String kommentar, ArrayList<DelOrdre> delordre) {
         currentOrder.setAfhentning(afhentning);
         currentOrder.setKnummer(knummer);
         currentOrder.setLevering(levering);
