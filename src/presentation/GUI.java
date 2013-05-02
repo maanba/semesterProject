@@ -1215,7 +1215,7 @@ public final class GUI extends javax.swing.JFrame {
                         }
                         String leveringDate = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                         String returneringDate = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
-                        controller.gennemførOrdrer(jRadioButtonAfhentning.isSelected(), "" + jComboBoxKunder.getSelectedItem(), Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), Double.parseDouble(jTextFieldTotalPris.getText()) * 0.25, "" + jComboBoxLevering.getSelectedItem(), "" + jComboBoxAfhentning.getSelectedItem(), leveringDate, returneringDate, odetaljer, delordre);
+                        controller.gennemførOrdrer(jComboBoxKunder.getSelectedItem().toString(), jRadioButtonAfhentning.isSelected(), "" + jComboBoxKunder.getSelectedItem(), Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), Double.parseDouble(jTextFieldTotalPris.getText()) * 0.25, "" + jComboBoxLevering.getSelectedItem(), "" + jComboBoxAfhentning.getSelectedItem(), leveringDate, returneringDate, odetaljer, delordre);
                         list2.clear();
                         list3.clear();
                         jLabelErrorOrdre.setText("");
@@ -1350,16 +1350,18 @@ public final class GUI extends javax.swing.JFrame {
     public void cellRenderer() {
         
         // list3
+        
         jList3.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList list, Object value, int index,
                     boolean isSelected, boolean cellHasFocus) {
                 Ordre ordre = (Ordre) value;
                 JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                label.setText("" + ordre.getOnummer() + ", " + ordre.getKnummer());
+                label.setText("" + ordre.getOnummer() + ", " + ordre.getKnavn());
                 return label;
             }
         });
+        
     }
 
     public void update() {
@@ -1370,7 +1372,20 @@ public final class GUI extends javax.swing.JFrame {
         listOrdrer.clear();
         jComboBoxKunder.removeAllItems();
         jComboBoxKunder.addItem("Kunder");
-
+        
+        
+        // jComboBoxKunder:
+        ArrayList<Kunde> kl = controller.getAllCustomers();
+        Kunde[] ka = new Kunde[kl.size()];
+        for (int i = 0; i < kl.size(); i++) {
+            ka[i] = kl.get(i);
+        }
+        controller.quickSortKunde(ka, 0, ka.length - 1);
+        for (int i = 0; i < ka.length; i++) {
+            jComboBoxKunder.addItem(ka[i].getNavn());
+        }
+        
+        
         // list3 & listHistorik & listOrdrer:
         ArrayList<Ordre> ol = controller.getAllOrdres();
         Ordre[] oa = new Ordre[ol.size()];
@@ -1388,16 +1403,7 @@ public final class GUI extends javax.swing.JFrame {
             }
         }
 
-        // jComboBoxKunder:
-        ArrayList<Kunde> kl = controller.getAllCustomers();
-        Kunde[] ka = new Kunde[kl.size()];
-        for (int i = 0; i < kl.size(); i++) {
-            ka[i] = kl.get(i);
-        }
-        controller.quickSortKunde(ka, 0, ka.length - 1);
-        for (int i = 0; i < ka.length; i++) {
-            jComboBoxKunder.addItem(ka[i].getNavn());
-        }
+
 
         // list2:
         ArrayList<Vare> vl2 = new ArrayList<>();

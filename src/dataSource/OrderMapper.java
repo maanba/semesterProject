@@ -1,6 +1,7 @@
 package dataSource;
 
 import domain.DelOrdre;
+import domain.Kunde;
 import domain.Odetaljer;
 import domain.Ordre;
 import java.sql.*;
@@ -180,7 +181,8 @@ public class OrderMapper {
                 statement.setInt(1, (int) ono.get(j));
                 rs = statement.executeQuery();
                 if (rs.next()) {
-                    o = new Ordre(rs.getInt(1),
+                    o = new Ordre("",
+                            rs.getInt(1),
                             rs.getInt(2),
                             rs.getInt(3),
                             rs.getDouble(4),
@@ -195,7 +197,7 @@ public class OrderMapper {
                             dateFormat.format(rs.getDate(13)),
                             dateFormat.format(rs.getDate(14)),
                             rs.getInt(15));
-
+                    
                     //=== get ordre details
                     statement.close();
                     statement = conn.prepareStatement(SQLString2);
@@ -262,7 +264,8 @@ public class OrderMapper {
             statement.setInt(1, ono);
             rs = statement.executeQuery();
             if (rs.next()) {
-                o = new Ordre(ono,
+                o = new Ordre("",
+                        ono,
                         rs.getInt(2),
                         rs.getInt(3),
                         rs.getDouble(4),

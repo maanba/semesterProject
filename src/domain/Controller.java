@@ -158,7 +158,7 @@ public class Controller {
         return result;
     }
 
-    public Ordre addNewOrder(int knummer, double pris, double rabat, double depositum, String tidLev, String tidRet, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer, ArrayList<DelOrdre> delordre) {
+    public Ordre addNewOrder(String knavn, int knummer, double pris, double rabat, double depositum, String tidLev, String tidRet, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer, ArrayList<DelOrdre> delordre) {
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
         int montører = 0;
@@ -187,7 +187,7 @@ public class Controller {
                     }
                 }
             }
-            currentOrder = new Ordre(newOrderNo, 0, knummer, pris, rabat, depositum, tidLev, tidRet, afhentning, montører, status, modtaget, levering, returnering, 0);
+            currentOrder = new Ordre(knavn, newOrderNo, 0, knummer, pris, rabat, depositum, tidLev, tidRet, afhentning, montører, status, modtaget, levering, returnering, 0);
             dbFacade.registerNewOrdre(currentOrder);
             for (int i = 0; i < odetaljer.size(); i++) {
                 dbFacade.registerNewOdetalje(odetaljer.get(i));
@@ -404,8 +404,6 @@ public class Controller {
         dbFacade.startNewBusinessTransaction();
         dbFacade.registerNewVare(ressource);
         dbFacade.commitBusinessTransaction();
-
-        System.out.println(dbFacade.getAllKunder());
     }
 
     public int getNextVnummer() {
@@ -586,7 +584,7 @@ public class Controller {
         return va;
     }
 
-    public boolean gennemførOrdrer(boolean afBool, String kunde, double pris, double rabat, double depositum, String tidLev, String tidRet, String lev, String ret, ArrayList<Odetaljer> odetaljer, ArrayList<DelOrdre> delordre) {
+    public boolean gennemførOrdrer(String knavn, boolean afBool, String kunde, double pris, double rabat, double depositum, String tidLev, String tidRet, String lev, String ret, ArrayList<Odetaljer> odetaljer, ArrayList<DelOrdre> delordre) {
         boolean result = false;
         ArrayList<Kunde> kunder = getAllCustomers();
         int kno = 0;
@@ -603,9 +601,9 @@ public class Controller {
         }
         if (currentOrder == null) {
             if (afBool) {
-                addNewOrder(kno, pris, rabat, depositum, "", "", afhentning, "Påbegyndt", lev, ret, odetaljer, delordre);
+                addNewOrder(knavn, kno, pris, rabat, depositum, "", "", afhentning, "Påbegyndt", lev, ret, odetaljer, delordre);
             } else {
-                addNewOrder(kno, pris, rabat, depositum, tidLev, tidRet, afhentning, "Påbegyndt", lev, ret, odetaljer, delordre);
+                addNewOrder(knavn, kno, pris, rabat, depositum, tidLev, tidRet, afhentning, "Påbegyndt", lev, ret, odetaljer, delordre);
             }
             result = true;
         } else if (currentOrder != null) {
@@ -774,6 +772,10 @@ public class Controller {
 
     public ArrayList<Ordre> getAllOrdres() {
         ArrayList<Ordre> ol = dbFacade.getAllOrdrer();
+        for (int i = 0; i < ol.size(); i++) {
+            Kunde k = dbFacade.getKunde(ol.get(i).getKnummer());
+            ol.get(i).setKnavn(k.getNavn());
+        }
         return ol;
     }
 
