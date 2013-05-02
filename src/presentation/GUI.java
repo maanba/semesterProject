@@ -1401,6 +1401,7 @@ public final class GUI extends javax.swing.JFrame {
 
         // list2:
         ArrayList<Vare> vl2 = new ArrayList<>();
+        boolean telt = false;
         if (list2.isEmpty() == false) {
             for (int i = 0; i < list2.size(); i++) {
                 vl2.add((Vare) list2.get(i));
@@ -1420,9 +1421,20 @@ public final class GUI extends javax.swing.JFrame {
                 for (int i = 0; i < list2.size(); i++) {
                     Vare vare = (Vare) list2.getElementAt(i);
                     totalpris += vare.getPris() * vare.getQty();
+                    if (vare.getVnavn().contains("Telt")) {
+                        telt = true;
+                    }
                 }
                 jTextFieldTotalPris.setText(totalpris + "");
             }
+        }
+        if (telt) {
+            jRadioButtonLevering.setSelected(true);
+            jRadioButtonAfhentning.setEnabled(false);
+            jComboBoxAfhentning.setEnabled(true);
+            jComboBoxLevering.setEnabled(true);
+        } else {
+            jRadioButtonAfhentning.setEnabled(true);
         }
 
         // list1:
