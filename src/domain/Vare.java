@@ -91,6 +91,6 @@ public class Vare {
                 navn += " ";
             }
         }
-        return navn + qty;
+        return navn + "   " +qty;
     }
 }
