@@ -1215,10 +1215,13 @@ public final class GUI extends javax.swing.JFrame {
                         }
                         String leveringDate = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                         String returneringDate = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
+                        if(jTextFieldRabat.getText().isEmpty())
+                        {
+                            jTextFieldRabat.setText("0");
+                        }
                         controller.gennemførOrdrer(jComboBoxKunder.getSelectedItem().toString(), jRadioButtonAfhentning.isSelected(), "" + jComboBoxKunder.getSelectedItem(), Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), Double.parseDouble(jTextFieldTotalPris.getText()) * 0.25, "" + jComboBoxLevering.getSelectedItem(), "" + jComboBoxAfhentning.getSelectedItem(), leveringDate, returneringDate, odetaljer, delordre);
                         list2.clear();
                         list3.clear();
-                        jLabelErrorOrdre.setText("");
                         jTextFieldTotalPris.setText("");
                         jTextFieldRabat.setText("");
                         jTextFieldDagInd.setText("");
@@ -1228,7 +1231,8 @@ public final class GUI extends javax.swing.JFrame {
                         jTextFieldÅrInd.setText("");
                         jTextFieldÅrUd.setText("");
                         controller.redigerFalse();
-
+                        controller.redigerFalse();
+                        update();
                     } else {
                         jLabelErrorOrdre.setText("Vælg afhentning eller levering.");
                     }
@@ -1236,8 +1240,7 @@ public final class GUI extends javax.swing.JFrame {
             } else {
                 jLabelErrorOrdre.setText("Vælg en kunde.");
             }
-            controller.redigerFalse();
-            update();
+
         }
     }//GEN-LAST:event_jButtonOrdreGennemførOrdreActionPerformed
 
@@ -1348,9 +1351,9 @@ public final class GUI extends javax.swing.JFrame {
     }
 
     public void cellRenderer() {
-        
+
         // list3
-        
+
         jList3.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList list, Object value, int index,
@@ -1361,7 +1364,7 @@ public final class GUI extends javax.swing.JFrame {
                 return label;
             }
         });
-        
+
     }
 
     public void update() {
@@ -1372,8 +1375,8 @@ public final class GUI extends javax.swing.JFrame {
         listOrdrer.clear();
         jComboBoxKunder.removeAllItems();
         jComboBoxKunder.addItem("Kunder");
-        
-        
+
+
         // jComboBoxKunder:
         ArrayList<Kunde> kl = controller.getAllCustomers();
         Kunde[] ka = new Kunde[kl.size()];
@@ -1384,8 +1387,8 @@ public final class GUI extends javax.swing.JFrame {
         for (int i = 0; i < ka.length; i++) {
             jComboBoxKunder.addItem(ka[i].getNavn());
         }
-        
-        
+
+
         // list3 & listHistorik & listOrdrer:
         ArrayList<Ordre> ol = controller.getAllOrdres();
         Ordre[] oa = new Ordre[ol.size()];
