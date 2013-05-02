@@ -668,7 +668,7 @@ public final class GUI extends javax.swing.JFrame {
 
         jLabel15.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel15.setText("Kundeliste:");
+        jLabel15.setText("Ordreliste:");
         jPanelHistorik.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 220, 40));
 
         jTabbedPane1.addTab("Historik", jPanelHistorik);
