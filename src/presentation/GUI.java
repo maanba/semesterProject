@@ -1215,7 +1215,7 @@ public final class GUI extends javax.swing.JFrame {
                         }
                         String leveringDate = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
                         String returneringDate = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
-                        controller.gennemførOrdrer(jRadioButtonAfhentning.isSelected(), "" + jComboBoxKunder.getSelectedItem(), Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), Double.parseDouble(jTextFieldTotalPris.getText()) * 0.25, "" + jComboBoxLevering.getSelectedItem(), "" + jComboBoxAfhentning.getSelectedItem(), leveringDate, returneringDate, odetaljer, "", delordre);
+                        controller.gennemførOrdrer(jRadioButtonAfhentning.isSelected(), "" + jComboBoxKunder.getSelectedItem(), Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), Double.parseDouble(jTextFieldTotalPris.getText()) * 0.25, "" + jComboBoxLevering.getSelectedItem(), "" + jComboBoxAfhentning.getSelectedItem(), leveringDate, returneringDate, odetaljer, delordre);
                         list2.clear();
                         list3.clear();
                         jLabelErrorOrdre.setText("");
@@ -1348,43 +1348,15 @@ public final class GUI extends javax.swing.JFrame {
     }
 
     public void cellRenderer() {
-        jList1.setCellRenderer(new DefaultListCellRenderer() { // Setting the DefaultListCellRenderer
+        
+        // list3
+        jList3.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList list, Object value, int index,
                     boolean isSelected, boolean cellHasFocus) {
-                Vare vare = (Vare) value;  // Using value we are getting the object in JList
+                Ordre ordre = (Ordre) value;
                 JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                label.setText(vare.toString());  // Setting the text
-                return label;
-            }
-        });
-        jList2.setCellRenderer(new DefaultListCellRenderer() { // Setting the DefaultListCellRenderer
-            @Override
-            public Component getListCellRendererComponent(JList list, Object value, int index,
-                    boolean isSelected, boolean cellHasFocus) {
-                Vare vare = (Vare) value;  // Using value we are getting the object in JList
-                JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                label.setText(vare.toString());  // Setting the text
-                return label;
-            }
-        });
-        jList3.setCellRenderer(new DefaultListCellRenderer() { // Setting the DefaultListCellRenderer
-            @Override
-            public Component getListCellRendererComponent(JList list, Object value, int index,
-                    boolean isSelected, boolean cellHasFocus) {
-                Ordre ordre = (Ordre) value;  // Using value we are getting the object in JList
-                JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                label.setText("" + ordre.toString());  // Setting the text
-                return label;
-            }
-        });
-        jListReturDele.setCellRenderer(new DefaultListCellRenderer() { // Setting the DefaultListCellRenderer
-            @Override
-            public Component getListCellRendererComponent(JList list, Object value, int index,
-                    boolean isSelected, boolean cellHasFocus) {
-                DelOrdre delordre = (DelOrdre) value;  // Using value we are getting the object in JList
-                JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                label.setText(delordre.toString());  // Setting the text
+                label.setText("" + ordre.getOnummer() + ", " + ordre.getKnummer());
                 return label;
             }
         });
@@ -1416,7 +1388,7 @@ public final class GUI extends javax.swing.JFrame {
             }
         }
 
-        // jComboBox1:
+        // jComboBoxKunder:
         ArrayList<Kunde> kl = controller.getAllCustomers();
         Kunde[] ka = new Kunde[kl.size()];
         for (int i = 0; i < kl.size(); i++) {
@@ -1473,7 +1445,7 @@ public final class GUI extends javax.swing.JFrame {
             }
         }
 
-        //jComboBox2 & jComboBox3
+        //jComboBoxLevering & jComboBoxAfhentning
         int[] tidLev = new int[5];
         int[] tidRet = new int[5];
         jComboBoxLevering.removeAllItems();

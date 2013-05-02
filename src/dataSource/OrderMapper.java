@@ -42,8 +42,7 @@ public class OrderMapper {
                 statement.setString(12, o.getModtaget());
                 statement.setString(13, o.getLevering());
                 statement.setString(14, o.getReturnering());
-                statement.setString(15, o.getKommentar());
-                statement.setInt(16, o.getVer());
+                statement.setInt(15, o.getVer());
                 rowsInserted += statement.executeUpdate();
                 statement.close();
             }
@@ -58,7 +57,7 @@ public class OrderMapper {
     public boolean updateOrdrer(ArrayList<Ordre> ol, Connection conn) throws SQLException {
         int rowsUpdated = 0;
         String SQLString = "update ordrer "
-                + "set fnummer = ?, knummer = ?, pris = ?, rabat = ?, depositum = ?, tidlev = ?, tidret = ?, afhentning = ?, montoerer = ?, status = ?, modtaget = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), levering = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), returnering = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), kommentar = ?, ver = ? "
+                + "set fnummer = ?, knummer = ?, pris = ?, rabat = ?, depositum = ?, tidlev = ?, tidret = ?, afhentning = ?, montoerer = ?, status = ?, modtaget = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), levering = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), returnering = to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'), ver = ? "
                 + "where onummer = ? and ver = ?";
         PreparedStatement statement = null;
 
@@ -83,10 +82,9 @@ public class OrderMapper {
                 statement.setString(11, o.getModtaget());
                 statement.setString(12, o.getLevering());
                 statement.setString(13, o.getReturnering());
-                statement.setString(14, o.getKommentar());
-                statement.setInt(15, o.getVer() + 1); // next version number
-                statement.setInt(16, o.getOnummer());
-                statement.setInt(17, o.getVer());   // old version number
+                statement.setInt(14, o.getVer() + 1); // next version number
+                statement.setInt(15, o.getOnummer());
+                statement.setInt(16, o.getVer());   // old version number
                 int tupleUpdated = statement.executeUpdate();
                 if (tupleUpdated == 1) {
                     o.nuVer();                       // increment version in current OrderObject
@@ -196,8 +194,7 @@ public class OrderMapper {
                             dateFormat.format(rs.getDate(12)),
                             dateFormat.format(rs.getDate(13)),
                             dateFormat.format(rs.getDate(14)),
-                            rs.getString(15),
-                            rs.getInt(16));
+                            rs.getInt(15));
 
                     //=== get ordre details
                     statement.close();
@@ -279,8 +276,7 @@ public class OrderMapper {
                         dateFormat.format(rs.getDate(12)),
                         dateFormat.format(rs.getDate(13)),
                         dateFormat.format(rs.getDate(14)),
-                        rs.getString(15),
-                        rs.getInt(16));
+                        rs.getInt(15));
 
                 //=== get ordre details
                 statement.close();
