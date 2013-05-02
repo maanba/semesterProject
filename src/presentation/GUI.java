@@ -8,7 +8,10 @@ import domain.Ordre;
 import domain.Del;
 import domain.Vare;
 import java.awt.Component;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
@@ -40,7 +43,10 @@ public final class GUI extends javax.swing.JFrame {
                 controller.releaseConnection();
             }
         });
-
+        Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("YYYY");
+        jTextFieldÅrInd.setText(dateFormat.format(date));
+        jTextFieldÅrUd.setText(dateFormat.format(date));
         jList1.setModel(list1);
         jList2.setModel(list2);
         jList3.setModel(list3);
@@ -1213,8 +1219,18 @@ public final class GUI extends javax.swing.JFrame {
                                 delordre.add(new DelOrdre(vare.getDel().get(j).getTitel(), vare.getVnummer(), 0, 1, vare.getDel().get(j).getAntal()));
                             }
                         }
-                        String leveringDate = Integer.parseInt(jTextFieldDagUd.getText()) + "-" + Integer.parseInt(jTextFieldMånedUd.getText()) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
-                        String returneringDate = Integer.parseInt(jTextFieldDagInd.getText()) + "-" + Integer.parseInt(jTextFieldMånedInd.getText()) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
+                        String[] d = new String[4];
+                        d[0] = jTextFieldDagUd.getText();
+                        d[1] = jTextFieldMånedUd.getText();
+                        d[2] = jTextFieldDagInd.getText();
+                        d[3] = jTextFieldMånedInd.getText();
+                        for (int i = 0; i < d.length; i++) {
+                            if (d[i].length() < 2){
+                                d[i] = "0" + d[i];
+                            }
+                        }
+                        String leveringDate = Integer.parseInt(d[0]) + "-" + Integer.parseInt(d[1]) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
+                        String returneringDate = Integer.parseInt(d[2]) + "-" + Integer.parseInt(d[3]) + "-" + Integer.parseInt(jTextFieldÅrInd.getText());
                         controller.gennemførOrdrer(jRadioButtonAfhentning.isSelected(), "" + jComboBoxKunder.getSelectedItem(), Double.parseDouble(jTextFieldTotalPris.getText()), Double.parseDouble(jTextFieldRabat.getText()), Double.parseDouble(jTextFieldTotalPris.getText()) * 0.25, "" + jComboBoxLevering.getSelectedItem(), "" + jComboBoxAfhentning.getSelectedItem(), leveringDate, returneringDate, odetaljer, delordre);
                         list2.clear();
                         list3.clear();

@@ -17,7 +17,7 @@ public class OrderMapper {
                 + "to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'),"
                 + "to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'),"
                 + "to_date(?, 'DD MM YYYY','NLS_DATE_LANGUAGE = American'),"
-                + "?,?)";
+                + "?)";
         PreparedStatement statement = null;
         statement = conn.prepareStatement(SQLString);
 
