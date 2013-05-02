@@ -1153,7 +1153,7 @@ public final class GUI extends javax.swing.JFrame {
         jLabelErrorOrdre.setText("");
         Ordre selected = (Ordre) jList3.getSelectedValue();
         if (selected != null) {
-            if (list2.isEmpty() == false) {
+            if (controller.getRediger() == false) {
                 ArrayList<Odetaljer> od = selected.getOd();
                 for (int i = 0; i < od.size(); i++) {
                     Vare vare = controller.getVare(od.get(i).getVnummer());
@@ -1260,6 +1260,7 @@ public final class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonOrdreFjernActionPerformed
     private void jButtonOrdreTilføjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdreTilføjActionPerformed
         boolean check = false;
+        int index = jComboBoxKunder.getSelectedIndex();
         Vare selected = (Vare) jList1.getSelectedValue();
         if (selected != null) {
             selected.setQty(Integer.parseInt(jTextFieldAntal.getText()));
@@ -1282,6 +1283,7 @@ public final class GUI extends javax.swing.JFrame {
                 jLabelErrorOrdre.setText("Der er ikke nok varer på lager til ordren.");
             }
             update();
+            jComboBoxKunder.setSelectedIndex(index);
         }
     }//GEN-LAST:event_jButtonOrdreTilføjActionPerformed
 
@@ -1404,7 +1406,6 @@ public final class GUI extends javax.swing.JFrame {
             oa[i] = ol.get(i);
         }
         controller.quickSortOrdre(oa, 0, oa.length - 1);
-        // controller.quickSortOrdre(oa, 0, oa.length - 1);
         for (int i = 0; i < oa.length; i++) {
             if (!"Afsluttet".equals(oa[i].getStatus())) {
                 list3.addElement(oa[i]);
