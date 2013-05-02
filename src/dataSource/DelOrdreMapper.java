@@ -72,4 +72,21 @@ public class DelOrdreMapper {
         }
         return (rowsUpdated == dol.size());
     }
+    
+    public boolean deleteDelOrdre(int ono, Connection conn) throws SQLException {
+        int deletedOrdrer = 0;
+        String SQLString = "delete from delordre "
+                + "where onummer = ?";
+
+        PreparedStatement statement = conn.prepareStatement(SQLString);
+        try {
+            statement.setInt(1, ono);
+            statement.executeUpdate();
+        } finally {
+            if (!statement.isClosed()) {
+                statement.close();
+            }
+        }
+        return (deletedOrdrer == 1);
+    }
 }

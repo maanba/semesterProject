@@ -228,11 +228,12 @@ public class DBFacade {
         }
     }
 
-    public boolean deleteDelOrdre(DelOrdre delo) {
+    public boolean deleteDelOrdre(int ono) {
         boolean status = false;
-
-        if (uow != null) {
-            status = uow.registerDeletedDelOrdre(delo);
+        try {
+            status = new DelOrdreMapper().deleteDelOrdre(ono, con);
+        } catch (SQLException ex) {
+            System.out.println("fail in deleteOdetaljer");
         }
         return status;
     }

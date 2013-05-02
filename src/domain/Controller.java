@@ -239,6 +239,7 @@ public class Controller {
             delordre.get(i).setOnummer(currentOrder.getOnummer());
         }
         dbFacade.deleteOdetalje(currentOrder.getOnummer());
+        dbFacade.deleteDelOrdre(currentOrder.getOnummer());
         dbFacade.registerDirtyOrdre(currentOrder);
         for (int i = 0; i < odetaljer.size(); i++) {
             dbFacade.registerNewOdetalje(odetaljer.get(i));
@@ -584,7 +585,7 @@ public class Controller {
         return va;
     }
 
-    public boolean gennemførOrdrer(String knavn, boolean afBool, String kunde, double pris, double rabat, double depositum, String tidLev, String tidRet, String lev, String ret, ArrayList<Odetaljer> odetaljer, ArrayList<DelOrdre> delordre) {
+    public boolean gennemførOrdrer(boolean afBool, String kunde, double pris, double rabat, double depositum, String tidLev, String tidRet, String lev, String ret, ArrayList<Odetaljer> odetaljer, ArrayList<DelOrdre> delordre) {
         boolean result = false;
         ArrayList<Kunde> kunder = getAllCustomers();
         int kno = 0;
@@ -601,9 +602,9 @@ public class Controller {
         }
         if (currentOrder == null) {
             if (afBool) {
-                addNewOrder(knavn, kno, pris, rabat, depositum, "", "", afhentning, "Påbegyndt", lev, ret, odetaljer, delordre);
+                addNewOrder(kunde, kno, pris, rabat, depositum, "", "", afhentning, "Påbegyndt", lev, ret, odetaljer, delordre);
             } else {
-                addNewOrder(knavn, kno, pris, rabat, depositum, tidLev, tidRet, afhentning, "Påbegyndt", lev, ret, odetaljer, delordre);
+                addNewOrder(kunde, kno, pris, rabat, depositum, tidLev, tidRet, afhentning, "Påbegyndt", lev, ret, odetaljer, delordre);
             }
             result = true;
         } else if (currentOrder != null) {
