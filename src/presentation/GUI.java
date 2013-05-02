@@ -1372,7 +1372,7 @@ public final class GUI extends javax.swing.JFrame {
                     boolean isSelected, boolean cellHasFocus) {
                 Ordre ordre = (Ordre) value;  // Using value we are getting the object in JList
                 JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                label.setText("" + ordre.getOnummer());  // Setting the text
+                label.setText("" + ordre.toString());  // Setting the text
                 return label;
             }
         });
