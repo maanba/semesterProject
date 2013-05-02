@@ -76,7 +76,9 @@ public class PDF {
 
         String afhentning = currentOrder.getAfhentning() + "";
         String levering = currentOrder.getLevering() + "";
+        String tidLev = currentOrder.getTidLev() + "";
         String returnering = currentOrder.getReturnering() + "";
+        String tidRet = currentOrder.getTidRet() + "";
 
         String modtaget = currentOrder.getModtaget() + "";
 
@@ -205,10 +207,10 @@ public class PDF {
                 table3.addCell(new Phrase(afhentning, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table3.addCell("");
                 table3.addCell(new Phrase("Fra dato:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
-                table3.addCell(new Phrase(levering, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table3.addCell(new Phrase(levering + " " + tidLev, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table3.addCell("");
                 table3.addCell(new Phrase("Til dato:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
-                table3.addCell(new Phrase(returnering, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table3.addCell(new Phrase(returnering + " " + tidRet, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table3.addCell("");
 
                 document.add(top);
@@ -266,7 +268,9 @@ public class PDF {
         
         String afhentning = currentOrder.getAfhentning() + "";
         String levering = currentOrder.getLevering() + "";
+        String tidLev = currentOrder.getTidLev() + "";
         String returnering = currentOrder.getReturnering() + "";
+        String tidRet = currentOrder.getTidRet() + "";
 
         String modtaget = currentOrder.getModtaget() + "";
 
@@ -395,10 +399,10 @@ public class PDF {
                 table3.addCell(new Phrase(afhentning, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table3.addCell("");
                 table3.addCell(new Phrase("Fra dato:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
-                table3.addCell(new Phrase(levering, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table3.addCell(new Phrase(levering + " " + tidLev, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table3.addCell("");
                 table3.addCell(new Phrase("Til dato:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
-                table3.addCell(new Phrase(returnering, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table3.addCell(new Phrase(returnering + " " + tidRet, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table3.addCell("");
 
                 document.add(top);
@@ -456,7 +460,9 @@ public class PDF {
         
         String afhentning = currentOrder.getAfhentning() + "";
         String levering = currentOrder.getLevering() + "";
+        String tidLev = currentOrder.getTidLev() + "";
         String returnering = currentOrder.getReturnering() + "";
+        String tidRet = currentOrder.getTidRet() + "";
 
         String modtaget = currentOrder.getModtaget() + "";
 
@@ -584,10 +590,10 @@ public class PDF {
                 table3.addCell(new Phrase(afhentning, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table3.addCell("");
                 table3.addCell(new Phrase("Fra dato:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
-                table3.addCell(new Phrase(levering, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table3.addCell(new Phrase(levering + " " + tidLev, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table3.addCell("");
                 table3.addCell(new Phrase("Til dato:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
-                table3.addCell(new Phrase(returnering, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table3.addCell(new Phrase(returnering + " " + tidRet, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table3.addCell("");
 
                 document.add(top);
@@ -631,7 +637,9 @@ public class PDF {
 
         String afhentning = currentOrder.getAfhentning() + "";
         String levering = currentOrder.getLevering() + "";
+        String tidLev = currentOrder.getTidLev() + "";
         String returnering = currentOrder.getReturnering() + "";
+        String tidRet = currentOrder.getTidRet() + "";
 
         try {
             Document document = new Document();
@@ -747,10 +755,10 @@ public class PDF {
                 table3.addCell(new Phrase(afhentning, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table3.addCell("");
                 table3.addCell(new Phrase("Fra dato:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
-                table3.addCell(new Phrase(levering, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table3.addCell(new Phrase(levering + " " + tidLev, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table3.addCell("");
                 table3.addCell(new Phrase("Til dato:", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
-                table3.addCell(new Phrase(returnering, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
+                table3.addCell(new Phrase(returnering + " " + tidRet, FontFactory.getFont(FontFactory.TIMES_ROMAN, 14)));
                 table3.addCell("");
 
                 document.add(top);
