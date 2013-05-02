@@ -94,7 +94,7 @@ public final class GUI extends javax.swing.JFrame {
         jButtonOrdreRediger = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jList3 = new javax.swing.JList();
-        jButtonOrdreFaktura = new javax.swing.JButton();
+        jButtonOrdreFakturaPDF = new javax.swing.JButton();
         jButtonOrdreTilbudPDF = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jComboBoxKunder = new javax.swing.JComboBox();
@@ -108,7 +108,7 @@ public final class GUI extends javax.swing.JFrame {
         jLabel30 = new javax.swing.JLabel();
         jButtonOrdrePakkeliste = new javax.swing.JButton();
         jButtonOrdreStatus = new javax.swing.JButton();
-        jButtonOrdreCheckDato = new javax.swing.JButton();
+        jButtonOrdreTjekDato = new javax.swing.JButton();
         jComboBoxLevering = new javax.swing.JComboBox();
         jButtonOrdreOrdrePDF = new javax.swing.JButton();
         jComboBoxAfhentning = new javax.swing.JComboBox();
@@ -283,13 +283,13 @@ public final class GUI extends javax.swing.JFrame {
 
         jPanelOrdre.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 110, 160, 280));
 
-        jButtonOrdreFaktura.setText("Faktura PDF");
-        jButtonOrdreFaktura.addActionListener(new java.awt.event.ActionListener() {
+        jButtonOrdreFakturaPDF.setText("Faktura PDF");
+        jButtonOrdreFakturaPDF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonOrdreFakturaActionPerformed(evt);
+                jButtonOrdreFakturaPDFActionPerformed(evt);
             }
         });
-        jPanelOrdre.add(jButtonOrdreFaktura, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 110, 130, -1));
+        jPanelOrdre.add(jButtonOrdreFakturaPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 110, 130, -1));
 
         jButtonOrdreTilbudPDF.setText("Tilbud PDF");
         jButtonOrdreTilbudPDF.addActionListener(new java.awt.event.ActionListener() {
@@ -319,10 +319,10 @@ public final class GUI extends javax.swing.JFrame {
                 jTextFieldRabatActionPerformed(evt);
             }
         });
-        jPanelOrdre.add(jTextFieldRabat, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 160, 60, -1));
+        jPanelOrdre.add(jTextFieldRabat, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 170, 60, -1));
 
         jLabel27.setText(" Rabat:");
-        jPanelOrdre.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 160, -1, -1));
+        jPanelOrdre.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, -1, -1));
 
         jLabel28.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -330,10 +330,10 @@ public final class GUI extends javax.swing.JFrame {
         jPanelOrdre.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 80, 160, 20));
 
         jTextFieldTotalPris.setEditable(false);
-        jPanelOrdre.add(jTextFieldTotalPris, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 130, 60, -1));
+        jPanelOrdre.add(jTextFieldTotalPris, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 140, 60, -1));
 
         jLabel30.setText(" Pris før rabat:");
-        jPanelOrdre.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, -1, -1));
+        jPanelOrdre.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 140, -1, -1));
 
         jButtonOrdrePakkeliste.setText("Pakkeliste");
         jButtonOrdrePakkeliste.addActionListener(new java.awt.event.ActionListener() {
@@ -351,13 +351,13 @@ public final class GUI extends javax.swing.JFrame {
         });
         jPanelOrdre.add(jButtonOrdreStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 230, 130, -1));
 
-        jButtonOrdreCheckDato.setText("Check Dato");
-        jButtonOrdreCheckDato.addActionListener(new java.awt.event.ActionListener() {
+        jButtonOrdreTjekDato.setText("Tjek dato");
+        jButtonOrdreTjekDato.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonOrdreCheckDatoActionPerformed(evt);
+                jButtonOrdreTjekDatoActionPerformed(evt);
             }
         });
-        jPanelOrdre.add(jButtonOrdreCheckDato, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 40, -1, -1));
+        jPanelOrdre.add(jButtonOrdreTjekDato, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 40, -1, -1));
 
         jComboBoxLevering.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Levering", "08:00", "10:00", "12:00", "14:00", "16:00", "Stor Order" }));
         jPanelOrdre.add(jComboBoxLevering, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 40, -1, -1));
@@ -1101,14 +1101,14 @@ public final class GUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonOrdreOrdrePDFActionPerformed
 
-    private void jButtonOrdreCheckDatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdreCheckDatoActionPerformed
+    private void jButtonOrdreTjekDatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdreTjekDatoActionPerformed
         jLabelErrorOrdre.setText("");
         if (jTextFieldDagUd.getText().isEmpty() || jTextFieldMånedUd.getText().isEmpty() || jTextFieldÅrUd.getText().isEmpty() || jTextFieldDagInd.getText().isEmpty() || jTextFieldMånedInd.getText().isEmpty() || jTextFieldÅrInd.getText().isEmpty()) {
             jLabelErrorOrdre.setText("Datoer mangler.");
         } else {
             update();
         }
-    }//GEN-LAST:event_jButtonOrdreCheckDatoActionPerformed
+    }//GEN-LAST:event_jButtonOrdreTjekDatoActionPerformed
 
     private void jButtonOrdreStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdreStatusActionPerformed
         jLabelErrorOrdre.setText("");
@@ -1144,7 +1144,7 @@ public final class GUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonOrdreTilbudPDFActionPerformed
 
-    private void jButtonOrdreFakturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdreFakturaActionPerformed
+    private void jButtonOrdreFakturaPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdreFakturaPDFActionPerformed
         jLabelErrorOrdre.setText("");
         int selectedIndex = jList3.getSelectedIndex();
         if (jList3.getSelectedValue() != null) {
@@ -1153,7 +1153,7 @@ public final class GUI extends javax.swing.JFrame {
             controller.setCurrentOrder((Ordre) list3.getElementAt(selectedIndex));
             controller.pdfFaktura();
         }
-    }//GEN-LAST:event_jButtonOrdreFakturaActionPerformed
+    }//GEN-LAST:event_jButtonOrdreFakturaPDFActionPerformed
 
     private void jButtonOrdreRedigerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdreRedigerActionPerformed
         jLabelErrorOrdre.setText("");
@@ -1364,18 +1364,20 @@ public final class GUI extends javax.swing.JFrame {
     }
 
     public void cellRenderer() {
-        
+
         // list3
+
         jList3.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList list, Object value, int index,
                     boolean isSelected, boolean cellHasFocus) {
                 Ordre ordre = (Ordre) value;
                 JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                label.setText("" + ordre.getOnummer() + ", " + ordre.getKnummer());
+                label.setText("" + ordre.getOnummer() + ", " + ordre.getKnavn());
                 return label;
             }
         });
+
     }
 
     public void update() {
@@ -1386,6 +1388,19 @@ public final class GUI extends javax.swing.JFrame {
         listOrdrer.clear();
         jComboBoxKunder.removeAllItems();
         jComboBoxKunder.addItem("Kunder");
+
+
+        // jComboBoxKunder:
+        ArrayList<Kunde> kl = controller.getAllCustomers();
+        Kunde[] ka = new Kunde[kl.size()];
+        for (int i = 0; i < kl.size(); i++) {
+            ka[i] = kl.get(i);
+        }
+        controller.quickSortKunde(ka, 0, ka.length - 1);
+        for (int i = 0; i < ka.length; i++) {
+            jComboBoxKunder.addItem(ka[i].getNavn());
+        }
+
 
         // list3 & listHistorik & listOrdrer:
         ArrayList<Ordre> ol = controller.getAllOrdres();
@@ -1404,16 +1419,7 @@ public final class GUI extends javax.swing.JFrame {
             }
         }
 
-        // jComboBoxKunder:
-        ArrayList<Kunde> kl = controller.getAllCustomers();
-        Kunde[] ka = new Kunde[kl.size()];
-        for (int i = 0; i < kl.size(); i++) {
-            ka[i] = kl.get(i);
-        }
-        controller.quickSortKunde(ka, 0, ka.length - 1);
-        for (int i = 0; i < ka.length; i++) {
-            jComboBoxKunder.addItem(ka[i].getNavn());
-        }
+
 
         // list2:
         ArrayList<Vare> vl2 = new ArrayList<>();
@@ -1653,8 +1659,7 @@ public final class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonLagerTilføj;
     private javax.swing.JButton jButtonOrdre1;
     private javax.swing.JButton jButtonOrdre3;
-    private javax.swing.JButton jButtonOrdreCheckDato;
-    private javax.swing.JButton jButtonOrdreFaktura;
+    private javax.swing.JButton jButtonOrdreFakturaPDF;
     private javax.swing.JButton jButtonOrdreFjern;
     private javax.swing.JButton jButtonOrdreGennemførOrdre;
     private javax.swing.JButton jButtonOrdreOrdrePDF;
@@ -1663,6 +1668,7 @@ public final class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonOrdreStatus;
     private javax.swing.JButton jButtonOrdreTilbudPDF;
     private javax.swing.JButton jButtonOrdreTilføj;
+    private javax.swing.JButton jButtonOrdreTjekDato;
     private javax.swing.JButton jButtonReturAfslutOrdre;
     private javax.swing.JButton jButtonReturHjemme;
     private javax.swing.JButton jButtonReturLevrér;

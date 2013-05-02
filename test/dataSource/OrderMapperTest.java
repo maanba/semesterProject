@@ -51,8 +51,8 @@ public class OrderMapperTest {
     @Before
     public void setUp() {
         getConnection();
-        ol.add(new Ordre(0, 0, 67228, 200.0, 10.0, 60.0, "", "", "Afhentes af kunden", 0, "Påbegyndt", "10-01-2013", "11-01-2013", "12-01-2013", 1));
-        ol.add(new Ordre(0, 0, 67227, 500.0, 20.0, 100.0, "16:00", "14:00", "Leveres af os", 1, "Påbegyndt", "10-10-2013", "11-10-2013", "12-10-2013", 1));
+        ol.add(new Ordre("",0, 0, 67228, 200.0, 10.0, 60.0, "", "", "Afhentes af kunden", 0, "Påbegyndt", "10-01-2013", "11-01-2013", "12-01-2013", 1));
+        ol.add(new Ordre("",0, 0, 67227, 500.0, 20.0, 100.0, "16:00", "14:00", "Leveres af os", 1, "Påbegyndt", "10-10-2013", "11-10-2013", "12-10-2013", 1));
         ono1 = 111111;
         ono2 = 111112;
         ol.get(0).setOnummer(ono1);
@@ -156,7 +156,7 @@ public class OrderMapperTest {
         ArrayList<Ordre> ar = new ArrayList();
         int ono = instance.getNextOnummer(conn);
         int fno = instance.getNextFnummer(conn);
-        ar.add(new Ordre(ono, fno, 67226, 40, 0.00, 20, "16:00", "14:00", "Leveres af os", 1, "Påbegyndt", "10-SEP-94", "10-DEC-94","12-DEC-94", 2));
+        ar.add(new Ordre("", ono, fno, 67226, 40, 0.00, 20, "16:00", "14:00", "Leveres af os", 1, "Påbegyndt", "10-SEP-94", "10-DEC-94","12-DEC-94", 2));
         instance.insertOrdrer(ar, conn);
         expResult = 3;
         result = instance.getAllOrdrer(conn);
@@ -181,7 +181,7 @@ public class OrderMapperTest {
         OrderMapper instance = new OrderMapper();
         int ono = instance.getNextOnummer(conn);
         int fno = instance.getNextFnummer(conn);
-        Ordre expResult = new Ordre(ono, fno, 67226, 40, 0.00, 20, "16:00", "14:00", "Leveres af os", 1, "Påbegyndt", "10-SEP-94", "10-DEC-94","12-DEC-94", 2);
+        Ordre expResult = new Ordre("", ono, fno, 67226, 40, 0.00, 20, "16:00", "14:00", "Leveres af os", 1, "Påbegyndt", "10-SEP-94", "10-DEC-94","12-DEC-94", 2);
         ArrayList<Ordre> ar = new ArrayList();
         ar.add(expResult);
         instance.insertOrdrer(ar, conn);
