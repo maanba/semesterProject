@@ -64,7 +64,7 @@ public class DelOrdre
             statusname = "Ude";
         }
         
-        return ""+ title + ", " + statusname;
+        return title + ", " + maengde + ", " + statusname;
     }
 
 }

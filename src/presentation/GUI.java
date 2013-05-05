@@ -1070,6 +1070,7 @@ public final class GUI extends javax.swing.JFrame {
                 update();
                 listReturDele.clear();
                 jListReturDele.setSelectedIndex(index);
+                *
                 * */
             }
         
@@ -1077,7 +1078,7 @@ public final class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonReturRetActionPerformed
 
     private void jButtonReturAfslutOrdreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReturAfslutOrdreActionPerformed
-        Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
+/*        Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
         if (selected != null) {
             int index = jListOrdrer.getSelectedIndex();
             boolean status = true;
@@ -1092,6 +1093,7 @@ public final class GUI extends javax.swing.JFrame {
             update();
             jListOrdrer.setSelectedIndex(index);
         }
+        * */
     }//GEN-LAST:event_jButtonReturAfslutOrdreActionPerformed
 
     private void jButtonKundeSøgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKundeSøgActionPerformed
