@@ -158,7 +158,7 @@ public class Controller {
         return result;
     }
 
-    public Ordre addNewOrder(String knavn, int knummer, double pris, double rabat, double depositum, String tidLev, String tidRet, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer, ArrayList<DelOrdre> delordre) {
+    public Ordre registerNewOrder(String knavn, int knummer, double pris, double rabat, double depositum, String tidLev, String tidRet, String afhentning, String status, String levering, String returnering, ArrayList<Odetaljer> odetaljer, ArrayList<DelOrdre> delordre) {
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
         int montører = 0;
@@ -239,7 +239,6 @@ public class Controller {
             delordre.get(i).setOnummer(currentOrder.getOnummer());
         }
         dbFacade.deleteOdetalje(currentOrder.getOnummer());
-        dbFacade.deleteDelOrdre(currentOrder.getOnummer());
         dbFacade.registerDirtyOrdre(currentOrder);
         for (int i = 0; i < odetaljer.size(); i++) {
             dbFacade.registerNewOdetalje(odetaljer.get(i));
@@ -352,7 +351,7 @@ public class Controller {
         return result;
     }
 
-    public void addNewKunde(String firma, String navn, String adresse, int postnummer, int telefonnummer) {
+    public void registerNewKunde(String firma, String navn, String adresse, int postnummer, int telefonnummer) {
 
         dbFacade.startNewBusinessTransaction();
         int newKnummer = dbFacade.getNextKnummer();
@@ -400,7 +399,7 @@ public class Controller {
         currentKunde = null;
     }
 
-    public void addVare(int vnummer, String vnavn, int qty, double pris, int aktiv) {
+    public void registerNewVare(int vnummer, String vnavn, int qty, double pris, int aktiv) {
         Vare ressource = new Vare(vnummer, vnavn, qty, pris, aktiv);
         dbFacade.startNewBusinessTransaction();
         dbFacade.registerNewVare(ressource);
@@ -602,9 +601,9 @@ public class Controller {
         }
         if (currentOrder == null) {
             if (afBool) {
-                addNewOrder(kunde, kno, pris, rabat, depositum, "", "", afhentning, "Påbegyndt", lev, ret, odetaljer, delordre);
+                registerNewOrder(kunde, kno, pris, rabat, depositum, "", "", afhentning, "Påbegyndt", lev, ret, odetaljer, delordre);
             } else {
-                addNewOrder(kunde, kno, pris, rabat, depositum, tidLev, tidRet, afhentning, "Påbegyndt", lev, ret, odetaljer, delordre);
+                registerNewOrder(kunde, kno, pris, rabat, depositum, tidLev, tidRet, afhentning, "Påbegyndt", lev, ret, odetaljer, delordre);
             }
             result = true;
         } else if (currentOrder != null) {
@@ -670,12 +669,26 @@ public class Controller {
         dbFacade.commitBusinessTransaction();
     }
 
+    public void registerNewDelOrdre(DelOrdre delordre)
+    {
+        dbFacade.startNewBusinessTransaction();
+        dbFacade.registerNewDelOrdre(delordre);
+        dbFacade.commitBusinessTransaction();
+    }
+        
     public void updateDelOrdre(DelOrdre delordre) {
         dbFacade.startNewBusinessTransaction();
         dbFacade.registerDirtyDelOrdre(delordre);
         dbFacade.commitBusinessTransaction();
     }
-
+    
+    public void deleteDelOrdre(DelOrdre delordre)
+    {
+        dbFacade.startNewBusinessTransaction();
+        dbFacade.registerDeletedDelOrdre(delordre);
+        dbFacade.commitBusinessTransaction();
+    }
+    
     private int partitionKunde(Kunde[] array, int left, int right, int pivotIndex) {
 
         Kunde pivotValue = array[pivotIndex];
@@ -797,7 +810,7 @@ public class Controller {
             redigerFalse();
         }
         if (getRediger() == false) {
-            addNewKunde(firma, navn, adresse, postnummer, telefonnummer);
+            registerNewKunde(firma, navn, adresse, postnummer, telefonnummer);
         }
     }
 
