@@ -60,6 +60,7 @@ public final class GUI extends javax.swing.JFrame {
         jLabelErrorOrdre.setText("");
         jLabelErrorKunder.setText("");
         jLabelErrorOrdre.setText("");
+        jLabelErrorRetur.setText("");
         jLabelOpretRedigerVare.setText("");
         update();
     }
@@ -193,6 +194,7 @@ public final class GUI extends javax.swing.JFrame {
         jLabel32 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jTextFieldRet = new javax.swing.JTextField();
+        jLabelErrorRetur = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -736,6 +738,9 @@ public final class GUI extends javax.swing.JFrame {
         jPanelRetur.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 220, 40));
         jPanelRetur.add(jTextFieldRet, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 70, 100, -1));
 
+        jLabelErrorRetur.setText("jLabelErrorRetur");
+        jPanelRetur.add(jLabelErrorRetur, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 740, 20));
+
         jTabbedPane1.addTab("Retur", jPanelRetur);
 
         getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 470));
@@ -951,8 +956,8 @@ public final class GUI extends javax.swing.JFrame {
 
     private void jButtonReturRetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReturRetActionPerformed
         DelOrdre selectedDelOrdre = (DelOrdre) jListReturDele.getSelectedValue();
-        int index = jListOrdrer.getSelectedIndex();
         if (selectedDelOrdre != null) {
+            int index = jListOrdrer.getSelectedIndex();
             String title = selectedDelOrdre.getTitle();
             int vnummer = selectedDelOrdre.getVnummer();
             int onummer = selectedDelOrdre.getOnummer();
@@ -1222,8 +1227,7 @@ public final class GUI extends javax.swing.JFrame {
                                 d[i] = "0" + d[i];
                             }
                         }
-                        if ("".equals(jTextFieldRabat.getText()))
-                        {
+                        if ("".equals(jTextFieldRabat.getText())) {
                             jTextFieldRabat.setText("0");
                         }
                         String leveringDate = Integer.parseInt(d[0]) + "-" + Integer.parseInt(d[1]) + "-" + Integer.parseInt(jTextFieldÅrUd.getText());
@@ -1301,9 +1305,9 @@ public final class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonOrdreTilføjActionPerformed
 
     private void jButtonReturLevrérActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReturLevrérActionPerformed
-        listReturDele.clear();
         Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
         if (selected != null) {
+            listReturDele.clear();
             for (int i = 0; i < selected.getDelo().size(); i++) {
                 listReturDele.addElement(selected.getDelo().get(i));
             }
@@ -1696,6 +1700,7 @@ public final class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelErrorKunder;
     private javax.swing.JLabel jLabelErrorLager;
     private javax.swing.JLabel jLabelErrorOrdre;
+    private javax.swing.JLabel jLabelErrorRetur;
     private javax.swing.JLabel jLabelKundenummer1;
     private javax.swing.JLabel jLabelKundenummer2;
     private javax.swing.JLabel jLabelOpretRedigerKunde;
