@@ -239,6 +239,7 @@ public class Controller {
             delordre.get(i).setOnummer(currentOrder.getOnummer());
         }
         dbFacade.deleteOdetalje(currentOrder.getOnummer());
+        dbFacade.deleteDelOrdre(currentOrder.getOnummer());
         dbFacade.registerDirtyOrdre(currentOrder);
         for (int i = 0; i < odetaljer.size(); i++) {
             dbFacade.registerNewOdetalje(odetaljer.get(i));

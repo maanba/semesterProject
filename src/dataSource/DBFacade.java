@@ -233,6 +233,16 @@ public class DBFacade {
             uow.registerDeletedDelOrdre(delo);
         }
     }
+   
+   public boolean deleteDelOrdre(int ono) {
+        boolean status = false;
+        try {
+            status = new DelOrdreMapper().deleteAllDelOrdre(ono, con);
+        } catch (SQLException ex) {
+            System.out.println("fail in deleteOdetaljer");
+        }
+        return status;
+    }
 
     // Postnummer
     public Postnummer getPostnummer(int postnr) {

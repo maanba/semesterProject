@@ -1026,8 +1026,7 @@ public final class GUI extends javax.swing.JFrame {
     private void jButtonReturRetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReturRetActionPerformed
         DelOrdre selectedDelOrdre = (DelOrdre) jListReturDele.getSelectedValue();
         int index = jListOrdrer.getSelectedIndex();
-        if (selectedDelOrdre != null)
-        {
+        if (selectedDelOrdre != null) {
             String title = selectedDelOrdre.getTitle();
             int vnummer = selectedDelOrdre.getVnummer();
             int onummer = selectedDelOrdre.getOnummer();
@@ -1036,64 +1035,53 @@ public final class GUI extends javax.swing.JFrame {
             int newMaengde = Integer.parseInt(jTextFieldRet.getText());
             int difference = (maengde - newMaengde);
             selectedDelOrdre.setMaengde(newMaengde);
+            controller.updateDelOrdre(selectedDelOrdre);
             boolean newItem = true;
-            for (int i = 0; i < listReturDele.size(); i++)
-            {
+            for (int i = 0; i < listReturDele.size(); i++) {
                 DelOrdre delOrdre = (DelOrdre) listReturDele.get(i);
-                if (delOrdre.getTitle().equals(title) && delOrdre.getStatus() != status)
-                {
+                if (delOrdre.getTitle().equals(title) && delOrdre.getStatus() != status) {
                     delOrdre.setMaengde(delOrdre.getMaengde() + difference);
-                    //controller.updateDelOrdre(delOrdre);
+                    controller.updateDelOrdre(delOrdre);
                     newItem = false;
                 }
-                if (delOrdre.getMaengde() == 0)
-                {
+                if (delOrdre.getMaengde() == 0) {
                     listReturDele.removeElement(delOrdre);
-                    //controller.deleteDelOrdre(delOrdre);
+                    controller.deleteDelOrdre(delOrdre);
                 }
             }
-            if (newItem)
-            {
+            if (newItem) {
                 int newStatus;
-                if (status == 0)
-                {
+                if (status == 0) {
                     newStatus = 1;
-                }
-                else
-                {
+                } else {
                     newStatus = 0;
                 }
                 DelOrdre newDelOrdre = new DelOrdre(title, vnummer, onummer, newStatus, difference);
-                listReturDele.addElement(newDelOrdre);
-                /*
                 controller.registerNewDelOrdre(newDelOrdre);
-                update();
-                listReturDele.clear();
-                jListReturDele.setSelectedIndex(index);
-                *
-                * */
-            }
-        
-    }        
-    }//GEN-LAST:event_jButtonReturRetActionPerformed
-
-    private void jButtonReturAfslutOrdreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReturAfslutOrdreActionPerformed
-/*        Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
-        if (selected != null) {
-            int index = jListOrdrer.getSelectedIndex();
-            boolean status = true;
-            for (int i = 0; i < listReturDele.size(); i++) {
-                DelOrdre delordre = (DelOrdre) listReturDele.get(i);
-                status = status && delordre.getStatus() == 1;
-            }
-            if (status) {
-                controller.ordreAfslut(selected.getOnummer());
-                listReturDele.clear();
             }
             update();
             jListOrdrer.setSelectedIndex(index);
+            jButtonReturLevrérActionPerformed(evt);
         }
-        * */
+    }//GEN-LAST:event_jButtonReturRetActionPerformed
+
+    private void jButtonReturAfslutOrdreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReturAfslutOrdreActionPerformed
+        /*        Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
+         if (selected != null) {
+         int index = jListOrdrer.getSelectedIndex();
+         boolean status = true;
+         for (int i = 0; i < listReturDele.size(); i++) {
+         DelOrdre delordre = (DelOrdre) listReturDele.get(i);
+         status = status && delordre.getStatus() == 1;
+         }
+         if (status) {
+         controller.ordreAfslut(selected.getOnummer());
+         listReturDele.clear();
+         }
+         update();
+         jListOrdrer.setSelectedIndex(index);
+         }
+         * */
     }//GEN-LAST:event_jButtonReturAfslutOrdreActionPerformed
 
     private void jButtonKundeSøgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKundeSøgActionPerformed
@@ -1295,7 +1283,7 @@ public final class GUI extends javax.swing.JFrame {
                             Vare vare = (Vare) list2.getElementAt(i);
                             odetaljer.add(new Odetaljer(0, vare.getVnummer(), vare.getQty()));
                             for (int j = 0; j < vare.getDel().size(); j++) {
-                                delordre.add(new DelOrdre(vare.getDel().get(j).getTitel(), vare.getVnummer(), 0, 1, vare.getDel().get(j).getAntal()));
+                                delordre.add(new DelOrdre(vare.getDel().get(j).getTitel(), vare.getVnummer(), 0, 1, vare.getQty() * vare.getDel().get(j).getAntal()));
                             }
                         }
                         String[] d = new String[4];
@@ -1304,7 +1292,7 @@ public final class GUI extends javax.swing.JFrame {
                         d[2] = jTextFieldDagInd.getText();
                         d[3] = jTextFieldMånedInd.getText();
                         for (int i = 0; i < d.length; i++) {
-                            if (d[i].length() < 2){
+                            if (d[i].length() < 2) {
                                 d[i] = "0" + d[i];
                             }
                         }
@@ -1388,16 +1376,6 @@ public final class GUI extends javax.swing.JFrame {
         if (selected != null) {
             for (int i = 0; i < selected.getDelo().size(); i++) {
                 listReturDele.addElement(selected.getDelo().get(i));
-            }
-            boolean status = true;
-            for (int i = 0; i < listReturDele.size(); i++) {
-                DelOrdre delordre = (DelOrdre) listReturDele.get(i);
-                status = status && delordre.getStatus() == 1;
-            }
-            if (status) {
-                jButtonReturAfslutOrdre.setEnabled(true);
-            } else {
-                jButtonReturAfslutOrdre.setEnabled(false);
             }
         }
     }//GEN-LAST:event_jButtonReturLevrérActionPerformed
@@ -1497,8 +1475,6 @@ public final class GUI extends javax.swing.JFrame {
                 listHistorik.addElement(oa[i]);
             }
         }
-
-
 
         // list2:
         ArrayList<Vare> vl2 = new ArrayList<>();

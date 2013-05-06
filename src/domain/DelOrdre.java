@@ -57,11 +57,11 @@ public class DelOrdre
         String statusname;
         if (status == 1)
         {
-            statusname = "Hjemme";
+            statusname = "På lager";
         }
         else
         {
-            statusname = "Ude";
+            statusname = "Mangler";
         }
         
         return title + ", " + maengde + ", " + statusname;

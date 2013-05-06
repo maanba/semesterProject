@@ -192,6 +192,7 @@ public class UnitOfWorkProcessOrder {
             status = status && om.deleteOrdrer(deletedOrdre, conn);
             status = status && km.deleteKunder(deletedKunde, conn);
             status = status && vm.deleteVarer(deletedVare, conn);
+            status = status && dom.deleteDelOrdre(deletedDelOrdre, conn);
             if (!status) {
                 throw new Exception("Business Transaction aborted");
             }
