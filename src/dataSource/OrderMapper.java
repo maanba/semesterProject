@@ -1,7 +1,6 @@
 package dataSource;
 
 import domain.DelOrdre;
-import domain.Kunde;
 import domain.Odetaljer;
 import domain.Ordre;
 import java.sql.*;

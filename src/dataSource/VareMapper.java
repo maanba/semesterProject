@@ -4,13 +4,13 @@
  */
 package dataSource;
 
+import domain.Del;
+import domain.Vare;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import domain.Del;
-import domain.Vare;
 
 /**
  *

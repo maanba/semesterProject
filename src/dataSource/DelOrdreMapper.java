@@ -1,19 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package dataSource;
 
+import domain.DelOrdre;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import domain.DelOrdre;
 
-/**
- *
- * @author Daniel Krarup Knudsen
- */
 public class DelOrdreMapper {
 
     public boolean insertDelOrdrer(ArrayList<DelOrdre> delordre, Connection conn) throws SQLException {
@@ -51,7 +43,7 @@ public class DelOrdreMapper {
         String SQLString = "update delordre "
                 + "set status = ?, maengde = ? "
                 + "where title = ? and vnummer = ? and onummer = ? and status = ?";
-        PreparedStatement statement = null;
+        PreparedStatement statement;
 
         statement = conn.prepareStatement(SQLString);
         try {

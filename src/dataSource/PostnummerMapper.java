@@ -1,19 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package dataSource;
 
+import domain.Postnummer;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import domain.Postnummer;
 
-/**
- *
- * @author Daniel Krarup Knudsen
- */
 public class PostnummerMapper {
     
     public Postnummer getPostnummer(Connection conn, int postnr) throws SQLException {
