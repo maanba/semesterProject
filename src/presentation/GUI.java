@@ -979,7 +979,7 @@ public final class GUI extends javax.swing.JFrame {
                     controller.deleteDelOrdre(delOrdre);
                 }
             }
-            if (newItem) {
+            if (newItem && difference != 0) {
                 int newStatus;
                 if (status == 0) {
                     newStatus = 1;
