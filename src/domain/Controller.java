@@ -479,19 +479,6 @@ public class Controller {
         }
     }
 
-    public void ordrePaabegynd(int knummer) {
-        ArrayList<Ordre> ol = dbFacade.getAllOrdrer();
-        for (int i = 0; i < ol.size(); i++) {
-            if (knummer == ol.get(i).getKnummer()) {
-                ol.get(i).setStatus("Påbegyndt");
-                dbFacade.startNewBusinessTransaction();
-                dbFacade.registerDirtyOrdre(ol.get(i));
-                dbFacade.commitBusinessTransaction();
-                break;
-            }
-        }
-    }
-
     public boolean checkQty(int vnummer, int qty) {
         ArrayList<Vare> vl = dbFacade.getAllVarer();
 
@@ -601,9 +588,9 @@ public class Controller {
         }
         if (currentOrder == null) {
             if (afBool) {
-                registerNewOrder(kunde, kno, pris, rabat, depositum, "", "", afhentning, "Påbegyndt", lev, ret, odetaljer, delordre);
+                registerNewOrder(kunde, kno, pris, rabat, depositum, "", "", afhentning, "Tilbud", lev, ret, odetaljer, delordre);
             } else {
-                registerNewOrder(kunde, kno, pris, rabat, depositum, tidLev, tidRet, afhentning, "Påbegyndt", lev, ret, odetaljer, delordre);
+                registerNewOrder(kunde, kno, pris, rabat, depositum, tidLev, tidRet, afhentning, "Tilbud", lev, ret, odetaljer, delordre);
             }
             result = true;
         } else if (currentOrder != null) {

@@ -925,7 +925,7 @@ public final class GUI extends javax.swing.JFrame {
     private void jButtonHistorikAfslutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHistorikAfslutActionPerformed
         Ordre selected = (Ordre) jListHistorik.getSelectedValue();
         if (selected != null) {
-            controller.ordreAfslut(selected.getKnummer());
+            controller.ordreAfslut(selected.getOnummer());
             update();
         }
     }//GEN-LAST:event_jButtonHistorikAfslutActionPerformed
@@ -993,25 +993,72 @@ public final class GUI extends javax.swing.JFrame {
             jListOrdrer.setSelectedIndex(index);
             jButtonReturLevrérActionPerformed(evt);
         }
+
+        /*
+        jLabelErrorRetur.setText("");
+        DelOrdre selectedDelOrdre = (DelOrdre) jListReturDele.getSelectedValue();
+        if (selectedDelOrdre != null) {
+            String title = selectedDelOrdre.getTitle();
+            int vnummer = selectedDelOrdre.getVnummer();
+            int onummer = selectedDelOrdre.getOnummer();
+            int status = selectedDelOrdre.getStatus();
+            int newMaengde = Integer.parseInt(jTextFieldRet.getText());
+            int maengde = selectedDelOrdre.getMaengde();
+            int index = jListOrdrer.getSelectedIndex();
+            int andenMaengde = 0;
+            for (int i = 0; i < listReturDele.size(); i++) {
+                DelOrdre delOrdre = (DelOrdre) listReturDele.get(i);
+                if (delOrdre.getTitle().equals(title) && delOrdre.getStatus() != status) {
+                    andenMaengde = delOrdre.getMaengde();
+                }
+            }
+            if (newMaengde <= maengde + andenMaengde) {
+                int difference = (maengde - newMaengde);
+                selectedDelOrdre.setMaengde(newMaengde);
+                controller.updateDelOrdre(selectedDelOrdre);
+                boolean newItem = true;
+
+                for (int i = 0; i < listReturDele.size(); i++) {
+                    DelOrdre delOrdre = (DelOrdre) listReturDele.get(i);
+                    if (delOrdre.getTitle().equals(title) && delOrdre.getStatus() != status) {
+                        delOrdre.setMaengde(delOrdre.getMaengde() + difference);
+                        controller.updateDelOrdre(delOrdre);
+                        newItem = false;
+                        if (delOrdre.getMaengde() == 0) {
+                            listReturDele.removeElement(delOrdre);
+                            controller.deleteDelOrdre(delOrdre);
+                        }
+                    }
+                    if (newItem) {
+                        int newStatus;
+                        if (status == 0) {
+                            newStatus = 1;
+                        } else {
+                            newStatus = 0;
+                        }
+                        DelOrdre newDelOrdre = new DelOrdre(title, vnummer, onummer, newStatus, difference);
+                        controller.registerNewDelOrdre(newDelOrdre);
+                    }
+                    update();
+                    jListOrdrer.setSelectedIndex(index);
+                    jButtonReturLevrérActionPerformed(evt);
+                }
+            } else {
+                jLabelErrorRetur.setText("Du kan ikke rette til et større tal end delens samlede mængde.");
+            }
+        }
+        * */
     }//GEN-LAST:event_jButtonReturRetActionPerformed
 
     private void jButtonReturAfslutOrdreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReturAfslutOrdreActionPerformed
-        /*        Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
-         if (selected != null) {
-         int index = jListOrdrer.getSelectedIndex();
-         boolean status = true;
-         for (int i = 0; i < listReturDele.size(); i++) {
-         DelOrdre delordre = (DelOrdre) listReturDele.get(i);
-         status = status && delordre.getStatus() == 1;
-         }
-         if (status) {
-         controller.ordreAfslut(selected.getOnummer());
-         listReturDele.clear();
-         }
-         update();
-         jListOrdrer.setSelectedIndex(index);
-         }
-         * */
+        Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
+        if (selected != null) {
+            int index = jListOrdrer.getSelectedIndex();
+            controller.ordreAfslut(selected.getOnummer());
+            listReturDele.clear();
+            update();
+            jListOrdrer.setSelectedIndex(index);
+        }
     }//GEN-LAST:event_jButtonReturAfslutOrdreActionPerformed
 
     private void jButtonKundeSøgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKundeSøgActionPerformed
