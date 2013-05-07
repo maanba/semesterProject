@@ -1220,7 +1220,7 @@ public final class GUI extends javax.swing.JFrame {
                             Vare vare = (Vare) list2.getElementAt(i);
                             odetaljer.add(new Odetaljer(0, vare.getVnummer(), vare.getQty()));
                             for (int j = 0; j < vare.getDel().size(); j++) {
-                                delordre.add(new DelOrdre(vare.getDel().get(j).getTitel(), vare.getVnummer(), 0, 1, vare.getQty() * vare.getDel().get(j).getAntal()));
+                                delordre.add(new DelOrdre(vare.getDel().get(j).getTitel(), vare.getVnummer(), 0, 0, vare.getQty() * vare.getDel().get(j).getAntal()));
                             }
                         }
                         String[] d = new String[4];
