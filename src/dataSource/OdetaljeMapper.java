@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class OdetaljeMapper {
-    
+
     public boolean updateOdetaljer(ArrayList<Odetaljer> odl, Connection conn) throws SQLException {
         int rowsUpdated = 0;
         String SQLString = "update odetaljer "
@@ -22,6 +22,10 @@ public class OdetaljeMapper {
         statement = conn.prepareStatement(SQLString);
         try {
             for (int i = 0; i < odl.size(); i++) {
+                if (!statement.isClosed()) {
+                    statement.close();
+                }
+                statement = conn.prepareStatement(SQLString);
                 Odetaljer od = odl.get(i);
                 statement.setInt(1, od.getMaengde());
                 statement.setInt(2, od.getOnummer());
