@@ -954,6 +954,7 @@ public final class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonReturSøgActionPerformed
 
     private void jButtonReturRetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReturRetActionPerformed
+        jLabelErrorRetur.setText("");
         DelOrdre selectedDelOrdre = (DelOrdre) jListReturDele.getSelectedValue();
         if (selectedDelOrdre != null) {
             int index = jListOrdrer.getSelectedIndex();
@@ -964,90 +965,47 @@ public final class GUI extends javax.swing.JFrame {
             int maengde = selectedDelOrdre.getMaengde();
             int newMaengde = Integer.parseInt(jTextFieldRet.getText());
             int difference = (maengde - newMaengde);
-            selectedDelOrdre.setMaengde(newMaengde);
-            controller.updateDelOrdre(selectedDelOrdre);
-            boolean newItem = true;
+            int cloneMaengde = 0;
+            
             for (int i = 0; i < listReturDele.size(); i++) {
                 DelOrdre delOrdre = (DelOrdre) listReturDele.get(i);
                 if (delOrdre.getTitle().equals(title) && delOrdre.getStatus() != status) {
-                    delOrdre.setMaengde(delOrdre.getMaengde() + difference);
-                    controller.updateDelOrdre(delOrdre);
-                    newItem = false;
-                }
-                if (delOrdre.getMaengde() == 0) {
-                    listReturDele.removeElement(delOrdre);
-                    controller.deleteDelOrdre(delOrdre);
+                    cloneMaengde = delOrdre.getMaengde();
                 }
             }
-            if (newItem && difference != 0) {
-                int newStatus;
-                if (status == 0) {
-                    newStatus = 1;
-                } else {
-                    newStatus = 0;
-                }
-                DelOrdre newDelOrdre = new DelOrdre(title, vnummer, onummer, newStatus, difference);
-                controller.registerNewDelOrdre(newDelOrdre);
-            }
-            update();
-            jListOrdrer.setSelectedIndex(index);
-            jButtonReturLevrérActionPerformed(evt);
-        }
-
-        /*
-        jLabelErrorRetur.setText("");
-        DelOrdre selectedDelOrdre = (DelOrdre) jListReturDele.getSelectedValue();
-        if (selectedDelOrdre != null) {
-            String title = selectedDelOrdre.getTitle();
-            int vnummer = selectedDelOrdre.getVnummer();
-            int onummer = selectedDelOrdre.getOnummer();
-            int status = selectedDelOrdre.getStatus();
-            int newMaengde = Integer.parseInt(jTextFieldRet.getText());
-            int maengde = selectedDelOrdre.getMaengde();
-            int index = jListOrdrer.getSelectedIndex();
-            int andenMaengde = 0;
-            for (int i = 0; i < listReturDele.size(); i++) {
-                DelOrdre delOrdre = (DelOrdre) listReturDele.get(i);
-                if (delOrdre.getTitle().equals(title) && delOrdre.getStatus() != status) {
-                    andenMaengde = delOrdre.getMaengde();
-                }
-            }
-            if (newMaengde <= maengde + andenMaengde) {
-                int difference = (maengde - newMaengde);
+            if (newMaengde <= maengde + cloneMaengde) {
                 selectedDelOrdre.setMaengde(newMaengde);
                 controller.updateDelOrdre(selectedDelOrdre);
                 boolean newItem = true;
-
                 for (int i = 0; i < listReturDele.size(); i++) {
                     DelOrdre delOrdre = (DelOrdre) listReturDele.get(i);
                     if (delOrdre.getTitle().equals(title) && delOrdre.getStatus() != status) {
                         delOrdre.setMaengde(delOrdre.getMaengde() + difference);
                         controller.updateDelOrdre(delOrdre);
                         newItem = false;
-                        if (delOrdre.getMaengde() == 0) {
-                            listReturDele.removeElement(delOrdre);
-                            controller.deleteDelOrdre(delOrdre);
-                        }
                     }
-                    if (newItem) {
-                        int newStatus;
-                        if (status == 0) {
-                            newStatus = 1;
-                        } else {
-                            newStatus = 0;
-                        }
-                        DelOrdre newDelOrdre = new DelOrdre(title, vnummer, onummer, newStatus, difference);
-                        controller.registerNewDelOrdre(newDelOrdre);
+                    if (delOrdre.getMaengde() == 0) {
+                        listReturDele.removeElement(delOrdre);
+                        controller.deleteDelOrdre(delOrdre);
                     }
-                    update();
-                    jListOrdrer.setSelectedIndex(index);
-                    jButtonReturLevrérActionPerformed(evt);
                 }
+                if (newItem && difference != 0) {
+                    int newStatus;
+                    if (status == 0) {
+                        newStatus = 1;
+                    } else {
+                        newStatus = 0;
+                    }
+                    DelOrdre newDelOrdre = new DelOrdre(title, vnummer, onummer, newStatus, difference);
+                    controller.registerNewDelOrdre(newDelOrdre);
+                }
+                update();
+                jListOrdrer.setSelectedIndex(index);
+                jButtonReturLevrérActionPerformed(evt);
             } else {
                 jLabelErrorRetur.setText("Du kan ikke rette til et større tal end delens samlede mængde.");
             }
         }
-        * */
     }//GEN-LAST:event_jButtonReturRetActionPerformed
 
     private void jButtonReturAfslutOrdreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReturAfslutOrdreActionPerformed
