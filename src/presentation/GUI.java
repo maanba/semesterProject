@@ -24,7 +24,7 @@ public final class GUI extends javax.swing.JFrame {
     private DefaultListModel list1 = new DefaultListModel();
     private DefaultListModel list2 = new DefaultListModel();
     private DefaultListModel list3 = new DefaultListModel();
-    private DefaultListModel Vareliste = new DefaultListModel();
+    private DefaultListModel listVareliste = new DefaultListModel();
     private DefaultListModel listKundeliste = new DefaultListModel();
     private DefaultListModel listHistorik = new DefaultListModel();
     private DefaultListModel listOrdrer = new DefaultListModel();
@@ -50,7 +50,7 @@ public final class GUI extends javax.swing.JFrame {
         jList1.setModel(list1);
         jList2.setModel(list2);
         jList3.setModel(list3);
-        jListVareliste.setModel(Vareliste);
+        jListVareliste.setModel(listVareliste);
         jListKundeliste.setModel(listKundeliste);
         jListHistorik.setModel(listHistorik);
         jListOrdrer.setModel(listOrdrer);
@@ -753,18 +753,18 @@ public final class GUI extends javax.swing.JFrame {
         if (!jTextFieldLagerSøg.getText().equals("")) {
             int counter = 0;
             ArrayList<Vare> vl = new ArrayList<>();
-            for (int i = 0; i < Vareliste.size(); i++) {
-                vl.add((Vare) Vareliste.getElementAt(i));
+            for (int i = 0; i < listVareliste.size(); i++) {
+                vl.add((Vare) listVareliste.getElementAt(i));
             }
             for (int i = 0; i < vl.size(); i++) {
                 if (controller.lagerSøg(vl.get(i), jTextFieldLagerSøg.getText())) {
                     jListVareliste.setSelectedIndex(i);
                 } else {
-                    Vareliste.removeElementAt(i - counter);
+                    listVareliste.removeElementAt(i - counter);
                     counter++;
                 }
             }
-            if (Vareliste.isEmpty() == true) {
+            if (listVareliste.isEmpty() == true) {
                 update();
             }
         } else {
@@ -966,7 +966,7 @@ public final class GUI extends javax.swing.JFrame {
             int newMaengde = Integer.parseInt(jTextFieldRet.getText());
             int difference = (maengde - newMaengde);
             int cloneMaengde = 0;
-            
+
             for (int i = 0; i < listReturDele.size(); i++) {
                 DelOrdre delOrdre = (DelOrdre) listReturDele.get(i);
                 if (delOrdre.getTitle().equals(title) && delOrdre.getStatus() != status) {
@@ -1041,6 +1041,8 @@ public final class GUI extends javax.swing.JFrame {
         } else {
             update();
         }
+
+
     }//GEN-LAST:event_jButtonKundeSøgActionPerformed
 
     private void jButtonKundeGemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKundeGemActionPerformed
@@ -1581,9 +1583,9 @@ public final class GUI extends javax.swing.JFrame {
             }
             for (int i = 0; i < vl5.size(); i++) {
                 controller.quickSortVare(va5, 0, va5.length - 1);
-                Vareliste.clear();
+                listVareliste.clear();
                 for (int j = 0; j < va5.length; j++) {
-                    Vareliste.addElement(va5[j]);
+                    listVareliste.addElement(va5[j]);
                 }
                 jLabelOpretRedigerVare.setText("Opret vare:");
                 jLabelVarenummer1.setText("");

@@ -122,7 +122,7 @@ public class Controller {
         } else if (vnummer.contains(jTextFieldLagerSøg)) {
             result = true;
         } else {
-            result = true;
+            result = false;
         }
         return result;
     }
