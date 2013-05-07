@@ -4,16 +4,12 @@
  */
 package dataSource;
 
+import domain.Odetaljer;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import domain.Odetaljer;
 
-/**
- *
- * @author Daniel Krarup Knudsen
- */
 public class OdetaljeMapper {
     
     public boolean updateOdetaljer(ArrayList<Odetaljer> odl, Connection conn) throws SQLException {
@@ -21,7 +17,7 @@ public class OdetaljeMapper {
         String SQLString = "update odetaljer "
                 + "set maengde = ? "
                 + "where onummer = ? and vnummer = ?";
-        PreparedStatement statement = null;
+        PreparedStatement statement;
 
         statement = conn.prepareStatement(SQLString);
         try {
@@ -45,7 +41,7 @@ public class OdetaljeMapper {
     public boolean insertOdetaljer(ArrayList<Odetaljer> odl, Connection conn) throws SQLException {
 
         String SQLString = "insert into odetaljer values (?,?,?)";
-        PreparedStatement statement = null;
+        PreparedStatement statement;
         statement = conn.prepareStatement(SQLString);
 
         int rowsInserted = 0;

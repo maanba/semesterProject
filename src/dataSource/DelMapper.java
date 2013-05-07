@@ -4,11 +4,11 @@
  */
 package dataSource;
 
+import domain.Del;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import domain.Del;
 
 /**
  *
@@ -45,7 +45,7 @@ public class DelMapper {
         String SQLString = "update del "
                 + "set antal = ? "
                 + "where vnummer = ?";
-        PreparedStatement statement = null;
+        PreparedStatement statement;
 
         statement = conn.prepareStatement(SQLString);
         try {

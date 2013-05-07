@@ -4,12 +4,12 @@
  */
 package dataSource;
 
+import domain.Kunde;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import domain.Kunde;
 
 /**
  *
@@ -20,7 +20,7 @@ public class KundeMapper {
     public boolean insertKunder(ArrayList<Kunde> kl, Connection conn) throws SQLException {
         int rowsInserted = 0;
         String SQLString = "insert into Kunder values (?,?,?,?,?,?)";
-        PreparedStatement statement = null;
+        PreparedStatement statement;
         statement = conn.prepareStatement(SQLString);
 
         try {
@@ -48,7 +48,7 @@ public class KundeMapper {
         String SQLString = "update Kunder "
                 + "set firma = ?, navn = ?, addresse = ?, postnummer = ?, telefonnummer = ? "
                 + "where knummer = ?";
-        PreparedStatement statement = null;
+        PreparedStatement statement;
 
         statement = conn.prepareStatement(SQLString);
         try {
@@ -193,5 +193,4 @@ public class KundeMapper {
         }
         return nextKno;
     }
-
 }
