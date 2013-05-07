@@ -1,11 +1,11 @@
 package presentation;
 
 import domain.Controller;
+import domain.Del;
 import domain.DelOrdre;
 import domain.Kunde;
 import domain.Odetaljer;
 import domain.Ordre;
-import domain.Del;
 import domain.Vare;
 import java.awt.Component;
 import java.text.DateFormat;
@@ -799,18 +799,17 @@ public final class GUI extends javax.swing.JFrame {
             }
             controller.gemLager(vnummer, vnavn, qty, pris, aktiv, vare);
             update();
-            controller.redigerFalse();
+            controller.redigerFalse(3);
         } else {
             jLabelErrorLager.setText("Du skal udfylde alle tekstfelterne for at gemme en vare.");
         }
-
     }//GEN-LAST:event_jButtonLagerGemActionPerformed
 
     private void jButtonLagerRedigerVareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLagerRedigerVareActionPerformed
         jLabelErrorLager.setText("");
         Vare selected = (Vare) jListVareliste.getSelectedValue();
         if (selected != null) {
-            if (controller.getRediger() == false) {
+            if (controller.getRediger(3) == false) {
                 listReturDele.removeElement(selected);
                 listLagerDele.clear();
                 jLabelOpretRedigerVare.setText("Redigerer i vare:");
@@ -827,7 +826,7 @@ public final class GUI extends javax.swing.JFrame {
                 for (int i = 0; i < selected.getDel().size(); i++) {
                     listLagerDele.addElement(selected.getDel().get(i));
                 }
-                controller.redigerTrue();
+                controller.redigerTrue(3);
             } else {
                 jLabelErrorLager.setText("Du skal redigere varen færdig før du redigerer en ny.");
             }
@@ -1065,7 +1064,7 @@ public final class GUI extends javax.swing.JFrame {
         jLabelErrorKunder.setText("");
         Kunde selected = (Kunde) jListKundeliste.getSelectedValue();
         if (selected != null) {
-            if (controller.getRediger() == false) {
+            if (controller.getRediger(2) == false) {
                 jLabelOpretRedigerKunde.setText("Redigerer i kunde:");
                 jLabelKundenummer1.setText("Kundenummer:");
                 jLabelKundenummer2.setText(selected.getKnummer() + "");
@@ -1078,7 +1077,7 @@ public final class GUI extends javax.swing.JFrame {
                 jTextFieldAdresse.setText(selected.getAdresse() + "");
                 jTextFieldPostnummer.setText(selected.getPostnummer() + "");
                 jTextFieldTelefonnummer.setText(selected.getTelefonnummer() + "");
-                controller.redigerTrue();
+                controller.redigerTrue(2);
             } else {
                 jLabelErrorKunder.setText("Du skal redigere kunden færdig før du redigerer en ny.");
             }
@@ -1157,7 +1156,7 @@ public final class GUI extends javax.swing.JFrame {
         jLabelErrorOrdre.setText("");
         Ordre selected = (Ordre) jList3.getSelectedValue();
         if (selected != null) {
-            if (controller.getRediger() == false) {
+            if (controller.getRediger(1) == false) {
                 ArrayList<Odetaljer> od = selected.getOd();
                 for (int i = 0; i < od.size(); i++) {
                     Vare vare = controller.getVare(od.get(i).getVnummer());
@@ -1178,7 +1177,7 @@ public final class GUI extends javax.swing.JFrame {
                 }
                 jTextFieldTotalPris.setText(selected.getPris() + "");
                 controller.setCurrentOrder(selected);
-                controller.redigerTrue();
+                controller.redigerTrue(1);
                 update();
                 Kunde kunde = controller.getKunde(selected.getKnummer());
                 for (int i = 0; i < jComboBoxKunder.getItemCount(); i++) {
@@ -1244,8 +1243,7 @@ public final class GUI extends javax.swing.JFrame {
                         jTextFieldMånedUd.setText("");
                         jTextFieldÅrInd.setText("");
                         jTextFieldÅrUd.setText("");
-                        controller.redigerFalse();
-
+                        controller.redigerFalse(1);
                     } else {
                         jLabelErrorOrdre.setText("Vælg afhentning eller levering.");
                     }
@@ -1253,7 +1251,7 @@ public final class GUI extends javax.swing.JFrame {
             } else {
                 jLabelErrorOrdre.setText("Vælg en kunde.");
             }
-            controller.redigerFalse();
+            controller.redigerFalse(1);
             update();
         }
     }//GEN-LAST:event_jButtonOrdreGennemførOrdreActionPerformed
@@ -1315,22 +1313,11 @@ public final class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonReturLevrérActionPerformed
 
     public static void main(String args[]) {
-
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /*
-         If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel. For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-
-
-
-
-
-
                 }
             }
         } catch (ClassNotFoundException ex) {
@@ -1346,7 +1333,6 @@ public final class GUI extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(GUI.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new GUI().setVisible(true);
@@ -1355,9 +1341,6 @@ public final class GUI extends javax.swing.JFrame {
     }
 
     public void cellRenderer() {
-
-        // list3
-
         jList3.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList list, Object value, int index,
@@ -1368,11 +1351,10 @@ public final class GUI extends javax.swing.JFrame {
                 return label;
             }
         });
-
     }
 
     public void update() {
-        if ((jPanelOrdre.isShowing() || jPanelHistorik.isShowing() || jPanelRetur.isShowing()) || !(jPanelOrdre.isShowing() && jPanelKunder.isShowing() && jPanelLager.isShowing() && jPanelHistorik.isShowing() && jPanelRetur.isShowing())) {
+        if ((jPanelOrdre.isShowing() || jPanelHistorik.isShowing() || jPanelRetur.isShowing()) || (!jPanelOrdre.isShowing() && !jPanelKunder.isShowing() && !jPanelLager.isShowing() && !jPanelHistorik.isShowing() && !jPanelRetur.isShowing())) {
 
             // list3 & listHistorik & listOrdrer:
             list3.clear();
@@ -1396,7 +1378,7 @@ public final class GUI extends javax.swing.JFrame {
         }
 
 
-        if (jPanelOrdre.isShowing() || !(jPanelOrdre.isShowing() && jPanelKunder.isShowing() && jPanelLager.isShowing() && jPanelHistorik.isShowing() && jPanelRetur.isShowing())) {
+        if (jPanelOrdre.isShowing() || (!jPanelOrdre.isShowing() && !jPanelKunder.isShowing() && !jPanelLager.isShowing() && !jPanelHistorik.isShowing() && !jPanelRetur.isShowing())) {
 
             // jComboBoxKunder:
             jComboBoxKunder.removeAllItems();
@@ -1504,7 +1486,7 @@ public final class GUI extends javax.swing.JFrame {
                     int oRetYear = Integer.parseInt(o.getReturnering().substring(6, 10));
                     int oRetMonth = Integer.parseInt(o.getReturnering().substring(3, 5));
                     int oRetDay = Integer.parseInt(o.getReturnering().substring(0, 2));
-                    if (!controller.getRediger()) {
+                    if (!controller.getRediger(1)) {
                         if (o.getAfhentning().equalsIgnoreCase("Leveres af os")) {
                             if ((levDay == oLevDay && levMonth == oLevMonth && levYear == oLevYear) || (levDay == oRetDay && levMonth == oRetMonth && levYear == oRetYear)) {
                                 for (int l = 1; l < jComboBoxLevering.getItemCount(); l++) {
@@ -1585,7 +1567,7 @@ public final class GUI extends javax.swing.JFrame {
             }
         }
 
-        if (jPanelLager.isShowing() || !(jPanelOrdre.isShowing() && jPanelKunder.isShowing() && jPanelLager.isShowing() && jPanelHistorik.isShowing() && jPanelRetur.isShowing())) {
+        if (jPanelLager.isShowing() || (!jPanelOrdre.isShowing() && !jPanelKunder.isShowing() && !jPanelLager.isShowing() && !jPanelHistorik.isShowing() && !jPanelRetur.isShowing())) {
             // Vareliste
             ArrayList<Vare> vl5 = controller.getAllRessources();
             Vare[] va5 = new Vare[vl5.size()];
@@ -1610,7 +1592,7 @@ public final class GUI extends javax.swing.JFrame {
             }
         }
 
-        if (jPanelKunder.isShowing() || !(jPanelOrdre.isShowing() && jPanelKunder.isShowing() && jPanelLager.isShowing() && jPanelHistorik.isShowing() && jPanelRetur.isShowing())) {
+        if (jPanelKunder.isShowing() || (!jPanelOrdre.isShowing() && !jPanelKunder.isShowing() && !jPanelLager.isShowing() && !jPanelHistorik.isShowing() && !jPanelRetur.isShowing())) {
             // Kundeliste 
             ArrayList<Kunde> kl9 = controller.getAllCustomers();
             Kunde[] ka9 = new Kunde[kl9.size()];

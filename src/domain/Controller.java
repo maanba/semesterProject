@@ -20,8 +20,7 @@ import java.util.logging.Logger;
  */
 public class Controller {
 
-    private boolean processingOrder;	// state of business transaction
-    private boolean rediger = false;
+    boolean processingOrder, redigererTab1, redigererTab2, redigererTab3, redigererTab4, redigererTab5;
     private Ordre currentOrder;       	// Order in focus
     private Vare currentVare;
     private Kunde currentKunde;
@@ -505,7 +504,7 @@ public class Controller {
     }
 
     public void gemLager(int vnummer, String vnavn, int qty, double pris, int aktiv, ArrayList<Del> vd) {
-        if (getRediger() == true) {
+        if (getRediger(3) == true) {
 
             Vare vare = new Vare(vnummer, vnavn, qty, pris, aktiv);
             for (int i = 0; i < vd.size(); i++) {
@@ -528,7 +527,7 @@ public class Controller {
         for (int i = 0; i < vl.size(); i++) {
             for (int j = 0; j < l3.size(); j++) {
                 Ordre o = l3.get(j);
-                if (getRediger() == false) {
+                if (getRediger(1) == false) {
                     int oLevYear = Integer.parseInt(o.getLevering().substring(6, 10));
                     int oLevMonth = Integer.parseInt(o.getLevering().substring(3, 5));
                     int oLevDay = Integer.parseInt(o.getLevering().substring(0, 2));
@@ -670,26 +669,24 @@ public class Controller {
         dbFacade.commitBusinessTransaction();
     }
 
-    public void registerNewDelOrdre(DelOrdre delordre)
-    {
+    public void registerNewDelOrdre(DelOrdre delordre) {
         dbFacade.startNewBusinessTransaction();
         dbFacade.registerNewDelOrdre(delordre);
         dbFacade.commitBusinessTransaction();
     }
-        
+
     public void updateDelOrdre(DelOrdre delordre) {
         dbFacade.startNewBusinessTransaction();
         dbFacade.registerDirtyDelOrdre(delordre);
         dbFacade.commitBusinessTransaction();
     }
-    
-    public void deleteDelOrdre(DelOrdre delordre)
-    {
+
+    public void deleteDelOrdre(DelOrdre delordre) {
         dbFacade.startNewBusinessTransaction();
         dbFacade.registerDeletedDelOrdre(delordre);
         dbFacade.commitBusinessTransaction();
     }
-    
+
     private int partitionKunde(Kunde[] array, int left, int right, int pivotIndex) {
 
         Kunde pivotValue = array[pivotIndex];
@@ -805,12 +802,12 @@ public class Controller {
     }
 
     public void gemKunde(String firma, String navn, String adresse, int postnummer, int telefonnummer, int knummer) {
-        if (getRediger() == true) {
+        if (getRediger(2) == true) {
             Kunde kunde = new Kunde(knummer, firma, navn, adresse, postnummer, telefonnummer);
             tilføjKunder(kunde);
-            redigerFalse();
+            redigerFalse(2);
         }
-        if (getRediger() == false) {
+        if (getRediger(2) == false) {
             registerNewKunde(firma, navn, adresse, postnummer, telefonnummer);
         }
     }
@@ -909,15 +906,48 @@ public class Controller {
         dbFacade.commitBusinessTransaction();
     }
 
-    public boolean redigerTrue() {
-        return rediger = true;
+    public boolean redigerTrue(int tab) {
+        if (tab == 1) {
+            redigererTab1 = true;
+            return redigererTab1;
+        }
+        if (tab == 2) {
+            redigererTab2 = true;
+            return redigererTab2;
+        }
+        if (tab == 3) {
+            redigererTab3 = true;
+            return redigererTab3;
+        }
+        return true;
     }
 
-    public boolean redigerFalse() {
-        return rediger = false;
+    public boolean redigerFalse(int tab) {
+        if (tab == 1) {
+            redigererTab1 = false;
+            return redigererTab1;
+        }
+        if (tab == 2) {
+            redigererTab2 = false;
+            return redigererTab2;
+        }
+        if (tab == 3) {
+            redigererTab3 = false;
+            return redigererTab3;
+        }
+        return false;
     }
 
-    public boolean getRediger() {
-        return rediger;
+    public boolean getRediger(int tab) {
+        if (tab == 1) {
+            return redigererTab1;
+        }
+        if (tab == 2) {
+            return redigererTab2;
+        }
+        if (tab == 3) {
+            return redigererTab3;
+        }
+        return true;
     }
 }
