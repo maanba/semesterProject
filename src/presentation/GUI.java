@@ -1240,7 +1240,7 @@ public final class GUI extends javax.swing.JFrame {
         if (!list2.isEmpty()) {
             if (jComboBoxKunder.getSelectedItem() != "Kunder") {
                 if (list2.isEmpty() == false) {
-                    if (jRadioButtonAfhentning.isSelected() || jRadioButtonLevering.isSelected()) {
+                    if (jRadioButtonAfhentning.isSelected() || (jRadioButtonLevering.isSelected() && jComboBoxAfhentning.getSelectedItem() != "Afhentning" && jComboBoxLevering.getSelectedItem() != "Levering")) {
                         for (int i = 0; i < list2.size(); i++) {
                             Vare vare = (Vare) list2.getElementAt(i);
                             odetaljer.add(new Odetaljer(0, vare.getVnummer(), vare.getQty()));
