@@ -1011,6 +1011,31 @@ public final class GUI extends javax.swing.JFrame {
     private void jButtonReturAfslutOrdreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReturAfslutOrdreActionPerformed
         Ordre selected = (Ordre) jListOrdrer.getSelectedValue();
         if (selected != null) {
+            ArrayList<Vare> vl = new ArrayList();
+            int antal = 0;
+            for (int i = 0; i < listReturDele.size(); i++) {
+                boolean status = true;
+                DelOrdre dor = (DelOrdre) listReturDele.getElementAt(i);
+                if (dor.getStatus() == 0) {
+                    Vare v = controller.getVare(dor.getVnummer());
+                    for (int j = 0; j < vl.size(); j++) {
+                        if (vl.get(j).getVnummer() == v.getVnummer()) {
+                            status = false;
+                        }
+                    }
+                    if (status) {
+                        for (int k = 0; k < v.getDel().size(); k++) {
+                            if (dor.getTitle().equalsIgnoreCase(v.getDel().get(k).getTitel())) {
+                                antal = dor.getMaengde() / v.getDel().get(k).getAntal();
+                            }
+                        }
+                        v.setQty(v.getQty() - antal);
+                        vl.add(v);
+                        controller.updateVare(v);
+                    }
+
+                }
+            }
             int index = jListOrdrer.getSelectedIndex();
             controller.ordreAfslut(selected.getOnummer());
             listReturDele.clear();
